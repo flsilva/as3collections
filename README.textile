@@ -1,0 +1,4 @@
+h2. AS3Collections
+
+AS3Collections is a project based on the Java Collections Framework.
+It aims to be a standard solution for data structures (e.g. List, Maps, Queues) for basically any Flash/Flex/AIR AS3 application or framework.

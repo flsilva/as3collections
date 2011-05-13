@@ -1,0 +1,10 @@
+h2. AS3Collections CHANGELOG
+
+Note: dates are in DD.MM.YYYY format
+
+
+Changes in version 0.1 (xx.xx.2011)
+-----------------------------------
+
+* First Release.
+    -> 

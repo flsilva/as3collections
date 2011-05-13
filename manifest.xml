@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<componentPackage>
+
+	<!-- org.as3collections -->
+	
+	<component id="org.as3collections:AbstractCollection" 			class="org.as3collections.AbstractCollection" />
+	<component id="org.as3collections:ICollection" 					class="org.as3collections.ICollection" />
+	<component id="org.as3collections:IIterable" 					class="org.as3collections.IIterable" />
+	<component id="org.as3collections:IIterator" 					class="org.as3collections.IIterator" />
+	<component id="org.as3collections:IList" 						class="org.as3collections.IList" />
+	<component id="org.as3collections:IListIterator" 				class="org.as3collections.IListIterator" />
+	<component id="org.as3collections:IMap" 						class="org.as3collections.IMap" />
+	<component id="org.as3collections:IMapEntry" 					class="org.as3collections.IMapEntry" />
+	<component id="org.as3collections:IQueue" 						class="org.as3collections.IQueue" />
+	<component id="org.as3collections:ISortedList" 					class="org.as3collections.ISortedList" />
+	<component id="org.as3collections:ISortedMap" 					class="org.as3collections.ISortedMap" />
+	<component id="org.as3collections:ISortedQueue" 				class="org.as3collections.ISortedQueue" />
+	<component id="org.as3collections:TypedCollection" 				class="org.as3collections.TypedCollection" />
+	<component id="org.as3collections:UniqueCollection" 			class="org.as3collections.UniqueCollection" />
+
+	<!-- org.as3collections.errors -->
+
+	<component id="org.as3collections.errors:ConcurrentModificationError" 		class="org.as3collections.errors.ConcurrentModificationError" />
+	<component id="org.as3collections.errors:IndexOutOfBoundsError" 			class="org.as3collections.errors.IndexOutOfBoundsError" />
+	<component id="org.as3collections.errors:NoSuchElementError" 				class="org.as3collections.errors.NoSuchElementError" />
+	
+	<!-- org.as3collections.iterators -->
+
+	<component id="org.as3collections.iterators:ArrayIterator" 					class="org.as3collections.iterators.ArrayIterator" />
+	<component id="org.as3collections.iterators:ArrayListIterator" 				class="org.as3collections.iterators.ArrayListIterator" />
+	<component id="org.as3collections.iterators:MapIterator" 					class="org.as3collections.iterators.MapIterator" />
+	<component id="org.as3collections.iterators:ReadOnlyArrayIterator" 			class="org.as3collections.iterators.ReadOnlyArrayIterator" />
+	<component id="org.as3collections.iterators:ReadOnlyArrayListIterator" 		class="org.as3collections.iterators.ReadOnlyArrayListIterator" />
+	<component id="org.as3collections.iterators:ReadOnlyMapIterator" 			class="org.as3collections.iterators.ReadOnlyMapIterator" />
+
+	<!-- org.as3collections.lists -->
+
+	<component id="org.as3collections.lists:AbstractList" 					class="org.as3collections.lists.AbstractList" />
+	<component id="org.as3collections.lists:ArrayList" 						class="org.as3collections.lists.ArrayList" />
+	<component id="org.as3collections.lists:ReadOnlyArrayList" 				class="org.as3collections.lists.ReadOnlyArrayList" />
+	<component id="org.as3collections.lists:SortedArrayList" 				class="org.as3collections.lists.SortedArrayList" />
+	<component id="org.as3collections.lists:TypedArrayList" 				class="org.as3collections.lists.TypedArrayList" />
+	<component id="org.as3collections.lists:UniqueArrayList" 				class="org.as3collections.lists.UniqueArrayList" />
+	
+	<!-- org.as3collections.maps -->
+
+	<component id="org.as3collections.maps:AbstractArrayMap" 				class="org.as3collections.maps.AbstractArrayMap" />
+	<component id="org.as3collections.maps:AbstractHashMap" 				class="org.as3collections.maps.AbstractHashMap" />
+	<component id="org.as3collections.maps:ArrayMap" 						class="org.as3collections.maps.ArrayMap" />
+	<component id="org.as3collections.maps:HashMap" 						class="org.as3collections.maps.HashMap" />
+	<component id="org.as3collections.maps:MapEntry" 						class="org.as3collections.maps.MapEntry" />
+	<component id="org.as3collections.maps:ReadOnlyArrayMap" 				class="org.as3collections.maps.ReadOnlyArrayMap" />
+	<component id="org.as3collections.maps:ReadOnlyHashMap" 				class="org.as3collections.maps.ReadOnlyHashMap" />
+	<component id="org.as3collections.maps:SortedArrayMap" 					class="org.as3collections.maps.SortedArrayMap" />
+	<component id="org.as3collections.maps:SortMapBy" 						class="org.as3collections.maps.SortMapBy" />
+	<component id="org.as3collections.maps:TypedMap" 						class="org.as3collections.maps.TypedMap" />
+	<component id="org.as3collections.maps:TypedSortedMap" 					class="org.as3collections.maps.TypedSortedMap" />
+
+	<!-- org.as3collections.queues -->
+
+	<component id="org.as3collections.queues:AbstractQueue" 				class="org.as3collections.queues.AbstractQueue" />
+	<component id="org.as3collections.queues:IndexablePriorityQueue"		class="org.as3collections.queues.IndexablePriorityQueue" />
+	<component id="org.as3collections.queues:LinearQueue" 					class="org.as3collections.queues.LinearQueue" />
+	<component id="org.as3collections.queues:PriorityQueue" 				class="org.as3collections.queues.PriorityQueue" />
+	<component id="org.as3collections.queues:SortedQueue" 					class="org.as3collections.queues.SortedQueue" />
+	<component id="org.as3collections.queues:TypedQueue" 					class="org.as3collections.queues.TypedQueue" />
+	<component id="org.as3collections.queues:UniqueQueue" 					class="org.as3collections.queues.UniqueQueue" />
+
+	<!-- org.as3collections.utils -->
+
+	<component id="org.as3collections.utils:ArrayListUtil" 					class="org.as3collections.utils.ArrayListUtil" />
+	<component id="org.as3collections.utils:CollectionUtil" 				class="org.as3collections.utils.CollectionUtil" />
+	<component id="org.as3collections.utils:MapUtil" 						class="org.as3collections.utils.MapUtil" />
+	<component id="org.as3collections.utils:QueueUtil" 						class="org.as3collections.utils.QueueUtil" />
+
+</componentPackage>
