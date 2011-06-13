@@ -34,7 +34,7 @@ package org.as3collections.lists
 	/**
 	 * @author Flávio Silva
 	 */
-	public class ArrayListTestsEquatableObject extends AbstractListTestsEquatableObject
+	public class ArrayListTestsEquatableObject extends IListTestsEquatableObject
 	{
 		
 		public function ArrayListTestsEquatableObject()

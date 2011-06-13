@@ -29,18 +29,18 @@
 
 package org.as3collections.lists
 {
-	import org.as3collections.AbstractCollectionTestsEquatableObject;
+	import org.as3collections.ICollectionTests;
 	import org.as3collections.IList;
 	import org.flexunit.Assert;
 
 	/**
 	 * @author Flávio Silva
 	 */
-	public class AbstractListTestsEquatableObject extends AbstractCollectionTestsEquatableObject
+	public class IListTests extends ICollectionTests
 	{
 		public function get list():IList { return collection as IList; }
 		
-		public function AbstractListTestsEquatableObject()
+		public function IListTests()
 		{
 			
 		}

@@ -34,7 +34,7 @@ package org.as3collections.lists
 	/**
 	 * @author Flávio Silva
 	 */
-	public class ArrayListTests extends AbstractListTests
+	public class ArrayListTests extends IListTests
 	{
 		
 		public function ArrayListTests()

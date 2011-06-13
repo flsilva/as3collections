@@ -36,11 +36,11 @@ package org.as3collections
 	/**
 	 * @author Flávio Silva
 	 */
-	public class AbstractCollectionTestsEquatableObject
+	public class ICollectionTestsEquatableObject
 	{
 		public var collection:ICollection;
 		
-		public function AbstractCollectionTestsEquatableObject()
+		public function ICollectionTestsEquatableObject()
 		{
 			
 		}
