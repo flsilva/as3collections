@@ -77,11 +77,45 @@ package org.as3collections
 		[Test]
 		public function add_validArgument_ReturnsTrue(): void
 		{
-			var added:Boolean = collection.add("element");
+			var added:Boolean = collection.add("element-1");
 			Assert.assertTrue(added);
 		}
 		
+		/////////////////////////////////////////
+		// AbstractCollection().addAll() TESTS //
+		/////////////////////////////////////////
 		
+		[Test]
+		public function addAll_validArgument_ReturnsTrue(): void
+		{
+			var addCollection:ICollection = getCollection();
+			addCollection.add("element-1");
+			addCollection.add("element-2");
+			
+			var added:Boolean = collection.addAll(addCollection);
+			Assert.assertTrue(added);
+		}
+		
+		////////////////////////////////////////
+		// AbstractCollection().clear() TESTS //
+		////////////////////////////////////////
+		
+		[Test]
+		public function clear_emptyCollection_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.clear();
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function clear_notEmptyCollection_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.clear();
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
 		
 	}
 
