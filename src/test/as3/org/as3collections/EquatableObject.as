@@ -1,7 +1,7 @@
 /*
  * Licensed under the MIT License
  * 
- * Copyright 2010 (c) Flávio Silva, http://flsilva.com
+ * Copyright 2011 (c) Flávio Silva, flsilva.com
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,27 +26,35 @@
  * 
  * http://www.opensource.org/licenses/mit-license.php
  */
-
-package 
+package org.as3collections
 {
-	import org.as3collections.lists.ArrayListTests;
-	import org.as3collections.lists.ArrayListTestsEquatableObject;
+	import org.as3coreaddendum.system.IEquatable;
+	import org.as3utils.StringUtil;
 
 	/**
+	 * description
+	 * 
 	 * @author Flávio Silva
 	 */
-	[Suite]
-	[RunWith("org.flexunit.runners.Suite")]
-	public class TestSuite
+	public class EquatableObject implements IEquatable
 	{
+		private var _id:String;
 		
-		//org.as3collections.lists
-		public var arrayListTests:ArrayListTests;
-		public var arrayListTestsEquatableObject:ArrayListTestsEquatableObject;
+		public function get id():String { return _id; }
 		
-		public function TestSuite()
+		public function EquatableObject(id:String)
 		{
+			if (StringUtil.isBlank(id)) throw new ArgumentError("Argument <id> must not be null nor an empty String.");
+			_id = id;
+		}
+		
+		public function equals(other:*): Boolean
+		{
+			if (this == other) return true;
+			if (!(other is EquatableObject)) return false;
 			
+			var otherEquatable:EquatableObject = other as EquatableObject;
+			return id == otherEquatable.id;
 		}
 
 	}

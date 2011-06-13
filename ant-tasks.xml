@@ -32,6 +32,7 @@
 			<arg line="-main-title ${asdoc.main-title}" />
 			<arg line="-window-title ${asdoc.window-title}" />
 			<arg line="-footer ${asdoc.footer}" />
+			<arg line="-keep-xml=true" />
 			<arg line="-left-frameset-width ${asdoc.left-frameset-width}" />
 			<arg line="-output ${asdoc.output}" />
 		</exec>

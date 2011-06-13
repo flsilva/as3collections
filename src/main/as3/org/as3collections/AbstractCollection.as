@@ -274,6 +274,7 @@ package org.as3collections {
 				if ((allEquatable && o is IEquatable && (e as IEquatable).equals(o)) || e == o)
 				{
 					it.remove();
+					checkAllEquatable();
 					return true;
 				}
 			}

@@ -27,28 +27,35 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package 
+package org.as3collections.lists
 {
-	import org.as3collections.lists.ArrayListTests;
-	import org.as3collections.lists.ArrayListTestsEquatableObject;
+	import org.as3collections.AbstractCollectionTestsEquatableObject;
+	import org.as3collections.IList;
+	import org.flexunit.Assert;
 
 	/**
 	 * @author Flávio Silva
 	 */
-	[Suite]
-	[RunWith("org.flexunit.runners.Suite")]
-	public class TestSuite
+	public class AbstractListTestsEquatableObject extends AbstractCollectionTestsEquatableObject
 	{
+		public function get list():IList { return collection as IList; }
 		
-		//org.as3collections.lists
-		public var arrayListTests:ArrayListTests;
-		public var arrayListTestsEquatableObject:ArrayListTestsEquatableObject;
-		
-		public function TestSuite()
+		public function AbstractListTestsEquatableObject()
 		{
 			
 		}
-
+		
+		//////////////////////////////////////
+		// AbstractCollection().addAt() TESTS //
+		//////////////////////////////////////
+		
+		[Test]
+		public function addAt_validArgument_ReturnsTrue(): void
+		{
+			var added:Boolean = list.addAt(0, "element");
+			Assert.assertTrue(added);
+		}
+		
 	}
 
 }

@@ -27,28 +27,30 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package 
+package org.as3collections.lists
 {
-	import org.as3collections.lists.ArrayListTests;
-	import org.as3collections.lists.ArrayListTestsEquatableObject;
+	import org.as3collections.ICollection;
 
 	/**
 	 * @author Flávio Silva
 	 */
-	[Suite]
-	[RunWith("org.flexunit.runners.Suite")]
-	public class TestSuite
+	public class ArrayListTestsEquatableObject extends AbstractListTestsEquatableObject
 	{
 		
-		//org.as3collections.lists
-		public var arrayListTests:ArrayListTests;
-		public var arrayListTestsEquatableObject:ArrayListTestsEquatableObject;
-		
-		public function TestSuite()
+		public function ArrayListTestsEquatableObject()
 		{
 			
 		}
-
+		
+		////////////////////
+		// HELPER METHODS //
+		////////////////////
+		
+		override public function getCollection():ICollection
+		{
+			return new ArrayList();
+		}
+		
 	}
 
 }

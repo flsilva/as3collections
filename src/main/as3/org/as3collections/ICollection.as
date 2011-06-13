@@ -57,7 +57,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>add</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this collection.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this collection does not permit <code>null</code> elements. 
-		 * @return 	<code>true</code> if this collection changed as a result of the call. Returns <code>false</code> if this collection does not permit duplicates and alread contains the specified element.
+		 * @return 	<code>true</code> if this collection has changed as a result of the call. Returns <code>false</code> if this collection does not permit duplicates and alread contains the specified element.
 		 */
 		function add(element:*): Boolean;
 
@@ -118,13 +118,13 @@ package org.as3collections
 		function remove(o:*): Boolean;
 
 		/**
-		 * Removes all of this collection's elements that are also contained in the specified collection (optional operation). After this call returns, this collection will contain no elements in common with the specified collection.
+		 * Removes all elements of this collection that are also contained in the specified collection (optional operation). After this call returns, this collection will contain no elements in common with the specified collection.
 		 * 
 		 * @param  	collection 	the collection containing elements to be removed from this collection.
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the removeAll operation is not supported by this collection.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeAll</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in this collection are incompatible with the specified collection (optional).
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
-		 * @return 	<code>true</code> if this collection changed as a result of the call.
+		 * @return 	<code>true</code> if this collection has changed as a result of the call.
 		 */
 		function removeAll(collection:ICollection): Boolean;
 

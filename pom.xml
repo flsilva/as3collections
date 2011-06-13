@@ -402,7 +402,7 @@
 					<!-- USING ANT TO GENERATE ASDOC DUE TO BUG IN EXECUTION FROM FLEXMOJOS (HTML TAGS NOT FORMATTED). -->
 					<execution>
 						<id>generate-asdoc</id>
-						<phase>site</phase>
+						<phase>install</phase>
 						<configuration>
 							<target>
 								<ant antfile="ant-tasks.xml">
