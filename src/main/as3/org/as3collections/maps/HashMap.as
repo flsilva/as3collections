@@ -32,6 +32,7 @@ package org.as3collections.maps
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
 	import org.as3collections.iterators.MapIterator;
+	import org.as3coreaddendum.system.IEquatable;
 
 	/**
 	 * Hash table based implementation of the <code>IMap</code> interface.
@@ -319,13 +320,25 @@ package org.as3collections.maps
 				while (it.hasNext())
 				{
 					e = it.next();
+					
+					if ((key as IEquatable).equals(it.pointer()))
+					{
+						old = e;
+						
+						delete map[it.pointer()];
+						delete values[old];
+						
+						break;
+					}
+					
+					/*
 					if (containsKey(it.pointer()))
 					{
 						it.remove();
 						old = e;
 						
 						break;
-					}
+					}*/
 				}
 			}
 			else

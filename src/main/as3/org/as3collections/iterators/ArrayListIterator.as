@@ -320,7 +320,7 @@ package org.as3collections.iterators {
 		{
 			checkConcurrentModificationError();
 			
-			if (!_allowModification) throw new IllegalStateError("The next or previous method has not yet been called or the add or remove method has alread been called after the last call to the next or previous method.");
+			if (!_allowModification) throw new IllegalStateError("The next or previous method has not yet been called or the add or remove method has already been called after the last call to the next or previous method.");
 			
 			_source.removeAt(_removePointer);
 			_modCount = _source.modCount;
