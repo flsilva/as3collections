@@ -211,8 +211,8 @@ package org.as3collections
 			addCollection.add(equatableObject1A);
 			addCollection.add(equatableObject2A);
 			
-			var added:Boolean = collection.addAll(addCollection);
-			Assert.assertTrue(added);
+			var changed:Boolean = collection.addAll(addCollection);
+			Assert.assertTrue(changed);
 		}
 		
 		/////////////////////////////////

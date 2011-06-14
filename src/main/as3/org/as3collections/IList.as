@@ -34,7 +34,7 @@ package org.as3collections
 	 * <p>Lists typically allow duplicate elements and multiple <code>null</code> elements if they allow <code>null</code> elements at all.
 	 * But there are lists that prohibits duplicates and/or <code>null</code> elements, by throwing runtime errors when the user attempts to insert them.</p>
 	 * <p>The <code>IList</code> interface provides the special <code>IListIterator</code> iterator, that allows element insertion and replacement, and bidirectional access in addition to the normal operations that the <code>IIterator</code> interface provides.
-	 * The <code>listIterator()</code> method is provided to obtain a <code>IListIterator</code> object that may start at a specified position in the list.</p>
+	 * The <code>listIterator()</code> method is provided to obtain a <code>IListIterator</code> implementation that may start at a specified position in the list.</p>
 	 * <p>The methods that modify the list are specified to throw <code>org.as3coreaddendum.errors.UnsupportedOperationError</code> if the list does not support the operation.
 	 * These methods are documented as "optional operation".</p>
 	 * 
@@ -88,7 +88,7 @@ package org.as3collections
 		function getAt(index:int): *;
 
 		/**
-		 * Returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
+		 * Returns the index of the <b>first occurrence</b> of the specified element in this list, or -1 if this list does not contain the element.
 		 * 
 		 * @param element 		the element to search for.
 		 * @param fromIndex 	the position in the list from which to start searching for the element.
@@ -99,7 +99,7 @@ package org.as3collections
 		function indexOf(element:*, fromIndex:int = 0): int;
 
 		/**
-		 * Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
+		 * Returns the index of the <b>last occurrence</b> of the specified element in this list, or -1 if this list does not contain the element.
 		 * 
 		 * @param element 		the element to search for.
 		 * @param fromIndex 	the position in the list from which to start searching for the element. The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
@@ -140,7 +140,7 @@ package org.as3collections
 		function removeRange(fromIndex:int, toIndex:int): ICollection;
 
 		/**
-		 * Reverses the list.
+		 * Reverses the order of the elements in this list.
 		 */
 		function reverse(): void;
 

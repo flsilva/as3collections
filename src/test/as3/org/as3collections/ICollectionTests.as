@@ -184,8 +184,8 @@ package org.as3collections
 			addCollection.add("element-1");
 			addCollection.add("element-2");
 			
-			var added:Boolean = collection.addAll(addCollection);
-			Assert.assertTrue(added);
+			var changed:Boolean = collection.addAll(addCollection);
+			Assert.assertTrue(changed);
 		}
 		
 		/////////////////////////////////

@@ -399,6 +399,7 @@ package org.as3collections.lists {
 		 */
 		public function reverse(): void
 		{
+			if (size() < 2) return;
 			data.reverse();
 		}
 

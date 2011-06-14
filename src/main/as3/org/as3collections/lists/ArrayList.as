@@ -33,6 +33,7 @@ package org.as3collections.lists
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
+	import org.as3collections.errors.IndexOutOfBoundsError;
 	import org.as3collections.iterators.ArrayIterator;
 	import org.as3collections.iterators.ArrayListIterator;
 
@@ -463,6 +464,8 @@ package org.as3collections.lists
 		 */
 		override public function removeAt(index:int): *
 		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This list is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			
 			checkIndex(index, size() - 1);
 			_modCount++;
 			
@@ -483,6 +486,8 @@ package org.as3collections.lists
 		 */
 		override public function removeRange(fromIndex:int, toIndex:int): ICollection
 		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("This list is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			
 			checkIndex(fromIndex, size());
 			checkIndex(toIndex, size());
 			_modCount++;
@@ -503,6 +508,7 @@ package org.as3collections.lists
 		 */
 		override public function setAt(index:int, element:*): *
 		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This list is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
 			checkIndex(index, size() - 1);
 			
 			var old:* = data[index];
@@ -524,6 +530,8 @@ package org.as3collections.lists
 		 */
 		override public function subList(fromIndex:int, toIndex:int): IList
 		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("This list is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			
 			checkIndex(fromIndex, size());
 			checkIndex(toIndex, size());
 			
