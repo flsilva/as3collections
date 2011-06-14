@@ -166,7 +166,7 @@ package org.as3collections.lists {
 		 * <li>elements have exactly the same order</li>
 		 * </ul></p>
 		 * <p>This implementation takes care of the order of the elements in the list.
-		 * So, for two collections are equal the order of elements returned by the iterator must be equal.</p>
+		 * So, for two collections are equal the order of elements returned by the iterator object must be equal.</p>
 		 * 
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
