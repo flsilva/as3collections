@@ -45,9 +45,9 @@ package org.as3collections.lists
 			
 		}
 		
-		//////////////////////////////////////
-		// AbstractCollection().addAt() TESTS //
-		//////////////////////////////////////
+		///////////////////////////
+		// IList().addAt() TESTS //
+		///////////////////////////
 		
 		[Test]
 		public function addAt_validArgument_ReturnsTrue(): void

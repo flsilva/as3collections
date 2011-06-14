@@ -32,9 +32,9 @@ package org.as3collections
 	/**
 	 * An ordered collection. The user of this interface has precise control over where in the list each element is inserted. The user can access elements by their integer index (position in the list), and search for elements in the list.
 	 * <p>Lists typically allow duplicate elements and multiple <code>null</code> elements if they allow <code>null</code> elements at all.
-	 * It is not inconceivable that someone might wish to implement a list that prohibits duplicates, by throwing runtime errors when the user attempts to insert them.</p>
+	 * But there are lists that prohibits duplicates and/or <code>null</code> elements, by throwing runtime errors when the user attempts to insert them.</p>
 	 * <p>The <code>IList</code> interface provides the special <code>IListIterator</code> iterator, that allows element insertion and replacement, and bidirectional access in addition to the normal operations that the <code>IIterator</code> interface provides.
-	 * A method is provided to obtain a list iterator that starts at a specified position in the list.</p>
+	 * The <code>listIterator()</code> method is provided to obtain a <code>IListIterator</code> object that may start at a specified position in the list.</p>
 	 * <p>The methods that modify the list are specified to throw <code>org.as3coreaddendum.errors.UnsupportedOperationError</code> if the list does not support the operation.
 	 * These methods are documented as "optional operation".</p>
 	 * 

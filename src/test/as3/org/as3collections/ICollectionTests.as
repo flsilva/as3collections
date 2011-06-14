@@ -70,9 +70,9 @@ package org.as3collections
 			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
 		}
 		
-		///////////////////////////////////////////////
-		// AbstractCollection().allEquatable() TESTS //
-		///////////////////////////////////////////////
+		////////////////////////////////////////
+		// ICollection().allEquatable() TESTS //
+		////////////////////////////////////////
 		
 		[Test]
 		public function allEquatable_emptyCollection_ReturnsTrue(): void
@@ -90,9 +90,52 @@ package org.as3collections
 			Assert.assertFalse(allEquatable);
 		}
 		
-		//////////////////////////////////////
-		// AbstractCollection().add() TESTS //
-		//////////////////////////////////////
+		////////////////////////////////////
+		// ICollection().iterator() TESTS //
+		////////////////////////////////////
+		
+		[Test]
+		public function iterator_emptyCollection_ReturnValidIIteratorObject(): void
+		{
+			var it:IIterator = collection.iterator();
+			Assert.assertNotNull(it);
+		}
+		
+		/////////////////////////////////
+		// ICollection().clone() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function clone_emptyCollection_ReturnValidICollectionObject(): void
+		{
+			var clonedCollection:ICollection = collection.clone();
+			Assert.assertNotNull(clonedCollection);
+		}
+		
+		[Test]
+		public function clone_collectionWithTwoNotEquatableElements_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var clonedCollection:ICollection = collection.clone();
+			Assert.assertTrue(collection.equals(clonedCollection));
+		}
+		
+		[Test]
+		public function clone_collectionWithTwoNotEquatableElements_cloneButChangeCollection_checkIfBothCollectionsAreEqual_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var clonedCollection:ICollection = collection.clone();
+			clonedCollection.remove("element-2");
+			Assert.assertFalse(collection.equals(clonedCollection));
+		}
+		
+		///////////////////////////////
+		// ICollection().add() TESTS //
+		///////////////////////////////
 		
 		[Test]
 		public function add_validElementNotEquatable_ReturnsTrue(): void
@@ -101,9 +144,9 @@ package org.as3collections
 			Assert.assertTrue(added);
 		}
 		
-		/////////////////////////////////////////
-		// AbstractCollection().addAll() TESTS //
-		/////////////////////////////////////////
+		//////////////////////////////////
+		// ICollection().addAll() TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function addAll_validListNoneElementEquatable_ReturnsTrue(): void
@@ -116,9 +159,9 @@ package org.as3collections
 			Assert.assertTrue(added);
 		}
 		
-		////////////////////////////////////////
-		// AbstractCollection().clear() TESTS //
-		////////////////////////////////////////
+		/////////////////////////////////
+		// ICollection().clear() TESTS //
+		/////////////////////////////////
 		
 		[Test]
 		public function clear_emptyCollection_checkIfCollectionIsEmpty_ReturnsTrue(): void
@@ -139,9 +182,9 @@ package org.as3collections
 			Assert.assertTrue(isEmpty);
 		}
 		
-		///////////////////////////////////////////
-		// AbstractCollection().contains() TESTS //
-		///////////////////////////////////////////
+		////////////////////////////////////
+		// ICollection().contains() TESTS //
+		////////////////////////////////////
 		
 		[Test]
 		public function contains_emptyCollection_ReturnsFalse(): void
@@ -151,7 +194,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function contains_notEmptyCollection_notContainsNotEquatableElement_ReturnsFalse(): void
+		public function contains_collectionWithOneNotEquatableElement_notContainsNotEquatableElement_ReturnsFalse(): void
 		{
 			collection.add("element-1");
 			
@@ -160,7 +203,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function contains_collectionWithOnlyOneNotEquatableElement_containsElement_ReturnsTrue(): void
+		public function contains_collectionWithOneNotEquatableElement_containsElement_ReturnsTrue(): void
 		{
 			collection.add("element-1");
 			
@@ -169,7 +212,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function contains_collectionWithTwoNotEquatableElement_containsElement_ReturnsTrue(): void
+		public function contains_collectionWithTwoNotEquatableElements_containsElement_ReturnsTrue(): void
 		{
 			collection.add("element-1");
 			collection.add("element-2");
@@ -178,9 +221,9 @@ package org.as3collections
 			Assert.assertTrue(contains);
 		}
 		
-		//////////////////////////////////////////////
-		// AbstractCollection().containsAll() TESTS //
-		//////////////////////////////////////////////
+		///////////////////////////////////////
+		// ICollection().containsAll() TESTS //
+		///////////////////////////////////////
 		
 		[Test]
 		public function containsAll_emptyCollection_ReturnsFalse(): void
@@ -223,9 +266,9 @@ package org.as3collections
 			Assert.assertTrue(containsAll);
 		}
 		
-		//////////////////////////////////////////
-		// AbstractCollection().isEmpty() TESTS //
-		//////////////////////////////////////////
+		///////////////////////////////////
+		// ICollection().isEmpty() TESTS //
+		///////////////////////////////////
 		
 		[Test]
 		public function isEmpty_emptyCollection_ReturnsTrue(): void
@@ -243,9 +286,9 @@ package org.as3collections
 			Assert.assertFalse(isEmpty);
 		}
 		
-		/////////////////////////////////////////
-		// AbstractCollection().remove() TESTS //
-		/////////////////////////////////////////
+		//////////////////////////////////
+		// ICollection().remove() TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function remove_emptyCollection_ReturnsFalse(): void
@@ -265,9 +308,9 @@ package org.as3collections
 			Assert.assertTrue(removed);
 		}
 		
-		////////////////////////////////////////////
-		// AbstractCollection().removeAll() TESTS //
-		////////////////////////////////////////////
+		/////////////////////////////////////
+		// ICollection().removeAll() TESTS //
+		/////////////////////////////////////
 		
 		[Test]
 		public function removeAll_emptyCollection_ReturnsFalse(): void
@@ -294,9 +337,9 @@ package org.as3collections
 			Assert.assertTrue(changed);
 		}
 		
-		////////////////////////////////////////////
-		// AbstractCollection().retainAll() TESTS //
-		////////////////////////////////////////////
+		/////////////////////////////////////
+		// ICollection().retainAll() TESTS //
+		/////////////////////////////////////
 		
 		[Test]
 		public function retainAll_collectionWithTwoNotEquatableElements_argumentWithTheTwoCollectionElements_ReturnsFalse(): void
@@ -325,9 +368,9 @@ package org.as3collections
 			Assert.assertTrue(changed);
 		}
 		
-		///////////////////////////////////////
-		// AbstractCollection().size() TESTS //
-		///////////////////////////////////////
+		////////////////////////////////
+		// ICollection().size() TESTS //
+		////////////////////////////////
 		
 		[Test]
 		public function size_emptyCollection_ReturnsZero(): void
@@ -336,9 +379,9 @@ package org.as3collections
 			Assert.assertFalse(size);
 		}
 		
-		//////////////////////////////////////////
-		// AbstractCollection().toArray() TESTS //
-		//////////////////////////////////////////
+		///////////////////////////////////
+		// ICollection().toArray() TESTS //
+		///////////////////////////////////
 		
 		[Test]
 		public function toArray_emptyCollection_ReturnsValidArrayObject(): void
@@ -357,9 +400,9 @@ package org.as3collections
 			Assert.assertNotNull(array);
 		}
 		
-		//////////////////////////////////////
-		// AbstractCollection() MIXED TESTS //
-		//////////////////////////////////////
+		///////////////////////////////
+		// ICollection() MIXED TESTS //
+		///////////////////////////////
 		
 		[Test]
 		public function add_isEmpty_addNotEquatableElement_checkIfCollectionIsEmpty_ReturnsFalse(): void
