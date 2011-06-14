@@ -179,7 +179,7 @@ package org.as3collections.lists {
 			
 			var c:ICollection = other as ICollection;
 			
-			if (c == null || c.size() != size()) return false;
+			if (c.size() != size()) return false;
 			
 			var it:IIterator = iterator();
 			var itOther:IIterator = c.iterator();
@@ -191,7 +191,11 @@ package org.as3collections.lists {
 				o1 = it.next();
 				o2 = itOther.next();
 				
-				if ((allEquatable && c.allEquatable && !(o1 as IEquatable).equals(o2)) || o1 != o2)
+				if (allEquatable && c.allEquatable)
+				{
+					if (!(o1 as IEquatable).equals(o2)) return false;
+				}
+				else if (o1 != o2)
 				{
 					return false;
 				}

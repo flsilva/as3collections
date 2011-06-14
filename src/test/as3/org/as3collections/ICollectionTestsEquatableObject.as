@@ -144,6 +144,44 @@ package org.as3collections
 			Assert.assertFalse(collection.equals(clonedCollection));
 		}
 		
+		//////////////////////////////////
+		// ICollection().equals() TESTS //
+		//////////////////////////////////
+		
+		[Test]
+		public function equals_collectionWithTwoEquatableElements_differentCollections_checkIfBothCollectionsAreEqual_ReturnsFalse(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			collection.add(equatableObject1A);
+			collection.add(equatableObject2A);
+			
+			var collection2:ICollection = getCollection();
+			collection2.add(equatableObject2A);
+			
+			Assert.assertFalse(collection.equals(collection2));
+		}
+		
+		[Test]
+		public function equals_collectionWithTwoEquatableElements_equalCollections_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			collection.add(equatableObject1A);
+			collection.add(equatableObject2A);
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add(equatableObject1B);
+			collection2.add(equatableObject2B);
+			
+			Assert.assertTrue(collection.equals(collection2));
+		}
+		
 		///////////////////////////////
 		// ICollection().add() TESTS //
 		///////////////////////////////

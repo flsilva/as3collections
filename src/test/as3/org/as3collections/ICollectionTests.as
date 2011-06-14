@@ -133,6 +133,35 @@ package org.as3collections
 			Assert.assertFalse(collection.equals(clonedCollection));
 		}
 		
+		//////////////////////////////////
+		// ICollection().equals() TESTS //
+		//////////////////////////////////
+		
+		[Test]
+		public function equals_collectionWithTwoNotEquatableElements_differentCollections_checkIfBothCollectionsAreEqual_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add("element-2");
+			
+			Assert.assertFalse(collection.equals(collection2));
+		}
+		
+		[Test]
+		public function equals_collectionWithTwoNotEquatableElements_equalCollections_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add("element-1");
+			collection2.add("element-2");
+			
+			Assert.assertTrue(collection.equals(collection2));
+		}
+		
 		///////////////////////////////
 		// ICollection().add() TESTS //
 		///////////////////////////////

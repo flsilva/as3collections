@@ -224,7 +224,7 @@ package org.as3collections {
 			
 			var c:ICollection = other as ICollection;
 			
-			if (c == null || c.size() != size()) return false;
+			if (c.size() != size()) return false;
 			
 			return containsAll(c) && c.containsAll(this);
 		}
