@@ -307,6 +307,7 @@ package org.as3collections {
 				if (collection.contains(it.next())) it.remove();
 			}
 			
+			checkAllEquatable();
 			return prevSize != size();
 		}
 
@@ -335,6 +336,7 @@ package org.as3collections {
 				if (!collection.contains(it.next())) it.remove();
 			}
 			
+			checkAllEquatable();
 			return prevSize != size();
 		}
 

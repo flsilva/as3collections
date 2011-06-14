@@ -489,13 +489,14 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function addAll_size_validArgumentWithTwoElements_checkIfCollectionSizeIsTwo_ReturnsTrue(): void
+		public function addAll_size_validArgumentWithTwoNotEquatableElements_checkIfCollectionSizeIsTwo_ReturnsTrue(): void
 		{
 			var addAllCollection:ICollection = getCollection();
 			addAllCollection.add("element-1");
 			addAllCollection.add("element-2");
 			
 			collection.addAll(addAllCollection);
+			
 			var size:int = collection.size();
 			Assert.assertEquals(2, size);
 		}
