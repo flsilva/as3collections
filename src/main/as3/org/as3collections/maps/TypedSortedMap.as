@@ -30,6 +30,7 @@
 package org.as3collections.maps
 {
 	import org.as3collections.ISortedMap;
+	import org.as3collections.SortMapBy;
 	import org.as3coreaddendum.system.IComparator;
 
 	/**

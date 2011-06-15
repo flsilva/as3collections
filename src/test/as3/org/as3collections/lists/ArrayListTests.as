@@ -30,6 +30,7 @@
 package org.as3collections.lists
 {
 	import org.as3collections.ICollection;
+	import org.as3collections.IListTests;
 
 	/**
 	 * @author Flávio Silva

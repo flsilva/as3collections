@@ -29,7 +29,6 @@
 
 package org.as3collections
 {
-	import org.as3collections.maps.SortMapBy;
 	import org.as3coreaddendum.system.ISortable;
 
 	/**

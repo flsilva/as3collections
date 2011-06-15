@@ -27,7 +27,9 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.lists {
+package org.as3collections.lists
+{
+	import org.as3collections.AbstractList;
 	import org.as3collections.ICollection;
 	import org.as3collections.IList;
 	import org.as3coreaddendum.errors.NullPointerError;

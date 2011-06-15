@@ -27,7 +27,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.queues {
+package org.as3collections.queues 
+{
 	import org.as3coreaddendum.errors.ClassCastError;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.system.IIndexable;

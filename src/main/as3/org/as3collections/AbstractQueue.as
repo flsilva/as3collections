@@ -27,7 +27,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.queues {
+package org.as3collections
+{
 	import org.as3collections.AbstractCollection;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;

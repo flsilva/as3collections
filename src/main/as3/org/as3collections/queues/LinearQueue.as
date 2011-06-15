@@ -29,6 +29,7 @@
 
 package org.as3collections.queues
 {
+	import org.as3collections.AbstractQueue;
 	import org.as3collections.IIterator;
 	import org.as3collections.iterators.ArrayIterator;
 

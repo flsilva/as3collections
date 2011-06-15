@@ -27,7 +27,9 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.maps {
+package org.as3collections.maps 
+{
+	import org.as3collections.AbstractArrayMap;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;

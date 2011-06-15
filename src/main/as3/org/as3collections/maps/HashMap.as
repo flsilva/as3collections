@@ -29,6 +29,7 @@
 
 package org.as3collections.maps
 {
+	import org.as3collections.AbstractHashMap;
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
 	import org.as3collections.iterators.MapIterator;

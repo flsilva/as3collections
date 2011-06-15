@@ -27,8 +27,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.maps {
-	import org.as3collections.IMapEntry;
+package org.as3collections
+{
 	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
 

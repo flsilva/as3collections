@@ -27,12 +27,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.lists
+package org.as3collections
 {
-	import org.as3collections.EquatableObject;
-	import org.as3collections.ICollection;
-	import org.as3collections.ICollectionTestsEquatableObject;
-	import org.as3collections.IList;
 	import org.flexunit.Assert;
 
 	/**

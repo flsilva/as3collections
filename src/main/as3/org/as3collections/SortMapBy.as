@@ -27,7 +27,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.maps
+package org.as3collections
 {
 	import flash.errors.IllegalOperationError;
 	

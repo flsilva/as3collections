@@ -29,6 +29,7 @@
 
 package org.as3collections.lists
 {
+	import org.as3collections.AbstractList;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;

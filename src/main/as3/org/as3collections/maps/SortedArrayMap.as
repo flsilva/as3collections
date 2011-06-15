@@ -27,11 +27,13 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.maps {
+package org.as3collections.maps 
+{
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IMap;
 	import org.as3collections.ISortedMap;
+	import org.as3collections.SortMapBy;
 	import org.as3collections.errors.NoSuchElementError;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3utils.ArrayUtil;
