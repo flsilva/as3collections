@@ -219,7 +219,7 @@ package org.as3collections.lists
 		}
 		
 		[Test]
-		public function getAt_addedThreeNotEquatableElement_boundaryCondition_checkIfReturnedElementMatches_ReturnsTrue(): void
+		public function getAt_addedThreeNotEquatableElements_boundaryCondition_checkIfReturnedElementMatches_ReturnsTrue(): void
 		{
 			list.add("element-1");
 			list.add("element-2");
@@ -311,6 +311,56 @@ package org.as3collections.lists
 			Assert.assertEquals(0, index);
 		}
 		
+		[Test]
+		public function indexOf_listWithThreeIdenticalNotEquatableElements_indexOfFromIndexOne_ReturnsOne(): void
+		{
+			list.add("element-1");
+			list.add("element-1");
+			list.add("element-1");
+			
+			var index:int = list.indexOf("element-1", 1);
+			Assert.assertEquals(1, index);
+		}
+		
+		[Test]
+		public function indexOf_listWithThreeIdenticalNotEquatableElements_indexOfFromIndexTwo_ReturnsTwo(): void
+		{
+			list.add("element-1");
+			list.add("element-1");
+			list.add("element-1");
+			
+			var index:int = list.indexOf("element-1", 2);
+			Assert.assertEquals(2, index);
+		}
+		
+		[Test]
+		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexTwo_ReturnsTwo(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			list.add("element-4");
+			list.add("element-3");
+			list.add("element-5");
+			
+			var index:int = list.indexOf("element-3", 2);
+			Assert.assertEquals(2, index);
+		}
+		
+		[Test]
+		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexThree_ReturnsFour(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			list.add("element-4");
+			list.add("element-3");
+			list.add("element-5");
+			
+			var index:int = list.indexOf("element-3", 3);
+			Assert.assertEquals(4, index);
+		}
+		
 		/////////////////////////////////
 		// IList().lastIndexOf() TESTS //
 		/////////////////////////////////
@@ -378,7 +428,7 @@ package org.as3collections.lists
 		}
 		
 		[Test]
-		public function lastIndexOf_listWithIdenticalAndNotIdenticalElements_lastIndexOf_ReturnsCorrectIndex(): void
+		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOf_ReturnsCorrectIndex(): void
 		{
 			list.add("element-1");
 			list.add("element-2");
@@ -392,7 +442,7 @@ package org.as3collections.lists
 		}
 		
 		[Test]
-		public function lastIndexOf_listWithIdenticalAndNotIdenticalElements_lastIndexOfFromIndex_ReturnsCorrectIndex(): void
+		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOfFromIndex_ReturnsCorrectIndex(): void
 		{
 			list.add("element-1");
 			list.add("element-2");

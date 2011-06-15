@@ -236,9 +236,13 @@ package org.as3collections.lists {
 					e = it.next();
 					if (it.pointer() >= fromIndex && (e as IEquatable).equals(element)) return it.pointer();
 				}
+				
+				return -1;
 			}
-			
-			return data.indexOf(element, fromIndex);
+			else
+			{
+				return data.indexOf(element, fromIndex);
+			}
 		}
 
 		/**
@@ -255,19 +259,24 @@ package org.as3collections.lists {
 		{
 			if (allEquatable && element is IEquatable)
 			{
-				var it:IListIterator = listIterator();
-				var e:*;
+				if (fromIndex < 0x7fffffff) fromIndex++;
+				if (fromIndex > size()) fromIndex = size();
 				
-				while (it.hasNext()) it.next();
+				var it:IListIterator = listIterator(fromIndex);
+				var e:IEquatable;
 				
 				while (it.hasPrevious())
 				{
 					e = it.previous();
-					if (it.pointer() >= fromIndex && (e as IEquatable).equals(element)) return it.pointer();
+					if (e.equals(element)) return it.nextIndex();
 				}
+				
+				return -1;
 			}
-			
-			return data.lastIndexOf(element, fromIndex);
+			else
+			{
+				return data.lastIndexOf(element, fromIndex);
+			}
 		}
 
 		/**

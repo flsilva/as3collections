@@ -91,7 +91,7 @@ package org.as3collections
 		 * Returns the index of the <b>first occurrence</b> of the specified element in this list, or -1 if this list does not contain the element.
 		 * 
 		 * @param element 		the element to search for.
-		 * @param fromIndex 	the position in the list from which to start searching for the element.
+		 * @param fromIndex 	the position in the list from which to start searching for the element (inclusive).
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
@@ -102,7 +102,7 @@ package org.as3collections
 		 * Returns the index of the <b>last occurrence</b> of the specified element in this list, or -1 if this list does not contain the element.
 		 * 
 		 * @param element 		the element to search for.
-		 * @param fromIndex 	the position in the list from which to start searching for the element. The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
+		 * @param fromIndex 	the position in the list from which to start searching for the element (inclusive). The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
