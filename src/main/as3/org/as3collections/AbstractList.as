@@ -29,19 +29,12 @@
 
 package org.as3collections
 {
-	import org.as3collections.AbstractCollection;
-	import org.as3collections.ICollection;
-	import org.as3collections.IIterator;
-	import org.as3collections.IList;
-	import org.as3collections.IListIterator;
+	import flash.errors.IllegalOperationError;
 	import org.as3collections.errors.IndexOutOfBoundsError;
-	import org.as3collections.iterators.ReadOnlyArrayListIterator;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
-
-	import flash.errors.IllegalOperationError;
 
 	/**
 	 * This class provides a skeletal implementation of the <code>IList</code> interface, to minimize the effort required to implement this interface.
@@ -282,15 +275,14 @@ package org.as3collections
 
 		/**
 		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one.
-		 * <p>This implementation returns a <code>ReadOnlyArrayListIterator</code> object.</p>
+		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
 		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
-		 * @see 	org.as3collections.iterators.ReadOnlyArrayListIterator ReadOnlyArrayListIterator
 		 */
 		public function listIterator(index:int = 0): IListIterator
 		{
-			return new ReadOnlyArrayListIterator(this, index);
+			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
 		}
 
 		/**

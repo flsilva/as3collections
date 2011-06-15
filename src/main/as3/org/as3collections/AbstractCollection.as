@@ -27,15 +27,14 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections {
-	import org.as3collections.iterators.ReadOnlyArrayIterator;
+package org.as3collections
+{
+	import flash.errors.IllegalOperationError;
 	import org.as3coreaddendum.errors.CloneNotSupportedError;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
-
-	import flash.errors.IllegalOperationError;
 
 	/**
 	 * This class provides a skeletal implementation of the <code>ICollection</code> interface, to minimize the effort required to implement this interface. 
@@ -239,14 +238,13 @@ package org.as3collections {
 
 		/**
 		 * Returns an iterator over a set of elements.
-		 * <p>This implementation returns a <code>ReadOnlyArrayIterator</code> object.</p>
+		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @return 	an iterator over a set of elements.
-		 * @see 	org.as3collections.iterators.ReadOnlyArrayIterator ReadOnlyArrayIterator
  		 */
 		public function iterator(): IIterator
 		{
-			return new ReadOnlyArrayIterator(_data);
+			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
 		}
 
 		/**

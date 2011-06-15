@@ -31,7 +31,11 @@ package org.as3collections.lists
 {
 	import org.as3collections.AbstractList;
 	import org.as3collections.ICollection;
+	import org.as3collections.IIterator;
 	import org.as3collections.IList;
+	import org.as3collections.IListIterator;
+	import org.as3collections.iterators.ReadOnlyArrayIterator;
+	import org.as3collections.iterators.ReadOnlyArrayListIterator;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3utils.ReflectionUtil;
@@ -178,6 +182,31 @@ package org.as3collections.lists
 		{
 			return new ReadOnlyArrayList(data);
 		}
+		
+		/**
+		 * Returns an iterator over a set of elements.
+		 * <p>This implementation returns a <code>ReadOnlyArrayIterator</code> object.</p>
+		 * 
+		 * @return 	an iterator over a set of elements.
+		 * @see 	org.as3collections.iterators.ReadOnlyArrayIterator ReadOnlyArrayIterator
+		 */
+		override public function iterator(): IIterator
+		{
+			return new ReadOnlyArrayIterator(data);
+		}
+		
+		/**
+		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one.
+		 * <p>This implementation returns a <code>ReadOnlyArrayListIterator</code> object.</p>
+		 * 
+		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
+		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+		 * @see 	org.as3collections.iterators.ReadOnlyArrayListIterator ReadOnlyArrayListIterator
+		 */
+		override public function listIterator(index:int = 0): IListIterator
+		{
+			return new ReadOnlyArrayListIterator(this, index);
+		}
 
 		/**
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
@@ -236,6 +265,17 @@ package org.as3collections.lists
 		 * @return
 		 */
 		override public function retainAll(collection:ICollection): Boolean
+		{
+			throw new UnsupportedOperationError(ReflectionUtil.getClassName(this) + " is a read-only list and doesn't allow modifications.");
+		}
+		
+		/**
+		 * This implementation always throws an <code>UnsupportedOperationError</code>.
+		 * 
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayList</code> is a read-only list and doesn't allow modifications.
+		 * @return
+		 */
+		override public function reverse(): void
 		{
 			throw new UnsupportedOperationError(ReflectionUtil.getClassName(this) + " is a read-only list and doesn't allow modifications.");
 		}
