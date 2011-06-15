@@ -35,7 +35,7 @@ package org.as3collections.lists
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.iterators.ReadOnlyArrayIterator;
-	import org.as3collections.iterators.ReadOnlyArrayListIterator;
+	import org.as3collections.iterators.ReadOnlyListIterator;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3utils.ReflectionUtil;
@@ -93,7 +93,7 @@ package org.as3collections.lists
 	 * {
 	 *     it2.next()
 	 * 
-	 *     it.add(1)               // UnsupportedOperationError: ReadOnlyArrayListIterator is a read-only iterator and doesn't allow modifications in the list.
+	 *     it.add(1)               // UnsupportedOperationError: ReadOnlyListIterator is a read-only iterator and doesn't allow modifications in the list.
 	 * }
 	 * </listing>
 	 * 
@@ -197,15 +197,15 @@ package org.as3collections.lists
 		
 		/**
 		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one.
-		 * <p>This implementation returns a <code>ReadOnlyArrayListIterator</code> object.</p>
+		 * <p>This implementation returns a <code>ReadOnlyListIterator</code> object.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
 		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
-		 * @see 	org.as3collections.iterators.ReadOnlyArrayListIterator ReadOnlyArrayListIterator
+		 * @see 	org.as3collections.iterators.ReadOnlyListIterator ReadOnlyListIterator
 		 */
 		override public function listIterator(index:int = 0): IListIterator
 		{
-			return new ReadOnlyArrayListIterator(this, index);
+			return new ReadOnlyListIterator(this, index);
 		}
 
 		/**

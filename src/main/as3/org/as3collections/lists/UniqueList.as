@@ -27,25 +27,27 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.lists {
+package org.as3collections.lists 
+{
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.UniqueCollection;
-	import org.as3collections.iterators.ArrayListIterator;
+	import org.as3collections.iterators.ListIterator;
+	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
 
 	/**
-	 * <code>UniqueArrayList</code> works as a wrapper for a list.
+	 * <code>UniqueList</code> works as a wrapper for a list.
 	 * It does not allow duplicated elements in the collection.
 	 * It stores the <code>wrapList</code> constructor's argument in the <code>wrappedList</code> variable.
 	 * So every method call to this class is forwarded to the <code>wrappedList</code> object.
 	 * The methods that need to be checked for duplication are previously validated before forward the call.
 	 * No error is thrown by the validation of duplication.
 	 * The calls that are forwarded to the <code>wrappedList</code> returns the return of the <code>wrappedList</code> call.
-	 * <p>You can also create unique and typed lists. See below the link "ArrayListUtil.getUniqueTypedArrayList()".</p>
+	 * <p>You can also create unique and typed lists. See below the link "ArrayListUtil.getUniqueTypedList()".</p>
 	 * 
 	 * @example
 	 * 
@@ -53,14 +55,14 @@ package org.as3collections.lists {
 	 * import org.as3collections.IList;
 	 * import org.as3collections.IListIterator;
 	 * import org.as3collections.lists.ArrayList;
-	 * import org.as3collections.lists.UniqueArrayList;
+	 * import org.as3collections.lists.UniqueList;
 	 * import org.as3collections.utils.ArrayListUtil;
 	 * 
 	 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 	 * 
-	 * var list1:IList = new UniqueArrayList(l1); // you can use this way
+	 * var list1:IList = new UniqueList(l1); // you can use this way
 	 * 
-	 * //var list1:IList = ArrayListUtil.getUniqueArrayList(l1); // or you can use this way
+	 * //var list1:IList = ArrayListUtil.getUniqueList(l1); // or you can use this way
 	 * 
 	 * list1                       // [3,5,1,7]
 	 * list1.size()                // 4
@@ -120,19 +122,19 @@ package org.as3collections.lists {
 	 * 
 	 * var l2:IList = new ArrayList([1, 2, 3, 4, 5, 1, 3, 5]);
 	 * 
-	 * var list2:IList = new UniqueArrayList(l2); // you can use this way
+	 * var list2:IList = new UniqueList(l2); // you can use this way
 	 * 
-	 * //var list2:IList = ArrayListUtil.getUniqueArrayList(l2); // or you can use this way
+	 * //var list2:IList = ArrayListUtil.getUniqueList(l2); // or you can use this way
 	 * 
 	 * list2                       // [1,2,3,4,5]
 	 * list2.size()                // 5
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueArrayList() ArrayListUtil.getUniqueArrayList()
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedArrayList() ArrayListUtil.getUniqueTypedArrayList()
+	 * @see org.as3collections.utils.ArrayListUtil#getUniqueList() ArrayListUtil.getUniqueList()
+	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedList() ArrayListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
-	public class UniqueArrayList extends UniqueCollection implements IList
+	public class UniqueList extends UniqueCollection implements IList
 	{
 		/**
 		 * Returns the return of the call <code>wrappedList.modCount</code>.
@@ -145,26 +147,28 @@ package org.as3collections.lists {
 		protected function get wrappedList(): IList { return wrappedCollection as IList; }
 
 		/**
-		 * Constructor, creates a new <code>UniqueArrayList</code> object.
+		 * Constructor, creates a new <code>UniqueList</code> object.
 		 * 
 		 * @param 	wrapList 	the target list to wrap.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrappedList</code> argument is <code>null</code>.
 		 */
-		public function UniqueArrayList(wrapList:IList)
+		public function UniqueList(wrapList:IList)
 		{
 			super(wrapList);
 		}
 
 		/**
-		 * If the specified collection is <code>null</code> or empty returns <code>false</code>. Otherwise, it clones the specified collection, removes from the cloned collection all elements that already are in the <code>wrappedList</code> and removes all duplicates. Then it forwards the call to <code>wrappedList.addAllAt</code> sending the cloned/filtered collection.
+		 * If the specified collection is empty returns <code>false</code>. Otherwise, it clones the specified collection, removes from the cloned collection all elements that already are in the <code>wrappedList</code> and removes all duplicates. Then it forwards the call to <code>wrappedList.addAllAt</code> sending the cloned/filtered collection.
 		 * 
 		 * @param  	index 		index at which to insert the first element from the specified collection.
 		 * @param  	collection 	the collection to forward to <code>wrappedList.addAllAt</code>.
+		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 if the specified collection contains a <code>null</code> element and <code>wrappedList</code> does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>false</code> if the specified collection is <code>null</code> or empty. Otherwise returns the return of the call <code>wrappedList.addAllAt</code>.
 		 */
 		public function addAllAt(index:int, collection:ICollection): Boolean
 		{
-			if (!collection || collection.isEmpty()) return false;
+			if (!collection) throw new NullPointerError("The 'collection' argument must not be 'null'.");
+			if (collection.isEmpty()) return false;
 			
 			var c:ICollection = collection.clone();
 			filterCollection(c);
@@ -188,13 +192,13 @@ package org.as3collections.lists {
 		}
 
 		/**
-		 * Creates and return a new <code>UniqueArrayList</code> object with the clone of the <code>wrappedList</code> object.
+		 * Creates and return a new <code>UniqueList</code> object with the clone of the <code>wrappedList</code> object.
 		 * 
-		 * @return 	a new <code>UniqueArrayList</code> object with the clone of the <code>wrappedList</code> object.
+		 * @return 	a new <code>UniqueList</code> object with the clone of the <code>wrappedList</code> object.
  		 */
 		override public function clone(): *
 		{
-			return new UniqueArrayList(wrappedList.clone());
+			return new UniqueList(wrappedList.clone());
 		}
 
 		/**
@@ -278,15 +282,15 @@ package org.as3collections.lists {
 
 		/**
 		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one. 
-		 * <p>This implementation returns an <code>ArrayListIterator</code> object.</p>
+		 * <p>This implementation returns an <code>ListIterator</code> object.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
 		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
-		 * @see 	org.as3collections.iterators.ArrayListIterator ArrayListIterator
+		 * @see 	org.as3collections.iterators.ListIterator ListIterator
 		 */
 		public function listIterator(index:int = 0): IListIterator
 		{
-			return new ArrayListIterator(this, index);
+			return new ListIterator(this, index);
 		}
 
 		/**
@@ -334,17 +338,17 @@ package org.as3collections.lists {
 		}
 
 		/**
-		 * Returns a new <code>UniqueArrayList(wrappedList.subList(fromIndex, toIndex))</code>. 
-		 * <p>Modifications in the returned <code>UniqueArrayList</code> object doesn't affect this list.</p>
+		 * Returns a new <code>UniqueList(wrappedList.subList(fromIndex, toIndex))</code>. 
+		 * <p>Modifications in the returned <code>UniqueList</code> object doesn't affect this list.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving elements (exclusive).
 		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
-		 * @return 	a new <code>UniqueArrayList(wrappedList.subList(fromIndex, toIndex))</code>.
+		 * @return 	a new <code>UniqueList(wrappedList.subList(fromIndex, toIndex))</code>.
 		 */
 		public function subList(fromIndex:int, toIndex:int): IList
 		{
-			return new UniqueArrayList(wrappedList.subList(fromIndex, toIndex));
+			return new UniqueList(wrappedList.subList(fromIndex, toIndex));
 		}
 
 	}

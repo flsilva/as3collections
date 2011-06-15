@@ -199,7 +199,7 @@ package org.as3collections.iterators {
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class ArrayListIterator implements IListIterator
+	public class ListIterator implements IListIterator
 	{
 		private var _allowModification: Boolean;
 		private var _modCount: int;
@@ -208,13 +208,13 @@ package org.as3collections.iterators {
 		private var _source: IList;
 
 		/**
-		 * Constructor, creates a new <code>ArrayListIterator</code> object.
+		 * Constructor, creates a new <code>ListIterator</code> object.
 		 * 
-		 * @param  	source 		the source <code>ArrayListIterator</code> to iterate over.
+		 * @param  	source 		the source <code>ListIterator</code> to iterate over.
 		 * @param  	position 	indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified position minus one. 
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  if the <code>source</code> argument is <code>null</code>.
 		 */
-		public function ArrayListIterator(source:IList, position:int = 0)
+		public function ListIterator(source:IList, position:int = 0)
 		{
 			if (!source) throw new NullPointerError("The 'source' argument must not be 'null'.");
 			if (position < 0 || position > source.size()) throw new IndexOutOfBoundsError("The 'position' argument is out of bounds: " + position + " (min: 0, max: " + source.size() + ")"); 
@@ -228,15 +228,17 @@ package org.as3collections.iterators {
 		 * @inheritDoc
 		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 */
-		public function add(element:*): void
+		public function add(element:*): Boolean
 		{
 			checkConcurrentModificationError();
 			
-			_source.addAt(_pointer + 1, element);
+			var added:Boolean = _source.addAt(_pointer + 1, element);
 			
 			if (_modCount != _source.modCount) _pointer++;
 			_modCount = _source.modCount;
 			_allowModification = false;
+			
+			return added;
 		}
 
 		/**

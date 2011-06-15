@@ -57,7 +57,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>add</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this collection.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this collection does not permit <code>null</code> elements. 
-		 * @return 	<code>true</code> if this collection has changed as a result of the call. Returns <code>false</code> if this collection does not permit duplicates and alread contains the specified element.
+		 * @return 	<code>true</code> if this collection has changed as a result of the call. Returns <code>false</code> if this collection does not permit duplicates and already contains the specified element.
 		 */
 		function add(element:*): Boolean;
 

@@ -36,7 +36,7 @@ package org.as3collections.lists
 	import org.as3collections.IListIterator;
 	import org.as3collections.errors.IndexOutOfBoundsError;
 	import org.as3collections.iterators.ArrayIterator;
-	import org.as3collections.iterators.ArrayListIterator;
+	import org.as3collections.iterators.ListIterator;
 
 	/**
 	 * Resizable-array implementation of the <code>IList</code> interface. Implements all optional list operations, and permits all elements, including <code>null</code>. In addition to implementing the <code>IList</code> interface, this class provides the method <code>ensureCapacity</code> to manipulate the size of the array that is used internally to store the list.
@@ -45,7 +45,7 @@ package org.as3collections.lists
 	 * It is always at least as large as the list size.
 	 * As elements are added to an <code>ArrayList</code>, its capacity grows automatically.</p>
 	 * <p>It's possible to create unique lists, typed lists and even unique typed lists.
-	 * You just sends the <code>ArrayList</code> object to the wrappers <code>UniqueArrayList</code> or <code>TypedArrayList</code> or uses the <code>ArrayListUtil.getUniqueArrayList</code>, <code>ArrayListUtil.getTypedArrayList</code> or <code>ArrayListUtil.getUniqueTypedArrayList</code>.</p>
+	 * You just sends the <code>ArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ArrayListUtil.getUniqueList</code>, <code>ArrayListUtil.getTypedList</code> or <code>ArrayListUtil.getUniqueTypedList</code>.</p>
 	 * 
 	 * @example
 	 * 
@@ -312,7 +312,7 @@ package org.as3collections.lists
 	 * 
 	 * import org.as3collections.IList;
 	 * import org.as3collections.lists.ArrayList;
-	 * import org.as3collections.lists.UniqueArrayList;
+	 * import org.as3collections.lists.UniqueList;
 	 * 
 	 * var list1:ArrayList = new ArrayList();
 	 * 
@@ -354,7 +354,7 @@ package org.as3collections.lists
 	 * list2.remove(o1)                    // true -> equality used
 	 * list2                               // [[TestEquatableObject o1]]
 	 * 
-	 * var uniqueList:UniqueArrayList = new UniqueArrayList(new ArrayList());
+	 * var uniqueList:UniqueList = new UniqueList(new ArrayList());
 	 * 
 	 * uniqueList.contains(o1)             // false
 	 * uniqueList.add(o1)                  // true
@@ -366,9 +366,9 @@ package org.as3collections.lists
 	 * uniqueList                          // [[TestEquatableObject o1]]
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueArrayList() ArrayListUtil.getUniqueArrayList()
-	 * @see org.as3collections.utils.ArrayListUtil#getTypedArrayList() ArrayListUtil.getTypedArrayList()
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedArrayList() ArrayListUtil.getUniqueTypedArrayList()
+	 * @see org.as3collections.utils.ArrayListUtil#getUniqueList() ArrayListUtil.getUniqueList()
+	 * @see org.as3collections.utils.ArrayListUtil#getTypedList() ArrayListUtil.getTypedList()
+	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedList() ArrayListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
 	public class ArrayList extends AbstractList
@@ -445,15 +445,15 @@ package org.as3collections.lists
 
 		/**
 		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one. 
-		 * <p>This implementation returns an <code>ArrayListIterator</code> object.</p>
+		 * <p>This implementation returns an <code>ListIterator</code> object.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
 		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
-		 * @see 	org.as3collections.iterators.ArrayListIterator ArrayListIterator
+		 * @see 	org.as3collections.iterators.ListIterator ListIterator
 		 */
 		override public function listIterator(index:int = 0): IListIterator
 		{
-			return new ArrayListIterator(this, index);
+			return new ListIterator(this, index);
 		}
 
 		/**

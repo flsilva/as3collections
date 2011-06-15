@@ -41,8 +41,8 @@ package org.as3collections.lists
 	 * If none was provided the default behavior of the <code>sort</code> method is used.</p>
 	 * <p>The user of this list may change their order at any time by calling the <code>sort</code> or <code>sortOn</code> method and imposing others arguments to change the sort behaviour.</p>
 	 * <p>It's possible to create unique sorted lists, typed sorted lists and even unique typed sorted lists.
-	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueArrayList</code> or <code>TypedArrayList</code> or uses the <code>ArrayListUtil.getUniqueTypedArrayList</code>.
-	 * But there's a problem here: the return type will be <code>UniqueArrayList</code> or <code>TypedArrayList</code>.
+	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ArrayListUtil.getUniqueTypedList</code>.
+	 * But there's a problem here: the return type will be <code>UniqueList</code> or <code>TypedList</code>.
 	 * Thus you will can no longer use the <code>sort</code> and <code>sortOn</code> methods directly.
 	 * The wrapped <code>SortedArrayList</code> will be only automatically ordered, with the provided <code>comparator</code> and <code>options</code> constructor's arguments.
 	 * Check the examples at the bottom of the page.</p>
@@ -173,7 +173,7 @@ package org.as3collections.lists
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ArrayListUtil.getUniqueArrayList(l1);  // return type is UniqueArrayList
+	 * var list1:IList = ArrayListUtil.getUniqueList(l1);  // return type is UniqueList
 	 * 
 	 * list1                 // [100,99,10,5,1]
 	 * list1.size()          // 5
@@ -202,7 +202,7 @@ package org.as3collections.lists
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ArrayListUtil.getTypedArrayList(l1);  // return type is TypedArrayList
+	 * var list1:IList = ArrayListUtil.getTypedList(l1);  // return type is TypedList
 	 * 
 	 * list1                 // [100,99,10,5,5,1]
 	 * list1.size()          // 6
@@ -233,7 +233,7 @@ package org.as3collections.lists
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ArrayListUtil.getUniqueTypedArrayList(l1);  // return type is TypedArrayList
+	 * var list1:IList = ArrayListUtil.getUniqueTypedList(l1);  // return type is TypedList
 	 * 
 	 * list1                 // [100,99,10,5,1]
 	 * list1.size()          // 5

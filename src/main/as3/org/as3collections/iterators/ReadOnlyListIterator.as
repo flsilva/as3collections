@@ -39,15 +39,15 @@ package org.as3collections.iterators {
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class ReadOnlyArrayListIterator extends ArrayListIterator
+	public class ReadOnlyListIterator extends ListIterator
 	{
 		/**
-		 * Constructor, creates a new <code>ReadOnlyArrayListIterator</code> object.
+		 * Constructor, creates a new <code>ReadOnlyListIterator</code> object.
 		 * 
-		 * @param  	source 	the source <code>ReadOnlyArrayListIterator</code> to iterate over.
+		 * @param  	source 	the source <code>ReadOnlyListIterator</code> to iterate over.
 		 * @param  	position 	indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified position minus one.
 		 */
-		public function ReadOnlyArrayListIterator(source:IList, position:int = 0)
+		public function ReadOnlyListIterator(source:IList, position:int = 0)
 		{
 			super(source, position);
 		}
@@ -56,9 +56,9 @@ package org.as3collections.iterators {
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param element 	the element to add.
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListIterator</code> is a read-only iterator and doesn't allow modifications in the list.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyListIterator</code> is a read-only iterator and doesn't allow modifications in the list.
 		 */
-		override public function add(element:*): void
+		override public function add(element:*): Boolean
 		{
 			throw new UnsupportedOperationError(ReflectionUtil.getClassName(this) + " is a read-only iterator and doesn't allow modifications in the list.");
 		}
@@ -66,7 +66,7 @@ package org.as3collections.iterators {
 		/**
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListIterator</code> is a read-only iterator and doesn't allow modifications in the list.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyListIterator</code> is a read-only iterator and doesn't allow modifications in the list.
 		 */
 		override public function remove(): void
 		{
@@ -77,7 +77,7 @@ package org.as3collections.iterators {
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param element 	the element with which to replace the last element returned by <code>next</code> or <code>previous</code>.
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListIterator</code> is a read-only iterator and doesn't allow modifications in the list.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyListIterator</code> is a read-only iterator and doesn't allow modifications in the list.
 		 */
 		override public function set(element:*): void
 		{

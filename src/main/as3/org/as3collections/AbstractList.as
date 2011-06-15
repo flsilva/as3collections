@@ -179,7 +179,7 @@ package org.as3collections
 			var itOther:IIterator = c.iterator();
 			var o1:*;
 			var o2:*;
-			
+			//TODO: inserir o IF fora do loop. ou seja, criar dois loops. motivo: melhorar performance
 			while (it.hasNext())
 			{
 				o1 = it.next();

@@ -44,8 +44,9 @@ package org.as3collections
 		 * 
 		 * @param  	element 	the element to add.
 		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
+		 * @return 	<code>true</code> if the list has changed as a result of the call. Returns <code>false</code> if the list does not permit duplicates and already contains the specified element.
 		 */
-		function add(element:*): void;
+		function add(element:*): Boolean;
 
 		/**
 		 * Returns <code>true</code> if the iteration has more elements when traversing the list in the reverse direction.

@@ -33,7 +33,7 @@ package org.as3collections.lists
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.iterators.ReadOnlyArrayIterator;
-	import org.as3collections.iterators.ReadOnlyArrayListIterator;
+	import org.as3collections.iterators.ReadOnlyListIterator;
 	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
@@ -278,7 +278,7 @@ package org.as3collections.lists
 		{
 			var iterator:IListIterator = list.listIterator();
 			
-			var isClassPathEqual:Boolean = ReflectionUtil.classPathEquals(ReadOnlyArrayListIterator, iterator);
+			var isClassPathEqual:Boolean = ReflectionUtil.classPathEquals(ReadOnlyListIterator, iterator);
 			Assert.assertTrue(isClassPathEqual);
 		}
 		

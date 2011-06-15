@@ -34,10 +34,10 @@
 	<!-- org.as3collections.iterators -->
 
 	<component id="org.as3collections.iterators:ArrayIterator" 				class="org.as3collections.iterators.ArrayIterator" />
-	<component id="org.as3collections.iterators:ArrayListIterator" 			class="org.as3collections.iterators.ArrayListIterator" />
+	<component id="org.as3collections.iterators:ListIterator" 				class="org.as3collections.iterators.ListIterator" />
 	<component id="org.as3collections.iterators:MapIterator" 				class="org.as3collections.iterators.MapIterator" />
 	<component id="org.as3collections.iterators:ReadOnlyArrayIterator" 		class="org.as3collections.iterators.ReadOnlyArrayIterator" />
-	<component id="org.as3collections.iterators:ReadOnlyArrayListIterator" 	class="org.as3collections.iterators.ReadOnlyArrayListIterator" />
+	<component id="org.as3collections.iterators:ReadOnlyListIterator" 		class="org.as3collections.iterators.ReadOnlyListIterator" />
 	<component id="org.as3collections.iterators:ReadOnlyMapIterator" 		class="org.as3collections.iterators.ReadOnlyMapIterator" />
 
 	<!-- org.as3collections.lists -->
@@ -45,8 +45,8 @@
 	<component id="org.as3collections.lists:ArrayList" 						class="org.as3collections.lists.ArrayList" />
 	<component id="org.as3collections.lists:ReadOnlyArrayList" 				class="org.as3collections.lists.ReadOnlyArrayList" />
 	<component id="org.as3collections.lists:SortedArrayList" 				class="org.as3collections.lists.SortedArrayList" />
-	<component id="org.as3collections.lists:TypedArrayList" 				class="org.as3collections.lists.TypedArrayList" />
-	<component id="org.as3collections.lists:UniqueArrayList" 				class="org.as3collections.lists.UniqueArrayList" />
+	<component id="org.as3collections.lists:TypedList" 						class="org.as3collections.lists.TypedList" />
+	<component id="org.as3collections.lists:UniqueList" 					class="org.as3collections.lists.UniqueList" />
 	
 	<!-- org.as3collections.maps -->
 

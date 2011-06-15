@@ -32,8 +32,8 @@ package org.as3collections.utils
 	import flash.errors.IllegalOperationError;
 	
 	import org.as3collections.IList;
-	import org.as3collections.lists.TypedArrayList;
-	import org.as3collections.lists.UniqueArrayList;
+	import org.as3collections.lists.TypedList;
+	import org.as3collections.lists.UniqueList;
 
 	/**
 	 * A utility class to work with implementations of the <code>IList</code> interface.
@@ -53,7 +53,7 @@ package org.as3collections.utils
 		}
 
 		/**
-		 * Returns a new <code>TypedArrayList</code> with the <code>wrapList</code> argument wrapped.
+		 * Returns a new <code>TypedList</code> with the <code>wrapList</code> argument wrapped.
 		 * 
 		 * @example
 		 * 
@@ -64,7 +64,7 @@ package org.as3collections.utils
 		 * 
 		 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 		 * 
-		 * var list1:IList = ArrayListUtil.getTypedArrayList(l1, int);
+		 * var list1:IList = ArrayListUtil.getTypedList(l1, int);
 		 * 
 		 * list1                       // [3,5,1,7]
 		 * list1.size()                // 4
@@ -80,20 +80,20 @@ package org.as3collections.utils
 		 * list1.add("def")            // ClassCastError: Invalid element type. element: def | type: String | expected type: int
 		 * </listing>
 		 * 
-		 * @param  	wrapList 	the target list to be wrapped by the <code>TypedArrayList</code>.
-		 * @param  	type 		the type of the elements allowed by the returned <code>TypedArrayList</code>.
+		 * @param  	wrapList 	the target list to be wrapped by the <code>TypedList</code>.
+		 * @param  	type 		the type of the elements allowed by the returned <code>TypedList</code>.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapList</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
-		 * @return 	a new <code>TypedArrayList</code> with the <code>wrapList</code> argument wrapped.
+		 * @return 	a new <code>TypedList</code> with the <code>wrapList</code> argument wrapped.
 		 */
-		public static function getTypedArrayList(wrapList:IList, type:*): TypedArrayList
+		public static function getTypedList(wrapList:IList, type:*): TypedList
 		{
-			return new TypedArrayList(wrapList, type);
+			return new TypedList(wrapList, type);
 		}
 
 		/**
-		 * Returns a new <code>UniqueArrayList</code> with the <code>wrapList</code> argument wrapped.
+		 * Returns a new <code>UniqueList</code> with the <code>wrapList</code> argument wrapped.
 		 * 
 		 * @example
 		 * 
@@ -104,7 +104,7 @@ package org.as3collections.utils
 		 * 
 		 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 		 * 
-		 * var list1:IList = ArrayListUtil.getUniqueArrayList(l1);
+		 * var list1:IList = ArrayListUtil.getUniqueList(l1);
 		 * 
 		 * list1                       // [3,5,1,7]
 		 * list1.size()                // 4
@@ -118,30 +118,30 @@ package org.as3collections.utils
 		 * list1.size()                // 5
 		 * </listing>
 		 * 
-		 * @param  	wrapList 	the target list to be wrapped by the <code>UniqueArrayList</code>.
+		 * @param  	wrapList 	the target list to be wrapped by the <code>UniqueList</code>.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapList</code> argument is <code>null</code>.
-		 * @return 	a new <code>UniqueArrayList</code> with the <code>wrapList</code> argument wrapped.
+		 * @return 	a new <code>UniqueList</code> with the <code>wrapList</code> argument wrapped.
 		 */
-		public static function getUniqueArrayList(wrapList:IList): UniqueArrayList
+		public static function getUniqueList(wrapList:IList): UniqueList
 		{
-			return new UniqueArrayList(wrapList);
+			return new UniqueList(wrapList);
 		}
 
 		/**
-		 * Returns a new <code>TypedArrayList</code> that wraps a new <code>UniqueArrayList</code> that wraps the <code>wrapList</code> argument.
-		 * <p>The result will be a unique and typed array list, despite of the return type <code>TypedArrayList</code>.</p>
+		 * Returns a new <code>TypedList</code> that wraps a new <code>UniqueList</code> that wraps the <code>wrapList</code> argument.
+		 * <p>The result will be a unique and typed array list, despite of the return type <code>TypedList</code>.</p>
 		 * 
 		 * @example
 		 * 
 		 * <listing version="3.0">
 		 * import org.as3collections.IList;
 		 * import org.as3collections.lists.ArrayList;
-		 * import org.as3collections.lists.TypedArrayList;
+		 * import org.as3collections.lists.TypedList;
 		 * import org.as3collections.utils.ArrayListUtil;
 		 * 
 		 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 		 * 
-		 * var list1:IList = ArrayListUtil.getUniqueTypedArrayList(l1, int);
+		 * var list1:IList = ArrayListUtil.getUniqueTypedList(l1, int);
 		 * 
 		 * list1                   // [3,5,1,7]
 		 * list1.size()            // 4
@@ -177,15 +177,15 @@ package org.as3collections.utils
 		 * </listing>
 		 * 
 		 * @param  	wrapList 	the target list to be wrapped.
-		 * @param  	type 		the type of the elements allowed by the returned <code>TypedArrayList</code>.
+		 * @param  	type 		the type of the elements allowed by the returned <code>TypedList</code>.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapList</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
-		 * @return 	a new <code>TypedArrayList</code> with the <code>wrapList</code> argument wrapped.
+		 * @return 	a new <code>TypedList</code> with the <code>wrapList</code> argument wrapped.
 		 */
-		public static function getUniqueTypedArrayList(wrapList:IList, type:*): TypedArrayList
+		public static function getUniqueTypedList(wrapList:IList, type:*): TypedList
 		{
-			return new TypedArrayList(new UniqueArrayList(wrapList), type);
+			return new TypedList(new UniqueList(wrapList), type);
 		}
 
 	}

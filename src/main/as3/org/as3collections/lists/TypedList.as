@@ -33,20 +33,20 @@ package org.as3collections.lists {
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.TypedCollection;
-	import org.as3collections.iterators.ArrayListIterator;
+	import org.as3collections.iterators.ListIterator;
 	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
 
 	/**
-	 * <code>TypedArrayList</code> works as a wrapper for a list.
-	 * Since ActionScript 3.0 does not support typed arrays, <code>TypedArrayList</code> is a way to create typed lists.
+	 * <code>TypedList</code> works as a wrapper for a list.
+	 * Since ActionScript 3.0 does not support typed arrays, <code>TypedList</code> is a way to create typed lists.
 	 * It stores the <code>wrapList</code> constructor's argument in the <code>wrappedList</code> variable.
 	 * So every method call to this class is forwarded to the <code>wrappedList</code> object.
 	 * The methods that need to be checked for the type of the elements are previously validated with the <code>validateType</code> or <code>validateCollection</code> method before forward the call.
 	 * If the type of an element requested to be added to this list is incompatible with the type of the list a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
 	 * The calls that are forwarded to the <code>wrappedList</code> returns the return of the <code>wrappedList</code> call.
-	 * <p><code>TypedArrayList</code> does not allow <code>null</code> elements.</p>
-	 * <p>You can also create unique and typed lists. See below the link "ArrayListUtil.getUniqueTypedArrayList()".</p>
+	 * <p><code>TypedList</code> does not allow <code>null</code> elements.</p>
+	 * <p>You can also create unique and typed lists. See below the link "ArrayListUtil.getUniqueTypedList()".</p>
 	 * 
 	 * @example
 	 * 
@@ -54,14 +54,14 @@ package org.as3collections.lists {
 	 * import org.as3collections.IList;
 	 * import org.as3collections.IListIterator;
 	 * import org.as3collections.lists.ArrayList;
-	 * import org.as3collections.lists.TypedArrayList;
+	 * import org.as3collections.lists.TypedList;
 	 * import org.as3collections.utils.ArrayListUtil;
 	 * 
 	 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 	 * 
-	 * var list1:IList = new TypedArrayList(l1, int); // you can use this way
+	 * var list1:IList = new TypedList(l1, int); // you can use this way
 	 * 
-	 * //var list1:IList = ArrayListUtil.getTypedArrayList(l1, int); // or you can use this way
+	 * //var list1:IList = ArrayListUtil.getTypedList(l1, int); // or you can use this way
 	 * 
 	 * list1                          // [3,5,1,7]
 	 * list1.size()                   // 4
@@ -136,11 +136,11 @@ package org.as3collections.lists {
 	 * list1.setAt(0, [1,2])          // ClassCastError: Invalid element type. element: 1,2 | type: Array | expected type: int
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ArrayListUtil#getTypedArrayList() ArrayListUtil.getTypedArrayList()
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedArrayList() ArrayListUtil.getUniqueTypedArrayList()
+	 * @see org.as3collections.utils.ArrayListUtil#getTypedList() ArrayListUtil.getTypedList()
+	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedList() ArrayListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
-	public class TypedArrayList extends TypedCollection implements IList
+	public class TypedList extends TypedCollection implements IList
 	{
 		/**
 		 * Returns the return of the call <code>wrappedList.modCount</code>.
@@ -153,7 +153,7 @@ package org.as3collections.lists {
 		protected function get wrappedList(): IList { return wrappedCollection as IList; }
 
 		/**
-		 * Constructor, creates a new <code>TypedArrayList</code> object.
+		 * Constructor, creates a new <code>TypedList</code> object.
 		 * 
 		 * @param 	wrapList 	the target list to wrap.
 		 * @param 	type 		the type of the elements allowed by this list.
@@ -161,7 +161,7 @@ package org.as3collections.lists {
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
 		 */
-		public function TypedArrayList(wrapList:IList, type:*)
+		public function TypedList(wrapList:IList, type:*)
 		{
 			super(wrapList, type);
 		}
@@ -195,13 +195,13 @@ package org.as3collections.lists {
 		}
 
 		/**
-		 * Creates and return a new <code>TypedArrayList</code> object with the clone of the <code>wrappedList</code> object.
+		 * Creates and return a new <code>TypedList</code> object with the clone of the <code>wrappedList</code> object.
 		 * 
-		 * @return 	a new <code>TypedArrayList</code> object with the clone of the <code>wrappedList</code> object.
+		 * @return 	a new <code>TypedList</code> object with the clone of the <code>wrappedList</code> object.
  		 */
 		override public function clone(): *
 		{
-			return new TypedArrayList(wrappedList.clone(), type);
+			return new TypedList(wrappedList.clone(), type);
 		}
 
 		/**
@@ -285,15 +285,15 @@ package org.as3collections.lists {
 
 		/**
 		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one. 
-		 * <p>This implementation returns an <code>ArrayListIterator</code> object.</p>
+		 * <p>This implementation returns an <code>ListIterator</code> object.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
 		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
-		 * @see 	org.as3collections.iterators.ArrayListIterator ArrayListIterator
+		 * @see 	org.as3collections.iterators.ListIterator ListIterator
 		 */
 		public function listIterator(index:int = 0): IListIterator
 		{
-			return new ArrayListIterator(this, index);
+			return new ListIterator(this, index);
 		}
 
 		/**
@@ -342,17 +342,17 @@ package org.as3collections.lists {
 		}
 
 		/**
-		 * Returns a new <code>TypedArrayList(wrappedList.subList(fromIndex, toIndex))</code>. 
-		 * <p>Modifications in the returned <code>TypedArrayList</code> object doesn't affect this list.</p>
+		 * Returns a new <code>TypedList(wrappedList.subList(fromIndex, toIndex))</code>. 
+		 * <p>Modifications in the returned <code>TypedList</code> object doesn't affect this list.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving elements (exclusive).
 		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
-		 * @return 	a new <code>TypedArrayList(wrappedList.subList(fromIndex, toIndex))</code>.
+		 * @return 	a new <code>TypedList(wrappedList.subList(fromIndex, toIndex))</code>.
 		 */
 		public function subList(fromIndex:int, toIndex:int): IList
 		{
-			return new TypedArrayList(wrappedList.subList(fromIndex, toIndex), type);
+			return new TypedList(wrappedList.subList(fromIndex, toIndex), type);
 		}
 
 	}

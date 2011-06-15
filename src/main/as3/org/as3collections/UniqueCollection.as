@@ -34,12 +34,12 @@ package org.as3collections {
 
 	/**
 	 * <code>UniqueCollection</code> works as a wrapper for a collection.
-	 * It does not allow duplicated elements in the collection.
-	 * It stores the <code>wrapCollection</code> constructor's argument in the <code>wrappedCollection</code> variable.
+	 * <p>It does not allow duplicate elements in the collection.</p>
+	 * <p>It stores the <code>wrapCollection</code> constructor's argument internally.
 	 * So every method call to this class is forwarded to the <code>wrappedCollection</code> object.
 	 * The methods that need to be checked for duplication are previously validated before forward the call.
 	 * No error is thrown by the validation of duplication.
-	 * The calls that are forwarded to the <code>wrappedCollection</code> returns the return of the <code>wrappedCollection</code> call.
+	 * The calls that are forwarded to the <code>wrappedCollection</code> returns the return of the <code>wrappedCollection</code> call.</p>
 	 * 
 	 * @author Flávio Silva
 	 */
@@ -70,7 +70,7 @@ package org.as3collections {
 		}
 
 		/**
-		 * If <code>wrappedCollection.contains(element)</code> returns <code>true</code> then returns <code>false</code>. Otherwise, it forwards the call to <code>wrappedCollection.add</code>.
+		 * If <code>wrappedCollection.contains(element)</code> returns <code>true</code>, then this method returns <code>false</code>. Otherwise, it forwards the call to <code>wrappedCollection.add</code>.
 		 * 
 		 * @param  	element 	the element to forward to <code>wrappedCollection.add</code>.
 		 * @return 	<code>false</code> if <code>wrappedCollection.contains(element)</code> returns <code>true</code>. Otherwise returns the return of the call <code>wrappedCollection.add</code>.
@@ -82,14 +82,16 @@ package org.as3collections {
 		}
 
 		/**
-		 * If the specified collection is <code>null</code> or empty returns <code>false</code>. Otherwise, it clones the specified collection, removes all elements that already are in the <code>wrappedCollection</code> and removes all duplicates. Then it forwards the call to <code>wrappedCollection.addAll</code> sending the cloned/filtered collection.
+		 * If the specified collection is empty returns <code>false</code>. Otherwise, it clones the specified collection, removes all elements that already are in the <code>wrappedCollection</code> and removes all duplicates. Then it forwards the call to <code>wrappedCollection.addAll</code> sending the cloned and filtered collection.
 		 * 
 		 * @param  	collection 	the collection to forward to <code>wrappedCollection.addAll</code>.
+		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 if the specified collection contains a <code>null</code> element and <code>wrappedCollection</code> does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>false</code> if the specified collection is <code>null</code> or empty. Otherwise returns the return of the call <code>wrappedCollection.addAll</code>.
 		 */
 		public function addAll(collection:ICollection): Boolean
 		{
-			if (!collection || collection.isEmpty()) return false;
+			if (!collection) throw new NullPointerError("The 'collection' argument must not be 'null'.");
+			if (collection.isEmpty()) return false;
 			
 			var c:ICollection = collection.clone();
 			filterCollection(c);
