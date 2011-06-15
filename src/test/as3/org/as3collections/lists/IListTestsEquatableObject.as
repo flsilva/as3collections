@@ -454,6 +454,148 @@ package org.as3collections.lists
 			Assert.assertEquals(2, index);
 		}
 		
+		//////////////////////////////
+		// IList().modCount() TESTS //
+		//////////////////////////////
+		
+		[Test]
+		public function modCount_addOneEquatableElement_ReturnsOne(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			list.add(equatableObject1A);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(1, modCount);
+		}
+		
+		[Test]
+		public function modCount_addTwoEquatableElements_ReturnsTwo(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(2, modCount);
+		}
+		
+		[Test]
+		public function modCount_addAll_argumentWithThreeEquatableElements_ReturnsThree(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			var addAllCollection:ICollection = getCollection();
+			addAllCollection.add(equatableObject1A);
+			addAllCollection.add(equatableObject2A);
+			addAllCollection.add(equatableObject3A);
+			
+			list.addAll(addAllCollection);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(3, modCount);
+		}
+		
+		[Test]
+		public function modCount_addTwoEquatableElementsThenClear_ReturnsThree(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			list.clear();
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(3, modCount);
+		}
+		
+		[Test]
+		public function modCount_addOneEquatableElementThenRemoveIt_ReturnsTwo(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			
+			list.add(equatableObject1A);
+			list.remove(equatableObject1A);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(2, modCount);
+		}
+		
+		[Test]
+		public function modCount_removeAll_addThreeEquatableElementsThenRemoveAllWithTwoElements_ReturnsFive(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			list.add(equatableObject3A);
+			
+			var removeAllCollection:ICollection = getCollection();
+			removeAllCollection.add(equatableObject2A);
+			removeAllCollection.add(equatableObject3A);
+			
+			list.removeAll(removeAllCollection);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(5, modCount);
+		}
+		
+		[Test]
+		public function modCount_removeAt_addOneEquatableElementThenRemoveIt_ReturnsTwo(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			
+			list.add(equatableObject1A);
+			list.removeAt(0);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(2, modCount);
+		}
+		
+		[Test]
+		public function modCount_removeRange_addThreeEquatableElementsThenRemoveRangeWithTwoElements_ReturnsFour(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			list.add(equatableObject3A);
+			
+			list.removeRange(1, 3);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(4, modCount);
+		}
+		
+		[Test]
+		public function modCount_retainAll_addThreeEquatableElementsThenRetainAllWithTwoElements_ReturnsFour(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			list.add(equatableObject3A);
+			
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add(equatableObject2A);
+			retainAllCollection.add(equatableObject3A);
+			
+			list.retainAll(retainAllCollection);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(4, modCount);
+		}
+		
 		///////////////////////////
 		// IList().setAt() TESTS //
 		///////////////////////////

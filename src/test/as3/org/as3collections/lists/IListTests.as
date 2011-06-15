@@ -455,15 +455,128 @@ package org.as3collections.lists
 			Assert.assertEquals(2, index);
 		}
 		
-		//////////////////////////////////
-		// IList().listIterator() TESTS //
-		//////////////////////////////////
+		//////////////////////////////
+		// IList().modCount() TESTS //
+		//////////////////////////////
 		
 		[Test]
-		public function listIterator_emptyCollection_ReturnValidIListIteratorObject(): void
+		public function modCount_addOneNotEquatableElement_ReturnsOne(): void
 		{
-			var it:IListIterator = list.listIterator();
-			Assert.assertNotNull(it);
+			list.add("element-1");
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(1, modCount);
+		}
+		
+		[Test]
+		public function modCount_addTwoNotEquatableElements_ReturnsTwo(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(2, modCount);
+		}
+		
+		[Test]
+		public function modCount_addAll_argumentWithThreeNotEquatableElements_ReturnsThree(): void
+		{
+			var addAllCollection:ICollection = getCollection();
+			addAllCollection.add("element-1");
+			addAllCollection.add("element-2");
+			addAllCollection.add("element-3");
+			
+			list.addAll(addAllCollection);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(3, modCount);
+		}
+		
+		[Test]
+		public function modCount_clearEmptyList_ReturnsZero(): void
+		{
+			list.clear();
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(0, modCount);
+		}
+		
+		[Test]
+		public function modCount_addTwoNotEquatableElementsThenClear_ReturnsThree(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.clear();
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(3, modCount);
+		}
+		
+		[Test]
+		public function modCount_addOneNotEquatableElementThenRemoveIt_ReturnsTwo(): void
+		{
+			list.add("element-1");
+			list.remove("element-1");
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(2, modCount);
+		}
+		
+		[Test]
+		public function modCount_removeAll_addThreeNotEquatableElementsThenRemoveAllWithTwoElements_ReturnsFive(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			var removeAllCollection:ICollection = getCollection();
+			removeAllCollection.add("element-2");
+			removeAllCollection.add("element-3");
+			
+			list.removeAll(removeAllCollection);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(5, modCount);
+		}
+		
+		[Test]
+		public function modCount_removeAt_addOneNotEquatableElementThenRemoveIt_ReturnsTwo(): void
+		{
+			list.add("element-1");
+			list.removeAt(0);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(2, modCount);
+		}
+		
+		[Test]
+		public function modCount_removeRange_addThreeNotEquatableElementsThenRemoveRangeWithTwoElements_ReturnsFour(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			list.removeRange(1, 3);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(4, modCount);
+		}
+		
+		[Test]
+		public function modCount_retainAll_addThreeNotEquatableElementsThenRetainAllWithTwoElements_ReturnsFour(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add("element-2");
+			retainAllCollection.add("element-3");
+			
+			list.retainAll(retainAllCollection);
+			
+			var modCount:int = list.modCount;
+			Assert.assertEquals(4, modCount);
 		}
 		
 		//////////////////////////////
