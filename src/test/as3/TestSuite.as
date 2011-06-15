@@ -34,6 +34,7 @@ package
 	import org.as3collections.lists.ReadOnlyArrayListTests;
 	import org.as3collections.lists.TypedListTests;
 	import org.as3collections.lists.UniqueListTests;
+	import org.as3collections.lists.UniqueListTestsEquatableObject;
 
 	/**
 	 * @author Flávio Silva
@@ -49,6 +50,7 @@ package
 		public var readOnlyArrayListTests:ReadOnlyArrayListTests;
 		public var typedListTests:TypedListTests;
 		public var uniqueListTests:UniqueListTests;
+		public var uniqueListTestsEquatableObject:UniqueListTestsEquatableObject;
 		
 		public function TestSuite()
 		{
