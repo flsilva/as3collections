@@ -35,13 +35,13 @@ package org.as3collections {
 	import org.as3utils.ReflectionUtil;
 
 	/**
-	 * <code>TypedCollection</code> works as a wrapper for a collection.
-	 * Since ActionScript 3.0 does not support typed array, <code>TypedCollection</code> is a way to create typed collections.
-	 * It stores the <code>wrapCollection</code> constructor's argument in the <code>wrappedCollection</code> variable.
+	 * <p><code>TypedCollection</code> works as a wrapper for a collection.</p>
+	 * <p>Since ActionScript 3.0 does not support typed arrays, <code>TypedCollection</code> is a way to create typed collections.</p>
+	 * <p>It stores the <code>wrapCollection</code> constructor's argument internally.
 	 * So every method call to this class is forwarded to the <code>wrappedCollection</code> object.
 	 * The methods that need to be checked for the type of the elements are previously validated with the <code>validateType</code> or <code>validateCollection</code> method before forward the call.
 	 * If the type of an element requested to be added to this collection is incompatible with the type of the collection a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
-	 * The calls that are forwarded to the <code>wrappedCollection</code> returns the return of the <code>wrappedCollection</code> call.
+	 * The calls that are forwarded to the <code>wrappedCollection</code> returns the return of the <code>wrappedCollection</code> call.</p>
 	 * <p>The <code>TypedCollection.type</code> setter is not supported and will thrown an <code>UnsupportedOperationError</code> if used.</p>
 	 * 
 	 * @author Flávio Silva
@@ -317,7 +317,7 @@ package org.as3collections {
 		{
 			if (!collection) return;
 			if (collection.isEmpty()) return;
-			
+			//TODO: pensar sobre migrar esse método para CollectionUtil
 			var it:IIterator = collection.iterator();
 			
 			while (it.hasNext())
