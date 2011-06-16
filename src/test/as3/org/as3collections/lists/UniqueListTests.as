@@ -33,7 +33,6 @@ package org.as3collections.lists
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.UniqueCollectionTests;
-	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**

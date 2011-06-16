@@ -90,15 +90,68 @@ package org.as3collections
 			Assert.assertFalse(allEquatable);
 		}
 		
-		////////////////////////////////////
-		// ICollection().iterator() TESTS //
-		////////////////////////////////////
+		///////////////////////////////
+		// ICollection().add() TESTS //
+		///////////////////////////////
 		
 		[Test]
-		public function iterator_emptyCollection_ReturnValidIIteratorObject(): void
+		public function add_validElementNotEquatable_ReturnsTrue(): void
 		{
-			var it:IIterator = collection.iterator();
-			Assert.assertNotNull(it);
+			var added:Boolean = collection.add("element-1");
+			Assert.assertTrue(added);
+		}
+		
+		//////////////////////////////////
+		// ICollection().addAll() TESTS //
+		//////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function addAll_invalidArgument_ThrowsError(): void
+		{
+			collection.addAll(null);
+		}
+		
+		[Test]
+		public function addAll_validEmptyArgument_ReturnsFalse(): void
+		{
+			var addCollection:ICollection = getCollection();
+			
+			var changed:Boolean = collection.addAll(addCollection);
+			Assert.assertFalse(changed);
+		}
+		
+		[Test]
+		public function addAll_validArgumentWithNoneElementEquatable_ReturnsTrue(): void
+		{
+			var addCollection:ICollection = getCollection();
+			addCollection.add("element-1");
+			addCollection.add("element-2");
+			
+			var changed:Boolean = collection.addAll(addCollection);
+			Assert.assertTrue(changed);
+		}
+		
+		/////////////////////////////////
+		// ICollection().clear() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function clear_emptyCollection_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.clear();
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function clear_collectionWithOneNotEquatableElement_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.clear();
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
 		}
 		
 		/////////////////////////////////
@@ -131,84 +184,6 @@ package org.as3collections
 			var clonedCollection:ICollection = collection.clone();
 			clonedCollection.remove("element-2");
 			Assert.assertFalse(collection.equals(clonedCollection));
-		}
-		
-		//////////////////////////////////
-		// ICollection().equals() TESTS //
-		//////////////////////////////////
-		
-		[Test]
-		public function equals_collectionWithTwoNotEquatableElements_differentCollections_checkIfBothCollectionsAreEqual_ReturnsFalse(): void
-		{
-			collection.add("element-1");
-			collection.add("element-2");
-			
-			var collection2:ICollection = getCollection();
-			collection2.add("element-2");
-			
-			Assert.assertFalse(collection.equals(collection2));
-		}
-		
-		[Test]
-		public function equals_collectionWithTwoNotEquatableElements_equalCollections_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
-		{
-			collection.add("element-1");
-			collection.add("element-2");
-			
-			var collection2:ICollection = getCollection();
-			collection2.add("element-1");
-			collection2.add("element-2");
-			
-			Assert.assertTrue(collection.equals(collection2));
-		}
-		
-		///////////////////////////////
-		// ICollection().add() TESTS //
-		///////////////////////////////
-		
-		[Test]
-		public function add_validElementNotEquatable_ReturnsTrue(): void
-		{
-			var added:Boolean = collection.add("element-1");
-			Assert.assertTrue(added);
-		}
-		
-		//////////////////////////////////
-		// ICollection().addAll() TESTS //
-		//////////////////////////////////
-		
-		[Test]
-		public function addAll_validListNoneElementEquatable_ReturnsTrue(): void
-		{
-			var addCollection:ICollection = getCollection();
-			addCollection.add("element-1");
-			addCollection.add("element-2");
-			
-			var changed:Boolean = collection.addAll(addCollection);
-			Assert.assertTrue(changed);
-		}
-		
-		/////////////////////////////////
-		// ICollection().clear() TESTS //
-		/////////////////////////////////
-		
-		[Test]
-		public function clear_emptyCollection_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			collection.clear();
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function clear_collectionWithOneNotEquatableElement_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			collection.add("element-1");
-			collection.clear();
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
 		}
 		
 		////////////////////////////////////
@@ -254,6 +229,21 @@ package org.as3collections
 		// ICollection().containsAll() TESTS //
 		///////////////////////////////////////
 		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function containsAll_invalidCollection_ThrowsError(): void
+		{
+			collection.containsAll(null);
+		}
+		
+		[Test]
+		public function containsAll_emptyArgument_ReturnsTrue(): void
+		{
+			var containsCollection:ICollection = getCollection();
+			
+			var containsAll:Boolean = collection.containsAll(containsCollection);
+			Assert.assertTrue(containsAll);
+		}
+		
 		[Test]
 		public function containsAll_emptyCollection_ReturnsFalse(): void
 		{
@@ -295,6 +285,35 @@ package org.as3collections
 			Assert.assertTrue(containsAll);
 		}
 		
+		//////////////////////////////////
+		// ICollection().equals() TESTS //
+		//////////////////////////////////
+		
+		[Test]
+		public function equals_collectionWithTwoNotEquatableElements_differentCollections_checkIfBothCollectionsAreEqual_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add("element-2");
+			
+			Assert.assertFalse(collection.equals(collection2));
+		}
+		
+		[Test]
+		public function equals_collectionWithTwoNotEquatableElements_equalCollections_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add("element-1");
+			collection2.add("element-2");
+			
+			Assert.assertTrue(collection.equals(collection2));
+		}
+		
 		///////////////////////////////////
 		// ICollection().isEmpty() TESTS //
 		///////////////////////////////////
@@ -313,6 +332,17 @@ package org.as3collections
 			
 			var isEmpty:Boolean = collection.isEmpty();
 			Assert.assertFalse(isEmpty);
+		}
+		
+		////////////////////////////////////
+		// ICollection().iterator() TESTS //
+		////////////////////////////////////
+		
+		[Test]
+		public function iterator_emptyCollection_ReturnValidIIteratorObject(): void
+		{
+			var it:IIterator = collection.iterator();
+			Assert.assertNotNull(it);
 		}
 		
 		//////////////////////////////////
@@ -341,13 +371,28 @@ package org.as3collections
 		// ICollection().removeAll() TESTS //
 		/////////////////////////////////////
 		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function removeAll_invalidArgument_ThrowsError(): void
+		{
+			collection.removeAll(null);
+		}
+		
+		[Test]
+		public function removeAll_emptyArgument_ReturnsFalse(): void
+		{
+			var removeAllCollection:ICollection = getCollection();
+			
+			var changed:Boolean = collection.removeAll(removeAllCollection);
+			Assert.assertFalse(changed);
+		}
+		
 		[Test]
 		public function removeAll_emptyCollection_ReturnsFalse(): void
 		{
-			var containsCollection:ICollection = getCollection();
-			containsCollection.add("element-1");
+			var removeAllCollection:ICollection = getCollection();
+			removeAllCollection.add("element-1");
 			
-			var changed:Boolean = collection.removeAll(containsCollection);
+			var changed:Boolean = collection.removeAll(removeAllCollection);
 			Assert.assertFalse(changed);
 		}
 		
@@ -369,6 +414,21 @@ package org.as3collections
 		/////////////////////////////////////
 		// ICollection().retainAll() TESTS //
 		/////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function retainAll_invalidArgument_ThrowsError(): void
+		{
+			collection.retainAll(null);
+		}
+		
+		[Test]
+		public function retainAll_emptyArgument_ReturnsFalse(): void
+		{
+			var retainAllCollection:ICollection = getCollection();
+			
+			var changed:Boolean = collection.retainAll(retainAllCollection);
+			Assert.assertFalse(changed);
+		}
 		
 		[Test]
 		public function retainAll_collectionWithTwoNotEquatableElements_argumentWithTheTwoCollectionElements_ReturnsFalse(): void

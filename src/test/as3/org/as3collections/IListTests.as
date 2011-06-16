@@ -110,6 +110,21 @@ package org.as3collections
 		// IList().addAllAt() TESTS //
 		//////////////////////////////
 		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function addAllAt_invalidArgument_ThrowsError(): void
+		{
+			list.addAllAt(0, null);
+		}
+		
+		[Test]
+		public function addAllAt_validEmptyArgument_ReturnsFalse(): void
+		{
+			var addCollection:ICollection = getCollection();
+			
+			var changed:Boolean = list.addAllAt(0, addCollection);
+			Assert.assertFalse(changed);
+		}
+		
 		[Test]
 		public function addAllAt_emptyList_validListNoneElementEquatable_ReturnsTrue(): void
 		{

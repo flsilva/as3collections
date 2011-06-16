@@ -27,7 +27,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections {
+package org.as3collections
+{
 	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3utils.ReflectionUtil;
