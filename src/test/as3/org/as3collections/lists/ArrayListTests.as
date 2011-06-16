@@ -30,7 +30,9 @@
 package org.as3collections.lists
 {
 	import org.as3collections.ICollection;
+	import org.as3collections.IList;
 	import org.as3collections.IListTests;
+	import org.flexunit.Assert;
 
 	/**
 	 * @author Flávio Silva
@@ -50,6 +52,28 @@ package org.as3collections.lists
 		override public function getCollection():ICollection
 		{
 			return new ArrayList();
+		}
+		
+		///////////////////////////////////
+		// ArrayList() constructor TESTS //
+		///////////////////////////////////
+		
+		[Test]
+		public function constructor_argumentWithTwoElements_checkIfIsEmpty_ReturnsFalse(): void
+		{
+			var newList:IList = new ArrayList(["element-1", "element-2"]);
+			
+			var isEmpty:Boolean = newList.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test]
+		public function constructor_argumentWithTwoElements_checkIfSizeIsTwo_ReturnsTrue(): void
+		{
+			var newList:IList = new ArrayList(["element-1", "element-2"]);
+			
+			var size:int = newList.size();
+			Assert.assertEquals(2, size);
 		}
 		
 	}
