@@ -76,6 +76,28 @@ package org.as3collections.lists
 			Assert.assertEquals(2, size);
 		}
 		
+		////////////////////////////////////
+		// IList().ensureCapacity() TESTS //
+		////////////////////////////////////
+		
+		[Test]
+		public function ensureCapacity_checkIfSizeMatches_ReturnsTrue(): void
+		{
+			(list as ArrayList).ensureCapacity(5);
+			
+			var size:int = list.size();
+			Assert.assertEquals(5, size);
+		}
+		
+		[Test]
+		public function ensureCapacity_tryToSetAt_ReturnsTrue(): void
+		{
+			(list as ArrayList).ensureCapacity(5);
+			
+			var added:Boolean = list.addAt(4, "element-1");
+			Assert.assertTrue(added);
+		}
+		
 		////////////////////////////
 		// IList().equals() TESTS //
 		////////////////////////////

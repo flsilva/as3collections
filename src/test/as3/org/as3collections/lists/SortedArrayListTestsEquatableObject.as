@@ -33,7 +33,6 @@ package org.as3collections.lists
 	import org.as3collections.ICollection;
 	import org.as3collections.IListTestsEquatableObject;
 	import org.as3collections.ISortedList;
-	import org.as3coreaddendum.system.comparators.DateComparator;
 	import org.flexunit.Assert;
 
 	/**
