@@ -103,7 +103,7 @@ package org.as3collections.lists
 		////////////////////////////
 		
 		[Test]
-		public function equals_listWithTwoNotEquatableElements_equalElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
+		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
 		{
 			collection.add("element-1");
 			collection.add("element-2");
@@ -113,6 +113,19 @@ package org.as3collections.lists
 			collection2.add("element-1");
 			
 			Assert.assertFalse(collection.equals(collection2));
+		}
+		
+		[Test]
+		public function equals_listWithTwoNotEquatableElements_sameElementsAndSameOrder_checkIfBothListsAreEqual_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add("element-1");
+			collection2.add("element-2");
+			
+			Assert.assertTrue(collection.equals(collection2));
 		}
 		
 		/////////////////////////////

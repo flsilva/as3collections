@@ -131,6 +131,19 @@ package org.as3collections.lists
 			list.clear();
 		}
 		
+		///////////////////////////////////////
+		// ReadOnlyArrayList().clone() TESTS //
+		///////////////////////////////////////
+		
+		[Test]
+		public function clone_listWithTwoNotEquatableElements_checkIfBothListsAreEqual_ReturnsTrue(): void
+		{
+			var newList1:IList = new ReadOnlyArrayList(["element-1", "element-2"]);
+			
+			var clonedList:IList = newList1.clone();
+			Assert.assertTrue(newList1.equals(clonedList));
+		}
+		
 		//////////////////////////////////////////
 		// ReadOnlyArrayList().contains() TESTS //
 		//////////////////////////////////////////
@@ -173,6 +186,28 @@ package org.as3collections.lists
 			
 			var contains:Boolean = list.containsAll(containsAllList);
 			Assert.assertFalse(contains);
+		}
+		
+		////////////////////////////////////////
+		// ReadOnlyArrayList().equals() TESTS //
+		////////////////////////////////////////
+		
+		[Test]
+		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
+		{
+			var newList1:IList = new ReadOnlyArrayList(["element-1", "element-2"]);
+			var newList2:IList = new ReadOnlyArrayList(["element-2", "element-1"]);
+			
+			Assert.assertFalse(newList1.equals(newList2));
+		}
+		
+		[Test]
+		public function equals_listWithTwoNotEquatableElements_sameElementsAndSameOrder_checkIfBothListsAreEqual_ReturnsTrue(): void
+		{
+			var newList1:IList = new ReadOnlyArrayList(["element-1", "element-2"]);
+			var newList2:IList = new ReadOnlyArrayList(["element-1", "element-2"]);
+			
+			Assert.assertTrue(newList1.equals(newList2));
 		}
 		
 		///////////////////////////////////////

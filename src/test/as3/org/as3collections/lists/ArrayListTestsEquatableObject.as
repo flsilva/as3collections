@@ -74,6 +74,25 @@ package org.as3collections.lists
 			Assert.assertFalse(collection.equals(collection2));
 		}
 		
+		[Test]
+		public function equals_listWithTwoEquatableElements_sameElementsAndSameOrder_checkIfBothListsAreEqual_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			collection.add(equatableObject1A);
+			collection.add(equatableObject2A);
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add(equatableObject1B);
+			collection2.add(equatableObject2B);
+			
+			Assert.assertTrue(collection.equals(collection2));
+		}
+		
 		/////////////////////////////
 		// IList().indexOf() TESTS //
 		/////////////////////////////
