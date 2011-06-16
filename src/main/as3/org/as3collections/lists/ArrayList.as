@@ -39,11 +39,14 @@ package org.as3collections.lists
 	import org.as3collections.iterators.ListIterator;
 
 	/**
-	 * Resizable-array implementation of the <code>IList</code> interface. Implements all optional list operations, and permits all elements, including <code>null</code>. In addition to implementing the <code>IList</code> interface, this class provides the method <code>ensureCapacity</code> to manipulate the size of the array that is used internally to store the list.
+	 * Resizable-array implementation of the <code>IList</code> interface.
+	 * Implements all optional list operations, and permits all elements, including <code>null</code>.
 	 * <p>Each <code>ArrayList</code> instance has a capacity.
 	 * The capacity is the size of the array used to store the elements in the list.
 	 * It is always at least as large as the list size.
 	 * As elements are added to an <code>ArrayList</code>, its capacity grows automatically.</p>
+	 * <p>In addition to implementing the <code>IList</code> interface, this class provides the <code>ensureCapacity</code> method to arbitrarily manipulate the size of the array (this usage is not common) that is used internally to store the elements.
+	 * Check the examples at the bottom of the page for further information about usage.</p>
 	 * <p>It's possible to create unique lists, typed lists and even unique typed lists.
 	 * You just sends the <code>ArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ArrayListUtil.getUniqueList</code>, <code>ArrayListUtil.getTypedList</code> or <code>ArrayListUtil.getUniqueTypedList</code>.</p>
 	 * 

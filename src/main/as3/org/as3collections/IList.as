@@ -74,7 +74,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
 		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
-		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and alread contains the specified element.
+		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and already contains the specified element.
 		 */
 		function addAt(index:int, element:*): Boolean;
 

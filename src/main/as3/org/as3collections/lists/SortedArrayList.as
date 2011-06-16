@@ -32,20 +32,23 @@ package org.as3collections.lists
 	import org.as3collections.ICollection;
 	import org.as3collections.IList;
 	import org.as3collections.ISortedList;
+	import org.as3collections.errors.IndexOutOfBoundsError;
 	import org.as3coreaddendum.system.IComparator;
+	import org.as3utils.ReflectionUtil;
 
 	/**
 	 * A list that provides a <em>total ordering</em> on its elements.
 	 * The list is ordered according to the <em>natural ordering</em> of its elements, by a <em>IComparator</em> typically provided at sorted list creation time, or by the arguments provided to the <code>sort</code> or <code>sortOn</code> methods.
 	 * <p>For each change that occurs the list is automatically ordered using the <code>comparator</code> and <code>options</code>.
 	 * If none was provided the default behavior of the <code>sort</code> method is used.</p>
-	 * <p>The user of this list may change their order at any time by calling the <code>sort</code> or <code>sortOn</code> method and imposing others arguments to change the sort behaviour.</p>
+	 * <p>The user of this list may change their order at any time using the setters <code>comparator</code> and <code>options</code>, or by calling the <code>sort</code> or <code>sortOn</code> method and imposing others arguments to change the sort behaviour.</p>
 	 * <p>It's possible to create unique sorted lists, typed sorted lists and even unique typed sorted lists.
 	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ArrayListUtil.getUniqueTypedList</code>.
 	 * But there's a problem here: the return type will be <code>UniqueList</code> or <code>TypedList</code>.
-	 * Thus you will can no longer use the <code>sort</code> and <code>sortOn</code> methods directly.
-	 * The wrapped <code>SortedArrayList</code> will be only automatically ordered, with the provided <code>comparator</code> and <code>options</code> constructor's arguments.
-	 * Check the examples at the bottom of the page.</p>
+	 * Thus you will not be able to use <code>sort</code> and <code>sortOn</code> methods directly (and even the setters <code>comparator</code> and <code>options</code>).
+	 * This is not such a big problem because <code>SortedArrayList</code> is automatically ordered whenever it changes, using the provided <code>comparator</code> and <code>options</code> constructor's arguments.
+	 * But you will not be able to change the <code>comparator</code> and <code>options</code>.
+	 * Check the examples at the bottom of the page for further information about usage.</p>
 	 * 
 	 * @example
 	 * 
@@ -328,6 +331,39 @@ package org.as3collections.lists
 		}
 
 		/**
+		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
+		 * <p>This implementation considers two differente objects equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class</li>
+		 * <li>object A contains all elements of object B</li>
+		 * <li>object B contains all elements of object A</li>
+		 * <li>elements have exactly the same order</li>
+		 * <li>object A and object B has the same type of comparator</li>
+		 * <li>object A and object B has the same options</li>
+		 * </ul></p>
+		 * <p>This implementation takes care of the order of the elements in the list.
+		 * So, for two lists are equal the order of elements returned by the iterator object must be equal.</p>
+		 * 
+		 * @param  	other 	the object to be compared for equality.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		override public function equals(other:*): Boolean
+		{
+			if (this == other) return true;
+			
+			if (!ReflectionUtil.classPathEquals(this, other)) return false;
+			
+			var l:ISortedList = other as ISortedList;
+			
+			if (_options != l.options) return false;
+			if (!_comparator && l.comparator) return false;
+			if (_comparator && !l.comparator) return false;
+			if (!ReflectionUtil.classPathEquals(_comparator, l.comparator)) return false;
+			
+			return super.equals(other);
+		}
+
+		/**
 		 * Removes a single instance (only one occurrence) of the specified object from this list, if it is present.
 		 * <p>Before returning, the list is reordered.</p>
 		 * 
@@ -403,12 +439,13 @@ package org.as3collections.lists
 
 		/**
 		 * Reverses the list.
-		 * When this method is called, the list is reversed and the status <em>reversed</em> (<code>true</code>/<code>false</code>) is stored.
-		 * When the list is automatically ordered by any change, if the status is <em>reversed</em> = <code>true</code>, the list is reversed again.
-		 * Thus, the list remains sorted, and if it was reversed, after any change it will remain sorted and reversed as it was before the change.
-		 * A second call to <code>reverse</code> will change the status to <em>reversed</em> = <code>false</code>.
+		 * When this method is called, the list is reversed and an internal status <em>reversed</em> (<code>true</code>/<code>false</code>) is stored.
+		 * When the list is automatically ordered by any change, if status is <em>reversed</em> = <code>true</code>, the list remains reversed.
+		 * Thus, after any change it will remain sorted and reversed as it was before the change.
+		 * A second call to <code>reverse</code> will reverse the list again and change the status to <em>reversed</em> = <code>false</code>.
 		 * The default value is <code>false</code>.
-		 * <p>The status is not used in the user call to <code>sort</code> or <code>sortOn</code> methods.</p>
+		 * This condition is not used in the user call to <code>sort</code> or <code>sortOn</code> methods (i.e. even if status is <em>reversed</em> = <code>true</code> it will not be used automatically).
+		 * So if is desirable to reverse the list after directly call <code>sort</code> or <code>sortOn</code> methods, <code>reverse</code> method should be explicitly called after that.
 		 */
 		override public function reverse(): void
 		{
@@ -473,6 +510,8 @@ package org.as3collections.lists
 		 */
 		override public function subList(fromIndex:int, toIndex:int): IList
 		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("This list is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			
 			checkIndex(fromIndex, size());
 			checkIndex(toIndex, size());
 			return new SortedArrayList(data.slice(fromIndex, toIndex));

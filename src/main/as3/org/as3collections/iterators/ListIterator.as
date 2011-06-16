@@ -315,7 +315,7 @@ package org.as3collections.iterators {
 		 * Removes from the list the last element that was returned by <code>next</code> or <code>previous</code>. This call can only be made once per call to <code>next</code> or <code>previous</code>. It can be made only if <code>IListIterator.add</code> has not been called after the last call to <code>next</code> or <code>previous</code>. 
 		 * 
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this iterator.
-		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  			if the <code>next</code> method has not yet been called, or the <code>remove</code> method has alread been called after the last call to the <code>next</code> method.
+		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  			if the <code>next</code> method has not yet been called, or the <code>remove</code> method has already been called after the last call to the <code>next</code> method.
 		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 */
 		public function remove(): void
@@ -347,7 +347,7 @@ package org.as3collections.iterators {
 		{
 			checkConcurrentModificationError();
 			
-			if (!_allowModification) throw new IllegalStateError("The next or previous method has not yet been called or the add or remove method has alread been called after the last call to the next or previous method.");
+			if (!_allowModification) throw new IllegalStateError("The next or previous method has not yet been called or the add or remove method has already been called after the last call to the next or previous method.");
 			
 			_source.setAt(_pointer, element);
 			_modCount = _source.modCount;

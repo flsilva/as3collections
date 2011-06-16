@@ -76,6 +76,101 @@ package org.as3collections.lists
 			Assert.assertEquals(2, size);
 		}
 		
+		////////////////////////////
+		// IList().equals() TESTS //
+		////////////////////////////
+		
+		[Test]
+		public function equals_listWithTwoNotEquatableElements_equalElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var collection2:ICollection = getCollection();
+			collection2.add("element-2");
+			collection2.add("element-1");
+			
+			Assert.assertFalse(collection.equals(collection2));
+		}
+		
+		/////////////////////////////
+		// IList().indexOf() TESTS //
+		/////////////////////////////
+		
+		[Test]
+		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexTwo_ReturnsTwo(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			list.add("element-4");
+			list.add("element-3");
+			list.add("element-5");
+			
+			var index:int = list.indexOf("element-3", 2);
+			Assert.assertEquals(2, index);
+		}
+		
+		[Test]
+		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexThree_ReturnsFour(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			list.add("element-4");
+			list.add("element-3");
+			list.add("element-5");
+			
+			var index:int = list.indexOf("element-3", 3);
+			Assert.assertEquals(4, index);
+		}
+		
+		/////////////////////////////////
+		// IList().lastIndexOf() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOf_ReturnsCorrectIndex(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			list.add("element-4");
+			list.add("element-3");
+			list.add("element-5");
+			
+			var index:int = list.lastIndexOf("element-3");
+			Assert.assertEquals(4, index);
+		}
+		
+		[Test]
+		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOfFromIndex_ReturnsCorrectIndex(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			list.add("element-4");
+			list.add("element-3");
+			list.add("element-5");
+			
+			var index:int = list.lastIndexOf("element-3", 3);
+			Assert.assertEquals(2, index);
+		}
+		
+		/////////////////////////
+		// IList() MIXED TESTS //
+		/////////////////////////
+		
+		[Test]
+		public function addAt_getAt_listWithOneNotEquatableElement_addAtZeroNotEquatable_checkIfElementWasAddedAtZeroIndex_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.addAt(0, "element-2");
+			
+			var element2:String = list.getAt(0);
+			Assert.assertEquals("element-2", element2);
+		}
+		
 	}
 
 }

@@ -91,7 +91,7 @@ package org.as3collections
 		 * <p>Collections that support this operation may place limitations on what elements may be added to this collection.
 		 * In particular, some collections will refuse to add <code>null</code> elements, and others will impose restrictions on the type of elements that may be added.
 		 * Collection classes should clearly specify in their documentation any restrictions on what elements may be added.</p>
-		 * <p>If a collection refuses to add a particular element for any reason other than that it alread contains the element, it <b>must</b> throw an error (rather than returning <code>false</code>).
+		 * <p>If a collection refuses to add a particular element for any reason other than that it already contains the element, it <b>must</b> throw an error (rather than returning <code>false</code>).
 		 * This preserves the invariant that a collection always contains the specified element after this call returns.</p>
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 

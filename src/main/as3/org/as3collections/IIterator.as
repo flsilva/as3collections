@@ -65,7 +65,7 @@ package org.as3collections
 		 * <p>This method can be called only once per call to <code>next</code>.</p>
 		 * 
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this iterator.
-		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  			if the <code>next</code> method has not yet been called, or the <code>remove</code> method has alread been called after the last call to the <code>next</code> method.
+		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  			if the <code>next</code> method has not yet been called, or the <code>remove</code> method has already been called after the last call to the <code>next</code> method.
 		 */
 		function remove(): void;
 

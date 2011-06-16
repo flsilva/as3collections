@@ -32,6 +32,8 @@ package
 	import org.as3collections.lists.ArrayListTests;
 	import org.as3collections.lists.ArrayListTestsEquatableObject;
 	import org.as3collections.lists.ReadOnlyArrayListTests;
+	import org.as3collections.lists.SortedArrayListTests;
+	import org.as3collections.lists.SortedArrayListTestsEquatableObject;
 	import org.as3collections.lists.TypedListTests;
 	import org.as3collections.lists.UniqueListTests;
 	import org.as3collections.lists.UniqueListTestsEquatableObject;
@@ -48,6 +50,8 @@ package
 		public var arrayListTests:ArrayListTests;
 		public var arrayListTestsEquatableObject:ArrayListTestsEquatableObject;
 		public var readOnlyArrayListTests:ReadOnlyArrayListTests;
+		public var sortedArrayListTests:SortedArrayListTests;
+		public var sortedArrayListTestsEquatableObject:SortedArrayListTestsEquatableObject;
 		public var typedListTests:TypedListTests;
 		public var uniqueListTests:UniqueListTests;
 		public var uniqueListTestsEquatableObject:UniqueListTestsEquatableObject;

@@ -118,26 +118,6 @@ package org.as3collections
 			Assert.assertFalse(list.equals(clonedList));
 		}
 		
-		////////////////////////////
-		// IList().equals() TESTS //
-		////////////////////////////
-		
-		[Test]
-		public function equals_listWithTwoNotEquatableElements_equalElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			collection.add(equatableObject1A);
-			collection.add(equatableObject2A);
-			
-			var collection2:ICollection = getCollection();
-			collection2.add(equatableObject2A);
-			collection2.add(equatableObject1A);
-			
-			Assert.assertFalse(collection.equals(collection2));
-		}
-		
 		///////////////////////////
 		// IList().getAt() TESTS //
 		///////////////////////////
@@ -290,50 +270,6 @@ package org.as3collections
 			Assert.assertEquals(2, index);
 		}
 		
-		[Test]
-		public function indexOf_listWithIdenticalAndNotIdenticalEquatableElements_indexOfFromIndexTwo_ReturnsTwo(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
-			var equatableObject4A:EquatableObject = new EquatableObject("equatable-object-4");
-			var equatableObject5A:EquatableObject = new EquatableObject("equatable-object-5");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			list.add(equatableObject3A);
-			list.add(equatableObject4A);
-			list.add(equatableObject3A);
-			list.add(equatableObject5A);
-			
-			var equatableObject3B:EquatableObject = new EquatableObject("equatable-object-3");
-			
-			var index:int = list.indexOf(equatableObject3B, 2);
-			Assert.assertEquals(2, index);
-		}
-		
-		[Test]
-		public function indexOf_listWithIdenticalAndNotIdenticalEquatableElements_indexOfFromIndexThree_ReturnsFour(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
-			var equatableObject4A:EquatableObject = new EquatableObject("equatable-object-4");
-			var equatableObject5A:EquatableObject = new EquatableObject("equatable-object-5");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			list.add(equatableObject3A);
-			list.add(equatableObject4A);
-			list.add(equatableObject3A);
-			list.add(equatableObject5A);
-			
-			var equatableObject3B:EquatableObject = new EquatableObject("equatable-object-3");
-			
-			var index:int = list.indexOf(equatableObject3B, 3);
-			Assert.assertEquals(4, index);
-		}
-		
 		/////////////////////////////////
 		// IList().lastIndexOf() TESTS //
 		/////////////////////////////////
@@ -404,50 +340,6 @@ package org.as3collections
 			
 			var index:int = list.lastIndexOf(equatableObject1D, 0);
 			Assert.assertEquals(0, index);
-		}
-		
-		[Test]
-		public function lastIndexOf_listWithIdenticalAndNotIdenticalEquatableElements_lastIndexOf_ReturnsCorrectIndex(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
-			var equatableObject4A:EquatableObject = new EquatableObject("equatable-object-4");
-			var equatableObject5A:EquatableObject = new EquatableObject("equatable-object-5");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			list.add(equatableObject3A);
-			list.add(equatableObject4A);
-			list.add(equatableObject3A);
-			list.add(equatableObject5A);
-			
-			var equatableObject3B:EquatableObject = new EquatableObject("equatable-object-3");
-			
-			var index:int = list.lastIndexOf(equatableObject3B);
-			Assert.assertEquals(4, index);
-		}
-		
-		[Test]
-		public function lastIndexOf_listWithIdenticalAndNotIdenticalEquatableElements_lastIndexOfFromIndex_ReturnsCorrectIndex(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
-			var equatableObject4A:EquatableObject = new EquatableObject("equatable-object-4");
-			var equatableObject5A:EquatableObject = new EquatableObject("equatable-object-5");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			list.add(equatableObject3A);
-			list.add(equatableObject4A);
-			list.add(equatableObject3A);
-			list.add(equatableObject5A);
-			
-			var equatableObject3B:EquatableObject = new EquatableObject("equatable-object-3");
-			
-			var index:int = list.lastIndexOf(equatableObject3B, 3);
-			Assert.assertEquals(2, index);
 		}
 		
 		//////////////////////////////
@@ -656,22 +548,6 @@ package org.as3collections
 		/////////////////////////
 		
 		[Test]
-		public function addAt_removeAt_allEquatable_listWithThreeElementsOfWhichTwoEquatable_removeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			list.add("element-1");
-			
-			list.removeAt(2);
-			
-			var allEquatable:Boolean = list.allEquatable;
-			Assert.assertTrue(allEquatable);
-		}
-		
-		[Test]
 		public function removeRange_allEquatable_listWithThreeElementsOfWhichTwoEquatable_removeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
 		{
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
@@ -679,7 +555,7 @@ package org.as3collections
 			
 			list.add(equatableObject1A);
 			list.add(equatableObject2A);
-			list.add("element-1");
+			list.add("equatable-object-3");
 			
 			list.removeRange(2, 3);
 			
@@ -711,7 +587,7 @@ package org.as3collections
 			
 			list.add(equatableObject1A);
 			list.add(equatableObject2A);
-			list.add("element-1");
+			list.add("equatable-object-3");
 			
 			list.setAt(2, equatableObject3A);
 			

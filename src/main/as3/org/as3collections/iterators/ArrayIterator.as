@@ -145,11 +145,11 @@ package org.as3collections.iterators {
 
 		/**
 		 * @inheritDoc
-		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  	if the <code>next</code> method has not yet been called, or the <code>remove</code> method has alread been called after the last call to the <code>next</code> method.
+		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  	if the <code>next</code> method has not yet been called, or the <code>remove</code> method has already been called after the last call to the <code>next</code> method.
 		 */
 		public function remove(): void
 		{
-			if (!_allowRemove) throw new IllegalStateError("The next method has not yet been called or the remove method has alread been called after the last call to the next method.");
+			if (!_allowRemove) throw new IllegalStateError("The next method has not yet been called or the remove method has already been called after the last call to the next method.");
 			_allowRemove = false;
 			_source.splice(_pointer--, 1);
 		}

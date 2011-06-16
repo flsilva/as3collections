@@ -199,23 +199,6 @@ package org.as3collections
 			Assert.assertFalse(list.equals(clonedList));
 		}
 		
-		////////////////////////////
-		// IList().equals() TESTS //
-		////////////////////////////
-		
-		[Test]
-		public function equals_listWithTwoNotEquatableElements_equalElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
-		{
-			collection.add("element-1");
-			collection.add("element-2");
-			
-			var collection2:ICollection = getCollection();
-			collection2.add("element-2");
-			collection2.add("element-1");
-			
-			Assert.assertFalse(collection.equals(collection2));
-		}
-		
 		///////////////////////////
 		// IList().getAt() TESTS //
 		///////////////////////////
@@ -344,34 +327,6 @@ package org.as3collections
 			Assert.assertEquals(2, index);
 		}
 		
-		[Test]
-		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexTwo_ReturnsTwo(): void
-		{
-			list.add("element-1");
-			list.add("element-2");
-			list.add("element-3");
-			list.add("element-4");
-			list.add("element-3");
-			list.add("element-5");
-			
-			var index:int = list.indexOf("element-3", 2);
-			Assert.assertEquals(2, index);
-		}
-		
-		[Test]
-		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexThree_ReturnsFour(): void
-		{
-			list.add("element-1");
-			list.add("element-2");
-			list.add("element-3");
-			list.add("element-4");
-			list.add("element-3");
-			list.add("element-5");
-			
-			var index:int = list.indexOf("element-3", 3);
-			Assert.assertEquals(4, index);
-		}
-		
 		/////////////////////////////////
 		// IList().lastIndexOf() TESTS //
 		/////////////////////////////////
@@ -438,37 +393,16 @@ package org.as3collections
 			Assert.assertEquals(0, index);
 		}
 		
-		[Test]
-		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOf_ReturnsCorrectIndex(): void
-		{
-			list.add("element-1");
-			list.add("element-2");
-			list.add("element-3");
-			list.add("element-4");
-			list.add("element-3");
-			list.add("element-5");
-			
-			var index:int = list.lastIndexOf("element-3");
-			Assert.assertEquals(4, index);
-		}
-		
-		[Test]
-		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOfFromIndex_ReturnsCorrectIndex(): void
-		{
-			list.add("element-1");
-			list.add("element-2");
-			list.add("element-3");
-			list.add("element-4");
-			list.add("element-3");
-			list.add("element-5");
-			
-			var index:int = list.lastIndexOf("element-3", 3);
-			Assert.assertEquals(2, index);
-		}
-		
 		//////////////////////////////
 		// IList().modCount() TESTS //
 		//////////////////////////////
+		
+		[Test]
+		public function modCount_freshList_ReturnsZero(): void
+		{
+			var modCount:int = list.modCount;
+			Assert.assertEquals(0, modCount);
+		}
 		
 		[Test]
 		public function modCount_addOneNotEquatableElement_ReturnsOne(): void
@@ -837,16 +771,6 @@ package org.as3collections
 		/////////////////////////
 		// IList() MIXED TESTS //
 		/////////////////////////
-		
-		[Test]
-		public function addAt_getAt_listWithOneNotEquatableElement_addAtZeroNotEquatable_checkIfElementWasAddedAtZeroIndex_ReturnsTrue(): void
-		{
-			list.add("element-1");
-			list.addAt(0, "element-2");
-			
-			var element2:String = list.getAt(0);
-			Assert.assertEquals("element-2", element2);
-		}
 		
 		[Test]
 		public function removeRange_isEmpty_listWithOneNotEquatabeElement_removeRangeAndCheckIfListIsEmpty_ReturnsTrue(): void

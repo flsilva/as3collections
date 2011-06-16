@@ -56,6 +56,11 @@ package org.as3collections
 			var otherEquatable:EquatableObject = other as EquatableObject;
 			return id == otherEquatable.id;
 		}
+		
+		public function toString():String
+		{
+			return _id;
+		}
 
 	}
 

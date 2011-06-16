@@ -46,6 +46,9 @@ package org.as3collections
 	 */
 	public class AbstractList extends AbstractCollection implements IList
 	{
+		/**
+		 * @private
+		 */
 		protected var _modCount: int;
 		
 		/**
@@ -70,7 +73,7 @@ package org.as3collections
 		 * <p>Lists that support this operation may place limitations on what elements may be added to this list.
 		 * In particular, some lists will refuse to add <code>null</code> elements, and others will impose restrictions on the type of elements that may be added.
 		 * Lists classes should clearly specify in their documentation any restrictions on what elements may be added.</p>
-		 * <p>If a list refuses to add a particular element for any reason other than that it alread contains the element, it <b>must</b> throw an error (rather than returning <code>false</code>).
+		 * <p>If a list refuses to add a particular element for any reason other than that it already contains the element, it <b>must</b> throw an error (rather than returning <code>false</code>).
 		 * This preserves the invariant that a list always contains the specified element after this call returns.</p>
 		 * <p>This implementation calls <code>addAt(size(), element)</code>.</p>
 		 * <p>Note that this implementation throws an <code>UnsupportedOperationError</code> unless <code>addAt</code> is overridden.</p>
@@ -79,7 +82,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>add</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
-		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and alread contains the specified element.
+		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and already contains the specified element.
 		 */
 		override public function add(element:*): Boolean
 		{
@@ -143,7 +146,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
 		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
-		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and alread contains the specified element.
+		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and already contains the specified element.
 		 */
 		public function addAt(index:int, element:*): Boolean
 		{
@@ -160,7 +163,7 @@ package org.as3collections
 		 * <li>elements have exactly the same order</li>
 		 * </ul></p>
 		 * <p>This implementation takes care of the order of the elements in the list.
-		 * So, for two collections are equal the order of elements returned by the iterator object must be equal.</p>
+		 * So, for two lists are equal the order of elements returned by the iterator object must be equal.</p>
 		 * 
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
