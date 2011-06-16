@@ -71,9 +71,9 @@ package org.as3collections
 			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
 		}
 		
-		///////////////////////////////////////
-		// TypedCollectionTests().type TESTS //
-		///////////////////////////////////////
+		//////////////////////////////////
+		// TypedCollection().type TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function type_createInstanceCheckType_ReturnsCorrectType(): void
@@ -84,9 +84,9 @@ package org.as3collections
 			Assert.assertEquals(Array, type);
 		}
 		
-		////////////////////////////////////////
-		// TypedCollectionTests().add() TESTS //
-		////////////////////////////////////////
+		///////////////////////////////////
+		// TypedCollection().add() TESTS //
+		///////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
 		public function add_invalidElementType_ThrowsError(): void
@@ -101,9 +101,9 @@ package org.as3collections
 			Assert.assertTrue(added);
 		}
 		
-		///////////////////////////////////////////
-		// TypedCollectionTests().addAll() TESTS //
-		///////////////////////////////////////////
+		//////////////////////////////////////
+		// TypedCollection().addAll() TESTS //
+		//////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
 		public function addAll_invalidArgument_ThrowsError(): void
@@ -147,6 +147,100 @@ package org.as3collections
 			addAllList.add(1);
 			
 			collection.addAll(addAllList);
+		}
+		
+		/////////////////////////////////////
+		// TypedCollection().clear() TESTS //
+		/////////////////////////////////////
+		
+		[Test]
+		public function clear_emptyCollection_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.clear();
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function clear_collectionWithOneNotEquatableElement_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.clear();
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		/////////////////////////////////////
+		// TypedCollection().clone() TESTS //
+		/////////////////////////////////////
+		
+		[Test]
+		public function clone_collectionWithTwoNotEquatableElements_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var clonedCollection:IList = collection.clone();
+			Assert.assertTrue(collection.equals(clonedCollection));
+		}
+		
+		//////////////////////////////////////
+		// TypedCollection().remove() TESTS //
+		//////////////////////////////////////
+		
+		[Test]
+		public function remove_emptyCollection_ReturnsFalse(): void
+		{
+			var removed:Boolean = collection.remove("element-1");
+			Assert.assertFalse(removed);
+		}
+		
+		[Test]
+		public function remove_collectionWithThreeNotEquatableElements_containsElement_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			collection.add("element-3");
+			
+			var removed:Boolean = collection.remove("element-2");
+			Assert.assertTrue(removed);
+		}
+		
+		////////////////////////////////////////
+		// TypedCollection().removeAll() TESTS //
+		////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function removeAll_invalidArgument_ThrowsError(): void
+		{
+			collection.removeAll(null);
+		}
+		
+		[Test]
+		public function removeAll_emptyCollection_ReturnsFalse(): void
+		{
+			var removeAllCollection:ICollection = getCollection(String);
+			removeAllCollection.add("element-1");
+			
+			var changed:Boolean = collection.removeAll(removeAllCollection);
+			Assert.assertFalse(changed);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoNotEquatableElements_argumentWithThreeNotEquatableElementsOfWhichTwoAreContained_ReturnsTrue(): void
+		{
+			var removeCollection:ICollection = getCollection(String);
+			removeCollection.add("element-1");
+			removeCollection.add("element-2");
+			removeCollection.add("element-3");
+			
+			collection.add("element-1");
+			collection.add("element-3");
+			
+			var changed:Boolean = collection.removeAll(removeCollection);
+			Assert.assertTrue(changed);
 		}
 		
 	}
