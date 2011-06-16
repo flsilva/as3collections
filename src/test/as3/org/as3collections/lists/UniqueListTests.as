@@ -29,6 +29,7 @@
 
 package org.as3collections.lists
 {
+	import org.as3collections.EquatableObject;
 	import org.as3collections.ICollection;
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
@@ -170,6 +171,116 @@ package org.as3collections.lists
 			Assert.assertFalse(added);
 		}
 		
+		
+		
+		///////////////////////////////
+		// TypedList().clone() TESTS //
+		///////////////////////////////
+		
+		[Test]
+		public function clone_listWithTwoNotEquatableElements_cloneButChangeElementsOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			
+			var clonedList:IList = list.clone();
+			clonedList.reverse();
+			
+			Assert.assertFalse(list.equals(clonedList));
+		}
+		
+		////////////////////////////////
+		// TypedList().equals() TESTS //
+		////////////////////////////////
+		
+		[Test]
+		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			
+			var list2:ICollection = getCollection();
+			list2.add("element-2");
+			list2.add("element-1");
+			
+			Assert.assertFalse(list.equals(list2));
+		}
+		
+		[Test]
+		public function equals_listWithTwoNotEquatableElements_sameElementsAndSameOrder_checkIfBothListsAreEqual_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			
+			var list2:ICollection = getCollection();
+			list2.add("element-1");
+			list2.add("element-2");
+			
+			Assert.assertTrue(list.equals(list2));
+		}
+		
+		[Test]
+		public function equals_listWithTwoEquatableElements_sameElementsAndSameOrder_checkIfBothListsAreEqual_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var newList1:ICollection = getCollection();
+			newList1.add(equatableObject1A);
+			newList1.add(equatableObject2A);
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var list2:ICollection = getCollection();
+			list2.add(equatableObject1B);
+			list2.add(equatableObject2B);
+			
+			Assert.assertTrue(newList1.equals(list2));
+		}
+		
+		///////////////////////////////
+		// TypedList().getAt() TESTS //
+		///////////////////////////////
+		
+		[Test]
+		public function getAt_addedOneNotEquatableElement_getAtIndexZero_checkIfReturnedElementMatches_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			
+			var element:String = list.getAt(0);
+			Assert.assertEquals("element-1", element);
+		}
+		
+		/////////////////////////////////
+		// TypedList().indexOf() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function indexOf_listWithThreeNotEquatableElements_indexOfSecondElement_ReturnsOne(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			var index:int = list.indexOf("element-2");
+			Assert.assertEquals(1, index);
+		}
+		/////////////////////////////////////
+		// TypedList().lastIndexOf() TESTS //
+		/////////////////////////////////////
+		
+		[Test]
+		public function lastIndexOf_listWithThreeIdenticalNotEquatableElements_lastIndexOf_ReturnsTwo(): void
+		{
+			list.add("element-1");
+			list.add("element-1");
+			list.add("element-1");
+			
+			var index:int = list.lastIndexOf("element-1");
+			Assert.assertEquals(0, index);
+		}
+		
 		///////////////////////////////////////
 		// UniqueList().listIterator() TESTS //
 		///////////////////////////////////////
@@ -189,6 +300,116 @@ package org.as3collections.lists
 			
 			var added:Boolean = iterator.add("element-1");
 			Assert.assertFalse(added);
+		}
+		
+		//////////////////////////////////
+		// TypedList().removeAt() TESTS //
+		//////////////////////////////////
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function removeAt_emptyCollection_ThrowsError(): void
+		{
+			list.removeAt(0);
+		}
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function removeAt_notEmptyCollection_indexOutOfBounds_ThrowsError(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.removeAt(2);
+		}
+		
+		[Test]
+		public function removeAt_listWithOneNotEquatabeElement_removeAtIndexZero_ReturnsCorrectObject(): void
+		{
+			list.add("element-1");
+			
+			var element:String = list.removeAt(0);
+			Assert.assertEquals("element-1", element);
+		}
+		
+		/////////////////////////////////////
+		// TypedList().removeRange() TESTS //
+		/////////////////////////////////////
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function removeRange_emptyCollection_ThrowsError(): void
+		{
+			list.removeRange(0, 0);
+		}
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function removeRange_notEmptyCollection_indexOutOfBounds_ThrowsError(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.removeRange(0, 3);
+		}
+		
+		[Test]
+		public function removeRange_listWithOneNotEquatabeElement_ReturnsValidList(): void
+		{
+			list.add("element-1");
+			
+			var removedList:ICollection = list.removeRange(0, 1);
+			Assert.assertNotNull(removedList);
+		}
+		
+		///////////////////////////////
+		// TypedList().setAt() TESTS //
+		///////////////////////////////
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function setAt_emptyList_indexOutOfBounds_ThrowsError(): void
+		{
+			list.setAt(0, "element-1");
+		}
+		
+		[Test]
+		public function setAt_notEmptyList_validArgumentNotEquatable_boundaryCondition_checkIfListContainsAddedElement_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			list.setAt(2, "element-4");
+			
+			var contains:Boolean = list.contains("element-4");
+			Assert.assertTrue(contains);
+		}
+		
+		/////////////////////////////////
+		// TypedList().subList() TESTS //
+		/////////////////////////////////
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function subList_emptyList_indexOutOfBounds_ThrowsError(): void
+		{
+			list.subList(0, 0);
+		}
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function subList_notEmptyList_indexOutOfBounds_ThrowsError(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			list.subList(0, 4);
+		}
+		
+		[Test]
+		public function subList_notEmptyList_checkIfReturnedListSizeMatches_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			var subList:IList = list.subList(0, 2);
+			
+			var size:int = subList.size();
+			Assert.assertEquals(2, size);
 		}
 		
 	}
