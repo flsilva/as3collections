@@ -64,6 +64,37 @@ package org.as3collections.lists
 			return new UniqueList(new ArrayList());
 		}
 		
+		////////////////////////////////////
+		// UniqueList() constructor TESTS //
+		////////////////////////////////////
+		
+		[Test]
+		public function constructor_argumentWithTwoNotDuplicateNotEquatableElements_checkIfIsEmpty_ReturnsFalse(): void
+		{
+			var newList:IList = new UniqueList(new ArrayList(["element-1", "element-2"]));
+			
+			var isEmpty:Boolean = newList.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test]
+		public function constructor_argumentWithTwoNotDuplicateNotEquatableElements_checkIfSizeIsTwo_ReturnsTrue(): void
+		{
+			var newList:IList = new UniqueList(new ArrayList(["element-1", "element-2"]));
+			
+			var size:int = newList.size();
+			Assert.assertEquals(2, size);
+		}
+		
+		[Test]
+		public function constructor_argumentWithTwoDuplicateNotEquatableElements_checkIfSizeIsOne_ReturnsTrue(): void
+		{
+			var newList:IList = new UniqueList(new ArrayList(["element-1", "element-1"]));
+			
+			var size:int = newList.size();
+			Assert.assertEquals(1, size);
+		}
+		
 		///////////////////////////////////
 		// UniqueList().addAllAt() TESTS //
 		///////////////////////////////////

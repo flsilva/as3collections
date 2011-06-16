@@ -139,17 +139,34 @@ package org.as3collections.utils {
 		{
 			if (!collection || collection.isEmpty()) return collection;
 			
-			var arr:Array = [];
 			var it:IIterator = collection.iterator();
 			var e:*;
 			
-			while (it.hasNext())
+			if (collection.allEquatable)
 			{
-				e = it.next();
+				var list:ArrayList = new ArrayList();
 				
-				if (arr.indexOf(e) != -1) it.remove();
+				while (it.hasNext())
+				{
+					e = it.next();
+					
+					if (list.contains(e)) it.remove();
+					
+					list.add(e);
+				}
+			}
+			else
+			{
+				var arr:Array = [];
 				
-				arr.push(e);
+				while (it.hasNext())
+				{
+					e = it.next();
+					
+					if (arr.indexOf(e) != -1) it.remove();
+					
+					arr.push(e);
+				}
 			}
 			
 			return collection;

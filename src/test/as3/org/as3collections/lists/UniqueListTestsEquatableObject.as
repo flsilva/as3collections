@@ -64,6 +64,46 @@ package org.as3collections.lists
 			return new UniqueList(new ArrayList());
 		}
 		
+		////////////////////////////////////
+		// UniqueList() constructor TESTS //
+		////////////////////////////////////
+		
+		[Test]
+		public function constructor_argumentWithTwoNotDuplicateEquatableElements_checkIfIsEmpty_ReturnsFalse(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var newList:IList = new UniqueList(new ArrayList([equatableObject1A, equatableObject2A]));
+			
+			var isEmpty:Boolean = newList.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test]
+		public function constructor_argumentWithTwoNotDuplicateEquatableElements_checkIfSizeIsTwo_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var newList:IList = new UniqueList(new ArrayList([equatableObject1A, equatableObject2A]));
+			
+			var size:int = newList.size();
+			Assert.assertEquals(2, size);
+		}
+		
+		[Test]
+		public function constructor_argumentWithTwoDuplicateEquatableElements_checkIfSizeIsOne_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			
+			var newList:IList = new UniqueList(new ArrayList([equatableObject1A, equatableObject1B]));
+			
+			var size:int = newList.size();
+			Assert.assertEquals(1, size);
+		}
+		
 		///////////////////////////////////
 		// UniqueList().addAllAt() TESTS //
 		///////////////////////////////////
