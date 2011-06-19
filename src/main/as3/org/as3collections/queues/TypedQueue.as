@@ -27,10 +27,13 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.queues {
-	import org.as3collections.ICollection;
+package org.as3collections.queues 
+{
+	import org.as3collections.IIterator;
 	import org.as3collections.IQueue;
 	import org.as3collections.TypedCollection;
+	import org.as3coreaddendum.errors.NullPointerError;
+	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
 
 	/**
@@ -101,6 +104,21 @@ package org.as3collections.queues {
 		{
 			super(wrapQueue, type);
 		}
+		
+		/**
+		 * If the <code>element</code> argument is <code>null</code> throws <code>org.as3coreaddendum.errors.NullPointerError</code>.
+		 * Otherwise the element is validated with the <code>validateType</code> method to be forwarded to <code>wrappedCollection.add</code>.
+		 * 
+		 * @param  	element 	the element to forward to <code>wrappedCollection.add</code>.
+		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>element</code> argument is <code>null</code>.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the element is incompatible with the type of this collection.
+		 * @return 	the return of the call <code>wrappedCollection.add</code>.
+		 */
+		override public function add(element:*): Boolean
+		{
+			if (!element) throw new NullPointerError("The 'element' argument must not be 'null'.");
+			return super.add(element);
+		}
 
 		/**
 		 * Creates and return a new <code>TypedQueue</code> object with the clone of the <code>wrappedQueue</code> object.
@@ -153,11 +171,32 @@ package org.as3collections.queues {
 			
 			if (!ReflectionUtil.classPathEquals(this, other)) return false;
 			
-			var c:ICollection = other as ICollection;
+			var c:TypedQueue = other as TypedQueue;
 			
-			if (c == null || c.size() != size()) return false;
+			if (c.size() != size()) return false;
+			if (c.type != type) return false;
 			
-			return wrappedQueue.equals(c);
+			var it:IIterator = iterator();
+			var itOther:IIterator = c.iterator();
+			var o1:*;
+			var o2:*;
+			//TODO: inserir o IF fora do loop. ou seja, criar dois loops. motivo: melhorar performance
+			while (it.hasNext())
+			{
+				o1 = it.next();
+				o2 = itOther.next();
+				
+				if (allEquatable && c.allEquatable)
+				{
+					if (!(o1 as IEquatable).equals(o2)) return false;
+				}
+				else if (o1 != o2)
+				{
+					return false;
+				}
+			}
+			
+			return true;
 		}
 
 		/**

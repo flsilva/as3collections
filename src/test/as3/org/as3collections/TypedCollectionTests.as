@@ -182,7 +182,7 @@ package org.as3collections
 			collection.add("element-1");
 			collection.add("element-2");
 			
-			var clonedCollection:IList = collection.clone();
+			var clonedCollection:ICollection = collection.clone();
 			Assert.assertTrue(collection.equals(clonedCollection));
 		}
 		

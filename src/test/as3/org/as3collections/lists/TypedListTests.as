@@ -66,6 +66,37 @@ package org.as3collections.lists
 		}
 		
 		///////////////////////////////////
+		// TypedList() constructor TESTS //
+		///////////////////////////////////
+		
+		[Test]
+		public function constructor_argumentValidElements_checkIfIsEmpty_ReturnsFalse(): void
+		{
+			var newList:IList = new TypedList(new ArrayList(["element-1", "element-2"]), String);
+			
+			var isEmpty:Boolean = newList.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
+		public function constructor_argumentInvalidElements_ThrowsError(): void
+		{
+			var newList:IList = new TypedList(new ArrayList([1, 5]), String);
+			
+			var size:int = newList.size();
+			Assert.assertEquals(2, size);
+		}
+		
+		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
+		public function constructor_argumentWithValidAndInvalidElements_ThrowsError(): void
+		{
+			var newList:IList = new TypedList(new ArrayList(["element-1", 5]), String);
+			
+			var size:int = newList.size();
+			Assert.assertEquals(2, size);
+		}
+		
+		///////////////////////////////////
 		// TypedList().addAllAt() TESTS //
 		///////////////////////////////////
 		
@@ -160,6 +191,20 @@ package org.as3collections.lists
 			list2.add("element-2");
 			list2.add("element-1");
 			
+			Assert.assertFalse(list.equals(list2));
+		}
+		
+		[Test]
+		public function equals_twoEmptyListsWithSameType_ReturnsTrue(): void
+		{
+			var list2:ICollection = getCollection(String);
+			Assert.assertTrue(list.equals(list2));
+		}
+		
+		[Test]
+		public function equals_twoEmptyListsWithDifferentType_ReturnsFalse(): void
+		{
+			var list2:ICollection = getCollection(int);
 			Assert.assertFalse(list.equals(list2));
 		}
 		
