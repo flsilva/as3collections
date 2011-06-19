@@ -29,12 +29,14 @@
 
 package org.as3collections
 {
-	import flash.errors.IllegalOperationError;
+	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.CloneNotSupportedError;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
+
+	import flash.errors.IllegalOperationError;
 
 	/**
 	 * This class provides a skeletal implementation of the <code>ICollection</code> interface, to minimize the effort required to implement this interface. 
@@ -202,30 +204,15 @@ package org.as3collections
 		}
 
 		/**
-		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
-		 * <p>This implementation considers two differente objects equal if:</p>
-		 * <p>
-		 * <ul><li>object A and object B are instances of the same class</li>
-		 * <li>object A contains all elements of object B</li>
-		 * <li>object B contains all elements of object A</li>
-		 * </ul></p>
-		 * <p>This implementation does not takes care of the order of the elements in the collections.
-		 * For an equality that considers the order of the elements, this method should be overriden.</p>
+		 * This method uses <code>CollectionUtil.equalNotConsideringOrder</code> method to perform equality, sending this collection and <code>other</code> argument.
 		 * 
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 * @see 	org.as3collections.utils.CollectionUtil#equalNotConsideringOrder() CollectionUtil.equalNotConsideringOrder()
 		 */
 		public function equals(other:*): Boolean
 		{
-			if (this == other) return true;
-			
-			if (!ReflectionUtil.classPathEquals(this, other)) return false;
-			
-			var c:ICollection = other as ICollection;
-			
-			if (c.size() != size()) return false;
-			
-			return containsAll(c) && c.containsAll(this);
+			return CollectionUtil.equalNotConsideringOrder(this, other);
 		}
 
 		/**

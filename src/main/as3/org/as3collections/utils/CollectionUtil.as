@@ -68,7 +68,7 @@ package org.as3collections.utils
 		 * <li>object B contains all elements of object A</li>
 		 * <li>elements have exactly the same order</li>
 		 * </ul></p>
-		 * <p>This implementation takes care of the order of the elements in the collections.
+		 * <p>This implementation <b>takes care</b> of the order of the elements in the collections.
 		 * So, for two collections are equal the order of elements returned by the iterator object must be equal.</p>
 		 * 
 		 * @param  	collection1 	the first collection.
@@ -111,6 +111,32 @@ package org.as3collections.utils
 			}
 			
 			return true;
+		}
+		
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
+		 * If one of the collections or both collections are <code>null</code> it will be returned <code>false</code>.
+		 * <p>Two different objects are considered equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
+		 * <li>object A contains all elements of object B</li>
+		 * <li>object B contains all elements of object A</li>
+		 * </ul></p>
+		 * <p>This implementation <b>does not takes care</b> of the order of the elements in the collections.
+		 * 
+		 * @param  	collection1 	the first collection.
+		 * @param  	collection2 	the second collection.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		public static function equalNotConsideringOrder(collection1:ICollection, collection2:ICollection): Boolean
+		{
+			if (!collection1 || !collection2) return false;
+			if (collection1 == collection2) return true;
+			
+			if (!ReflectionUtil.classPathEquals(collection1, collection2)) return false;
+			if (collection1.size() != collection2.size()) return false;
+			
+			return collection1.containsAll(collection2) && collection2.containsAll(collection1);
 		}
 		
 		/**
