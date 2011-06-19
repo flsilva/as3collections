@@ -150,7 +150,7 @@ package org.as3collections.queues
 		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
 		 * <p>This implementation considers two differente objects equal if:</p>
 		 * <p>
-		 * <ul><li>object A and object B are instances of the same class</li>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
 		 * <li>object A contains all elements of object B</li>
 		 * <li>object B contains all elements of object A</li>
 		 * <li>elements have exactly the same order</li>

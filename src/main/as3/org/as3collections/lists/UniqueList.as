@@ -30,14 +30,12 @@
 package org.as3collections.lists 
 {
 	import org.as3collections.ICollection;
-	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.UniqueCollection;
 	import org.as3collections.iterators.ListIterator;
+	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.NullPointerError;
-	import org.as3coreaddendum.system.IEquatable;
-	import org.as3utils.ReflectionUtil;
 
 	/**
 	 * <code>UniqueList</code> works as a wrapper for a list.
@@ -202,51 +200,15 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
-		 * <p>This implementation considers two differente objects equal if:</p>
-		 * <p>
-		 * <ul><li>object A and object B are instances of the same class</li>
-		 * <li>object A contains all elements of object B</li>
-		 * <li>object B contains all elements of object A</li>
-		 * <li>elements have exactly the same order</li>
-		 * </ul></p>
-		 * <p>This implementation takes care of the order of the elements in the list.
-		 * So, for two collections are equal the order of elements returned by the iterator must be equal.</p>
+		 * This method uses <code>CollectionUtil.equalConsideringOrder</code> method to perform equality, sending this list and <code>other</code> argument.
 		 * 
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 * @see 	org.as3collections.utils.CollectionUtil#equalConsideringOrder() CollectionUtil.equalConsideringOrder()
 		 */
 		override public function equals(other:*): Boolean
 		{
-			if (this == other) return true;
-			
-			if (!ReflectionUtil.classPathEquals(this, other)) return false;
-			
-			var c:UniqueList = other as UniqueList;
-			
-			if (c.size() != size()) return false;
-			
-			var it:IIterator = iterator();
-			var itOther:IIterator = c.iterator();
-			var o1:*;
-			var o2:*;
-			//TODO: inserir o IF fora do loop. ou seja, criar dois loops. motivo: melhorar performance
-			while (it.hasNext())
-			{
-				o1 = it.next();
-				o2 = itOther.next();
-				
-				if (allEquatable && c.allEquatable)
-				{
-					if (!(o1 as IEquatable).equals(o2)) return false;
-				}
-				else if (o1 != o2)
-				{
-					return false;
-				}
-			}
-			
-			return true;
+			return CollectionUtil.equalConsideringOrder(this, other);
 		}
 
 		/**

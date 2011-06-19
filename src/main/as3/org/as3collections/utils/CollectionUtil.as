@@ -27,10 +27,12 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.utils {
+package org.as3collections.utils 
+{
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.lists.ArrayList;
+	import org.as3coreaddendum.system.IEquatable;
 	import org.as3coreaddendum.system.comparators.AlphabeticalComparison;
 	import org.as3utils.ArrayUtil;
 	import org.as3utils.ReflectionUtil;
@@ -55,7 +57,62 @@ package org.as3collections.utils {
 		{
 			throw new IllegalOperationError("CollectionUtil is a static class and shouldn't be instantiated.");
 		}
-
+		
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between the two arguments.
+		 * If one of the collections or both collections are <code>null</code> it will be returned <code>false</code>.
+		 * <p>Two different objects are considered equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
+		 * <li>object A contains all elements of object B</li>
+		 * <li>object B contains all elements of object A</li>
+		 * <li>elements have exactly the same order</li>
+		 * </ul></p>
+		 * <p>This implementation takes care of the order of the elements in the collections.
+		 * So, for two collections are equal the order of elements returned by the iterator object must be equal.</p>
+		 * 
+		 * @param  	collection1 	the first collection.
+		 * @param  	collection2 	the second collection.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		public static function equalConsideringOrder(collection1:ICollection, collection2:ICollection): Boolean
+		{
+			if (!collection1 || !collection2) return false;
+			if (collection1 == collection2) return true;
+			
+			if (!ReflectionUtil.classPathEquals(collection1, collection2)) return false;
+			if (collection1.size() != collection2.size()) return false;
+			
+			var itC1:IIterator = collection1.iterator();
+			var itC2:IIterator = collection2.iterator();
+			var o1:*;
+			var o2:*;
+			
+			//two loops for better performance
+			if (collection1.allEquatable && collection2.allEquatable)
+			{
+				while (itC1.hasNext())
+				{
+					o1 = itC1.next();
+					o2 = itC2.next();
+					
+					if (!(o1 as IEquatable).equals(o2)) return false;
+				}
+			}
+			else
+			{
+				while (itC1.hasNext())
+				{
+					o1 = itC1.next();
+					o2 = itC2.next();
+					
+					if (o1 != o2) return false;
+				}
+			}
+			
+			return true;
+		}
+		
 		/**
 		 * Returns the collection object containing only objects of the type of the <code>type</code> argument.
 		 * <p>This method modifies the original collection. Be sure that it's not a ready-only collection.</p>
