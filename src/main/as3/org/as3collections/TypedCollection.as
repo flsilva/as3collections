@@ -290,19 +290,15 @@ package org.as3collections
 			if (containsOnlyType) return;
 			
 			var it:IIterator = collection.iterator();
-			var invalidElement:*;
+			var element:*;
 			
 			while (it.hasNext())
 			{
-				invalidElement = it.next();
-				if (!isValidElement(invalidElement)) break;
+				element = it.next();
+				if (!isValidElement(element)) break;
 			}
 			
-			var message:String = "Invalid element type. element: <" + invalidElement + ">\n";
-			message += "element type: <" + ReflectionUtil.getClassPath(invalidElement) + ">\n";
-			message += "expected type: <" + ReflectionUtil.getClassPath(_type) + ">";
-			
-			throw new ClassCastError(message);
+			invalidElement(element);
 		}
 		
 		/**
@@ -310,14 +306,19 @@ package org.as3collections
 		 */
 		protected function validateElement(element:*): void
 		{
-			if (!isValidElement(element))
-			{
-				var message:String = "Invalid element type. element: <" + element + ">\n";
-				message += "element type: <" + ReflectionUtil.getClassPath(element) + ">\n";
-				message += "expected type: <" + ReflectionUtil.getClassPath(_type) + ">";
-				
-				throw new ClassCastError(message);
-			}
+			if (!isValidElement(element)) invalidElement(element);
+		}
+		
+		/**
+		 * @private
+		 */
+		private function invalidElement(element:*): void
+		{
+			var message:String = "Invalid element type. element: <" + element + ">\n";
+			message += "element type: <" + ReflectionUtil.getClassPath(element) + ">\n";
+			message += "expected type: <" + ReflectionUtil.getClassPath(_type) + ">";
+			
+			throw new ClassCastError(message);
 		}
 
 	}
