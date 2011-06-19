@@ -29,6 +29,7 @@
 
 package org.as3collections.queues
 {
+	import org.as3collections.EquatableObject;
 	import org.as3collections.ICollection;
 	import org.as3collections.IQueue;
 	import org.as3collections.TypedCollection;
@@ -177,6 +178,26 @@ package org.as3collections.queues
 			queue2.add("element-1");
 			
 			Assert.assertFalse(queue.equals(queue2));
+		}
+		
+		[Test]
+		public function equals_queueWithTwoEquatableElements_sameElementsButDifferentOrder_checkIfBothQueueAreEqual_ReturnsFalse(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var newQueue1:ICollection = getCollection(EquatableObject);
+			newQueue1.add(equatableObject1A);
+			newQueue1.add(equatableObject2A);
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var newQueue2:ICollection = getCollection(EquatableObject);
+			newQueue2.add(equatableObject2B);
+			newQueue2.add(equatableObject1B);
+			
+			Assert.assertFalse(newQueue1.equals(newQueue2));
 		}
 		
 		[Test]

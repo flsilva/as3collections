@@ -234,11 +234,11 @@ package org.as3collections.lists
 			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
 			
-			var list2:ICollection = getCollection(EquatableObject);
-			list2.add(equatableObject1B);
-			list2.add(equatableObject2B);
+			var newList2:ICollection = getCollection(EquatableObject);
+			newList2.add(equatableObject1B);
+			newList2.add(equatableObject2B);
 			
-			Assert.assertTrue(newList1.equals(list2));
+			Assert.assertTrue(newList1.equals(newList2));
 		}
 		
 		///////////////////////////////
