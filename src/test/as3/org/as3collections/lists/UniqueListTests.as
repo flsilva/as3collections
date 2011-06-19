@@ -29,7 +29,6 @@
 
 package org.as3collections.lists
 {
-	import org.as3collections.EquatableObject;
 	import org.as3collections.ICollection;
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
@@ -59,7 +58,7 @@ package org.as3collections.lists
 			// since ArrayList is fully tested it is ok
 			// but it means that unit testing of this class are in some degree "integration testing"
 			// so changes in ArrayList may break some tests in this class
-			// when errors in tests of this class occur
+			// when errors in tests in this class occur
 			// consider that it can be in the ArrayList object
 			return new UniqueList(new ArrayList());
 		}
@@ -93,6 +92,19 @@ package org.as3collections.lists
 			
 			var size:int = newList.size();
 			Assert.assertEquals(1, size);
+		}
+		
+		////////////////////////////////////
+		// UniqueCollection().add() TESTS //
+		////////////////////////////////////
+		
+		[Test]
+		public function add_duplicateNotEquatableElement_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			
+			var added:Boolean = collection.add("element-1");
+			Assert.assertFalse(added);
 		}
 		
 		///////////////////////////////////
@@ -171,11 +183,9 @@ package org.as3collections.lists
 			Assert.assertFalse(added);
 		}
 		
-		
-		
-		///////////////////////////////
-		// TypedList().clone() TESTS //
-		///////////////////////////////
+		////////////////////////////////
+		// UniqueList().clone() TESTS //
+		////////////////////////////////
 		
 		[Test]
 		public function clone_listWithTwoNotEquatableElements_cloneButChangeElementsOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
@@ -189,9 +199,9 @@ package org.as3collections.lists
 			Assert.assertFalse(list.equals(clonedList));
 		}
 		
-		////////////////////////////////
-		// TypedList().equals() TESTS //
-		////////////////////////////////
+		/////////////////////////////////
+		// UniqueList().equals() TESTS //
+		/////////////////////////////////
 		
 		[Test]
 		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
@@ -219,29 +229,9 @@ package org.as3collections.lists
 			Assert.assertTrue(list.equals(list2));
 		}
 		
-		[Test]
-		public function equals_listWithTwoEquatableElements_sameElementsAndSameOrder_checkIfBothListsAreEqual_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var newList1:ICollection = getCollection();
-			newList1.add(equatableObject1A);
-			newList1.add(equatableObject2A);
-			
-			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var list2:ICollection = getCollection();
-			list2.add(equatableObject1B);
-			list2.add(equatableObject2B);
-			
-			Assert.assertTrue(newList1.equals(list2));
-		}
-		
-		///////////////////////////////
-		// TypedList().getAt() TESTS //
-		///////////////////////////////
+		////////////////////////////////
+		// UniqueList().getAt() TESTS //
+		////////////////////////////////
 		
 		[Test]
 		public function getAt_addedOneNotEquatableElement_getAtIndexZero_checkIfReturnedElementMatches_ReturnsTrue(): void
@@ -252,9 +242,9 @@ package org.as3collections.lists
 			Assert.assertEquals("element-1", element);
 		}
 		
-		/////////////////////////////////
-		// TypedList().indexOf() TESTS //
-		/////////////////////////////////
+		//////////////////////////////////
+		// UniqueList().indexOf() TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function indexOf_listWithThreeNotEquatableElements_indexOfSecondElement_ReturnsOne(): void
@@ -266,9 +256,9 @@ package org.as3collections.lists
 			var index:int = list.indexOf("element-2");
 			Assert.assertEquals(1, index);
 		}
-		/////////////////////////////////////
-		// TypedList().lastIndexOf() TESTS //
-		/////////////////////////////////////
+		//////////////////////////////////////
+		// UniqueList().lastIndexOf() TESTS //
+		//////////////////////////////////////
 		
 		[Test]
 		public function lastIndexOf_listWithThreeIdenticalNotEquatableElements_lastIndexOf_ReturnsTwo(): void
@@ -302,9 +292,9 @@ package org.as3collections.lists
 			Assert.assertFalse(added);
 		}
 		
-		//////////////////////////////////
-		// TypedList().removeAt() TESTS //
-		//////////////////////////////////
+		///////////////////////////////////
+		// UniqueList().removeAt() TESTS //
+		///////////////////////////////////
 		
 		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
 		public function removeAt_emptyCollection_ThrowsError(): void
@@ -329,9 +319,9 @@ package org.as3collections.lists
 			Assert.assertEquals("element-1", element);
 		}
 		
-		/////////////////////////////////////
-		// TypedList().removeRange() TESTS //
-		/////////////////////////////////////
+		//////////////////////////////////////
+		// UniqueList().removeRange() TESTS //
+		//////////////////////////////////////
 		
 		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
 		public function removeRange_emptyCollection_ThrowsError(): void
@@ -356,9 +346,9 @@ package org.as3collections.lists
 			Assert.assertNotNull(removedList);
 		}
 		
-		///////////////////////////////
-		// TypedList().setAt() TESTS //
-		///////////////////////////////
+		////////////////////////////////
+		// UniqueList().setAt() TESTS //
+		////////////////////////////////
 		
 		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
 		public function setAt_emptyList_indexOutOfBounds_ThrowsError(): void
@@ -379,9 +369,9 @@ package org.as3collections.lists
 			Assert.assertTrue(contains);
 		}
 		
-		/////////////////////////////////
-		// TypedList().subList() TESTS //
-		/////////////////////////////////
+		//////////////////////////////////
+		// UniqueList().subList() TESTS //
+		//////////////////////////////////
 		
 		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
 		public function subList_emptyList_indexOutOfBounds_ThrowsError(): void

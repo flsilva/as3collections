@@ -182,6 +182,30 @@ package org.as3collections.lists
 			Assert.assertFalse(added);
 		}
 		
+		/////////////////////////////////
+		// UniqueList().equals() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function equals_listWithTwoEquatableElements_sameElementsAndSameOrder_checkIfBothListsAreEqual_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var newList1:ICollection = getCollection();
+			newList1.add(equatableObject1A);
+			newList1.add(equatableObject2A);
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var list2:ICollection = getCollection();
+			list2.add(equatableObject1B);
+			list2.add(equatableObject2B);
+			
+			Assert.assertTrue(newList1.equals(list2));
+		}
+		
 		///////////////////////////////////////
 		// UniqueList().listIterator() TESTS //
 		///////////////////////////////////////

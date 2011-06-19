@@ -82,15 +82,6 @@ package org.as3collections
 			Assert.assertTrue(added);
 		}
 		
-		[Test]
-		public function add_duplicateNotEquatableElement_ReturnsFalse(): void
-		{
-			collection.add("element-1");
-			
-			var added:Boolean = collection.add("element-1");
-			Assert.assertFalse(added);
-		}
-		
 		///////////////////////////////////////
 		// UniqueCollection().addAll() TESTS //
 		///////////////////////////////////////
