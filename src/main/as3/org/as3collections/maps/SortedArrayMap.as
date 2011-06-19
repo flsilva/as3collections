@@ -166,7 +166,7 @@ package org.as3collections.maps
 		/**
 		 * @inheritDoc
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if this map is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
  		 */
 		public function firstKey(): *
 		{
@@ -188,7 +188,7 @@ package org.as3collections.maps
 		/**
 		 * @inheritDoc
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if this map is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
  		 */
 		public function lastKey(): *
 		{

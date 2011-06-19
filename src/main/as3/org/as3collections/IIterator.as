@@ -46,7 +46,7 @@ package org.as3collections
 		/**
 		 * Returns the next element in the iteration.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if the iteration has no more elements.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if the iteration has no more elements.
 		 * @return 	the next element in the iteration.
  		 */
 		function next(): *;

@@ -82,7 +82,7 @@ package org.as3collections
 		/**
 		 * Retrieves and removes the head of this queue.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if this queue is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this queue is empty.
 		 * @return 	the head of this queue.
  		 */
 		function dequeue(): *;
@@ -91,7 +91,7 @@ package org.as3collections
 		 * Retrieves, but does not remove, the head of this queue.
 		 * This method differs from <code>peek</code> only in that it throws an error if this queue is empty. 
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if this queue is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this queue is empty.
 		 * @return 	the head of this queue.
  		 */
 		function element(): *;

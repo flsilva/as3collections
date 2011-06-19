@@ -45,7 +45,7 @@ package org.as3collections
 		/**
 		 * The number of times this list has been <em>structurally modified</em>. Structural modifications are those that change the size of the list.
 		 * <p>This field is used by the list iterator implementation returned by the <code>listIterator</code> method.
-		 * If the value of this field changes unexpectedly, the list iterator will throw a <code>org.as3coreaddendum.errors.ConcurrentModificationError</code> in response to the <code>next</code>, <code>remove</code>, <code>previous</code>, <code>set</code> or <code>add</code> operations.</p>
+		 * If the value of this field changes unexpectedly, the list iterator will throw a <code>org.as3collections.errors.ConcurrentModificationError</code> in response to the <code>next</code>, <code>remove</code>, <code>previous</code>, <code>set</code> or <code>add</code> operations.</p>
 		 * <p>Implementations merely has to increment this field in its <code>add</code>, <code>remove</code> and any other methods that result in structural modifications to the list.
 		 * A single call to <code>add</code> or <code>remove</code> must add no more than one to this field.</p>
 		 * 
@@ -60,7 +60,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAllAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of an element of the specified collection prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
 		function addAllAt(index:int, collection:ICollection): Boolean;
@@ -73,7 +73,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
 		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and already contains the specified element.
 		 */
 		function addAt(index:int, element:*): Boolean;
@@ -82,7 +82,7 @@ package org.as3collections
 		 * Returns the element at the specified position in this list.
 		 * 
 		 * @param index 	index of the element to return.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 	if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 	if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element at the specified position in this list.
 		 */
 		function getAt(index:int): *;
@@ -122,7 +122,7 @@ package org.as3collections
 		 * 
 		 * @param  	index 	the index of the element to be removed.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeAt</code> operation is not supported by this list.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element previously at the specified position.
 		 */
 		function removeAt(index:int): *;
@@ -134,7 +134,7 @@ package org.as3collections
 		 * @param  	fromIndex 	the index to start removing elements (inclusive).
 		 * @param  	toIndex 	the index to stop removing elements (exclusive).
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeRange</code> operation is not supported by this list.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new collection containing all the removed elements.
 		 */
 		function removeRange(fromIndex:int, toIndex:int): ICollection;
@@ -152,7 +152,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>setAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element previously at the specified position.
 		 */
 		function setAt(index:int, element:*): *;
@@ -164,7 +164,7 @@ package org.as3collections
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving elements (exclusive).
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subList</code> operation is not supported by this list.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new list that is a view of the specified range within this list.
 		 */
 		function subList(fromIndex:int, toIndex:int): IList;

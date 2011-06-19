@@ -226,7 +226,7 @@ package org.as3collections.iterators {
 
 		/**
 		 * @inheritDoc
-		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
+		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 */
 		public function add(element:*): Boolean
 		{
@@ -259,8 +259,8 @@ package org.as3collections.iterators {
 
 		/**
 		 * @inheritDoc
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if the iteration has no more elements.
-		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if the iteration has no more elements.
+		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 */
 		public function next(): *
 		{
@@ -290,8 +290,8 @@ package org.as3collections.iterators {
 
 		/**
 		 * @inheritDoc
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if the iteration has no previous elements.
-		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if the iteration has no previous elements.
+		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 */
 		public function previous(): *
 		{
@@ -316,7 +316,7 @@ package org.as3collections.iterators {
 		 * 
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this iterator.
 		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  			if the <code>next</code> method has not yet been called, or the <code>remove</code> method has already been called after the last call to the <code>next</code> method.
-		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
+		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 */
 		public function remove(): void
 		{

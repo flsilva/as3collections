@@ -68,7 +68,7 @@ package org.as3collections.iterators
 
 		/**
 		 * @inheritDoc
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if the iteration has no more elements.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if the iteration has no more elements.
  		 */
 		public function next(): *
 		{

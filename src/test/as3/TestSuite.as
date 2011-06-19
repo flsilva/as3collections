@@ -37,6 +37,8 @@ package
 	import org.as3collections.lists.TypedListTests;
 	import org.as3collections.lists.UniqueListTests;
 	import org.as3collections.lists.UniqueListTestsEquatableObject;
+	import org.as3collections.queues.LinearQueueTests;
+	import org.as3collections.queues.LinearQueueTestsEquatableObject;
 
 	/**
 	 * @author Flávio Silva
@@ -55,6 +57,10 @@ package
 		public var typedListTests:TypedListTests;
 		public var uniqueListTests:UniqueListTests;
 		public var uniqueListTestsEquatableObject:UniqueListTestsEquatableObject;
+		
+		//org.as3collections.queues
+		public var linearQueueTests:LinearQueueTests;
+		public var linearQueueTestsEquatableObject:LinearQueueTestsEquatableObject;
 		
 		public function TestSuite()
 		{

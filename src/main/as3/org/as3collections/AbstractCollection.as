@@ -46,8 +46,8 @@ package org.as3collections
 	 * <p>In order to this collection uses the <code>equals</code> method of its elements in comparisons (rather than the default '==' operator), <b>all elements in this collection must implement the interface</b> <code>org.as3coreaddendum.system.IEquatable</code> <b>and also the supplied element.</b></p>
 	 * <p>For example:</p>
 	 * <p>myCollection.contains(myElement);</p>
-	 * <p>Tanto os elementos dentro da coleção como myElement precisam implementar a interface <code>org.as3coreaddendum.system.IEquatable</code> para que o método <code>equals</code> de cada objeto seja usado na comparação.
-	 * Do contrário o operador '==' é usado.</p>
+	 * <p>All elements inside the collection and <code>myElement</code> must implement the <code>org.as3coreaddendum.system.IEquatable</code> interface so that <code>equals</code> method of each element can be used in the comparison.
+	 * Otherwise '==' operator is used.</p>
 	 * 
 	 * @author Flávio Silva
 	 */

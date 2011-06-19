@@ -310,7 +310,7 @@ package org.as3collections.lists
 		 * 
 		 * @param  	index 		index at which the specified element is to be inserted.
 		 * @param  	element 	the element to be added.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
 		override public function addAt(index:int, element:*): Boolean
@@ -396,7 +396,7 @@ package org.as3collections.lists
 		 * <p>Before returning, the list is reordered.</p>
 		 * 
 		 * @param  	index 	the index of the element to be removed.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element previously at the specified position.
 		 */
 		override public function removeAt(index:int): *
@@ -413,7 +413,7 @@ package org.as3collections.lists
 		 * 
 		 * @param  	fromIndex 	the index to start removing elements (inclusive).
 		 * @param  	toIndex 	the index to stop removing elements (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new <code>ArrayList</code> object containing all the removed elements.
 		 */
 		override public function removeRange(fromIndex:int, toIndex:int): ICollection
@@ -459,7 +459,7 @@ package org.as3collections.lists
 		 * 
 		 * @param  	index 		index of the element to replace.
 		 * @param  	element 	element to be stored at the specified position.
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element previously at the specified position.
 		 */
 		override public function setAt(index:int, element:*): *
@@ -505,7 +505,7 @@ package org.as3collections.lists
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving elements (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new <code>SortedArrayList</code> that is a view of the specified range within this list.
 		 */
 		override public function subList(fromIndex:int, toIndex:int): IList

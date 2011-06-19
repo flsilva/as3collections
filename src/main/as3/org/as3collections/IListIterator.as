@@ -43,7 +43,7 @@ package org.as3collections
 		 * Inserts the specified element into the list (optional operation). The element is inserted immediately before the next element that would be returned by <code>next</code>, if any, and after the next element that would be returned by <code>previous</code>, if any. (If the list contains no elements, the new element becomes the sole element on the list.) The new element is inserted before the implicit cursor: a subsequent call to <code>next</code> would be unaffected, and a subsequent call to <code>previous</code> would return the new element. (This call increases by one the value that would be returned by a call to <code>nextIndex</code> or <code>previousIndex</code>.) 
 		 * 
 		 * @param  	element 	the element to add.
-		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
+		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 * @return 	<code>true</code> if the list has changed as a result of the call. Returns <code>false</code> if the list does not permit duplicates and already contains the specified element.
 		 */
 		function add(element:*): Boolean;
@@ -65,8 +65,8 @@ package org.as3collections
 		/**
 		 * Returns the previous element in the iteration.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 			if the iteration has no previous elements.
-		 * @throws 	org.as3coreaddendum.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 			if the iteration has no previous elements.
+		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the list was changed directly (without using the iterator) during iteration.
 		 * @return 	the previous element in the iteration.
  		 */
 		function previous(): *;

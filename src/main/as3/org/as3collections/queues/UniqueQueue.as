@@ -167,7 +167,7 @@ package org.as3collections.queues {
 			
 			var c:ICollection = other as ICollection;
 			
-			if (c == null || c.size() != size()) return false;
+			if (c.size() != size()) return false;
 			
 			return wrappedQueue.equals(c);
 		}

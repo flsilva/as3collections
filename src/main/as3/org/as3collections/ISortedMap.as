@@ -51,7 +51,7 @@ package org.as3collections
 		/**
 		 * Returns the first (lowest) key currently in this map.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if this map is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
 		 * @return 	the first (lowest) key currently in this map.
  		 */
 		function firstKey(): *;
@@ -86,7 +86,7 @@ package org.as3collections
 		/**
 		 * Returns the last (highest) key currently in this map.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if this map is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
 		 * @return 	the last (highest) key currently in this map.
  		 */
 		function lastKey(): *;

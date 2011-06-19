@@ -92,7 +92,7 @@ package org.as3collections
 		 * This method differs from <code>poll</code> only in that it throws an error if this queue is empty.
 		 * <p>This implementation returns the result of <code>poll</code> unless the queue is empty.</p>
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError  		if this queue is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError  		if this queue is empty.
 		 * @return 	the head of this queue.
  		 */
 		public function dequeue(): *
@@ -109,7 +109,7 @@ package org.as3collections
 		 * This method differs from <code>peek</code> only in that it throws an error if this queue is empty. 
 		 * <p>This implementation returns the result of <code>peek</code>  unless the queue is empty.</p>
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.NoSuchElementError 	if this queue is empty.
+		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this queue is empty.
 		 * @return 	the head of this queue.
  		 */
 		public function element(): *
@@ -130,8 +130,8 @@ package org.as3collections
 		 * <li>object B contains all elements of object A</li>
 		 * <li>elements have exactly the same order</li>
 		 * </ul></p>
-		 * <p>This implementation takes care of the order of the elements in the list.
-		 * So, for two collections are equal the order of elements returned by the iterator must be equal.</p>
+		 * <p>This implementation takes care of the order of the elements in the queue.
+		 * So, for two queues are equal the order of elements returned by the iterator must be equal.</p>
 		 * 
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
@@ -144,19 +144,23 @@ package org.as3collections
 			
 			var c:ICollection = other as ICollection;
 			
-			if (c == null || c.size() != size()) return false;
+			if (c.size() != size()) return false;
 			
 			var it:IIterator = iterator();
 			var itOther:IIterator = c.iterator();
 			var o1:*;
 			var o2:*;
-			
+			//TODO: inserir o IF fora do loop. ou seja, criar dois loops. motivo: melhorar performance
 			while (it.hasNext())
 			{
 				o1 = it.next();
 				o2 = itOther.next();
 				
-				if ((allEquatable && c.allEquatable && !(o1 as IEquatable).equals(o2)) || o1 != o2)
+				if (allEquatable && c.allEquatable)
+				{
+					if (!(o1 as IEquatable).equals(o2)) return false;
+				}
+				else if (o1 != o2)
 				{
 					return false;
 				}

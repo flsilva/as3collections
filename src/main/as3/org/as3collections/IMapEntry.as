@@ -33,7 +33,7 @@ package org.as3collections
 	import org.as3coreaddendum.system.IEquatable;
 
 	/**
-	 * A map entry (key-value pair). The <code>IMap.entryList</code> method returns a collection-view of the map, whose elements are of this class.
+	 * A map entry (key-value pair). The <code>IMap.entryList</code> method returns a collection-view of the map, whose elements type are of this class.
 	 * 
 	 * @author Flávio Silva
 	 */
