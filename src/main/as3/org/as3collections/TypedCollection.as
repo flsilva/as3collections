@@ -99,7 +99,7 @@ package org.as3collections
 		 */
 		public function add(element:*): Boolean
 		{
-			validateType(element);
+			validateElement(element);
 			return _wrappedCollection.add(element);
 		}
 
@@ -188,38 +188,6 @@ package org.as3collections
 		}
 
 		/**
-		 * Returns <code>true</code> if the type of all elements of the <code>collection</code> argument is compatible with the type of this collection.
-		 * 
-		 * @param  	collection 	the collection to check the type of the elements.
-		 * @return 	<code>true</code> if the type of all elements of the <code>collection</code> argument is compatible with the type of this collection.
-		 */
-		public function isValidCollection(collection:ICollection): Boolean
-		{
-			if (!collection) return false;
-			if (collection.isEmpty()) return true;
-			//TODO: pensar sobre migrar esse método para CollectionUtil
-			var it:IIterator = collection.iterator();
-			
-			while (it.hasNext())
-			{
-				if (!isValidType(it.next())) return false;
-			}
-			
-			return true;
-		}
-
-		/**
-		 * Returns <code>true</code> if the type of the element is compatible with the type of this collection.
-		 * 
-		 * @param  	element 	the element to check the type.
-		 * @return 	<code>true</code> if the type of the element is compatible with the type of this collection.
-		 */
-		public function isValidType(element:*): Boolean
-		{
-			return element is _type;
-		}
-
-		/**
 		 * Forwards the call to <code>wrappedCollection.iterator</code>.
 		 * 
 		 * @return 	the return of the call <code>wrappedCollection.iterator</code>.
@@ -302,35 +270,54 @@ package org.as3collections
 			
 			return s;
 		}
-
+		
 		/**
-		 * Checks if the type of all elements of the <code>collection</code> argument is compatible with the type of this collection.
-		 * 
-		 * @param  collection 	the collection to check the type of the elements.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>collection</code> argument are incompatible with the type of this collection. 	
+		 * @private
 		 */
-		public function validateCollection(collection:ICollection): void
+		protected function isValidElement(element:*): Boolean
 		{
-			if (!collection) return;
-			if (collection.isEmpty()) return;
-			//TODO: pensar sobre migrar esse método para CollectionUtil
+			return element is _type;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function validateCollection(collection:ICollection): void
+		{
+			if (!collection || collection.isEmpty()) return;
+			
+			var containsOnlyType:Boolean = CollectionUtil.containsOnlyType(collection, type, false);
+			if (containsOnlyType) return;
+			
 			var it:IIterator = collection.iterator();
+			var invalidElement:*;
 			
 			while (it.hasNext())
 			{
-				validateType(it.next());
+				invalidElement = it.next();
+				if (!isValidElement(invalidElement)) break;
 			}
+			
+			var message:String = "Invalid element type. element: <" + invalidElement + ">\n";
+			message += "element type: <" + ReflectionUtil.getClassPath(invalidElement) + ">\n";
+			message += "expected type: <" + ReflectionUtil.getClassPath(_type) + ">";
+			
+			throw new ClassCastError(message);
 		}
-
+		
 		/**
-		 * Checks if the type of the element is compatible with the type of this collection.
-		 * 
-		 * @param  	element 	the element to check the type.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the element is incompatible with the type of this collection.
+		 * @private
 		 */
-		public function validateType(element:*): void
+		protected function validateElement(element:*): void
 		{
-			if (!isValidType(element)) throw new ClassCastError("Invalid element type. element: " + element + " | type: " + ReflectionUtil.getClassPath(element) + " | expected type: " + ReflectionUtil.getClassPath(_type));
+			if (!isValidElement(element))
+			{
+				var message:String = "Invalid element type. element: <" + element + ">\n";
+				message += "element type: <" + ReflectionUtil.getClassPath(element) + ">\n";
+				message += "expected type: <" + ReflectionUtil.getClassPath(_type) + ">";
+				
+				throw new ClassCastError(message);
+			}
 		}
 
 	}

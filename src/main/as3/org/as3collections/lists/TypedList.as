@@ -190,7 +190,7 @@ package org.as3collections.lists
 		 */
 		public function addAt(index:int, element:*): Boolean
 		{
-			validateType(element);
+			validateElement(element);
 			return wrappedList.addAt(index, element);
 		}
 
@@ -314,7 +314,7 @@ package org.as3collections.lists
 		 */
 		public function setAt(index:int, element:*): *
 		{
-			validateType(element);
+			validateElement(element);
 			return wrappedList.setAt(index, element);
 		}
 

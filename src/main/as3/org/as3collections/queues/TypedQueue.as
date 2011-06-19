@@ -179,7 +179,7 @@ package org.as3collections.queues
 		 */
 		public function offer(element:*): Boolean
 		{
-			if (!isValidType(element)) return false;
+			if (!isValidElement(element)) return false;
 			return wrappedQueue.offer(element);
 		}
 

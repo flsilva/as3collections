@@ -59,6 +59,23 @@ package org.as3collections.utils
 		}
 		
 		/**
+		 * Returns <code>true</code> if the collection contains only elements of the <code>type</code> argument.
+		 * <p>This method uses <code>org.as3utils.ArrayUtil.containsOnlyType()</code></p>
+		 * 
+		 * @param  	collection 	the collection to check. May be <code>null</code>.
+		 * @param  	element 	the type of the elements.
+		 * @param  	strict 		defines if the type of the elements should be strictly equal.
+		 * @return 	<code>true</code> if the collection contains only elements of the <code>type</code> argument. If the collection is <code>null</code> or empty returns <code>false</code>.
+		 */
+		public static function containsOnlyType(collection:ICollection, type:*, strict:Boolean = false): Boolean
+		{
+			if(!collection || collection.isEmpty()) return false;
+			
+			var array:Array = collection.toArray();
+			return ArrayUtil.containsOnlyType(array, type, strict);
+		}
+		
+		/**
 		 * Performs an arbitrary, specific evaluation of equality between the two arguments.
 		 * If one of the collections or both collections are <code>null</code> it will be returned <code>false</code>.
 		 * <p>Two different objects are considered equal if:</p>
