@@ -39,6 +39,7 @@ package
 	import org.as3collections.lists.UniqueListTestsEquatableObject;
 	import org.as3collections.queues.LinearQueueTests;
 	import org.as3collections.queues.LinearQueueTestsEquatableObject;
+	import org.as3collections.queues.SortedQueueTests;
 	import org.as3collections.queues.TypedQueueTests;
 	import org.as3collections.queues.UniqueQueueTests;
 	import org.as3collections.queues.UniqueQueueTestsEquatableObject;
@@ -64,6 +65,7 @@ package
 		//org.as3collections.queues
 		public var linearQueueTests:LinearQueueTests;
 		public var linearQueueTestsEquatableObject:LinearQueueTestsEquatableObject;
+		public var sortedQueueTests:SortedQueueTests;
 		public var typedQueueTests:TypedQueueTests;
 		public var uniqueQueueTests:UniqueQueueTests;
 		public var uniqueQueueTestsEquatableObject:UniqueQueueTestsEquatableObject;

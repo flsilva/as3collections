@@ -29,15 +29,17 @@
 
 package org.as3collections.lists
 {
-	import org.as3coreaddendum.system.comparators.DateComparator;
-	import org.as3coreaddendum.system.comparators.NumberComparator;
-	import org.as3coreaddendum.system.comparators.AlphabeticalComparison;
-	import org.as3coreaddendum.system.comparators.AlphabeticalComparator;
 	import org.as3collections.ICollection;
 	import org.as3collections.IList;
 	import org.as3collections.IListTests;
 	import org.as3collections.ISortedList;
+	import org.as3collections.PriorityObject;
 	import org.as3coreaddendum.system.IComparator;
+	import org.as3coreaddendum.system.comparators.AlphabeticalComparator;
+	import org.as3coreaddendum.system.comparators.AlphabeticalComparison;
+	import org.as3coreaddendum.system.comparators.DateComparator;
+	import org.as3coreaddendum.system.comparators.NumberComparator;
+	import org.as3coreaddendum.system.comparators.PriorityComparator;
 	import org.flexunit.Assert;
 
 	/**
@@ -113,6 +115,24 @@ package org.as3collections.lists
 			Assert.assertEquals(comparator2, newSortedList.comparator);
 		}
 		
+		[Test]
+		public function comparator_changeComparatorAndGetAtToCheckIfListWasReorderedAndCorrectElementReturned_ReturnTrue(): void
+		{
+			var priorityObject1:PriorityObject = new PriorityObject(1);
+			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var priorityObject3:PriorityObject = new PriorityObject(3);
+			
+			sortedList.add(priorityObject2);
+			sortedList.add(priorityObject3);
+			sortedList.add(priorityObject1);
+			
+			var newComparator:IComparator = new PriorityComparator();
+			sortedList.comparator = newComparator;
+			
+			var element:PriorityObject = sortedList.getAt(0);
+			Assert.assertEquals(priorityObject3, element);
+		}
+		
 		///////////////////////////
 		// IList().options TESTS //
 		///////////////////////////
@@ -138,21 +158,28 @@ package org.as3collections.lists
 			Assert.assertEquals(options2, newSortedList.options);
 		}
 		
+		[Test]
+		public function options_changeOptionsAndGetAtToCheckIfListWasReorderedAndCorrectElementReturned_ReturnTrue(): void
+		{
+			sortedList.add("element-1");
+			sortedList.add("element-2");
+			sortedList.options = Array.DESCENDING;
+			
+			var element:String = sortedList.getAt(0);
+			Assert.assertEquals("element-2", element);
+		}
+		
 		////////////////////////////
 		// IList().equals() TESTS //
 		////////////////////////////
 		
 		[Test]
-		public function equals_listWithTwoNotEquatableElements_sameElementsAddedInSameOrderButListsCreatedWithDifferentSortOptions_checkIfBothListsAreEqual_ReturnsFalse(): void
+		public function equals_twoEmptyListsCreatedWithDifferentSortOptions_checkIfBothListsAreEqual_ReturnsFalse(): void
 		{
 			sortedList.options = 0;//ASCENDING
-			sortedList.add("element-1");
-			sortedList.add("element-2");
 			
 			var sortedList2:ISortedList = new SortedArrayList();
 			sortedList2.options = Array.DESCENDING;
-			sortedList2.add("element-1");
-			sortedList2.add("element-2");
 			
 			Assert.assertFalse(sortedList.equals(sortedList2));
 		}

@@ -32,6 +32,7 @@ package org.as3collections.queues
 	import org.as3collections.ICollection;
 	import org.as3collections.ISortedQueue;
 	import org.as3coreaddendum.system.IComparator;
+	import org.as3utils.ReflectionUtil;
 
 	/**
 	 * A queue that provides a <em>total ordering</em> on its elements.
@@ -144,7 +145,40 @@ package org.as3collections.queues
 		{
 			return new SortedQueue(data, _comparator, _options);
 		}
-
+		
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
+		 * <p>This implementation considers two differente objects equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class</li>
+		 * <li>object A contains all elements of object B</li>
+		 * <li>object B contains all elements of object A</li>
+		 * <li>elements have exactly the same order</li>
+		 * <li>object A and object B has the same type of comparator</li>
+		 * <li>object A and object B has the same options</li>
+		 * </ul></p>
+		 * <p>This implementation takes care of the order of the elements in the queue.
+		 * So, for two queues are equal the order of elements returned by the iterator object must be equal.</p>
+		 * 
+		 * @param  	other 	the object to be compared for equality.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		override public function equals(other:*): Boolean
+		{
+			if (this == other) return true;
+			
+			if (!ReflectionUtil.classPathEquals(this, other)) return false;
+			
+			var l:ISortedQueue = other as ISortedQueue;
+			
+			if (_options != l.options) return false;
+			if (!_comparator && l.comparator) return false;
+			if (_comparator && !l.comparator) return false;
+			if (!ReflectionUtil.classPathEquals(_comparator, l.comparator)) return false;
+			
+			return super.equals(other);
+		}
+		
 		/**
 		 * Inserts the specified element into this queue if it is possible to do so immediately without violating restrictions.
 		 * When using a restricted queue (like <code>TypedQueue</code> and <code>UniqueQueue</code>), this method is generally preferable to <code>add</code>, which can fail to insert an element only by throwing an error. 
