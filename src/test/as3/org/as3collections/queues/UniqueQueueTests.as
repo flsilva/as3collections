@@ -64,7 +64,7 @@ package org.as3collections.queues
 		}
 		
 		/////////////////////////////////////
-		// LinearQueue() constructor TESTS //
+		// UniqueQueue() constructor TESTS //
 		/////////////////////////////////////
 		
 		[Test]
@@ -111,8 +111,40 @@ package org.as3collections.queues
 			queue.add("element-1");
 		}
 		
+		/////////////////////////////////
+		// UniqueQueue().clone() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function clone_emptyQueue_ReturnValidiQueueObject(): void
+		{
+			var clonedQueue:IQueue = queue.clone();
+			Assert.assertNotNull(clonedQueue);
+		}
+		
+		[Test]
+		public function clone_queueWithTwoNotEquatableElements_checkIfBothQueuesAreEqual_ReturnsTrue(): void
+		{
+			queue.add("element-1");
+			queue.add("element-2");
+			
+			var clonedQueue:ICollection = collection.clone();
+			Assert.assertTrue(collection.equals(clonedQueue));
+		}
+		
+		[Test]
+		public function clone_queueWithTwoNotEquatableElements_cloneButChangeQueue_checkIfBothQueuesAreEqual_ReturnsFalse(): void
+		{
+			queue.add("element-1");
+			queue.add("element-2");
+			
+			var clonedQueue:ICollection = collection.clone();
+			clonedQueue.remove("element-2");
+			Assert.assertFalse(collection.equals(clonedQueue));
+		}
+		
 		///////////////////////////////////
-		// LinearQueue().dequeue() TESTS //
+		// UniqueQueue().dequeue() TESTS //
 		///////////////////////////////////
 		
 		[Test]
@@ -153,6 +185,25 @@ package org.as3collections.queues
 			Assert.assertFalse(queue.equals(queue2));
 		}
 		
+		///////////////////////////////////
+		// UniqueQueue().element() TESTS //
+		///////////////////////////////////
+		
+		[Test(expects="org.as3collections.errors.NoSuchElementError")]
+		public function element_emptyQueue_ThrowsError(): void
+		{
+			queue.element();
+		}
+		
+		[Test]
+		public function element_queueWithOneNotEquatableElement_ReturnsValidObject(): void
+		{
+			queue.add("element-1");
+			
+			var element:String = queue.element();
+			Assert.assertNotNull(element);
+		}
+		
 		/////////////////////////////////
 		// UniqueQueue().offer() TESTS //
 		/////////////////////////////////
@@ -171,6 +222,46 @@ package org.as3collections.queues
 			
 			var added:Boolean = queue.offer("element-1");
 			Assert.assertFalse(added);
+		}
+		
+		////////////////////////////////
+		// UniqueQueue().peek() TESTS //
+		////////////////////////////////
+		
+		[Test]
+		public function peek_emptyQueue_ReturnsNull(): void
+		{
+			var element:* = queue.peek();
+			Assert.assertNull(element);
+		}
+		
+		[Test]
+		public function peek_queueWithOneNotEquatableElement_ReturnsValidObject(): void
+		{
+			queue.add("element-1");
+			
+			var element:String = queue.peek();
+			Assert.assertNotNull(element);
+		}
+		
+		////////////////////////////////
+		// UniqueQueue().poll() TESTS //
+		////////////////////////////////
+		
+		[Test]
+		public function poll_emptyQueue_ReturnsNull(): void
+		{
+			var element:* = queue.poll();
+			Assert.assertNull(element);
+		}
+		
+		[Test]
+		public function poll_queueWithOneNotEquatableElement_ReturnsValidObject(): void
+		{
+			queue.add("element-1");
+			
+			var element:String = queue.poll();
+			Assert.assertNotNull(element);
 		}
 		
 	}

@@ -27,10 +27,12 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.queues {
-	import org.as3collections.ICollection;
+package org.as3collections.queues 
+{
+	import org.as3collections.IIterator;
 	import org.as3collections.IQueue;
 	import org.as3collections.UniqueCollection;
+	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
 
 	import flash.errors.IllegalOperationError;
@@ -165,11 +167,31 @@ package org.as3collections.queues {
 			
 			if (!ReflectionUtil.classPathEquals(this, other)) return false;
 			
-			var c:ICollection = other as ICollection;
+			var c:UniqueQueue = other as UniqueQueue;
 			
 			if (c.size() != size()) return false;
 			
-			return wrappedQueue.equals(c);
+			var it:IIterator = iterator();
+			var itOther:IIterator = c.iterator();
+			var o1:*;
+			var o2:*;
+			//TODO: inserir o IF fora do loop. ou seja, criar dois loops. motivo: melhorar performance
+			while (it.hasNext())
+			{
+				o1 = it.next();
+				o2 = itOther.next();
+				
+				if (allEquatable && c.allEquatable)
+				{
+					if (!(o1 as IEquatable).equals(o2)) return false;
+				}
+				else if (o1 != o2)
+				{
+					return false;
+				}
+			}
+			
+			return true;
 		}
 
 		/**
