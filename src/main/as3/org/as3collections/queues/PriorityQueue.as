@@ -27,7 +27,11 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.queues {
+package org.as3collections.queues 
+{
+	import org.as3collections.ICollection;
+	import org.as3collections.IIterator;
+	import org.as3collections.lists.ArrayList;
 	import org.as3coreaddendum.errors.ClassCastError;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.system.IPriority;
@@ -113,9 +117,12 @@ package org.as3collections.queues {
 		 * Constructor, creates a new <code>PriorityQueue</code> object.
 		 * 
 		 * @param 	source 		an array to fill the queue.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if one or more elements in the <code>source</code> argument do not implement the <code>org.as3coreaddendum.system.IPriority</code> interface.
 		 */
 		public function PriorityQueue(source:Array = null): void
 		{
+			validateCollection(new ArrayList(source));
+			
 			super(source, new PriorityComparator());
 		}
 
@@ -135,7 +142,7 @@ package org.as3collections.queues {
 		override public function add(element:*): Boolean
 		{
 			if (element == null) throw new NullPointerError("The 'element' argument must not be 'null'.");
-			if (!(element is IPriority)) throw new ClassCastError("The element must implement the 'org.as3coreaddendum.system.IPriority' interface. Type received: " + ReflectionUtil.getClassPath(element));
+			validateElement(element);
 			
 			var b:Boolean = offer(element);
 			
@@ -157,7 +164,39 @@ package org.as3collections.queues {
 			
 			return q;
 		}
+		
+		/**
+		 * Returns <code>true</code> if all elements of the <code>collection</code> argument implement <code>org.as3coreaddendum.system.IPriority</code> interface.
+		 * 
+		 * @param  	collection 	the collection to check.
+		 * @return 	<code>true</code> if all elements of the <code>collection</code> argument implement <code>org.as3coreaddendum.system.IPriority</code> interface.
+		 */
+		public function isValidCollection(collection:ICollection): Boolean
+		{
+			if (!collection) return false;
+			if (collection.isEmpty()) return true;
+			//TODO: pensar sobre migrar esse método para CollectionUtil
+			var it:IIterator = collection.iterator();
+			
+			while (it.hasNext())
+			{
+				if (!isValidType(it.next())) return false;
+			}
+			
+			return true;
+		}
 
+		/**
+		 * Returns <code>true</code> if the element implement <code>org.as3coreaddendum.system.IPriority</code> interface.
+		 * 
+		 * @param  	element 	the element to check.
+		 * @return 	<code>true</code> if the element implement <code>org.as3coreaddendum.system.IPriority</code> interface.
+		 */
+		public function isValidType(element:*): Boolean
+		{
+			return element is IPriority;
+		}
+		
 		/**
 		 * Inserts the specified element into this queue if it is possible to do so immediately without violating restrictions.
 		 * When using a restricted queue (like <code>TypedQueue</code> and <code>UniqueQueue</code>), this method is generally preferable to <code>add</code>, which can fail to insert an element only by throwing an error. 
@@ -173,6 +212,36 @@ package org.as3collections.queues {
 			if (element == null || !(element is IPriority)) return false;
 			
 			return super.offer(element);
+		}
+		
+		/**
+		 * Checks if all elements of the <code>collection</code> argument implements <code>org.as3coreaddendum.system.IPriority</code> interface.
+		 * 
+		 * @param  	collection 	the collection to check.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if one or more elements in the <code>collection</code> argument do not implement the <code>org.as3coreaddendum.system.IPriority</code> interface. 	
+		 */
+		public function validateCollection(collection:ICollection): void
+		{
+			if (!collection) return;
+			if (collection.isEmpty()) return;
+			//TODO: pensar sobre migrar esse método para CollectionUtil
+			var it:IIterator = collection.iterator();
+			
+			while (it.hasNext())
+			{
+				validateElement(it.next());
+			}
+		}
+
+		/**
+		 * Checks if the element implements <code>org.as3coreaddendum.system.IPriority</code> interface.
+		 * 
+		 * @param  	element 	the element to check.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the <code>element</code> argument do not implement the <code>org.as3coreaddendum.system.IPriority</code> interface.
+		 */
+		public function validateElement(element:*): void
+		{
+			if (!isValidType(element)) throw new ClassCastError("The element must implement the 'org.as3coreaddendum.system.IPriority' interface. Type received: " + ReflectionUtil.getClassPath(element));
 		}
 
 	}

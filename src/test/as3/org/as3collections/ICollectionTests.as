@@ -159,7 +159,7 @@ package org.as3collections
 		/////////////////////////////////
 		
 		[Test]
-		public function clone_emptyCollection_ReturnValidICollectionObject(): void
+		public function clone_emptyCollection_ReturnValidCollectionObject(): void
 		{
 			var clonedCollection:ICollection = collection.clone();
 			Assert.assertNotNull(clonedCollection);

@@ -30,12 +30,10 @@
 package org.as3collections.queues
 {
 	import org.as3collections.ICollection;
-	import org.as3collections.IList;
 	import org.as3collections.IQueueTests;
 	import org.as3collections.ISortedList;
 	import org.as3collections.ISortedQueue;
 	import org.as3collections.PriorityObject;
-	import org.as3collections.lists.ArrayList;
 	import org.as3collections.lists.SortedArrayList;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3coreaddendum.system.comparators.AlphabeticalComparator;
@@ -73,18 +71,18 @@ package org.as3collections.queues
 		[Test]
 		public function constructor_argumentWithTwoElements_checkIfIsEmpty_ReturnsFalse(): void
 		{
-			var newList:IList = new ArrayList(["element-1", "element-2"]);
+			var newQueue:ISortedQueue = new SortedQueue(["element-1", "element-2"]);
 			
-			var isEmpty:Boolean = newList.isEmpty();
+			var isEmpty:Boolean = newQueue.isEmpty();
 			Assert.assertFalse(isEmpty);
 		}
 		
 		[Test]
 		public function constructor_argumentWithTwoElements_checkIfSizeIsTwo_ReturnsTrue(): void
 		{
-			var newList:IList = new ArrayList(["element-1", "element-2"]);
+			var newQueue:ISortedQueue = new SortedQueue(["element-1", "element-2"]);
 			
-			var size:int = newList.size();
+			var size:int = newQueue.size();
 			Assert.assertEquals(2, size);
 		}
 		
@@ -311,9 +309,9 @@ package org.as3collections.queues
 			Assert.assertEquals(9, element);
 		}
 		
-		////////////////////////////
-		// IList().sortOn() TESTS //
-		////////////////////////////
+		//////////////////////////////////
+		// SortedQueue().sortOn() TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function sortOn_queueWithObjectsWithProperty_checkIfElementIsInCorrectIndex_ReturnsTrue(): void

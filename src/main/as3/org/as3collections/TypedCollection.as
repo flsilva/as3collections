@@ -201,7 +201,7 @@ package org.as3collections {
 		{
 			if (!collection) return false;
 			if (collection.isEmpty()) return true;
-			
+			//TODO: pensar sobre migrar esse método para CollectionUtil
 			var it:IIterator = collection.iterator();
 			
 			while (it.hasNext())
