@@ -29,6 +29,10 @@
 
 package org.as3collections.queues 
 {
+	import org.as3collections.ICollection;
+	import org.as3collections.IIterator;
+	import org.as3collections.lists.ArrayList;
+	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.system.IIndexable;
@@ -124,9 +128,12 @@ package org.as3collections.queues
 		 * Constructor, creates a new <code>IndexablePriorityQueue</code> object.
 		 * 
 		 * @param 	source 		an array to fill the queue.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if one or more elements in the <code>source</code> argument do not implement the <code>org.as3coreaddendum.system.IPriority</code> and <code>org.as3coreaddendum.system.IIndexable</code> interfaces.
 		 */
-		public function IndexablePriorityQueue(source:Array = null): void
+		public function IndexablePriorityQueue(source:Array = null)
 		{
+			validateCollection(new ArrayList(source));
+			
 			super(source, new IndexablePriorityComparator());
 		}
 
@@ -146,8 +153,7 @@ package org.as3collections.queues
 		override public function add(element:*): Boolean
 		{
 			if (element == null) throw new NullPointerError("The 'element' argument must not be 'null'.");
-			if (!(element is IPriority)) throw new ClassCastError("The element must implement the 'org.as3coreaddendum.system.IPriority' interface. Type received: " + ReflectionUtil.getClassPath(element));
-			if (!(element is IIndexable)) throw new ClassCastError("The element must implement the 'org.as3coreaddendum.system.IIndexable' interface. Type received: " + ReflectionUtil.getClassPath(element));
+			validateElement(element);
 			
 			var b:Boolean = offer(element);
 			
@@ -182,9 +188,64 @@ package org.as3collections.queues
 		 */
 		override public function offer(element:*): Boolean
 		{
-			if (element == null || !(element is IPriority) || !(element is IIndexable)) return false;
+			if (element == null || !isValidElement(element)) return false;
 			
 			return super.offer(element);
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function isValidElement(element:*): Boolean
+		{
+			return element is IPriority && element is IIndexable;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function validateCollection(collection:ICollection): void
+		{
+			if (!collection || collection.isEmpty()) return;
+			
+			var containsOnlyTypePriority:Boolean = CollectionUtil.containsOnlyType(collection, IPriority, false);
+			var containsOnlyTypeIndexable:Boolean = CollectionUtil.containsOnlyType(collection, IIndexable, false);
+			if (containsOnlyTypePriority && containsOnlyTypeIndexable) return;
+			
+			var it:IIterator = collection.iterator();
+			var element:*;
+			
+			while (it.hasNext())
+			{
+				element = it.next();
+				if (!isValidElement(element)) break;
+			}
+			
+			var error:ClassCastError = getInvalidElementError(element);
+			throw error;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function validateElement(element:*): void
+		{
+			if (isValidElement(element)) return;
+			
+			var error:ClassCastError = getInvalidElementError(element);
+			throw error;
+		}
+		
+		/**
+		 * @private
+		 */
+		private function getInvalidElementError(element:*): ClassCastError
+		{
+			var message:String = "Element must implement org.as3coreaddendum.system.IPriority and org.as3coreaddendum.system.IIndexable\n";
+			message += "element: <" + element + ">\n";
+			message += "element type: <" + ReflectionUtil.getClassPath(element) + ">";
+			
+			return new ClassCastError(message);
 		}
 
 	}

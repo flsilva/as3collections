@@ -178,7 +178,7 @@ package org.as3collections.queues
 		 */
 		override public function offer(element:*): Boolean
 		{
-			if (element == null || !(element is IPriority)) return false;
+			if (element == null || !isValidElement(element)) return false;
 			
 			return super.offer(element);
 		}

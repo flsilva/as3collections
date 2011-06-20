@@ -31,18 +31,18 @@ package org.as3collections.queues
 {
 	import org.as3collections.ICollection;
 	import org.as3collections.ISortedQueue;
-	import org.as3collections.PriorityObject;
+	import org.as3collections.IndexablePriorityObject;
 	import org.flexunit.Assert;
 
 	/**
 	 * @author Flávio Silva
 	 */
-	public class PriorityQueueTests
+	public class IndexablePriorityQueueTests
 	{
 		
 		public var priorityQueue:ISortedQueue;
 		
-		public function PriorityQueueTests()
+		public function IndexablePriorityQueueTests()
 		{
 			
 		}
@@ -69,20 +69,20 @@ package org.as3collections.queues
 		
 		public function getQueue():ISortedQueue
 		{
-			return new PriorityQueue();
+			return new IndexablePriorityQueue();
 		}
 		
-		///////////////////////////////////////
-		// PriorityQueue() constructor TESTS //
-		///////////////////////////////////////
+		////////////////////////////////////////////////
+		// IndexablePriorityQueue() constructor TESTS //
+		////////////////////////////////////////////////
 		
 		[Test]
 		public function constructor_argumentWithTwoElements_checkIfIsEmpty_ReturnsFalse(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
-			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 1);
 			
-			var newQueue:ISortedQueue = new PriorityQueue([priorityObject1, priorityObject2]);
+			var newQueue:ISortedQueue = new IndexablePriorityQueue([indexablePriorityObject1, indexablePriorityObject2]);
 			
 			var isEmpty:Boolean = newQueue.isEmpty();
 			Assert.assertFalse(isEmpty);
@@ -91,10 +91,10 @@ package org.as3collections.queues
 		[Test]
 		public function constructor_argumentWithTwoElements_checkIfSizeIsTwo_ReturnsTrue(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
-			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 1);
 			
-			var newQueue:ISortedQueue = new PriorityQueue([priorityObject1, priorityObject2]);
+			var newQueue:ISortedQueue = new IndexablePriorityQueue([indexablePriorityObject1, indexablePriorityObject2]);
 			
 			var size:int = newQueue.size();
 			Assert.assertEquals(2, size);
@@ -103,13 +103,13 @@ package org.as3collections.queues
 		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
 		public function constructor_argumentWithInvalidElement_ThrowsError(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
-			new PriorityQueue([priorityObject1, "element-2"]);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
+			new IndexablePriorityQueue([indexablePriorityObject1, "element-2"]);
 		}
 		
-		/////////////////////////////////
-		// PriorityQueue().add() TESTS //
-		/////////////////////////////////
+		//////////////////////////////////////////
+		// IndexablePriorityQueue().add() TESTS //
+		//////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
 		public function add_nullArgument_ThrowsError(): void
@@ -126,15 +126,15 @@ package org.as3collections.queues
 		[Test]
 		public function add_validArgument_ReturnsTrue(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
 			
-			var added:Boolean = priorityQueue.add(priorityObject1);
+			var added:Boolean = priorityQueue.add(indexablePriorityObject1);
 			Assert.assertTrue(added);
 		}
 		
-		///////////////////////////////////
-		// PriorityQueue().clone() TESTS //
-		///////////////////////////////////
+		////////////////////////////////////////////
+		// IndexablePriorityQueue().clone() TESTS //
+		////////////////////////////////////////////
 		
 		[Test]
 		public function clone_emptyQueue_ReturnValidQueueObject(): void
@@ -146,11 +146,11 @@ package org.as3collections.queues
 		[Test]
 		public function clone_collectionWithTwoNotEquatableElements_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
-			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 1);
 			
-			priorityQueue.add(priorityObject1);
-			priorityQueue.add(priorityObject2);
+			priorityQueue.add(indexablePriorityObject1);
+			priorityQueue.add(indexablePriorityObject2);
 			
 			var clonedQueue:ICollection = priorityQueue.clone();
 			Assert.assertTrue(priorityQueue.equals(clonedQueue));
@@ -159,47 +159,47 @@ package org.as3collections.queues
 		[Test]
 		public function clone_collectionWithTwoNotEquatableElements_cloneButChangeCollection_checkIfBothCollectionsAreEqual_ReturnsFalse(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
-			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 1);
 			
-			priorityQueue.add(priorityObject1);
-			priorityQueue.add(priorityObject2);
+			priorityQueue.add(indexablePriorityObject1);
+			priorityQueue.add(indexablePriorityObject2);
 			
 			var clonedQueue:ICollection = priorityQueue.clone();
-			clonedQueue.remove(priorityObject2);
+			clonedQueue.remove(indexablePriorityObject2);
 			Assert.assertFalse(priorityQueue.equals(clonedQueue));
 		}
 		
-		////////////////////////////////////
-		// PriorityQueue().equals() TESTS //
-		////////////////////////////////////
+		/////////////////////////////////////////////
+		// IndexablePriorityQueue().equals() TESTS //
+		/////////////////////////////////////////////
 		
 		[Test]
 		public function equals_twoEmptyQueues_ReturnsTrue(): void
 		{
-			var priorityQueue2:ISortedQueue = new PriorityQueue();
+			var priorityQueue2:ISortedQueue = new IndexablePriorityQueue();
 			Assert.assertTrue(priorityQueue.equals(priorityQueue2));
 		}
 		
 		[Test]
 		public function equals_queueWithTwoNotEquatableElements_createdWithDifferentOrderButShouldBeCorrectlyOrdered_checkIfBothQueuesAreEqual_ReturnsTrue(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
-			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 1);
 			
-			priorityQueue.add(priorityObject1);
-			priorityQueue.add(priorityObject2);
+			priorityQueue.add(indexablePriorityObject1);
+			priorityQueue.add(indexablePriorityObject2);
 			
 			var queue2:ICollection = getQueue();
-			queue2.add(priorityObject2);
-			queue2.add(priorityObject1);
+			queue2.add(indexablePriorityObject2);
+			queue2.add(indexablePriorityObject1);
 			
 			Assert.assertTrue(priorityQueue.equals(queue2));
 		}
 		
-		///////////////////////////////////
-		// PriorityQueue().offer() TESTS //
-		///////////////////////////////////
+		////////////////////////////////////////////
+		// IndexablePriorityQueue().offer() TESTS //
+		////////////////////////////////////////////
 		
 		[Test]
 		public function offer_nullArgument_ReturnsFalse(): void
@@ -218,27 +218,27 @@ package org.as3collections.queues
 		[Test]
 		public function offer_validArgument_ReturnsTrue(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
 			
-			var added:Boolean = priorityQueue.offer(priorityObject1);
+			var added:Boolean = priorityQueue.offer(indexablePriorityObject1);
 			Assert.assertTrue(added);
 		}
 		
-		//////////////////////////////////
-		// PriorityQueue().poll() TESTS //
-		//////////////////////////////////
+		///////////////////////////////////////////
+		// IndexablePriorityQueue().poll() TESTS //
+		///////////////////////////////////////////
 		
 		[Test]
 		public function poll_addTwoValidElements_callPollAndCheckIfCorrectElementWasReturned_ReturnsTrue(): void
 		{
-			var priorityObject1:PriorityObject = new PriorityObject(1);
-			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 2);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
 			
-			priorityQueue.add(priorityObject1);
-			priorityQueue.add(priorityObject2);
+			priorityQueue.add(indexablePriorityObject1);
+			priorityQueue.add(indexablePriorityObject2);
 			
-			var element:PriorityObject = priorityQueue.poll();
-			Assert.assertEquals(priorityObject2, element);
+			var element:IndexablePriorityObject = priorityQueue.poll();
+			Assert.assertEquals(indexablePriorityObject2, element);
 		}
 		
 	}
