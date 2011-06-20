@@ -29,12 +29,6 @@
 
 package org.as3collections
 {
-	import org.as3collections.ICollection;
-	import org.as3collections.IIterator;
-	import org.as3collections.IList;
-	import org.as3collections.IMap;
-	import org.as3collections.IMapEntry;
-	import org.as3collections.iterators.ReadOnlyMapIterator;
 	import org.as3collections.lists.ArrayList;
 	import org.as3coreaddendum.errors.CloneNotSupportedError;
 	import org.as3coreaddendum.errors.NullPointerError;
@@ -61,10 +55,6 @@ package org.as3collections
 		 * @private
 		 */
 		protected var _allKeysEquatable: Boolean = true;
-
-		/**
-		 * @private
-		 */
 		protected var _allValuesEquatable: Boolean = true;
 
 		private var _keys: Array;
@@ -286,14 +276,14 @@ package org.as3collections
 
 		/**
 		 * Returns an iterator over a set of mappings.
-		 * <p>This implementation returns a <code>ReadOnlyMapIterator</code> object.</p>
+		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @return 	an iterator over a set of values.
-		 * @see 	org.as3collections.iterators.ReadOnlyMapIterator ReadOnlyMapIterator
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	this method must be overridden in subclass.
  		 */
 		public function iterator(): IIterator
 		{
-			return new ReadOnlyMapIterator(this);
+			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
 		}
 
 		/**

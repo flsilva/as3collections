@@ -228,6 +228,7 @@ package org.as3collections
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @return 	an iterator over a set of elements.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	this method must be overridden in subclass.
  		 */
 		public function iterator(): IIterator
 		{

@@ -82,7 +82,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function allEquatable_notEmptyCollection_notContainEquatableElement_ReturnsFalse(): void
+		public function allEquatable_notEmptyCollection_notContainAnyEquatableElement_ReturnsFalse(): void
 		{
 			collection.add("element-1");
 			
@@ -99,6 +99,24 @@ package org.as3collections
 		{
 			var added:Boolean = collection.add("element-1");
 			Assert.assertTrue(added);
+		}
+		
+		[Test]
+		public function add_addNotEquatableElement_checkIfCollectionIsEmpty_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test]
+		public function add_addNotEquatableElement_checkIfCollectionSizeIsOne_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			
+			var size:int = collection.size();
+			Assert.assertEquals(1, size);
 		}
 		
 		//////////////////////////////////
@@ -129,6 +147,32 @@ package org.as3collections
 			
 			var changed:Boolean = collection.addAll(addCollection);
 			Assert.assertTrue(changed);
+		}
+		
+		[Test]
+		public function addAll_argumentWithTwoNotEquatableElements_checkIfCollectionIsEmpty_ReturnsFalse(): void
+		{
+			var addAllCollection:ICollection = getCollection();
+			addAllCollection.add("element-1");
+			addAllCollection.add("element-2");
+			
+			collection.addAll(addAllCollection);
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test]
+		public function addAll_validArgumentWithTwoNotEquatableElements_checkIfCollectionSizeIsTwo_ReturnsTrue(): void
+		{
+			var addAllCollection:ICollection = getCollection();
+			addAllCollection.add("element-1");
+			addAllCollection.add("element-2");
+			
+			collection.addAll(addAllCollection);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(2, size);
 		}
 		
 		/////////////////////////////////
@@ -357,7 +401,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function remove_collectionWithThreeNotEquatableElements_containsElement_ReturnsTrue(): void
+		public function remove_collectionWithThreeNotEquatableElements_containsElementToBeRemoved_ReturnsTrue(): void
 		{
 			collection.add("element-1");
 			collection.add("element-2");
@@ -365,6 +409,38 @@ package org.as3collections
 			
 			var removed:Boolean = collection.remove("element-2");
 			Assert.assertTrue(removed);
+		}
+		
+		[Test]
+		public function remove_collectionWithOneNotEquatableElement_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.remove("element-1");
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function remove_collectionWithTwoNotEquatableElements_removeOneElement_checkIfCollectionIsEmpty_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			collection.remove("element-1");
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test]
+		public function remove_collectionWithTwoNotEquatableElements_removeOne_checkIfCollectionSizeIsOne_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			collection.remove("element-1");
+			
+			var size:int = collection.size();
+			Assert.assertEquals(1, size);
 		}
 		
 		/////////////////////////////////////
@@ -409,6 +485,68 @@ package org.as3collections
 			
 			var changed:Boolean = collection.removeAll(removeCollection);
 			Assert.assertTrue(changed);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoNotEquatableElements_argumentWithTheTwoElements_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			var removeCollection:ICollection = getCollection();
+			removeCollection.add("element-1");
+			removeCollection.add("element-2");
+			
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			collection.removeAll(removeCollection);
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoNotEquatableElements_argumentWithTheTwoElements_checkIfCollectionSizeIsZero_ReturnsTrue(): void
+		{
+			var removeCollection:ICollection = getCollection();
+			removeCollection.add("element-1");
+			removeCollection.add("element-2");
+			
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			collection.removeAll(removeCollection);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(0, size);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoElements_argumentWithOneElement_checkIfCollectionIsEmpty_ReturnsFalse(): void
+		{
+			var removeCollection:ICollection = getCollection();
+			removeCollection.add("element-2");
+			
+			collection.add("element-1");
+			collection.add("element-3");
+			
+			collection.removeAll(removeCollection);
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertFalse(isEmpty);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoElements_argumentWithOneElement_checkIfCollectionSizeIsOne_ReturnsTrue(): void
+		{
+			var removeCollection:ICollection = getCollection();
+			removeCollection.add("element-2");
+			
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			collection.removeAll(removeCollection);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(1, size);
 		}
 		
 		/////////////////////////////////////
@@ -457,6 +595,64 @@ package org.as3collections
 			Assert.assertTrue(changed);
 		}
 		
+		[Test]
+		public function retainAll_collectionWithFourNotEquatableElements_argumentWithThreeContainedElements_checkIfCollectionSizeIsThree_ReturnsTrue(): void
+		{
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add("element-1");
+			retainAllCollection.add("element-2");
+			retainAllCollection.add("element-3");
+			
+			collection.add("element-1");
+			collection.add("element-2");
+			collection.add("element-3");
+			collection.add("element-4");
+			
+			collection.retainAll(retainAllCollection);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(3, size);
+		}
+		
+		[Test]
+		public function retainAll_collectionWithThreeNotEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
+		{
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add("element-1");
+			retainAllCollection.add("element-2");
+			retainAllCollection.add("element-3");
+			retainAllCollection.add("element-4");
+			
+			collection.add("element-1");
+			collection.add("element-2");
+			collection.add("element-4");
+			
+			collection.retainAll(retainAllCollection);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(3, size);
+		}
+		
+		[Test]
+		public function retainAll_collectionWithFourNotEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
+		{
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add("element-1");
+			retainAllCollection.add("element-2");
+			retainAllCollection.add("element-3");
+			retainAllCollection.add("element-4");
+			
+			collection.add("element-1");
+			collection.add("element-2");
+			collection.add("element-4");
+			collection.add("element-8");
+			
+			collection.retainAll(retainAllCollection);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(3, size);
+		}
+		
 		////////////////////////////////
 		// ICollection().size() TESTS //
 		////////////////////////////////
@@ -487,230 +683,6 @@ package org.as3collections
 			
 			var array:Array = collection.toArray();
 			Assert.assertNotNull(array);
-		}
-		
-		///////////////////////////////
-		// ICollection() MIXED TESTS //
-		///////////////////////////////
-		
-		[Test]
-		public function add_isEmpty_addNotEquatableElement_checkIfCollectionIsEmpty_ReturnsFalse(): void
-		{
-			collection.add("element-1");
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test]
-		public function add_clear_isEmpty_addNotEquatableElementAndThenClear_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			collection.add("element-1");
-			collection.clear();
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function add_size_addNotEquatableElement_checkIfCollectionSizeIsOne_ReturnsTrue(): void
-		{
-			collection.add("element-1");
-			
-			var size:int = collection.size();
-			Assert.assertEquals(1, size);
-		}
-		
-		[Test]
-		public function addAll_isEmpty_argumentWithTwoNotEquatableElements_checkIfCollectionIsEmpty_ReturnsFalse(): void
-		{
-			var addAllCollection:ICollection = getCollection();
-			addAllCollection.add("element-1");
-			addAllCollection.add("element-2");
-			
-			collection.addAll(addAllCollection);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test]
-		public function addAll_clear_isEmpty_validArgument_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			var addAllCollection:ICollection = getCollection();
-			addAllCollection.add("element-1");
-			addAllCollection.add("element-2");
-			
-			collection.addAll(addAllCollection);
-			collection.clear();
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function addAll_size_validArgumentWithTwoNotEquatableElements_checkIfCollectionSizeIsTwo_ReturnsTrue(): void
-		{
-			var addAllCollection:ICollection = getCollection();
-			addAllCollection.add("element-1");
-			addAllCollection.add("element-2");
-			
-			collection.addAll(addAllCollection);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(2, size);
-		}
-		
-		[Test]
-		public function remove_isEmpty_addOneNotEquatableElementAndThenRemoveIt_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			collection.add("element-1");
-			collection.remove("element-1");
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function remove_isEmpty_addTwoNotEquatableElementsAndThenRemoveOne_checkIfCollectionIsEmpty_ReturnsFalse(): void
-		{
-			collection.add("element-1");
-			collection.add("element-2");
-			collection.remove("element-1");
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test]
-		public function remove_size_addTwoNotEquatableElementsAndThenRemoveOne_checkIfCollectionSizeIsOne_ReturnsTrue(): void
-		{
-			collection.add("element-1");
-			collection.add("element-2");
-			collection.remove("element-1");
-			
-			var size:int = collection.size();
-			Assert.assertEquals(1, size);
-		}
-		
-		[Test]
-		public function removeAll_isEmpty_collectionWithTwoNotEquatableElements_argumentWithTheTwoElements_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			var removeCollection:ICollection = getCollection();
-			removeCollection.add("element-1");
-			removeCollection.add("element-2");
-			
-			collection.add("element-1");
-			collection.add("element-2");
-			
-			collection.removeAll(removeCollection);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function removeAll_size_collectionWithTwoNotEquatableElements_argumentWithTheTwoElements_checkIfCollectionSizeIsZero_ReturnsTrue(): void
-		{
-			var removeCollection:ICollection = getCollection();
-			removeCollection.add("element-1");
-			removeCollection.add("element-2");
-			
-			collection.add("element-1");
-			collection.add("element-2");
-			
-			collection.removeAll(removeCollection);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(0, size);
-		}
-		
-		[Test]
-		public function removeAll_isEmpty_collectionWithTwoElements_argumentWithOneElement_checkIfCollectionIsEmpty_ReturnsFalse(): void
-		{
-			var removeCollection:ICollection = getCollection();
-			removeCollection.add("element-2");
-			
-			collection.add("element-1");
-			collection.add("element-3");
-			
-			collection.removeAll(removeCollection);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test]
-		public function removeAll_size_collectionWithTwoElements_argumentWithOneElement_checkIfCollectionSizeIsOne_ReturnsTrue(): void
-		{
-			var removeCollection:ICollection = getCollection();
-			removeCollection.add("element-2");
-			
-			collection.add("element-1");
-			collection.add("element-2");
-			
-			collection.removeAll(removeCollection);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(1, size);
-		}
-		
-		[Test]
-		public function retainAll_size_collectionWithFourNotEquatableElements_argumentWithThreeContainedElements_checkIfCollectionSizeIsThree_ReturnsTrue(): void
-		{
-			var retainAllCollection:ICollection = getCollection();
-			retainAllCollection.add("element-1");
-			retainAllCollection.add("element-2");
-			retainAllCollection.add("element-3");
-			
-			collection.add("element-1");
-			collection.add("element-2");
-			collection.add("element-3");
-			collection.add("element-4");
-			
-			collection.retainAll(retainAllCollection);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(3, size);
-		}
-		
-		[Test]
-		public function retainAll_size_collectionWithThreeNotEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
-		{
-			var retainAllCollection:ICollection = getCollection();
-			retainAllCollection.add("element-1");
-			retainAllCollection.add("element-2");
-			retainAllCollection.add("element-3");
-			retainAllCollection.add("element-4");
-			
-			collection.add("element-1");
-			collection.add("element-2");
-			collection.add("element-4");
-			
-			collection.retainAll(retainAllCollection);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(3, size);
-		}
-		
-		[Test]
-		public function retainAll_size_collectionWithFourNotEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
-		{
-			var retainAllCollection:ICollection = getCollection();
-			retainAllCollection.add("element-1");
-			retainAllCollection.add("element-2");
-			retainAllCollection.add("element-3");
-			retainAllCollection.add("element-4");
-			
-			collection.add("element-1");
-			collection.add("element-2");
-			collection.add("element-4");
-			collection.add("element-8");
-			
-			collection.retainAll(retainAllCollection);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(3, size);
 		}
 		
 		[Test]

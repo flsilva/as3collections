@@ -37,6 +37,7 @@ package
 	import org.as3collections.lists.TypedListTests;
 	import org.as3collections.lists.UniqueListTests;
 	import org.as3collections.lists.UniqueListTestsEquatableObject;
+	import org.as3collections.maps.HashMapTests;
 	import org.as3collections.queues.IndexablePriorityQueueTests;
 	import org.as3collections.queues.LinearQueueTests;
 	import org.as3collections.queues.LinearQueueTestsEquatableObject;
@@ -64,6 +65,9 @@ package
 		public var typedListTests:TypedListTests;
 		public var uniqueListTests:UniqueListTests;
 		public var uniqueListTestsEquatableObject:UniqueListTestsEquatableObject;
+		
+		//org.as3collections.maps
+		public var hashMapTests:HashMapTests;
 		
 		//org.as3collections.queues
 		public var indexablePriorityQueueTests:IndexablePriorityQueueTests;
