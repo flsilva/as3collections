@@ -298,7 +298,8 @@ package org.as3collections
 				if (!isValidElement(element)) break;
 			}
 			
-			invalidElement(element);
+			var error:ClassCastError = getInvalidElementError(element);
+			throw error;
 		}
 		
 		/**
@@ -306,19 +307,22 @@ package org.as3collections
 		 */
 		protected function validateElement(element:*): void
 		{
-			if (!isValidElement(element)) invalidElement(element);
+			if (isValidElement(element)) return;
+			
+			var error:ClassCastError = getInvalidElementError(element);
+			throw error;
 		}
 		
 		/**
 		 * @private
 		 */
-		private function invalidElement(element:*): void
+		private function getInvalidElementError(element:*): ClassCastError
 		{
 			var message:String = "Invalid element type. element: <" + element + ">\n";
 			message += "element type: <" + ReflectionUtil.getClassPath(element) + ">\n";
 			message += "expected type: <" + ReflectionUtil.getClassPath(_type) + ">";
 			
-			throw new ClassCastError(message);
+			return new ClassCastError(message);
 		}
 
 	}

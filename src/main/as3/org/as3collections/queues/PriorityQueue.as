@@ -210,7 +210,8 @@ package org.as3collections.queues
 				if (!isValidElement(element)) break;
 			}
 			
-			invalidElement(element);
+			var error:ClassCastError = getInvalidElementError(element);
+			throw error;
 		}
 		
 		/**
@@ -218,19 +219,22 @@ package org.as3collections.queues
 		 */
 		protected function validateElement(element:*): void
 		{
-			if (!isValidElement(element)) invalidElement(element);
+			if (isValidElement(element)) return;
+			
+			var error:ClassCastError = getInvalidElementError(element);
+			throw error;
 		}
 		
 		/**
 		 * @private
 		 */
-		private function invalidElement(element:*): void
+		private function getInvalidElementError(element:*): ClassCastError
 		{
 			var message:String = "Element must implement org.as3coreaddendum.system.IPriority\n";
 			message += "element: <" + element + ">\n";
 			message += "element type: <" + ReflectionUtil.getClassPath(element) + ">";
 			
-			throw new ClassCastError(message);
+			return new ClassCastError(message);
 		}
 		
 	}
