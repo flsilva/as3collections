@@ -32,6 +32,7 @@ package org.as3collections.queues
 	import org.as3collections.ICollection;
 	import org.as3collections.ISortedQueue;
 	import org.as3collections.IndexablePriorityObject;
+	import org.as3coreaddendum.system.comparators.PriorityComparator;
 	import org.flexunit.Assert;
 
 	/**
@@ -105,6 +106,26 @@ package org.as3collections.queues
 		{
 			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
 			new IndexablePriorityQueue([indexablePriorityObject1, "element-2"]);
+		}
+		
+		/////////////////////////////////////////////////
+		// IndexablePriorityQueue().comparator() TESTS //
+		/////////////////////////////////////////////////
+		
+		[Test(expects="flash.errors.IllegalOperationError")]
+		public function comparator_notAllowedSetter_ThrowsError(): void
+		{
+			priorityQueue.comparator = new PriorityComparator();
+		}
+		
+		//////////////////////////////////////////////
+		// IndexablePriorityQueue().options() TESTS //
+		//////////////////////////////////////////////
+		
+		[Test(expects="flash.errors.IllegalOperationError")]
+		public function options_notAllowedSetter_ThrowsError(): void
+		{
+			priorityQueue.options = 0;
 		}
 		
 		//////////////////////////////////////////

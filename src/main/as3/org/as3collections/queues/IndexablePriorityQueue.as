@@ -35,6 +35,7 @@ package org.as3collections.queues
 	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
 	import org.as3coreaddendum.errors.NullPointerError;
+	import org.as3coreaddendum.system.IComparator;
 	import org.as3coreaddendum.system.IIndexable;
 	import org.as3coreaddendum.system.IPriority;
 	import org.as3coreaddendum.system.comparators.IndexablePriorityComparator;
@@ -125,6 +126,28 @@ package org.as3collections.queues
 	public class IndexablePriorityQueue extends SortedQueue
 	{
 		/**
+		 * <code>IndexablePriorityQueue</code> does not allow changing its <code>comparator</code> object.
+		 * <p><code>IndexablePriorityQueue</code> was designed to be used exclusively with its default comparator object.
+		 * If you want to change the comparator object using this setter, consider using <code>SortedQueue</code> class instead.</p>
+		 * <p>If this setter is used an <code>IllegalOperationError</code> is thrown.</p>
+		 */
+		override public function set comparator(value:IComparator): void
+		{
+			throw new IllegalOperationError("IndexablePriorityQueue does not allow changing its comparator object.\nIf you want to change it consider using SortedQueue class instead.");
+		}
+		
+		/**
+		 * <code>IndexablePriorityQueue</code> does not allow changing its options.
+		 * <p><code>IndexablePriorityQueue</code> was designed to be used exclusively with its default options.
+		 * If you want to change the options using this setter, consider using <code>SortedQueue</code> class instead.</p>
+		 * <p>If this setter is used an <code>IllegalOperationError</code> is thrown.</p>
+		 */
+		override public function set options(value:uint): void
+		{
+			throw new IllegalOperationError("IndexablePriorityQueue does not allow changing its options.\nIf you want to change it consider using SortedQueue class instead.");
+		}
+		
+		/**
 		 * Constructor, creates a new <code>IndexablePriorityQueue</code> object.
 		 * 
 		 * @param 	source 		an array to fill the queue.
@@ -170,9 +193,6 @@ package org.as3collections.queues
 		override public function clone(): *
 		{
 			var q:IndexablePriorityQueue = new IndexablePriorityQueue(data);
-			q.comparator = comparator;
-			q.options = options;
-			
 			return q;
 		}
 

@@ -29,6 +29,7 @@
 
 package org.as3collections.queues
 {
+	import org.as3coreaddendum.system.comparators.PriorityComparator;
 	import org.as3collections.ICollection;
 	import org.as3collections.ISortedQueue;
 	import org.as3collections.PriorityObject;
@@ -105,6 +106,26 @@ package org.as3collections.queues
 		{
 			var priorityObject1:PriorityObject = new PriorityObject(1);
 			new PriorityQueue([priorityObject1, "element-2"]);
+		}
+		
+		////////////////////////////////////////
+		// PriorityQueue().comparator() TESTS //
+		////////////////////////////////////////
+		
+		[Test(expects="flash.errors.IllegalOperationError")]
+		public function comparator_notAllowedSetter_ThrowsError(): void
+		{
+			priorityQueue.comparator = new PriorityComparator();
+		}
+		
+		/////////////////////////////////////
+		// PriorityQueue().options() TESTS //
+		/////////////////////////////////////
+		
+		[Test(expects="flash.errors.IllegalOperationError")]
+		public function options_notAllowedSetter_ThrowsError(): void
+		{
+			priorityQueue.options = 0;
 		}
 		
 		/////////////////////////////////
