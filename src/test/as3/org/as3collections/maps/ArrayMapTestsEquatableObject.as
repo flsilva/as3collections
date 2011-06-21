@@ -37,10 +37,12 @@ package org.as3collections.maps
 	/**
 	 * @author Flávio Silva
 	 */
-	public class HashMapTestsEquatableObject extends IMapTestsEquatableObject
+	public class ArrayMapTestsEquatableObject extends IMapTestsEquatableObject
 	{
 		
-		public function HashMapTestsEquatableObject()
+		public function get arrayMap():ArrayMap { return map as ArrayMap; }
+		
+		public function ArrayMapTestsEquatableObject()
 		{
 			
 		}
@@ -51,12 +53,12 @@ package org.as3collections.maps
 		
 		override public function getMap():IMap
 		{
-			return new HashMap();
+			return new ArrayMap();
 		}
 		
-		/////////////////////////////////
-		// HashMap() constructor TESTS //
-		/////////////////////////////////
+		//////////////////////////////////
+		// ArrayMap() constructor TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function constructor_argumentWithTwoEquatableKeys_checkIfIsEmpty_ReturnsFalse(): void
@@ -90,12 +92,12 @@ package org.as3collections.maps
 			Assert.assertEquals(2, size);
 		}
 		
-		//////////////////////////////
-		// HashMap().equals() TESTS //
-		//////////////////////////////
+		///////////////////////////////
+		// ArrayMap().equals() TESTS //
+		///////////////////////////////
 		
 		[Test]
-		public function equals_mapWithTwoEquatableKeys_sameKeyValuesButDifferentOrder_checkIfBothMapsAreEqual_ReturnsTrue(): void
+		public function equals_mapWithTwoEquatableKeys_sameKeyValuesButDifferentOrder_checkIfBothMapsAreEqual_ReturnsFalse(): void
 		{
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
@@ -110,7 +112,7 @@ package org.as3collections.maps
 			map2.put(equatableObject2B, 2);
 			map2.put(equatableObject1B, 1);
 			
-			Assert.assertTrue(map.equals(map2));//HashMap does not take cares of order
+			Assert.assertFalse(map.equals(map2));//HashMap does take cares of order
 		}
 		
 		[Test]
@@ -130,6 +132,74 @@ package org.as3collections.maps
 			map2.put(equatableObject2B, 2);
 			
 			Assert.assertTrue(map.equals(map2));
+		}
+		
+		///////////////////////////////////
+		// ArrayMap().indexOfKey() TESTS //
+		///////////////////////////////////
+		
+		[Test]
+		public function indexOfKey_mapWithTwoEquatableKeys_checkIfIndexOfFirstKeyIsCorrect_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			arrayMap.put(equatableObject1A, 1);
+			arrayMap.put(equatableObject2A, 2);
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			
+			var index:int = arrayMap.indexOfKey(equatableObject1B);
+			Assert.assertEquals(0, index);
+		}
+		
+		[Test]
+		public function indexOfKey_listWithThreeNotEquatableElements_checkIfIndexOfSecondKeyIsCorrect_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			arrayMap.put(equatableObject1A, 1);
+			arrayMap.put(equatableObject2A, 2);
+			arrayMap.put(equatableObject3A, 3);
+			
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var index:int = arrayMap.indexOfKey(equatableObject2B);
+			Assert.assertEquals(1, index);
+		}
+		
+		/////////////////////////////////////
+		// ArrayMap().indexOfValue() TESTS //
+		/////////////////////////////////////
+		
+		[Test]
+		public function indexOfValue_mapWithTwoNotEquatableKeyValue_checkIfIndexOfFirstValueIsCorrect_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			arrayMap.put("equatable-object-1", equatableObject1A);
+			arrayMap.put("equatable-object-2", equatableObject2A);
+			
+			var index:int = arrayMap.indexOfValue(equatableObject1A);
+			Assert.assertEquals(0, index);
+		}
+		
+		[Test]
+		public function indexOfValue_listWithThreeNotEquatableElements_checkIfIndexOfSecondValueIsCorrect_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			arrayMap.put("equatable-object-1", equatableObject1A);
+			arrayMap.put("equatable-object-2", equatableObject2A);
+			arrayMap.put("equatable-object-3", equatableObject3A);
+			
+			var index:int = arrayMap.indexOfValue(equatableObject2A);
+			Assert.assertEquals(1, index);
 		}
 		
 	}

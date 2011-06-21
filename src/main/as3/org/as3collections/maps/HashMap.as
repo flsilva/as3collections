@@ -284,7 +284,7 @@ package org.as3collections.maps
 		 */
 		override public function put(key:*, value:*): *
 		{
-			var old:* = null;
+			var old:*;
 			
 			if (containsKey(key))
 			{

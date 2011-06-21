@@ -36,10 +36,12 @@ package org.as3collections.maps
 	/**
 	 * @author Flávio Silva
 	 */
-	public class HashMapTests extends IMapTests
+	public class ArrayMapTests extends IMapTests
 	{
 		
-		public function HashMapTests()
+		public function get arrayMap():ArrayMap { return map as ArrayMap; }
+		
+		public function ArrayMapTests()
 		{
 			
 		}
@@ -50,12 +52,12 @@ package org.as3collections.maps
 		
 		override public function getMap():IMap
 		{
-			return new HashMap();
+			return new ArrayMap();
 		}
 		
-		/////////////////////////////////
-		// HashMap() constructor TESTS //
-		/////////////////////////////////
+		//////////////////////////////////
+		// ArrayMap() constructor TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function constructor_argumentWithTwoNotEquatableKeyValue_checkIfIsEmpty_ReturnsFalse(): void
@@ -83,12 +85,12 @@ package org.as3collections.maps
 			Assert.assertEquals(2, size);
 		}
 		
-		//////////////////////////////
-		// HashMap().equals() TESTS //
-		//////////////////////////////
+		///////////////////////////////
+		// ArrayMap().equals() TESTS //
+		///////////////////////////////
 		
 		[Test]
-		public function equals_mapWithTwoNotEquatableKeyValue_sameKeyValuesButDifferentOrder_checkIfBothMapsAreEqual_ReturnsTrue(): void
+		public function equals_mapWithTwoNotEquatableKeyValue_sameKeyValuesButDifferentOrder_checkIfBothMapsAreEqual_ReturnsFalse(): void
 		{
 			map.put("element-1", 1);
 			map.put("element-2", 2);
@@ -97,7 +99,7 @@ package org.as3collections.maps
 			map2.put("element-2", 2);
 			map2.put("element-1", 1);
 			
-			Assert.assertTrue(map.equals(map2));//HashMap does not take cares of order
+			Assert.assertFalse(map.equals(map2));//ArrayMap does take cares of order
 		}
 		
 		[Test]
@@ -111,6 +113,56 @@ package org.as3collections.maps
 			map2.put("element-2", 2);
 			
 			Assert.assertTrue(map.equals(map2));
+		}
+		
+		///////////////////////////////////
+		// ArrayMap().indexOfKey() TESTS //
+		///////////////////////////////////
+		
+		[Test]
+		public function indexOfKey_mapWithTwoNotEquatableKeyValue_checkIfIndexOfFirstKeyIsCorrect_ReturnsTrue(): void
+		{
+			arrayMap.put("element-1", 1);
+			arrayMap.put("element-2", 2);
+			
+			var index:int = arrayMap.indexOfKey("element-1");
+			Assert.assertEquals(0, index);
+		}
+		
+		[Test]
+		public function indexOfKey_listWithThreeNotEquatableElements_checkIfIndexOfSecondKeyIsCorrect_ReturnsTrue(): void
+		{
+			arrayMap.put("element-1", 1);
+			arrayMap.put("element-2", 2);
+			arrayMap.put("element-3", 3);
+			
+			var index:int = arrayMap.indexOfKey("element-2");
+			Assert.assertEquals(1, index);
+		}
+		
+		/////////////////////////////////////
+		// ArrayMap().indexOfValue() TESTS //
+		/////////////////////////////////////
+		
+		[Test]
+		public function indexOfValue_mapWithTwoNotEquatableKeyValue_checkIfIndexOfFirstValueIsCorrect_ReturnsTrue(): void
+		{
+			arrayMap.put("element-1", 1);
+			arrayMap.put("element-2", 2);
+			
+			var index:int = arrayMap.indexOfValue(1);
+			Assert.assertEquals(0, index);
+		}
+		
+		[Test]
+		public function indexOfValue_listWithThreeNotEquatableElements_checkIfIndexOfSecondValueIsCorrect_ReturnsTrue(): void
+		{
+			arrayMap.put("element-1", 1);
+			arrayMap.put("element-2", 2);
+			arrayMap.put("element-3", 3);
+			
+			var index:int = arrayMap.indexOfValue(2);
+			Assert.assertEquals(1, index);
 		}
 		
 	}
