@@ -146,7 +146,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function clone_collectionWithTwoNotEquatableElements_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
+		public function clone_mapWithTwoNotEquatableKeyValue_checkIfBothMapsAreEqual_ReturnsTrue(): void
 		{
 			map.put("element-1", 1);
 			map.put("element-2", 2);
@@ -156,7 +156,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function clone_collectionWithTwoNotEquatableElements_cloneButChangeCollection_checkIfBothCollectionsAreEqual_ReturnsFalse(): void
+		public function clone_mapWithTwoNotEquatableKeyValue_cloneButChangeMap_checkIfBothMapsAreEqual_ReturnsFalse(): void
 		{
 			map.put("element-1", 1);
 			map.put("element-2", 2);
@@ -333,7 +333,7 @@ package org.as3collections
 		
 		///////////////////////////
 		// IMap().equals() TESTS //
-		//////////////////////////
+		///////////////////////////
 		
 		[Test]
 		public function equals_mapWithTwoNotEquatableKeyValue_differentMaps_checkIfBothMapsAreEqual_ReturnsFalse(): void
@@ -505,8 +505,8 @@ package org.as3collections
 		[Test]
 		public function put_validKeyAndValueNotEquatables_ReturnsNull(): void
 		{
-			var oldKey:* = map.put("element-1", 1);
-			Assert.assertNull(oldKey);
+			var oldValue:* = map.put("element-1", 1);
+			Assert.assertNull(oldValue);
 		}
 		
 		[Test]
@@ -514,8 +514,8 @@ package org.as3collections
 		{
 			map.put("element-1", 1);
 			
-			var oldKey:* = map.put("element-1", 1);
-			Assert.assertNotNull(oldKey);
+			var oldValue:* = map.put("element-1", 1);
+			Assert.assertNotNull(oldValue);
 		}
 		
 		[Test]
@@ -523,8 +523,8 @@ package org.as3collections
 		{
 			map.put("element-1", 1);
 			
-			var oldKey:* = map.put("element-1", 2);
-			Assert.assertEquals(1, oldKey);
+			var oldValue:* = map.put("element-1", 2);
+			Assert.assertEquals(1, oldValue);
 		}
 		
 		[Test]
@@ -549,7 +549,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function put_putNotEquatableElement_checkIfMapSizeIsOne_ReturnsTrue(): void
+		public function put_putNotEquatableKeyValue_checkIfMapSizeIsOne_ReturnsTrue(): void
 		{
 			map.put("element-1", 1);
 			
@@ -849,7 +849,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function removeAll_mapWithTwoKeyValue_argumentWithOneKey_checkIfMapIsEmpty_ReturnsFalse(): void
+		public function removeAll_mapWithTwoNotEquatableKeyValue_argumentWithOneNotEquatableKey_checkIfMapIsEmpty_ReturnsFalse(): void
 		{
 			var removeAllCollection:IList = new ArrayList();
 			removeAllCollection.add("element-2");
@@ -864,7 +864,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function removeAll_mapWithTwoKeyValue_argumentWithOneKey_checkIfMapSizeIsOne_ReturnsTrue(): void
+		public function removeAll_mapWithTwoNotEquatableKeyValue_argumentWithOneNotEquatableKey_checkIfMapSizeIsOne_ReturnsTrue(): void
 		{
 			var removeAllCollection:IList = new ArrayList();
 			removeAllCollection.add("element-2");

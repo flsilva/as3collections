@@ -288,7 +288,15 @@ package org.as3collections.maps
 			
 			if (containsKey(key))
 			{
-				old = map[key];
+				if (allKeysEquatable && key is IEquatable)
+				{
+					old = getValue(key);
+				}
+				else
+				{
+					old = map[key];
+				}
+				
 				remove(key);
 			}
 			
@@ -321,7 +329,6 @@ package org.as3collections.maps
 			if (!containsKey(key)) return null;
 			
 			var old:*;
-			var countValues:int;
 			
 			if (allKeysEquatable)
 			{
@@ -335,18 +342,7 @@ package org.as3collections.maps
 					if ((key as IEquatable).equals(it.pointer()))
 					{
 						old = e;
-						
 						delete map[it.pointer()];
-						
-						countValues = values[old];
-						if (countValues > 1)
-						{
-							values[old] = --countValues;
-						}
-						else
-						{
-							delete values[old];
-						}
 						
 						break;
 					}
@@ -355,24 +351,23 @@ package org.as3collections.maps
 			else
 			{
 				old = map[key];
-				
 				delete map[key];
-				
-				countValues = values[old];
-				if (countValues > 1)
-				{
-					values[old] = --countValues;
-				}
-				else
-				{
-					delete values[old];
-				}
 			}
+			
+			var countValues:int = values[old];
+			if (countValues > 1)
+			{
+				values[old] = --countValues;
+			}
+			else
+			{
+				delete values[old];
+			}
+			
+			_size--;
 			
 			checkAllKeysEquatable();
 			checkAllValuesEquatable();
-			
-			_size--;
 			
 			return old;
 		}

@@ -113,6 +113,42 @@ package org.as3collections
 			Assert.assertFalse(allEquatable);
 		}
 		
+		[Test]
+		public function allEquatable_collectionWithThreeElementsOfWhichTwoEquatable_removeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			collection.add(equatableObject1A);
+			collection.add(equatableObject2A);
+			collection.add("element-1");
+			
+			collection.remove("element-1");
+			
+			var allEquatable:Boolean = collection.allEquatable;
+			Assert.assertTrue(allEquatable);
+		}
+		
+		[Test]
+		public function allEquatable_collectionWithThreeElementsOfWhichTwoEquatable_removeThroughRetainAllNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			collection.add(equatableObject1A);
+			collection.add(equatableObject2A);
+			collection.add("element-1");
+			
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add(equatableObject1A);
+			retainAllCollection.add(equatableObject2A);
+			
+			collection.retainAll(retainAllCollection);
+			
+			var allEquatable:Boolean = collection.allEquatable;
+			Assert.assertTrue(allEquatable);
+		}
+		
 		/////////////////////////////////
 		// ICollection().clone() TESTS //
 		/////////////////////////////////
@@ -377,6 +413,35 @@ package org.as3collections
 			Assert.assertTrue(removed);
 		}
 		
+		[Test]
+		public function remove_collectionWithOneEquatableElement_removeItAndCheckIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			
+			collection.add(equatableObject1A);
+			collection.remove(equatableObject1B);
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function remove_collectionWithTwoEquatableElements_removeOneAndCheckIfCollectionSizeIsOne_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			
+			collection.add(equatableObject1A);
+			collection.add(equatableObject2A);
+			collection.remove(equatableObject1B);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(1, size);
+		}
+		
 		/////////////////////////////////////
 		// ICollection().removeAll() TESTS //
 		/////////////////////////////////////
@@ -401,6 +466,50 @@ package org.as3collections
 			
 			var changed:Boolean = collection.removeAll(removeCollection);
 			Assert.assertTrue(changed);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoEquatableElements_argumentWithTheTwoElements_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var removeCollection:ICollection = getCollection();
+			removeCollection.add(equatableObject1A);
+			removeCollection.add(equatableObject2A);
+			
+			collection.add(equatableObject1B);
+			collection.add(equatableObject2B);
+			
+			collection.removeAll(removeCollection);
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoEquatableElements_argumentWithTheTwoElements_checkIfCollectionSizeIsZero_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var removeCollection:ICollection = getCollection();
+			removeCollection.add(equatableObject1A);
+			removeCollection.add(equatableObject2A);
+			
+			collection.add(equatableObject1B);
+			collection.add(equatableObject2B);
+			
+			collection.removeAll(removeCollection);
+			
+			var size:int = collection.size();
+			Assert.assertEquals(0, size);
 		}
 		
 		/////////////////////////////////////
@@ -444,270 +553,8 @@ package org.as3collections
 			Assert.assertTrue(changed);
 		}
 		
-		////////////////////////////////
-		// ICollection().size() TESTS //
-		////////////////////////////////
-		
 		[Test]
-		public function size_emptyCollection_ReturnsZero(): void
-		{
-			var size:int = collection.size();
-			Assert.assertFalse(size);
-		}
-		
-		///////////////////////////////////
-		// ICollection().toArray() TESTS //
-		///////////////////////////////////
-		
-		[Test]
-		public function toArray_collectionWithTwoEquatableElements_ReturnsArrayObject(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			collection.add(equatableObject1A);
-			collection.add(equatableObject2A);
-			
-			var array:Array = collection.toArray();
-			Assert.assertNotNull(array);
-		}
-		
-		///////////////////////////////
-		// ICollection() MIXED TESTS //
-		///////////////////////////////
-		
-		[Test]
-		public function add_allEquatable_addEquatableElementAndThenAddNotEquatableElement_checkIfAllEquatable_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			
-			collection.add(equatableObject1A);
-			collection.add("element-1");
-			
-			var allEquatable:Boolean = collection.allEquatable;
-			Assert.assertFalse(allEquatable);
-		}
-		
-		[Test]
-		public function add_allEquatable_addNotEquatableElementAndThenAddEquatableElement_checkIfAllEquatable_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			
-			collection.add("element-1");
-			collection.add(equatableObject1A);
-			
-			var allEquatable:Boolean = collection.allEquatable;
-			Assert.assertFalse(allEquatable);
-		}
-		
-		[Test]
-		public function add_remove_allEquatable_collectionWithThreeElementsOfWhichTwoEquatable_removeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			collection.add(equatableObject1A);
-			collection.add(equatableObject2A);
-			collection.add("element-1");
-			
-			collection.remove("element-1");
-			
-			var allEquatable:Boolean = collection.allEquatable;
-			Assert.assertTrue(allEquatable);
-		}
-		
-		[Test]
-		public function add_isEmpty_addEquatableElement_checkIfCollectionIsEmpty_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			collection.add(equatableObject1A);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test]
-		public function add_clear_isEmpty_addEquatableElementAndThenClear_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			
-			collection.add(equatableObject1A);
-			collection.clear();
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function add_size_addEquatableElement_checkIfCollectionSizeIsOne_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			collection.add(equatableObject1A);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(1, size);
-		}
-		
-		[Test]
-		public function addAll_isEmpty_argumentWithTwoEquatableElements_checkIfCollectionIsEmpty_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var addAllCollection:ICollection = getCollection();
-			addAllCollection.add(equatableObject1A);
-			addAllCollection.add(equatableObject2A);
-			
-			collection.addAll(addAllCollection);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test]
-		public function addAll_allEquatable_validArgumentWithTwoEquatableElements_checkIfAllEquatable_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var addAllCollection:ICollection = getCollection();
-			addAllCollection.add(equatableObject1A);
-			addAllCollection.add(equatableObject2A);
-			
-			collection.addAll(addAllCollection);
-			
-			var allEquatable:Boolean = collection.allEquatable;
-			Assert.assertTrue(allEquatable);
-		}
-		
-		[Test]
-		public function addAll_allEquatable_collectionContainsTwoEquatableElements_thenAddAllCollectionArgumentWithOneNotEquatableElements_checkIfAllEquatable_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			collection.add(equatableObject1A);
-			collection.add(equatableObject2A);
-			
-			var addAllCollection:ICollection = getCollection();
-			addAllCollection.add("element-1");
-			
-			collection.addAll(addAllCollection);
-			
-			var allEquatable:Boolean = collection.allEquatable;
-			Assert.assertFalse(allEquatable);
-		}
-		
-		[Test]
-		public function remove_isEmpty_addOneEquatableElementAndThenRemoveIt_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
-			
-			collection.add(equatableObject1A);
-			collection.remove(equatableObject1B);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function remove_isEmpty_addTwoEquatableElementsAndThenRemoveOne_checkIfCollectionIsEmpty_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
-			
-			collection.add(equatableObject1A);
-			collection.add(equatableObject2A);
-			collection.remove(equatableObject1B);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test]
-		public function remove_size_addTwoEquatableElementsAndThenRemoveOne_checkIfCollectionSizeIsOne_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
-			
-			collection.add(equatableObject1A);
-			collection.add(equatableObject2A);
-			collection.remove(equatableObject1B);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(1, size);
-		}
-		
-		[Test]
-		public function removeAll_isEmpty_collectionWithTwoEquatableElements_argumentWithTheTwoElements_checkIfCollectionIsEmpty_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var removeCollection:ICollection = getCollection();
-			removeCollection.add(equatableObject1A);
-			removeCollection.add(equatableObject2A);
-			
-			collection.add(equatableObject1B);
-			collection.add(equatableObject2B);
-			
-			collection.removeAll(removeCollection);
-			
-			var isEmpty:Boolean = collection.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function removeAll_size_collectionWithTwoEquatableElements_argumentWithTheTwoElements_checkIfCollectionSizeIsZero_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			var removeCollection:ICollection = getCollection();
-			removeCollection.add(equatableObject1A);
-			removeCollection.add(equatableObject2A);
-			
-			collection.add(equatableObject1B);
-			collection.add(equatableObject2B);
-			
-			collection.removeAll(removeCollection);
-			
-			var size:int = collection.size();
-			Assert.assertEquals(0, size);
-		}
-		
-		[Test]
-		public function removeAll_allEquatable_collectionWithThreeElementsOfWhichTwoEquatable_removeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			collection.add(equatableObject1A);
-			collection.add(equatableObject2A);
-			collection.add("element-1");
-			
-			var removeCollection:ICollection = getCollection();
-			removeCollection.add("element-1");
-			
-			collection.removeAll(removeCollection);
-			
-			var allEquatable:Boolean = collection.allEquatable;
-			Assert.assertTrue(allEquatable);
-		}
-		
-		[Test]
-		public function retainAll_size_collectionWithFourEquatableElements_argumentWithThreeContainedElements_checkIfCollectionSizeIsThree_ReturnsTrue(): void
+		public function retainAll_collectionWithFourEquatableElements_argumentWithThreeContainedElements_checkIfCollectionSizeIsThree_ReturnsTrue(): void
 		{
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
@@ -735,7 +582,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function retainAll_size_collectionWithThreeEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
+		public function retainAll_collectionWithThreeEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
 		{
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
@@ -763,7 +610,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function retainAll_size_collectionWithFourEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
+		public function retainAll_collectionWithFourEquatableElements_argumentWithFourElementsOfWhichThreeContained_checkIfCollectionSizeIsThree_ReturnsTrue(): void
 		{
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
@@ -792,24 +639,32 @@ package org.as3collections
 			Assert.assertEquals(3, size);
 		}
 		
+		////////////////////////////////
+		// ICollection().size() TESTS //
+		////////////////////////////////
+		
 		[Test]
-		public function retainAll_allEquatable_collectionWithThreeElementsOfWhichTwoEquatable_removeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
+		public function size_emptyCollection_ReturnsZero(): void
+		{
+			var size:int = collection.size();
+			Assert.assertFalse(size);
+		}
+		
+		///////////////////////////////////
+		// ICollection().toArray() TESTS //
+		///////////////////////////////////
+		
+		[Test]
+		public function toArray_collectionWithTwoEquatableElements_ReturnsArrayObject(): void
 		{
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
 			
 			collection.add(equatableObject1A);
 			collection.add(equatableObject2A);
-			collection.add("element-1");
 			
-			var retainAllCollection:ICollection = getCollection();
-			retainAllCollection.add(equatableObject1A);
-			retainAllCollection.add(equatableObject2A);
-			
-			collection.retainAll(retainAllCollection);
-			
-			var allEquatable:Boolean = collection.allEquatable;
-			Assert.assertTrue(allEquatable);
+			var array:Array = collection.toArray();
+			Assert.assertNotNull(array);
 		}
 		
 		[Test]

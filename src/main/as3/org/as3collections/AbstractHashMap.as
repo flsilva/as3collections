@@ -64,7 +64,7 @@ package org.as3collections
 		protected var _size: int;
 
 		private var _map: Dictionary;
-		private var _values: Dictionary;
+		private var _values: Dictionary;//only used to return if containsValue() IF allValuesEquatable = false
 		private var _weakKeys: Boolean;
 
 		/**
