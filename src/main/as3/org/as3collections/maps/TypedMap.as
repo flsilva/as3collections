@@ -28,6 +28,7 @@
  */
 
 package org.as3collections.maps {
+	import org.as3collections.AbstractArrayMap;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
@@ -214,34 +215,32 @@ package org.as3collections.maps {
 			
 			if (getKeys().size() != o.getKeys().size()) return false;
 			
-			return _wrappedMap.equals(other);
+			//return _wrappedMap.equals(other);
 			
-			/*
-			var it:IIterator = iterator();
-			var itOther:IIterator = o.iterator();
-			var value:*;
+			var it:IIterator = entryList().iterator();
 			
-			if (wrappedMap is ISortedMap || wrappedMap is ArrayMap)
+			if (wrappedMap is AbstractArrayMap)
 			{
+				// takes care of order
+				var itOther:IIterator = o.entryList().iterator();
+				
 				while (it.hasNext())
 				{
-					value = it.next();
-					
-					if (value != itOther.next()) return false;
+					if (!(it.next() as IMapEntry).equals(itOther.next())) return false;
 				}
 			}
 			else
 			{
+				// do not take care of order
+				var entryListOther:IList = entryList();
+				
 				while (it.hasNext())
 				{
-					value = it.next();
-					
-					if (!o.containsKey(it.pointer()) || o.getValue(it.pointer()) != value) return false;
+					if (!entryListOther.contains(it.next())) return false;
 				}
 			}
 			
 			return true;
-			*/
 		}
 
 		/**
@@ -285,50 +284,6 @@ package org.as3collections.maps {
 		}
 
 		/**
-		 * Returns <code>true</code> if the type of all keys and values of the <code>map</code> argument is compatible with the type of this map.
-		 * 
-		 * @param  	map 	the map to check the type of the keys and values.
-		 * @return 	<code>true</code> if the type of all keys and values of the <code>map</code> argument is compatible with the type of this map.
-		 */
-		public function isValidMap(map:IMap): Boolean
-		{
-			if (!map) return false;
-			if (map.isEmpty()) return true;
-			
-			var it:IIterator = map.iterator();
-			
-			while (it.hasNext())
-			{
-				if (!isValidValueType(it.next())) return false;
-				if (!isValidKeyType(it.pointer())) return false;
-			}
-			
-			return true;
-		}
-
-		/**
-		 * Returns <code>true</code> if the type of the key is compatible with the type of this map.
-		 * 
-		 * @param  	key 	the key to check the type.
-		 * @return 	<code>true</code> if the type of the key is compatible with the type of this map.
-		 */
-		public function isValidKeyType(key:*): Boolean
-		{
-			return key is _typeKeys;
-		}
-
-		/**
-		 * Returns <code>true</code> if the type of the value is compatible with the type of this map.
-		 * 
-		 * @param  	value 	the value to check the type.
-		 * @return 	<code>true</code> if the type of the value is compatible with the type of this map.
-		 */
-		public function isValidValueType(value:*): Boolean
-		{
-			return value is _typeValues;
-		}
-
-		/**
 		 * Forwards the call to <code>wrappedMap.iterator</code>.
 		 * 
 		 * @return
@@ -348,8 +303,8 @@ package org.as3collections.maps {
 		 */
 		public function put(key:*, value:*): *
 		{
-			validateKeyType(key);
-			validateValueType(value);
+			validateKey(key);
+			validateValue(value);
 			return _wrappedMap.put(key, value);
 		}
 
@@ -385,8 +340,8 @@ package org.as3collections.maps {
 		 */
 		public function putEntry(entry:IMapEntry): *
 		{
-			validateKeyType(entry.key);
-			validateValueType(entry.value);
+			validateKey(entry.key);
+			validateValue(entry.value);
 			return _wrappedMap.putEntry(entry);
 		}
 
@@ -457,45 +412,86 @@ package org.as3collections.maps {
 		}
 
 		/**
-		 * Checks if the type of all keys and values of the <code>map</code> argument is compatible with the type of this map.
-		 * 
-		 * @param  map 	the map to check the type of the keys and values.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more keys or values in the <code>map</code> argument are incompatible with the type of this map. 	
+		 * @private
 		 */
-		public function validateMap(map:IMap): void
+		protected function isValidKey(key:*): Boolean
 		{
-			if (!map) return;
-			if (map.isEmpty()) return;
+			return key is _typeKeys;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function isValidValue(value:*): Boolean
+		{
+			return value is _typeValues;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function validateMap(map:IMap): void
+		{
+			if (!map || map.isEmpty()) return;
 			
 			var it:IIterator = map.iterator();
+			var key:*;
+			var value:*;
 			
 			while (it.hasNext())
 			{
-				validateValueType(it.next());
-				validateKeyType(it.pointer());
+				value = it.next();
+				key = it.pointer();
+				
+				validateKey(key);
+				validateValue(value);
 			}
 		}
-
+		
 		/**
-		 * Checks if the type of the key is compatible with the type of this map.
-		 * 
-		 * @param  	key 	the key to check the type.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the key is incompatible with the type of this map.
+		 * @private
 		 */
-		public function validateKeyType(key:*): void
+		protected function validateKey(key:*): void
 		{
-			if (!isValidKeyType(key)) throw new ClassCastError("Invalid key type. key: " + key + " | type: " + ReflectionUtil.getClassPath(key) + " | expected key type: " + ReflectionUtil.getClassPath(_typeKeys));
+			if (isValidKey(key)) return;
+			
+			var error:ClassCastError = getInvalidKeyError(key);
+			throw error;
 		}
-
+		
 		/**
-		 * Checks if the type of the value is compatible with the type of this map.
-		 * 
-		 * @param  	value 	the value to check the type.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the value is incompatible with the type of this map.
+		 * @private
 		 */
-		public function validateValueType(value:*): void
+		protected function validateValue(value:*): void
 		{
-			if (!isValidValueType(value)) throw new ClassCastError("Invalid value type. value: " + value + " | type: " + ReflectionUtil.getClassPath(value) + " | expected value type: " + ReflectionUtil.getClassPath(_typeValues));
+			if (isValidValue(value)) return;
+			
+			var error:ClassCastError = getInvalidValueError(value);
+			throw error;
+		}
+		
+		/**
+		 * @private
+		 */
+		private function getInvalidKeyError(key:*): ClassCastError
+		{
+			var message:String = "Invalid key type. key: <" + key + ">\n";
+			message += "key type: <" + ReflectionUtil.getClassPath(key) + ">\n";
+			message += "expected type: <" + ReflectionUtil.getClassPath(_typeKeys) + ">";
+			
+			return new ClassCastError(message);
+		}
+		
+		/**
+		 * @private
+		 */
+		private function getInvalidValueError(value:*): ClassCastError
+		{
+			var message:String = "Invalid value type. value: <" + value + ">\n";
+			message += "value type: <" + ReflectionUtil.getClassPath(value) + ">\n";
+			message += "expected type: <" + ReflectionUtil.getClassPath(_typeValues) + ">";
+			
+			return new ClassCastError(message);
 		}
 
 	}

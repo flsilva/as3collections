@@ -41,6 +41,9 @@ package
 	import org.as3collections.maps.ArrayMapTestsEquatableObject;
 	import org.as3collections.maps.HashMapTests;
 	import org.as3collections.maps.HashMapTestsEquatableObject;
+	import org.as3collections.maps.ReadOnlyArrayMapTests;
+	import org.as3collections.maps.ReadOnlyHashMapTests;
+	import org.as3collections.maps.TypedMapTests;
 	import org.as3collections.queues.IndexablePriorityQueueTests;
 	import org.as3collections.queues.LinearQueueTests;
 	import org.as3collections.queues.LinearQueueTestsEquatableObject;
@@ -74,6 +77,9 @@ package
 		public var arrayMapTestsEquatableObject:ArrayMapTestsEquatableObject;
 		public var hashMapTests:HashMapTests;
 		public var hashMapTestsEquatableObject:HashMapTestsEquatableObject;
+		public var readOnlyArrayMapTests:ReadOnlyArrayMapTests;
+		public var readOnlyHashMapTests:ReadOnlyHashMapTests;
+		public var typedMapTests:TypedMapTests;
 		
 		//org.as3collections.queues
 		public var indexablePriorityQueueTests:IndexablePriorityQueueTests;

@@ -139,7 +139,7 @@ package org.as3collections.utils
 		 * <li>object A contains all elements of object B</li>
 		 * <li>object B contains all elements of object A</li>
 		 * </ul></p>
-		 * <p>This implementation <b>does not takes care</b> of the order of the elements in the collections.
+		 * <p>This implementation <b>does not takes care</b> of the order of the elements in the collections.</p>
 		 * 
 		 * @param  	collection1 	the first collection.
 		 * @param  	collection2 	the second collection.

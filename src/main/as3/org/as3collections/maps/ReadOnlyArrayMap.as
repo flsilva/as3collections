@@ -34,6 +34,7 @@ package org.as3collections.maps
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
 	import org.as3collections.IMapEntry;
+	import org.as3collections.iterators.ReadOnlyMapIterator;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3utils.ReflectionUtil;
@@ -92,6 +93,9 @@ package org.as3collections.maps
 				
 				keys.push(it.pointer());
 				values.push(value);
+				
+				checkKeyEquatable(it.pointer());
+				checkValueEquatable(value);
 			}
 		}
 
@@ -114,7 +118,19 @@ package org.as3collections.maps
 		{
 			return new ReadOnlyArrayMap(this);
 		}
-
+		
+		/**
+		 * Returns an iterator over a set of mappings.
+		 * <p>This implementation returns a <code>ReadOnlyMapIterator</code> object.</p>
+		 * 
+		 * @return 	an iterator over a set of values.
+		 * @see 	org.as3collections.iterators.ReadOnlyMapIterator ReadOnlyMapIterator
+		 */
+		override public function iterator(): IIterator
+		{
+			return new ReadOnlyMapIterator(this);
+		}
+		
 		/**
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 

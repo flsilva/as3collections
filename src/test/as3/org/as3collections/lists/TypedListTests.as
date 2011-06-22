@@ -81,19 +81,13 @@ package org.as3collections.lists
 		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
 		public function constructor_argumentInvalidElements_ThrowsError(): void
 		{
-			var newList:IList = new TypedList(new ArrayList([1, 5]), String);
-			
-			var size:int = newList.size();
-			Assert.assertEquals(2, size);
+			new TypedList(new ArrayList([1, 5]), String);
 		}
 		
 		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
 		public function constructor_argumentWithValidAndInvalidElements_ThrowsError(): void
 		{
-			var newList:IList = new TypedList(new ArrayList(["element-1", 5]), String);
-			
-			var size:int = newList.size();
-			Assert.assertEquals(2, size);
+			new TypedList(new ArrayList(["element-1", 5]), String);
 		}
 		
 		///////////////////////////////////

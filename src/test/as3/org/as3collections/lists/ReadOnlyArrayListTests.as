@@ -29,6 +29,7 @@
 
 package org.as3collections.lists
 {
+	import org.as3collections.EquatableObject;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
@@ -73,6 +74,38 @@ package org.as3collections.lists
 		{
 			var array:Array = ["element-1", "element-2", "element-3"];
 			return new ReadOnlyArrayList(array);
+		}
+		
+		//////////////////////////////////////////////
+		// ReadOnlyArrayList().allEquatable() TESTS //
+		//////////////////////////////////////////////
+		
+		[Test]
+		public function allEquatable_emptyList_ReturnsTrue(): void
+		{
+			var newList:IList = new ReadOnlyArrayList([]);
+			
+			var allEquatable:Boolean = newList.allEquatable;
+			Assert.assertTrue(allEquatable);
+		}
+		
+		[Test]
+		public function allEquatable_listWithThreeNotEquatableElements_ReturnsFalse(): void
+		{
+			var allEquatable:Boolean = list.allEquatable;
+			Assert.assertFalse(allEquatable);
+		}
+		
+		[Test]
+		public function allEquatable_listWithThreeEquatableElements_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			var newList:IList = new ReadOnlyArrayList([equatableObject1A, equatableObject2A]);
+			
+			var allEquatable:Boolean = newList.allEquatable;
+			Assert.assertTrue(allEquatable);
 		}
 		
 		/////////////////////////////////////
@@ -126,7 +159,7 @@ package org.as3collections.lists
 		///////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
-		public function clear_validArgument_ThrowsError(): void
+		public function clear_simpleCall_ThrowsError(): void
 		{
 			list.clear();
 		}

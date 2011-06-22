@@ -198,7 +198,7 @@ package org.as3collections
 			
 			var o:IMap = other as IMap;
 			
-			if (o == null || o.size() != size()) return false;
+			if (o.size() != size()) return false;
 			
 			var it:IIterator = entryList().iterator();
 			var entryListOther:IList = entryList();
