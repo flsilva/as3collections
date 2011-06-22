@@ -68,9 +68,9 @@ package org.as3collections.lists
 			return new SortedArrayList();
 		}
 		
-		///////////////////////////////////
-		// ArrayList() constructor TESTS //
-		///////////////////////////////////
+		/////////////////////////////////////////
+		// SortedArrayList() constructor TESTS //
+		/////////////////////////////////////////
 		
 		[Test]
 		public function constructor_argumentWithTwoElements_checkIfIsEmpty_ReturnsFalse(): void
@@ -90,9 +90,9 @@ package org.as3collections.lists
 			Assert.assertEquals(2, size);
 		}
 		
-		//////////////////////////////
-		// IList().comparator TESTS //
-		//////////////////////////////
+		////////////////////////////////////////
+		// SortedArrayList().comparator TESTS //
+		////////////////////////////////////////
 		
 		[Test]
 		public function comparator_createListWithComparator_checkIfReturnedComparatorMathes_ReturnTrue(): void
@@ -133,9 +133,9 @@ package org.as3collections.lists
 			Assert.assertEquals(priorityObject3, element);
 		}
 		
-		///////////////////////////
-		// IList().options TESTS //
-		///////////////////////////
+		/////////////////////////////////////
+		// SortedArrayList().options TESTS //
+		/////////////////////////////////////
 		
 		[Test]
 		public function options_createListWithOptions_checkIfReturnedOptionsMathes_ReturnTrue(): void
@@ -169,9 +169,9 @@ package org.as3collections.lists
 			Assert.assertEquals("element-2", element);
 		}
 		
-		////////////////////////////
-		// IList().equals() TESTS //
-		////////////////////////////
+		//////////////////////////////////////
+		// SortedArrayList().equals() TESTS //
+		//////////////////////////////////////
 		
 		[Test]
 		public function equals_twoEmptyListsCreatedWithDifferentSortOptions_checkIfBothListsAreEqual_ReturnsFalse(): void
@@ -197,9 +197,9 @@ package org.as3collections.lists
 			Assert.assertTrue(list.equals(list2));
 		}
 		
-		///////////////////////////
-		// IList().getAt() TESTS //
-		///////////////////////////
+		/////////////////////////////////////
+		// SortedArrayList().getAt() TESTS //
+		/////////////////////////////////////
 		
 		[Test]
 		public function getAt_listWithIntegerElements_numericAscendingOrder_checkIfReturnedElementIsCorrect_ReturnsTrue(): void
@@ -227,9 +227,9 @@ package org.as3collections.lists
 			Assert.assertEquals(9, element);
 		}
 		
-		/////////////////////////////
-		// IList().indexOf() TESTS //
-		/////////////////////////////
+		///////////////////////////////////////
+		// SortedArrayList().indexOf() TESTS //
+		///////////////////////////////////////
 		
 		[Test]
 		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexThree_ReturnsThree(): void
@@ -245,9 +245,9 @@ package org.as3collections.lists
 			Assert.assertEquals(2, index);
 		}
 		
-		/////////////////////////////////
-		// IList().lastIndexOf() TESTS //
-		/////////////////////////////////
+		///////////////////////////////////////////
+		// SortedArrayList().lastIndexOf() TESTS //
+		///////////////////////////////////////////
 		
 		[Test]
 		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOf_ReturnsCorrectIndex(): void
@@ -277,9 +277,9 @@ package org.as3collections.lists
 			Assert.assertEquals(2, index);
 		}
 		
-		/////////////////////////////
-		// IList().reverse() TESTS //
-		/////////////////////////////
+		///////////////////////////////////////
+		// SortedArrayList().reverse() TESTS //
+		///////////////////////////////////////
 		
 		[Test]
 		public function reverse_listWithIntegerElements_numericAscendingOrder_reverseAndCheckIfReturnedElementIsCorrect_ReturnsTrue(): void
@@ -310,9 +310,9 @@ package org.as3collections.lists
 			Assert.assertEquals(8, element);
 		}
 		
-		////////////////////////////
-		// IList().sortOn() TESTS //
-		////////////////////////////
+		//////////////////////////////////////
+		// SortedArrayList().sortOn() TESTS //
+		//////////////////////////////////////
 		
 		[Test]
 		public function sortOn_listWithObjectsWithProperty_checkIfElementIsInCorrectIndex_ReturnsTrue(): void
@@ -330,9 +330,9 @@ package org.as3collections.lists
 			Assert.assertEquals(obj2, element);
 		}
 		
-		/////////////////////////
-		// IList() MIXED TESTS //
-		/////////////////////////
+		///////////////////////////////////
+		// SortedArrayList() MIXED TESTS //
+		///////////////////////////////////
 		
 		[Test]
 		public function addAt_getAt_listWithOneNotEquatableElement_addAtZeroNotEquatable_checkIfElementWasAddedAtZeroIndex_ReturnsTrue(): void

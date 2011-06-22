@@ -37,6 +37,9 @@ package org.as3collections.maps
 	import org.as3collections.errors.NoSuchElementError;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3utils.ArrayUtil;
+	import org.as3utils.ReflectionUtil;
+
+	import flash.errors.IllegalOperationError;
 
 	/**
 	 * A map that provides a <em>total ordering</em> on its mappings.
@@ -132,6 +135,7 @@ package org.as3collections.maps
 
 		public function set sortBy(value:SortMapBy): void
 		{
+			//TODO: validate null
 			_sortBy = value;
 			_sort();
 		}
@@ -162,7 +166,42 @@ package org.as3collections.maps
 		{
 			return new SortedArrayMap(this, _comparator, _options);
 		}
-
+		
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
+		 * <p>This implementation considers two differente objects equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
+		 * <li>object A contains all mappings of object B</li>
+		 * <li>object B contains all mappings of object A</li>
+		 * <li>mappings have exactly the same order</li>
+		 * <li>object A and object B has the same type of comparator</li>
+		 * <li>object A and object B has the same options</li>
+		 * <li>object A and object B has the same sortBy</li>
+		 * </ul></p>
+		 * <p>This implementation takes care of the order of the mappings in the map.
+		 * So, for two maps are equal the order of mappings returned by the iterator must be equal.</p>
+		 * 
+		 * @param  	other 	the object to be compared for equality.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		override public function equals(other:*): Boolean
+		{
+			if (this == other) return true;
+			
+			if (!ReflectionUtil.classPathEquals(this, other)) return false;
+			
+			var m:ISortedMap = other as ISortedMap;
+			
+			if (_sortBy != m.sortBy) return false;
+			if (_options != m.options) return false;
+			if (!_comparator && m.comparator) return false;
+			if (_comparator && !m.comparator) return false;
+			if (!ReflectionUtil.classPathEquals(_comparator, m.comparator)) return false;
+			
+			return super.equals(other);
+		}
+		
 		/**
 		 * @inheritDoc
 		 * 
@@ -295,6 +334,8 @@ package org.as3collections.maps
 		 */
 		public function subMap(fromKey:*, toKey:*): ISortedMap
 		{
+			if (isEmpty()) throw new IllegalOperationError("This SortedArrayMap instance is empty.");
+			
 			if (!containsKey(fromKey)) throw new ArgumentError("This maps does not contains the specified key: " + fromKey);
 			if (!containsKey(toKey)) throw new ArgumentError("This maps does not contains the specified key: " + toKey);
 			
