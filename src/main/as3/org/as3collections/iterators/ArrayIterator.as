@@ -27,7 +27,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.iterators {
+package org.as3collections.iterators
+{
 	import org.as3collections.IIterator;
 	import org.as3collections.errors.NoSuchElementError;
 	import org.as3coreaddendum.errors.IllegalStateError;

@@ -606,7 +606,7 @@ package org.as3collections.iterators
 		/////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.IllegalStateError")]
-		public function set_iteratorWithThreeElements_setWithoutCallNextOrPrevious_throwsError(): void
+		public function set_iteratorWithThreeElements_setWithoutCallNextOrPrevious_ThrowsError(): void
 		{
 			listIterator.set("element-1");
 		}
