@@ -29,6 +29,7 @@
 
 package 
 {
+	import org.as3collections.AbstractCollectionTests;
 	import org.as3collections.iterators.ArrayIteratorTests;
 	import org.as3collections.iterators.ListIteratorTests;
 	import org.as3collections.iterators.MapIteratorTests;
@@ -71,6 +72,9 @@ package
 	[RunWith("org.flexunit.runners.Suite")]
 	public class TestSuite
 	{
+		
+		//org.as3collections
+		public var abstractCollectionTests:AbstractCollectionTests;
 		
 		//org.as3collections.iterators
 		public var arrayIteratorTests:ArrayIteratorTests;
