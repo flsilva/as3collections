@@ -335,6 +335,24 @@ package org.as3collections.maps
 			Assert.assertEquals(9, key);
 		}
 		
+		///////////////////////////////////
+		// SortedArrayMap().sort() TESTS //
+		///////////////////////////////////
+		
+		[Test]
+		public function sort_mapWithThreeStringKeys_checkIfKeyIsInCorrectIndex_ReturnsTrue(): void
+		{
+			sortedMap.put("Element-1", 1);
+			sortedMap.put("element-3", 3);
+			sortedMap.put("element-1", 1);
+			
+			var comparator:IComparator = new AlphabeticalComparator(AlphabeticalComparison.LOWER_CASE_FIRST);
+			sortedMap.sort(comparator.compare);
+			
+			var index:int = sortedMap.indexOfKey("element-1");
+			Assert.assertEquals(0, index);
+		}
+		
 		/////////////////////////////////////
 		// SortedArrayMap().sortOn() TESTS //
 		/////////////////////////////////////
@@ -440,6 +458,23 @@ package org.as3collections.maps
 			
 			var contains:Boolean = subMap.containsKey("element-3");
 			Assert.assertFalse(contains);
+		}
+		
+		[Test]
+		public function subMap_mapWithThreeKeyValue_checkIfReturnedMapIsCorrect_ReturnsTrue(): void
+		{
+			sortedMap.put("element-1", 1);
+			sortedMap.put("element-2", 2);
+			sortedMap.put("element-3", 3);
+			
+			var subMap:IMap = sortedMap.subMap("element-1", "element-3");
+			
+			var equalSubMap:IMap = getMap();
+			equalSubMap.put("element-1", 1);
+			equalSubMap.put("element-2", 2);
+			
+			var equal:Boolean = subMap.equals(equalSubMap);
+			Assert.assertTrue(equal);
 		}
 		
 		//////////////////////////////////////

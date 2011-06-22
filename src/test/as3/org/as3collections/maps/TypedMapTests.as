@@ -81,43 +81,6 @@ package org.as3collections.maps
 			return new TypedMap(new HashMap(), typeKeys, typeValues);
 		}
 		
-		//////////////////////////////////
-		// TypedMap() constructor TESTS //
-		//////////////////////////////////
-		
-		[Test]
-		public function constructor_argumentValidKeyValues_checkIfIsEmpty_ReturnsFalse(): void
-		{
-			var addMap:IMap = new HashMap();
-			addMap.put("element-1", 1);
-			addMap.put("element-2", 2);
-			
-			var newMap:IMap = new TypedMap(addMap, String, int);
-			
-			var isEmpty:Boolean = newMap.isEmpty();
-			Assert.assertFalse(isEmpty);
-		}
-		
-		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
-		public function constructor_argumentWithValidAndInvalidKeys_ThrowsError(): void
-		{
-			var addMap:IMap = new HashMap();
-			addMap.put("element-1", 1);
-			addMap.put(1, 2);
-			
-			new TypedMap(addMap, String, int);
-		}
-		
-		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
-		public function constructor_argumentWithValidAndInvalidValues_ThrowsError(): void
-		{
-			var addMap:IMap = new HashMap();
-			addMap.put("element-1", 1);
-			addMap.put("element-2", "2");
-			
-			new TypedMap(addMap, String, int);
-		}
-		
 		///////////////////////////////
 		// TypedMap().typeKeys TESTS //
 		///////////////////////////////

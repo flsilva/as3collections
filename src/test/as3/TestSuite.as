@@ -45,6 +45,9 @@ package
 	import org.as3collections.maps.ReadOnlyHashMapTests;
 	import org.as3collections.maps.SortedArrayMapTests;
 	import org.as3collections.maps.TypedMapTests;
+	import org.as3collections.maps.TypedMapTestsConstructor;
+	import org.as3collections.maps.TypedSortedMapTests;
+	import org.as3collections.maps.TypedSortedMapTestsConstructor;
 	import org.as3collections.queues.IndexablePriorityQueueTests;
 	import org.as3collections.queues.LinearQueueTests;
 	import org.as3collections.queues.LinearQueueTestsEquatableObject;
@@ -82,6 +85,9 @@ package
 		public var readOnlyHashMapTests:ReadOnlyHashMapTests;
 		public var sortedArrayMapTests:SortedArrayMapTests;
 		public var typedMapTests:TypedMapTests;
+		public var typedMapTestsConstructor:TypedMapTestsConstructor;
+		public var typedSortedMapTests:TypedSortedMapTests;
+		public var typedSortedMapTestsConstructor:TypedSortedMapTestsConstructor;
 		
 		//org.as3collections.queues
 		public var indexablePriorityQueueTests:IndexablePriorityQueueTests;

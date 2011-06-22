@@ -155,7 +155,7 @@ package org.as3collections.maps
 		 */
 		public function headMap(toKey:*): ISortedMap
 		{
-			return wrappedSortedMap.firstKey();
+			return new TypedSortedMap(wrappedSortedMap.headMap(toKey), typeKeys, typeValues);
 		}
 
 		/**
@@ -223,7 +223,7 @@ package org.as3collections.maps
 		 */
 		public function subMap(fromKey:*, toKey:*): ISortedMap
 		{
-			return wrappedSortedMap.subMap(fromKey, toKey);
+			return new TypedSortedMap(wrappedSortedMap.subMap(fromKey, toKey), typeKeys, typeValues);
 		}
 
 		/**
@@ -234,7 +234,7 @@ package org.as3collections.maps
 		 */
 		public function tailMap(fromKey:*): ISortedMap
 		{
-			return wrappedSortedMap.tailMap(fromKey);
+			return new TypedSortedMap(wrappedSortedMap.tailMap(fromKey), typeKeys, typeValues);
 		}
 
 	}
