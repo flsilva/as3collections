@@ -38,6 +38,24 @@ package org.as3collections.iterators {
 
 	/**
 	 * An iterator to iterate over lists (implementations of the <code>IList</code> interface).
+	 * <code>ListIterator</code> allows to traverse the list in either direction.
+	 * <p><b>IMPORTANT:</b></p>
+	 * <p>A <code>ListIterator</code> has no current element; its cursor position always lies between the element that would be returned by a call to <code>previous()</code> and the element that would be returned by a call to <code>next()</code>.
+	 * An iterator for a list of length <code>n</code> has <code>n+1</code> possible cursor positions, as illustrated by the carets (^) below:</p>
+	 * <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * Element(0)&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * Element(1)&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * Element(2)&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * ... Element(n-1)</p>
+	 * <p>cursor positions:
+	 * &#160;&#160;&#160;
+	 * ^&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * ^&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * ^&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * ^&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+	 * ^</p>
+	 * <p>Note that the <code>remove()</code> and <code>set()</code> methods are <em>not</em> defined in terms of the cursor position; they are defined to operate on the last element returned by a call to <code>next()</code> or <code>previous()</code>.</p>
+	 * <p>For further information do not hesitate to see the examples at the end of the page.</p>
 	 * 
 	 * @example
 	 * 
@@ -268,8 +286,9 @@ package org.as3collections.iterators {
 			
 			checkConcurrentModificationError();
 			_allowModification = true;
-			_removePointer = _pointer + 1;
-			return _source.getAt(++_pointer);
+			_pointer++;
+			_removePointer = _pointer;
+			return _source.getAt(_pointer);
 		}
 
 		/**
@@ -327,6 +346,7 @@ package org.as3collections.iterators {
 			_source.removeAt(_removePointer);
 			_modCount = _source.modCount;
 			_allowModification = false;
+			if (_removePointer == _pointer) _pointer--;
 		}
 
 		/**
@@ -338,7 +358,9 @@ package org.as3collections.iterators {
 		}
 
 		/**
-		 * @inheritDoc
+		 * Replaces the last element returned by <code>next</code> or <code>previous</code> with the specified element (optional operation). This call can be made only if neither <code>IListIterator.remove</code> nor <code>IListIterator.add</code> have been called after the last call to <code>next</code> or <code>previous</code>. 
+		 * 
+		 * @param element 	the element with which to replace the last element returned by <code>next</code> or <code>previous</code>.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>set</code> operation is not supported by this iterator.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  			if neither <code>next</code> or <code>previous</code> have been called, or <code>remove</code> or <code>add</code> have been called after the last call to <code>next</code> or <code>previous</code>.
@@ -349,7 +371,9 @@ package org.as3collections.iterators {
 			
 			if (!_allowModification) throw new IllegalStateError("The next or previous method has not yet been called or the add or remove method has already been called after the last call to the next or previous method.");
 			
-			_source.setAt(_pointer, element);
+			var setIndex:int = (_removePointer > _pointer) ? _pointer + 1 : _pointer;
+			
+			_source.setAt(setIndex, element);
 			_modCount = _source.modCount;
 		}
 

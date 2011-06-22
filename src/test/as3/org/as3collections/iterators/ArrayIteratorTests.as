@@ -196,15 +196,25 @@ package org.as3collections.iterators
 			iterator.remove();
 		}
 		
+		[Test(expects="org.as3coreaddendum.errors.IllegalStateError")]
+		public function remove_notEmptyIterator_callRemoveTwice_ThrowsError(): void
+		{
+			iterator.next();
+			iterator.next();
+			iterator.next();
+			iterator.remove();
+			iterator.remove();
+		}
+		
 		[Test]
-		public function remove_notEmptyIterator_Void(): void
+		public function remove_notEmptyIterator_callRemoveAfterNext_Void(): void
 		{
 			iterator.next();
 			iterator.remove();
 		}
 		
 		[Test]
-		public function remove_notEmptyIterator_checkIfPointerIsCorrect_ReturnsTrue(): void
+		public function remove_notEmptyIterator_callRemoveAfterNext_checkIfPointerIsCorrect_ReturnsTrue(): void
 		{
 			iterator.next();
 			iterator.remove();
@@ -214,7 +224,7 @@ package org.as3collections.iterators
 		}
 		
 		[Test]
-		public function remove_notEmptyIterator_checkIfNextElementIsCorrect_ReturnsTrue(): void
+		public function remove_notEmptyIterator_callRemoveAfterNext_checkIfNextElementIsCorrect_ReturnsTrue(): void
 		{
 			iterator.next();
 			iterator.remove();

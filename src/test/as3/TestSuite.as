@@ -30,6 +30,7 @@
 package 
 {
 	import org.as3collections.iterators.ArrayIteratorTests;
+	import org.as3collections.iterators.ListIteratorTests;
 	import org.as3collections.lists.ArrayListTests;
 	import org.as3collections.lists.ArrayListTestsEquatableObject;
 	import org.as3collections.lists.ReadOnlyArrayListTests;
@@ -69,6 +70,7 @@ package
 		
 		//org.as3collections.iterators
 		public var arrayIteratorTests:ArrayIteratorTests;
+		public var listIteratorTests:ListIteratorTests;
 		
 		//org.as3collections.lists
 		public var arrayListTests:ArrayListTests;
