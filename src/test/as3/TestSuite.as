@@ -29,6 +29,7 @@
 
 package 
 {
+	import org.as3collections.iterators.ArrayIteratorTests;
 	import org.as3collections.lists.ArrayListTests;
 	import org.as3collections.lists.ArrayListTestsEquatableObject;
 	import org.as3collections.lists.ReadOnlyArrayListTests;
@@ -65,6 +66,9 @@ package
 	[RunWith("org.flexunit.runners.Suite")]
 	public class TestSuite
 	{
+		
+		//org.as3collections.iterators
+		public var arrayIteratorTests:ArrayIteratorTests;
 		
 		//org.as3collections.lists
 		public var arrayListTests:ArrayListTests;
