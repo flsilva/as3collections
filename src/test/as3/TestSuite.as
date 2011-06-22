@@ -31,8 +31,10 @@ package
 {
 	import org.as3collections.iterators.ArrayIteratorTests;
 	import org.as3collections.iterators.ListIteratorTests;
+	import org.as3collections.iterators.MapIteratorTests;
 	import org.as3collections.iterators.ReadOnlyArrayIteratorTests;
 	import org.as3collections.iterators.ReadOnlyListIteratorTests;
+	import org.as3collections.iterators.ReadOnlyMapIteratorTests;
 	import org.as3collections.lists.ArrayListTests;
 	import org.as3collections.lists.ArrayListTestsEquatableObject;
 	import org.as3collections.lists.ReadOnlyArrayListTests;
@@ -73,8 +75,10 @@ package
 		//org.as3collections.iterators
 		public var arrayIteratorTests:ArrayIteratorTests;
 		public var listIteratorTests:ListIteratorTests;
+		public var mapIteratorTests:MapIteratorTests;
 		public var readOnlyArrayIteratorTests:ReadOnlyArrayIteratorTests;
 		public var readOnlyListIteratorTests:ReadOnlyListIteratorTests;
+		public var readOnlyMapIteratorTests:ReadOnlyMapIteratorTests;
 		
 		//org.as3collections.lists
 		public var arrayListTests:ArrayListTests;

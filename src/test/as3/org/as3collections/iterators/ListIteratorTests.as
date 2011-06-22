@@ -137,6 +137,19 @@ package org.as3collections.iterators
 			Assert.assertEquals("element-3", previous);
 		}
 		
+		[Test(expects="org.as3collections.errors.ConcurrentModificationError")]
+		public function add_iteratorWithThreeElements_callNextThenChangeListWithoutUseIteratorThenCallAdd_ThrowsError(): void
+		{
+			var list:IList = new ArrayList(["element-1", "element-2", "element-3"]);
+			
+			var newListIterator:IListIterator = new ListIterator(list);
+			newListIterator.next();
+			
+			list.add("element-4");
+			
+			newListIterator.add("element-5");
+		}
+		
 		/////////////////////////////////////
 		// ArrayIterator().hasNext() TESTS //
 		/////////////////////////////////////
@@ -285,6 +298,19 @@ package org.as3collections.iterators
 			Assert.assertEquals("element-4", previous);
 		}
 		
+		[Test(expects="org.as3collections.errors.ConcurrentModificationError")]
+		public function next_iteratorWithThreeElements_callNextThenChangeListWithoutUseIteratorThenCallNextAgain_ThrowsError(): void
+		{
+			var list:IList = new ArrayList(["element-1", "element-2", "element-3"]);
+			
+			var newListIterator:IListIterator = new ListIterator(list);
+			newListIterator.next();
+			
+			list.remove("element-3");
+			
+			newListIterator.next();
+		}
+		
 		///////////////////////////////////////
 		// ArrayIterator().nextIndex() TESTS //
 		///////////////////////////////////////
@@ -412,6 +438,19 @@ package org.as3collections.iterators
 			listIterator.previous();
 			listIterator.previous();
 			listIterator.previous();
+		}
+		
+		[Test(expects="org.as3collections.errors.ConcurrentModificationError")]
+		public function previous_iteratorWithThreeElements_callNextThenChangeListWithoutUseIteratorThenCallPrevious_ThrowsError(): void
+		{
+			var list:IList = new ArrayList(["element-1", "element-2", "element-3"]);
+			
+			var newListIterator:IListIterator = new ListIterator(list);
+			newListIterator.next();
+			
+			list.add("element-4");
+			
+			newListIterator.previous();
 		}
 		
 		///////////////////////////////////////////
@@ -569,6 +608,19 @@ package org.as3collections.iterators
 			listIterator.next();
 		}
 		
+		[Test(expects="org.as3collections.errors.ConcurrentModificationError")]
+		public function remove_iteratorWithThreeElements_callNextThenChangeListWithoutUseIteratorThenCallRemove_ThrowsError(): void
+		{
+			var list:IList = new ArrayList(["element-1", "element-2", "element-3"]);
+			
+			var newListIterator:IListIterator = new ListIterator(list);
+			newListIterator.next();
+			
+			list.add("element-4");
+			
+			newListIterator.remove();
+		}
+		
 		///////////////////////////////////
 		// ArrayIterator().reset() TESTS //
 		///////////////////////////////////
@@ -630,6 +682,19 @@ package org.as3collections.iterators
 			
 			var next:* = listIterator.next();
 			Assert.assertEquals("element-11", next);
+		}
+		
+		[Test(expects="org.as3collections.errors.ConcurrentModificationError")]
+		public function set_iteratorWithThreeElements_callNextThenChangeListWithoutUseIteratorThenCallSet_ThrowsError(): void
+		{
+			var list:IList = new ArrayList(["element-1", "element-2", "element-3"]);
+			
+			var newListIterator:IListIterator = new ListIterator(list);
+			newListIterator.next();
+			
+			list.add("element-4");
+			
+			newListIterator.set("element-5");
 		}
 		
 	}

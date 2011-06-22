@@ -100,6 +100,7 @@ package org.as3collections.iterators
 		public function reset(): void
 		{
 			_keysIterator.reset();
+			_key = null;
 		}
 
 	}
