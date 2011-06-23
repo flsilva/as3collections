@@ -34,6 +34,7 @@ package
 	import org.as3collections.AbstractHashMapTests;
 	import org.as3collections.AbstractListTests;
 	import org.as3collections.AbstractQueueTests;
+	import org.as3collections.MapEntryTests;
 	import org.as3collections.TypedCollectionTests;
 	import org.as3collections.UniqueCollectionTests;
 	import org.as3collections.UniqueCollectionTestsEquatableObject;
@@ -86,6 +87,7 @@ package
 		public var abstractHashMapTests:AbstractHashMapTests;
 		public var abstractListTests:AbstractListTests;
 		public var abstractQueueTests:AbstractQueueTests;
+		public var mapEntryTests:MapEntryTests;
 		public var typedCollectionTests:TypedCollectionTests;
 		public var uniqueCollectionTests:UniqueCollectionTests;
 		public var uniqueCollectionTestsEquatableObject:UniqueCollectionTestsEquatableObject;

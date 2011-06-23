@@ -597,6 +597,17 @@ package org.as3collections.maps
 			Assert.assertFalse(changed);
 		}
 		
+		/////////////////////////////////
+		// TypedMap().toString() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function toString_emptyMap_ReturnsValidString(): void
+		{
+			var string:String = (map as TypedMap).toString();
+			Assert.assertNotNull(string);
+		}
+		
 	}
 
 }
