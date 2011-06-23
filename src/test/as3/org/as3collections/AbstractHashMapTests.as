@@ -121,6 +121,17 @@ package org.as3collections
 			fake.remove("element-1");
 		}
 		
+		////////////////////////////////////////
+		// AbstractHashMap().toString() TESTS //
+		////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function toString_simpleCall_ThrowsError(): void
+		{
+			var fake:FakeAbstractHashMap = new FakeAbstractHashMap();
+			fake.toString();
+		}
+		
 	}
 
 }

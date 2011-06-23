@@ -408,6 +408,28 @@ package org.as3collections.utils
 			collection.addAll(new ArrayList(arr));
 			return collection;
 		}
+		
+		/**
+		 * Returns the string representation of the <code>collection</code> argument.
+		 * 
+		 * @param  	collection 	the target collection.
+		 * @return 	the string representation of the target collection.
+ 		 */
+		public static function toString(collection:ICollection): String 
+		{
+			var s:String = "[";
+			var it:IIterator = collection.iterator();
+			
+			while (it.hasNext())
+			{
+				s += it.next();
+				if (it.hasNext()) s += ",";
+			}
+			
+			s += "]";
+			
+			return s;
+		}
 
 	}
 

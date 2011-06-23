@@ -27,13 +27,15 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.maps {
+package org.as3collections.maps 
+{
 	import org.as3collections.AbstractArrayMap;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IMap;
 	import org.as3collections.IMapEntry;
+	import org.as3collections.utils.MapUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3utils.ReflectionUtil;
@@ -394,21 +396,7 @@ package org.as3collections.maps {
  		 */
 		public function toString():String 
 		{
-			var s		:String = "{";
-			var it		:IIterator = iterator();
-			var value	:*;
-			
-			while (it.hasNext())
-			{
-				value 	= it.next();
-				
-				s 		+= it.pointer() + "=" + value;
-				if (it.hasNext()) s += ",";
-			}
-			
-			s += "}";
-			
-			return s;
+			return MapUtil.toString(this);
 		}
 
 		/**

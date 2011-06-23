@@ -30,8 +30,6 @@
 package org.as3collections
 {
 	import org.as3collections.lists.ArrayList;
-	import org.as3coreaddendum.errors.UnsupportedOperationError;
-	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -68,7 +66,14 @@ package org.as3collections
 		
 		public function getCollection():ICollection
 		{
-			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
+			// using an ArrayList object
+			// instead of a fake to simplify tests
+			// since ArrayList is fully tested it is ok
+			// but it means that unit testing of this class are in some degree "integration testing"
+			// so changes in ArrayList may break some tests in this class
+			// when errors in tests of this class occur
+			// consider that it can be in the ArrayList object
+			return new UniqueCollection(new ArrayList());
 		}
 		
 		////////////////////////////////////

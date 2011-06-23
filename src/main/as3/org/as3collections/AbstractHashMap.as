@@ -30,6 +30,7 @@
 package org.as3collections
 {
 	import org.as3collections.lists.ArrayList;
+	import org.as3collections.utils.MapUtil;
 	import org.as3coreaddendum.errors.CloneNotSupportedError;
 	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
@@ -464,21 +465,7 @@ package org.as3collections
  		 */
 		public function toString():String 
 		{
-			var s		:String = "{";
-			var it		:IIterator = iterator();
-			var value	:*;
-			
-			while (it.hasNext())
-			{
-				value 	= it.next();
-				
-				s 		+= it.pointer() + "=" + value;
-				if (it.hasNext()) s += ",";
-			}
-			
-			s += "}";
-			
-			return s;
+			return MapUtil.toString(this);
 		}
 
 		/**
@@ -580,14 +567,19 @@ package org.as3collections
 		{
 			var it:IIterator = entryList().iterator();
 			var e:IMapEntry;
+			var value:*;
 			
 			while (it.hasNext())
 			{
 				e = it.next();
-				if ((e.key as IEquatable).equals(key)) return e.value;
+				if ((e.key as IEquatable).equals(key))
+				{
+					value = e.value;
+					break;
+				}
 			}
 			
-			return null;
+			return value;
 		}
 
 		/**

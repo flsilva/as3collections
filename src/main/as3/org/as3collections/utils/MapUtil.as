@@ -29,12 +29,13 @@
 
 package org.as3collections.utils
 {
-	import flash.errors.IllegalOperationError;
-	
+	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
 	import org.as3collections.ISortedMap;
 	import org.as3collections.maps.TypedMap;
 	import org.as3collections.maps.TypedSortedMap;
+
+	import flash.errors.IllegalOperationError;
 
 	/**
 	 * A utility class to work with implementations of the <code>IMap</code> interface.
@@ -152,6 +153,31 @@ package org.as3collections.utils
 		public static function getTypedSortedMap(wrapMap:ISortedMap, typeKeys:*, typeValues:*): TypedSortedMap
 		{
 			return new TypedSortedMap(wrapMap, typeKeys, typeValues);
+		}
+		
+		/**
+		 * Returns the string representation of the <code>map</code> argument.
+		 * 
+		 * @param  	map the target map.
+		 * @return 	the string representation of the target map.
+ 		 */
+		public static function toString(map:IMap): String 
+		{
+			var s:String = "[";
+			var it:IIterator = map.iterator();
+			var value	:*;
+			
+			while (it.hasNext())
+			{
+				value 	= it.next();
+				
+				s 		+= it.pointer() + "=" + value;
+				if (it.hasNext()) s += ",";
+			}
+			
+			s += "]";
+			
+			return s;
 		}
 
 	}

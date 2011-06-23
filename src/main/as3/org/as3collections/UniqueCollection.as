@@ -228,23 +228,13 @@ package org.as3collections
 
 		/**
 		 * Returns the string representation of this instance.
+		 * <p>This method uses <code>CollectionUtil.toString</code> method.</p>
 		 * 
 		 * @return the string representation of this instance.
  		 */
 		public function toString():String 
 		{
-			var s:String = "[";
-			var it:IIterator = iterator();
-			
-			while (it.hasNext())
-			{
-				s += it.next();
-				if (it.hasNext()) s += ",";
-			}
-			
-			s += "]";
-			
-			return s;
+			return CollectionUtil.toString(this);
 		}
 
 		/**

@@ -33,6 +33,10 @@ package
 	import org.as3collections.AbstractCollectionTests;
 	import org.as3collections.AbstractHashMapTests;
 	import org.as3collections.AbstractListTests;
+	import org.as3collections.AbstractQueueTests;
+	import org.as3collections.TypedCollectionTests;
+	import org.as3collections.UniqueCollectionTests;
+	import org.as3collections.UniqueCollectionTestsEquatableObject;
 	import org.as3collections.iterators.ArrayIteratorTests;
 	import org.as3collections.iterators.ListIteratorTests;
 	import org.as3collections.iterators.MapIteratorTests;
@@ -81,6 +85,10 @@ package
 		public var abstractCollectionTests:AbstractCollectionTests;
 		public var abstractHashMapTests:AbstractHashMapTests;
 		public var abstractListTests:AbstractListTests;
+		public var abstractQueueTests:AbstractQueueTests;
+		public var typedCollectionTests:TypedCollectionTests;
+		public var uniqueCollectionTests:UniqueCollectionTests;
+		public var uniqueCollectionTestsEquatableObject:UniqueCollectionTestsEquatableObject;
 		
 		//org.as3collections.iterators
 		public var arrayIteratorTests:ArrayIteratorTests;

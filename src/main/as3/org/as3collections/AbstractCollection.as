@@ -248,24 +248,50 @@ package org.as3collections
 		 */
 		public function remove(o:*): Boolean
 		{
-			if (!contains(o)) return false;
-			
-			var it:IIterator = iterator();
-			var e:*;
-			
-			while (it.hasNext())
+			//TODO:refactoring desse método.
+			if (contains(o))
 			{
-				e = it.next();
+				var it:IIterator = iterator();
+				var e:*;
+				var found:Boolean;
 				
-				if ((allEquatable && o is IEquatable && (e as IEquatable).equals(o)) || e == o)
+				if (allEquatable && o is IEquatable)
 				{
-					it.remove();
-					checkAllEquatable();
-					return true;
+					while (it.hasNext())
+					{
+						e = it.next();
+						
+						if ((e as IEquatable).equals(o))
+						{
+							it.remove();
+							checkAllEquatable();
+							found = true;
+							break;
+						}
+					}
 				}
+				else
+				{
+					while (it.hasNext())
+					{
+						e = it.next();
+						
+						if (e == o)
+						{
+							it.remove();
+							checkAllEquatable();
+							found = true;
+							break;
+						}
+					}
+				}
+				
+				return found;
 			}
-			
-			return false;
+			else
+			{
+				return false;
+			}
 		}
 
 		/**
@@ -344,23 +370,13 @@ package org.as3collections
 
 		/**
 		 * Returns the string representation of this instance.
+		 * <p>This method uses <code>CollectionUtil.toString</code> method.</p>
 		 * 
 		 * @return the string representation of this instance.
  		 */
 		public function toString(): String 
 		{
-			var s:String = "[";
-			var it:IIterator = iterator();
-			
-			while (it.hasNext())
-			{
-				s += it.next();
-				if (it.hasNext()) s += ",";
-			}
-			
-			s += "]";
-			
-			return s;
+			return CollectionUtil.toString(this);
 		}
 
 		/**

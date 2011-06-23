@@ -110,6 +110,17 @@ package org.as3collections
 			fake.iterator();
 		}
 		
+		///////////////////////////////////////////
+		// AbstractCollection().toString() TESTS //
+		///////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function toString_simpleCall_ThrowsError(): void
+		{
+			var fake:FakeAbstractCollection = new FakeAbstractCollection();
+			fake.toString();
+		}
+		
 	}
 
 }

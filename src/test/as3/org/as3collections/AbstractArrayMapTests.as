@@ -106,6 +106,17 @@ package org.as3collections
 			fake.remove("element-1");
 		}
 		
+		/////////////////////////////////////////
+		// AbstractArrayMap().toString() TESTS //
+		/////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function toString_simpleCall_ThrowsError(): void
+		{
+			var fake:FakeAbstractArrayMap = new FakeAbstractArrayMap();
+			fake.toString();
+		}
+		
 	}
 
 }

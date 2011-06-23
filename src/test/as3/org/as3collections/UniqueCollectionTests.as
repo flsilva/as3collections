@@ -30,8 +30,6 @@
 package org.as3collections
 {
 	import org.as3collections.lists.ArrayList;
-	import org.as3coreaddendum.errors.UnsupportedOperationError;
-	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -68,7 +66,14 @@ package org.as3collections
 		
 		public function getCollection():ICollection
 		{
-			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
+			// using an ArrayList object
+			// instead of a fake to simplify tests
+			// since ArrayList is fully tested it is ok
+			// but it means that unit testing of this class are in some degree "integration testing"
+			// so changes in ArrayList may break some tests in this class
+			// when errors in tests of this class occur
+			// consider that it can be in the ArrayList object
+			return new UniqueCollection(new ArrayList());
 		}
 		
 		////////////////////////////////////
@@ -136,6 +141,166 @@ package org.as3collections
 			
 			var changed:Boolean = collection.addAll(addAllList);
 			Assert.assertFalse(changed);
+		}
+		
+		//////////////////////////////////////
+		// UniqueCollection().clear() TESTS //
+		//////////////////////////////////////
+		
+		[Test]
+		public function clear_emptyCollection_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.clear();
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function clear_collectionWithOneNotEquatableElement_checkIfCollectionIsEmpty_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.clear();
+			
+			var isEmpty:Boolean = collection.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		//////////////////////////////////////
+		// UniqueCollection().clone() TESTS //
+		//////////////////////////////////////
+		
+		[Test]
+		public function clone_collectionWithTwoNotEquatableElements_checkIfBothCollectionsAreEqual_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var clonedCollection:ICollection = collection.clone();
+			Assert.assertTrue(collection.equals(clonedCollection));
+		}
+		
+		////////////////////////////////////////////
+		// UniqueCollection().containsAll() TESTS //
+		////////////////////////////////////////////
+		
+		[Test]
+		public function containsAll_notEmptyCollection_containsSomeButNotAllNotEquatableElements_ReturnsFalse(): void
+		{
+			collection.add("element-1");
+			collection.add("element-3");
+			
+			var containsCollection:ICollection = getCollection();
+			containsCollection.add("element-1");
+			containsCollection.add("element-2");
+			containsCollection.add("element-3");
+			
+			var containsAll:Boolean = collection.containsAll(containsCollection);
+			Assert.assertFalse(containsAll);
+		}
+		
+		[Test]
+		public function containsAll_notEmptyCollection_containsNotEquatableElements_ReturnsTrue(): void
+		{
+			collection.add("element-1");
+			collection.add("element-2");
+			collection.add("element-3");
+			
+			var containsCollection:ICollection = getCollection();
+			containsCollection.add("element-1");
+			containsCollection.add("element-2");
+			containsCollection.add("element-3");
+			
+			var containsAll:Boolean = collection.containsAll(containsCollection);
+			Assert.assertTrue(containsAll);
+		}
+		
+		//////////////////////////////////////////
+		// UniqueCollection().removeAll() TESTS //
+		//////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function removeAll_invalidArgument_ThrowsError(): void
+		{
+			collection.removeAll(null);
+		}
+		
+		[Test]
+		public function removeAll_emptyCollection_ReturnsFalse(): void
+		{
+			var removeAllCollection:ICollection = getCollection();
+			removeAllCollection.add("element-1");
+			
+			var changed:Boolean = collection.removeAll(removeAllCollection);
+			Assert.assertFalse(changed);
+		}
+		
+		[Test]
+		public function removeAll_collectionWithTwoNotEquatableElements_argumentWithThreeNotEquatableElementsOfWhichTwoAreContained_ReturnsTrue(): void
+		{
+			var removeCollection:ICollection = getCollection();
+			removeCollection.add("element-1");
+			removeCollection.add("element-2");
+			removeCollection.add("element-3");
+			
+			collection.add("element-1");
+			collection.add("element-3");
+			
+			var changed:Boolean = collection.removeAll(removeCollection);
+			Assert.assertTrue(changed);
+		}
+		
+		//////////////////////////////////////////
+		// UniqueCollection().retainAll() TESTS //
+		//////////////////////////////////////////
+		
+		[Test]
+		public function retainAll_collectionWithTwoNotEquatableElements_argumentWithTheTwoCollectionElements_ReturnsFalse(): void
+		{
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add("element-1");
+			retainAllCollection.add("element-2");
+			
+			collection.add("element-1");
+			collection.add("element-2");
+			
+			var changed:Boolean = collection.retainAll(retainAllCollection);
+			Assert.assertFalse(changed);
+		}
+		
+		[Test]
+		public function retainAll_collectionWithOneNotEquatableElement_argumentWithTwoNotEquatableElementsOfWhichNoneIsContained_ReturnsTrue(): void
+		{
+			var retainAllCollection:ICollection = getCollection();
+			retainAllCollection.add("element-1");
+			retainAllCollection.add("element-2");
+			
+			collection.add("element-3");
+			
+			var changed:Boolean = collection.retainAll(retainAllCollection);
+			Assert.assertTrue(changed);
+		}
+		
+		////////////////////////////////////////
+		// UniqueCollection().toArray() TESTS //
+		////////////////////////////////////////
+		
+		[Test]
+		public function toArray_emptyCollection_ReturnsValidArrayObject(): void
+		{
+			var array:Array = collection.toArray();
+			Assert.assertNotNull(array);
+		}
+		
+		/////////////////////////////////////////
+		// UniqueCollection().toString() TESTS //
+		/////////////////////////////////////////
+		
+		[Test]
+		public function toString_emptyCollection_ReturnsValidString(): void
+		{
+			var string:String = (collection as UniqueCollection).toString();
+			Assert.assertNotNull(string);
 		}
 		
 	}

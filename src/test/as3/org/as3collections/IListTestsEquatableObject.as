@@ -275,6 +275,23 @@ package org.as3collections
 		/////////////////////////////////
 		
 		[Test]
+		public function lastIndexOf_listWithThreeEquatableElements_lastIndexOfElementNotAdded_ReturnsNegative(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			list.add(equatableObject3A);
+			
+			var equatableObject4A:EquatableObject = new EquatableObject("equatable-object-4");
+			
+			var index:int = list.lastIndexOf(equatableObject4A);
+			Assert.assertEquals(-1, index);
+		}
+		
+		[Test]
 		public function lastIndexOf_listWithThreeEquatableElements_lastIndexOfFirtElement_ReturnsZero(): void
 		{
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
