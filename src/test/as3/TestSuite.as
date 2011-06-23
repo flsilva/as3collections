@@ -29,6 +29,7 @@
 
 package 
 {
+	import org.as3collections.AbstractArrayMapTests;
 	import org.as3collections.AbstractCollectionTests;
 	import org.as3collections.AbstractHashMapTests;
 	import org.as3collections.AbstractListTests;
@@ -76,6 +77,7 @@ package
 	{
 		
 		//org.as3collections
+		public var abstractArrayMapTests:AbstractArrayMapTests;
 		public var abstractCollectionTests:AbstractCollectionTests;
 		public var abstractHashMapTests:AbstractHashMapTests;
 		public var abstractListTests:AbstractListTests;
