@@ -47,9 +47,9 @@ package org.as3collections.utils
 			
 		}
 		
-		//////////////////////////////////////////
-		// ArrayListUtilTests constructor TESTS //
-		//////////////////////////////////////////
+		/////////////////////////////////////
+		// ArrayListUtil constructor TESTS //
+		/////////////////////////////////////
 		
 		[Test(expects="flash.errors.IllegalOperationError")]
 		public function constructor_tryToInstanciate_ThrowsError(): void
@@ -57,9 +57,9 @@ package org.as3collections.utils
 			new ArrayListUtil();
 		}
 		
-		/////////////////////////////////////////////
-		// ArrayListUtilTests.getTypedList() TESTS //
-		/////////////////////////////////////////////
+		////////////////////////////////////////
+		// ArrayListUtil.getTypedList() TESTS //
+		////////////////////////////////////////
 		
 		[Test]
 		public function getTypedList_simpleCall_checkIfReturnedTypedList_ReturnsTrue(): void
@@ -77,9 +77,9 @@ package org.as3collections.utils
 			Assert.assertEquals(String, list.type);
 		}
 		
-		//////////////////////////////////////////////
-		// ArrayListUtilTests.getUniqueList() TESTS //
-		//////////////////////////////////////////////
+		/////////////////////////////////////////
+		// ArrayListUtil.getUniqueList() TESTS //
+		/////////////////////////////////////////
 		
 		[Test]
 		public function getUniqueList_simpleCall_checkIfReturnedTypedList_ReturnsTrue(): void
@@ -90,9 +90,9 @@ package org.as3collections.utils
 			Assert.assertTrue(classPathEqual);
 		}
 		
-		///////////////////////////////////////////////////
-		// ArrayListUtilTests.getUniqueTypedList() TESTS //
-		///////////////////////////////////////////////////
+		//////////////////////////////////////////////
+		// ArrayListUtil.getUniqueTypedList() TESTS //
+		//////////////////////////////////////////////
 		
 		[Test]
 		public function getUniqueTypedList_simpleCall_checkIfReturnedTypedList_ReturnsTrue(): void

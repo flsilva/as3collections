@@ -73,6 +73,7 @@ package
 	import org.as3collections.queues.UniqueQueueTests;
 	import org.as3collections.queues.UniqueQueueTestsEquatableObject;
 	import org.as3collections.utils.ArrayListUtilTests;
+	import org.as3collections.utils.QueueUtilTests;
 
 	/**
 	 * @author Flávio Silva
@@ -137,6 +138,7 @@ package
 		
 		//org.as3collections.utils
 		public var arrayListUtilTests:ArrayListUtilTests;
+		public var queueUtilTests:QueueUtilTests;
 		
 		public function TestSuite()
 		{
