@@ -76,9 +76,23 @@ package org.as3collections.lists
 			Assert.assertEquals(2, size);
 		}
 		
-		////////////////////////////////////
-		// IList().ensureCapacity() TESTS //
-		////////////////////////////////////
+		///////////////////////////////
+		// ArrayList().addAt() TESTS //
+		///////////////////////////////
+		
+		[Test]
+		public function addAt_listWithOneNotEquatableElement_addAtZeroNotEquatable_checkIfElementWasAddedAtZeroIndex_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.addAt(0, "element-2");
+			
+			var element2:String = list.getAt(0);
+			Assert.assertEquals("element-2", element2);
+		}
+		
+		////////////////////////////////////////
+		// ArrayList().ensureCapacity() TESTS //
+		////////////////////////////////////////
 		
 		[Test]
 		public function ensureCapacity_checkIfSizeMatches_ReturnsTrue(): void
@@ -98,9 +112,9 @@ package org.as3collections.lists
 			Assert.assertTrue(added);
 		}
 		
-		////////////////////////////
-		// IList().equals() TESTS //
-		////////////////////////////
+		////////////////////////////////
+		// ArrayList().equals() TESTS //
+		////////////////////////////////
 		
 		[Test]
 		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
@@ -128,9 +142,9 @@ package org.as3collections.lists
 			Assert.assertTrue(collection.equals(collection2));
 		}
 		
-		/////////////////////////////
-		// IList().indexOf() TESTS //
-		/////////////////////////////
+		/////////////////////////////////
+		// ArrayList().indexOf() TESTS //
+		/////////////////////////////////
 		
 		[Test]
 		public function indexOf_listWithFiveIdenticalAndNotIdenticalNotEquatableElements_indexOfFromIndexTwo_ReturnsTwo(): void
@@ -160,9 +174,9 @@ package org.as3collections.lists
 			Assert.assertEquals(4, index);
 		}
 		
-		/////////////////////////////////
-		// IList().lastIndexOf() TESTS //
-		/////////////////////////////////
+		/////////////////////////////////////
+		// ArrayList().lastIndexOf() TESTS //
+		/////////////////////////////////////
 		
 		[Test]
 		public function lastIndexOf_listWithIdenticalAndNotIdenticalNotEquatableElements_lastIndexOf_ReturnsCorrectIndex(): void
@@ -192,18 +206,25 @@ package org.as3collections.lists
 			Assert.assertEquals(2, index);
 		}
 		
-		/////////////////////////
-		// IList() MIXED TESTS //
-		/////////////////////////
+		//////////////////////////////////
+		// ArrayList().toString() TESTS //
+		//////////////////////////////////
 		
 		[Test]
-		public function addAt_getAt_listWithOneNotEquatableElement_addAtZeroNotEquatable_checkIfElementWasAddedAtZeroIndex_ReturnsTrue(): void
+		public function toString_emptyList_ReturnsValidString(): void
 		{
-			list.add("element-1");
-			list.addAt(0, "element-2");
+			var string:String = (list as ArrayList).toString();
+			Assert.assertEquals("[]", string);
+		}
+		
+		[Test]
+		public function toString_notEmptyList_ReturnsValidString(): void
+		{
+			list.add("element-2");
+			list.add(3);
 			
-			var element2:String = list.getAt(0);
-			Assert.assertEquals("element-2", element2);
+			var string:String = (list as ArrayList).toString();
+			Assert.assertEquals("[element-2,3]", string);
 		}
 		
 	}

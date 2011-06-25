@@ -165,6 +165,27 @@ package org.as3collections.maps
 			Assert.assertEquals(1, index);
 		}
 		
+		/////////////////////////////////
+		// ArrayMap().toString() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function toString_emptyMap_ReturnsValidString(): void
+		{
+			var string:String = (map as ArrayMap).toString();
+			Assert.assertEquals("[]", string);
+		}
+		
+		[Test]
+		public function toString_notEmptyList_ReturnsValidString(): void
+		{
+			map.put("element-2", 2);
+			map.put(3, "element-3");
+			
+			var string:String = (map as ArrayMap).toString();
+			Assert.assertEquals("[element-2=2,3=element-3]", string);
+		}
+		
 	}
 
 }
