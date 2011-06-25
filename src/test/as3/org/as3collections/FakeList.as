@@ -30,7 +30,8 @@ package org.as3collections
 {
 
 	/**
-	 * description
+	 * This class was created exclusively to test the behavior of its super class (<code>AbstractList</code>).
+	 * <p>Since <code>AbstractList</code> is an abstract class and does not support instanciation, this class was created to enable its instanciation.</p>
 	 * 
 	 * @author Flávio Silva
 	 */
