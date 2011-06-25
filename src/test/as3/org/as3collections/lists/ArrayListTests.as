@@ -213,8 +213,7 @@ package org.as3collections.lists
 		[Test]
 		public function toString_emptyList_ReturnsValidString(): void
 		{
-			var string:String = (list as ArrayList).toString();
-			Assert.assertEquals("[]", string);
+			Assert.assertEquals("[]", list);
 		}
 		
 		[Test]
@@ -223,8 +222,7 @@ package org.as3collections.lists
 			list.add("element-2");
 			list.add(3);
 			
-			var string:String = (list as ArrayList).toString();
-			Assert.assertEquals("[element-2,3]", string);
+			Assert.assertEquals("[element-2,3]", list);
 		}
 		
 	}
