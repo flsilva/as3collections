@@ -256,49 +256,14 @@ package org.as3collections
 		 */
 		public function remove(o:*): Boolean
 		{
-			//TODO:refactoring desse método.
-			if (contains(o))
+			if (allEquatable && o is IEquatable)
 			{
-				var it:IIterator = iterator();
-				var e:*;
-				var found:Boolean;
-				
-				if (allEquatable && o is IEquatable)
-				{
-					while (it.hasNext())
-					{
-						e = it.next();
-						
-						if ((e as IEquatable).equals(o))
-						{
-							it.remove();
-							elementRemoved(e);
-							found = true;
-							break;
-						}
-					}
-				}
-				else
-				{
-					while (it.hasNext())
-					{
-						e = it.next();
-						
-						if (e == o)
-						{
-							it.remove();
-							elementRemoved(e);
-							found = true;
-							break;
-						}
-					}
-				}
-				
-				return found;
+				return removeByEquality(o);
 			}
 			else
 			{
-				return false;
+				if (!contains(o)) return false;
+				return _remove(o);
 			}
 		}
 
@@ -398,14 +363,6 @@ package org.as3collections
 		{
 			return CollectionUtil.toString(this);
 		}
-
-		/**
-		 * @private
-		 */
-		/*protected function checkEquatable(element:*): void
-		{
-			if (!(element is IEquatable)) _allEquatable = false;
-		}*/
 		
 		/**
 		 * @private
@@ -422,24 +379,6 @@ package org.as3collections
 		{
 			if (element && element is IEquatable) _totalEquatable--;
 		}
-
-		/**
-		 * @private
-		 */
-		/*private function checkAllEquatable(): void
-		{
-			_allEquatable = true;
-			
-			var it:IIterator = iterator();
-			var e:*;
-			
-			while (it.hasNext())
-			{
-				e = it.next();
-				checkEquatable(e);
-				if (!_allEquatable) return;
-			}
-		}*/
 
 		/**
 		 * @private
@@ -471,6 +410,56 @@ package org.as3collections
 			}
 			
 			return false;
+		}
+		
+		/**
+		 * @private
+		 */
+		private function removeByEquality(o:*): Boolean
+		{
+			var it:IIterator = iterator();
+			var e:IEquatable;
+			var removed:Boolean;
+			
+			while (it.hasNext())
+			{
+				e = it.next();
+				
+				if (e.equals(o))
+				{
+					it.remove();
+					elementRemoved(e);
+					removed = true;
+					break;
+				}
+			}
+			
+			return removed;
+		}
+		
+		/**
+		 * @private
+		 */
+		private function _remove(o:*): Boolean
+		{
+			var it:IIterator = iterator();
+			var e:*;
+			var removed:Boolean;
+			
+			while (it.hasNext())
+			{
+				e = it.next();
+				
+				if (e == o)
+				{
+					it.remove();
+					elementRemoved(e);
+					removed = true;
+					break;
+				}
+			}
+			
+			return removed;
 		}
 
 	}

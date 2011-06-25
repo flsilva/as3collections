@@ -64,7 +64,7 @@ package org.as3collections
 		protected var _size: int;
 
 		private var _map: Dictionary;
-		private var _values: Dictionary;//only used to return if containsValue() IF allValuesEquatable = false
+		private var _values: Dictionary;// used only by containsValue() IF allValuesEquatable = false
 		private var _weakKeys: Boolean;
 
 		/**
@@ -451,65 +451,7 @@ package org.as3collections
 		{
 			return MapUtil.toString(this);
 		}
-
-		/**
-		 * @private
-		 */
-		/*protected function checkAllKeysEquatable(): void
-		{
-			_allKeysEquatable = true;
-			
-			var it:IIterator = getKeys().iterator();
-			var e:*;
-			
-			while (it.hasNext())
-			{
-				e = it.next();
-				if (!isEquatable(e))
-				{
-					_allKeysEquatable = false;
-					return;
-				}
-			}
-		}*/
-
-		/**
-		 * @private
-		 */
-		/*protected function checkAllValuesEquatable(): void
-		{
-			_allValuesEquatable = true;
-			
-			var it:IIterator = getValues().iterator();
-			var e:*;
-			
-			while (it.hasNext())
-			{
-				e = it.next();
-				if (!isEquatable(e))
-				{
-					_allValuesEquatable = false;
-					return;
-				}
-			}
-		}*/
-
-		/**
-		 * @private
-		 */
-		/*protected function checkKeyEquatable(key:*): void
-		{
-			if (!isEquatable(key)) _allKeysEquatable = false;
-		}*/
-
-		/**
-		 * @private
-		 */
-		/*protected function checkValueEquatable(value:*): void
-		{
-			if (!isEquatable(value)) _allValuesEquatable = false;
-		}*/
-
+		
 		/**
 		 * @private
 		 */
@@ -609,15 +551,6 @@ package org.as3collections
 			_totalKeysEquatable = 0;
 			_totalValuesEquatable = 0;
 		}
-
-		/**
-		 * @private
-		 */
-		/*protected function isEquatable(element:*): Boolean
-		{
-			if (element is IEquatable) return true;
-			return false;
-		}*/
 
 	}
 
