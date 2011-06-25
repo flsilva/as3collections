@@ -82,8 +82,8 @@ package org.as3collections.utils
 		 * 
 		 * @param  	wrapList 	the target list to be wrapped by the <code>TypedList</code>.
 		 * @param  	type 		the type of the elements allowed by the returned <code>TypedList</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapList</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
 		 * @return 	a new <code>TypedList</code> with the <code>wrapList</code> argument wrapped.
 		 */
@@ -119,7 +119,7 @@ package org.as3collections.utils
 		 * </listing>
 		 * 
 		 * @param  	wrapList 	the target list to be wrapped by the <code>UniqueList</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapList</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
 		 * @return 	a new <code>UniqueList</code> with the <code>wrapList</code> argument wrapped.
 		 */
 		public static function getUniqueList(wrapList:IList): UniqueList
@@ -178,8 +178,8 @@ package org.as3collections.utils
 		 * 
 		 * @param  	wrapList 	the target list to be wrapped.
 		 * @param  	type 		the type of the elements allowed by the returned <code>TypedList</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapList</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
 		 * @return 	a new <code>TypedList</code> with the <code>wrapList</code> argument wrapped.
 		 */

@@ -157,8 +157,8 @@ package org.as3collections.lists
 		 * 
 		 * @param 	wrapList 	the target list to wrap.
 		 * @param 	type 		the type of the elements allowed by this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapList</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
 		 */
 		public function TypedList(wrapList:IList, type:*)

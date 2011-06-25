@@ -31,7 +31,6 @@ package org.as3collections
 {
 	import org.as3collections.errors.IndexOutOfBoundsError;
 	import org.as3collections.utils.CollectionUtil;
-	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
@@ -83,7 +82,7 @@ package org.as3collections
 		 * @param  	element 	the element to be added.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>add</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
+		 * @throws 	ArgumentError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
 		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and already contains the specified element.
 		 */
 		override public function add(element:*): Boolean
@@ -99,7 +98,7 @@ package org.as3collections
 		 * @param  	collection 	the collection containing elements to be added to this list.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAll</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of an element of the specified collection prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
 		override public function addAll(collection:ICollection): Boolean
@@ -117,13 +116,13 @@ package org.as3collections
 		 * @param  	collection 	the collection containing elements to be added to this list.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAllAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of an element of the specified collection prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
+		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
 		public function addAllAt(index:int, collection:ICollection): Boolean
 		{
-			if (!collection) throw new NullPointerError("The 'collection' argument must not be 'null'.");
+			if (!collection) throw new ArgumentError("The 'collection' argument must not be 'null'.");
 			if (collection.isEmpty()) return false;
 			checkIndex(index, size());
 			
@@ -146,7 +145,7 @@ package org.as3collections
 		 * @param  	element 	the element to be added.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
+		 * @throws 	ArgumentError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
 		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and already contains the specified element.
 		 */
@@ -184,7 +183,7 @@ package org.as3collections
 		 * @param element 		the element to search for.
 		 * @param fromIndex 	the position in the list from which to start searching for the element.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
 		 */
 		public function indexOf(element:*, fromIndex:int = 0): int
@@ -215,7 +214,7 @@ package org.as3collections
 		 * @param element 		the element to search for.
 		 * @param fromIndex 	the position in the list from which to start searching for the element. The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
 		 */
 		public function lastIndexOf(element:*, fromIndex:int = 0x7fffffff): int
@@ -262,7 +261,7 @@ package org.as3collections
 		 * @param  	o 	the object to be removed from this list, if present.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified object is incompatible with this list (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified object is <code>null</code> and this list does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  	 		if the specified object is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	<code>true</code> if an object was removed as a result of this call.
 		 */
 		override public function remove(o:*): Boolean
@@ -303,13 +302,13 @@ package org.as3collections
 		 * @param  	collection 	the collection containing elements to be removed from this list.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the removeAll operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements the specified colleciton are incompatible with this list (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
 		override public function removeAll(collection:ICollection): Boolean
 		{
 			/*
-			if (!collection) throw new NullPointerError("The 'collection' argument must not be 'null'.");
+			if (!collection) throw new ArgumentError("The 'collection' argument must not be 'null'.");
 			if (collection.isEmpty()) return false;
 			
 			var prevSize:int = size();
@@ -383,13 +382,13 @@ package org.as3collections
 		 * @param  	collection 	the collection containing elements to be retained in this collection.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>retainAll</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in this list are incompatible with the specified collection (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this collection changed as a result of the call. 	
 		 */
 		override public function retainAll(collection:ICollection): Boolean
 		{
 			/*
-			if (!collection) throw new NullPointerError("The 'collection' argument must not be 'null'.");
+			if (!collection) throw new ArgumentError("The 'collection' argument must not be 'null'.");
 			if (collection.isEmpty()) return false;
 			
 			var prevSize:int = size();
@@ -423,7 +422,7 @@ package org.as3collections
 		 * @param  	element 	element to be stored at the specified position.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>setAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
+		 * @throws 	ArgumentError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element previously at the specified position.
 		 */

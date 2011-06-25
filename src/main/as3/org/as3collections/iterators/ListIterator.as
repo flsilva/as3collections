@@ -27,14 +27,14 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-package org.as3collections.iterators {
+package org.as3collections.iterators 
+{
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.errors.ConcurrentModificationError;
 	import org.as3collections.errors.IndexOutOfBoundsError;
 	import org.as3collections.errors.NoSuchElementError;
 	import org.as3coreaddendum.errors.IllegalStateError;
-	import org.as3coreaddendum.errors.NullPointerError;
 
 	/**
 	 * An iterator to iterate over lists (implementations of the <code>IList</code> interface).
@@ -230,11 +230,11 @@ package org.as3collections.iterators {
 		 * 
 		 * @param  	source 		the source <code>ListIterator</code> to iterate over.
 		 * @param  	position 	indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified position minus one. 
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  if the <code>source</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function ListIterator(source:IList, position:int = 0)
 		{
-			if (!source) throw new NullPointerError("The 'source' argument must not be 'null'.");
+			if (!source) throw new ArgumentError("The 'source' argument must not be 'null'.");
 			if (position < 0 || position > source.size()) throw new IndexOutOfBoundsError("The 'position' argument is out of bounds: " + position + " (min: 0, max: " + source.size() + ")"); 
 			
 			_source = source;

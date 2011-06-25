@@ -45,7 +45,7 @@ package org.as3collections.iterators {
 		 * Constructor, creates a new <code>ReadOnlyMapIterator</code> object.
 		 * 
 		 * @param  	source 	the source map to iterate over.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  if the <code>source</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function ReadOnlyMapIterator(source:IMap)
 		{

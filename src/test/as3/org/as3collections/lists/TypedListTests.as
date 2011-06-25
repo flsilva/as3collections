@@ -94,7 +94,7 @@ package org.as3collections.lists
 		// TypedList().addAllAt() TESTS //
 		///////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function addAllAt_invalidArgument_ThrowsError(): void
 		{
 			list.addAllAt(0, null);

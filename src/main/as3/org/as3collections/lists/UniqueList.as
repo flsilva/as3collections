@@ -35,7 +35,6 @@ package org.as3collections.lists
 	import org.as3collections.UniqueCollection;
 	import org.as3collections.iterators.ListIterator;
 	import org.as3collections.utils.CollectionUtil;
-	import org.as3coreaddendum.errors.NullPointerError;
 
 	/**
 	 * <code>UniqueList</code> works as a wrapper for a list.
@@ -148,7 +147,7 @@ package org.as3collections.lists
 		 * Constructor, creates a new <code>UniqueList</code> object.
 		 * 
 		 * @param 	wrapList 	the target list to wrap.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrappedList</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrappedList</code> argument is <code>null</code>.
 		 */
 		public function UniqueList(wrapList:IList)
 		{
@@ -160,12 +159,12 @@ package org.as3collections.lists
 		 * 
 		 * @param  	index 		index at which to insert the first element from the specified collection.
 		 * @param  	collection 	the collection to forward to <code>wrappedList.addAllAt</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 if the specified collection contains a <code>null</code> element and <code>wrappedList</code> does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 if the specified collection contains a <code>null</code> element and <code>wrappedList</code> does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>false</code> if the specified collection is <code>null</code> or empty. Otherwise returns the return of the call <code>wrappedList.addAllAt</code>.
 		 */
 		public function addAllAt(index:int, collection:ICollection): Boolean
 		{
-			if (!collection) throw new NullPointerError("The 'collection' argument must not be 'null'.");
+			if (!collection) throw new ArgumentError("The 'collection' argument must not be 'null'.");
 			if (collection.isEmpty()) return false;
 			
 			var c:ICollection = collection.clone();

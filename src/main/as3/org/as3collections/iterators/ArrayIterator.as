@@ -32,7 +32,6 @@ package org.as3collections.iterators
 	import org.as3collections.IIterator;
 	import org.as3collections.errors.NoSuchElementError;
 	import org.as3coreaddendum.errors.IllegalStateError;
-	import org.as3coreaddendum.errors.NullPointerError;
 
 	/**
 	 * An iterator to iterate over an <code>Array</code> object.
@@ -109,11 +108,11 @@ package org.as3collections.iterators
 		 * Constructor, creates a new ArrayIterator object.
 		 * 
 		 * @param  	source 	the source array to iterate over.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  if the <code>source</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function ArrayIterator(source:Array)
 		{
-			if (!source) throw new NullPointerError("The 'source' argument must not be 'null'.");
+			if (!source) throw new ArgumentError("The 'source' argument must not be 'null'.");
 			_source = source;
 		}
 

@@ -35,7 +35,6 @@ package org.as3collections.maps
 	import org.as3collections.IMap;
 	import org.as3collections.IMapEntry;
 	import org.as3collections.iterators.ReadOnlyMapIterator;
-	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3utils.ReflectionUtil;
 
@@ -78,11 +77,11 @@ package org.as3collections.maps
 		 * Constructor, creates a new <code>ReadOnlyArrayMap</code> object.
 		 * 
 		 * @param 	source 	an map to fill the list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>source</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function ReadOnlyArrayMap(source:IMap)
 		{
-			if (!source) throw new NullPointerError("The 'source' argument must not be 'null'.");
+			if (!source) throw new ArgumentError("The 'source' argument must not be 'null'.");
 			
 			var it:IIterator = source.iterator();
 			var value:*;

@@ -46,6 +46,7 @@ package org.as3collections.iterators {
 		 * 
 		 * @param  	source 	the source <code>ReadOnlyListIterator</code> to iterate over.
 		 * @param  	position 	indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified position minus one.
+		 * @throws 	ArgumentError  if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function ReadOnlyListIterator(source:IList, position:int = 0)
 		{

@@ -34,7 +34,6 @@ package org.as3collections.queues
 	import org.as3collections.lists.ArrayList;
 	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
-	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3coreaddendum.system.IPriority;
 	import org.as3coreaddendum.system.comparators.PriorityComparator;
@@ -158,14 +157,14 @@ package org.as3collections.queues
 		 * A <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown if the element does not implements this interface.</p>
 		 * 
 		 * @param element
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code>.
+		 * @throws 	ArgumentError  	if the specified element is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the element does not implements the <code>org.as3coreaddendum.system.IPriority</code> interface.
 		 * @throws 	flash.errors.IllegalOperationError  			if the specified element cannot be inserted.
 		 * @return 	<code>true</code> if this queue changed as a result of the call.
 		 */
 		override public function add(element:*): Boolean
 		{
-			if (element == null) throw new NullPointerError("The 'element' argument must not be 'null'.");
+			if (element == null) throw new ArgumentError("The 'element' argument must not be 'null'.");
 			validateElement(element);
 			
 			var b:Boolean = offer(element);

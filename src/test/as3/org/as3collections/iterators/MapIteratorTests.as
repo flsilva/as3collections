@@ -83,7 +83,7 @@ package org.as3collections.iterators
 		// MapIterator() constructor TESTS //
 		/////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function constructor_invalidArgument_ThrowsError(): void
 		{
 			new MapIterator(null);

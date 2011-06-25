@@ -30,7 +30,6 @@
 package org.as3collections
 {
 	import org.as3collections.utils.CollectionUtil;
-	import org.as3coreaddendum.errors.NullPointerError;
 
 	/**
 	 * <code>UniqueCollection</code> works as a wrapper for a collection.
@@ -61,11 +60,11 @@ package org.as3collections
 		 * Constructor, creates a new <code>UniqueCollection</code> object.
 		 * 
 		 * @param 	wrapCollection 	the target collection to wrap.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapCollection</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapCollection</code> argument is <code>null</code>.
 		 */
 		public function UniqueCollection(wrapCollection:ICollection)
 		{
-			if (!wrapCollection) throw new NullPointerError("The 'wrapCollection' argument must not be 'null'.");
+			if (!wrapCollection) throw new ArgumentError("The 'wrapCollection' argument must not be 'null'.");
 			_wrappedCollection = CollectionUtil.removeDuplicate(wrapCollection);
 		}
 
@@ -85,12 +84,12 @@ package org.as3collections
 		 * If the specified collection is empty returns <code>false</code>. Otherwise, it clones the specified collection, removes all elements that already are in the <code>wrappedCollection</code> and removes all duplicates. Then it forwards the call to <code>wrappedCollection.addAll</code> sending the cloned and filtered collection.
 		 * 
 		 * @param  	collection 	the collection to forward to <code>wrappedCollection.addAll</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 if the specified collection contains a <code>null</code> element and <code>wrappedCollection</code> does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 if the specified collection contains a <code>null</code> element and <code>wrappedCollection</code> does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>false</code> if the specified collection is <code>null</code> or empty. Otherwise returns the return of the call <code>wrappedCollection.addAll</code>.
 		 */
 		public function addAll(collection:ICollection): Boolean
 		{
-			if (!collection) throw new NullPointerError("The 'collection' argument must not be 'null'.");
+			if (!collection) throw new ArgumentError("The 'collection' argument must not be 'null'.");
 			if (collection.isEmpty()) return false;
 			
 			var c:ICollection = collection.clone();

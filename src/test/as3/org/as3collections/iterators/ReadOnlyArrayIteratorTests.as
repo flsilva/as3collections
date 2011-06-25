@@ -72,7 +72,7 @@ package org.as3collections.iterators
 		// ReadOnlyArrayIterator() constructor TESTS //
 		///////////////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function constructor_invalidArgument_ThrowsError(): void
 		{
 			new ReadOnlyArrayIterator(null);

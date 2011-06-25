@@ -88,8 +88,8 @@ package org.as3collections.utils
 		 * 
 		 * @param  	wrapQueue 	the target queue to be wrapped by the <code>TypedQueue</code>.
 		 * @param  	type 		the type of the elements allowed by the returned <code>TypedQueue</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>queue</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>queue</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapQueue</code> argument are incompatible with the <code>type</code> argument.
 		 * @return 	a new <code>TypedQueue</code> with the <code>queue</code> argument wrapped.
 		 */
@@ -132,7 +132,7 @@ package org.as3collections.utils
 		 * </listing>
 		 * 
 		 * @param  	wrapQueue 	the target queue to be wrapped by the <code>UniqueQueue</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>queue</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>queue</code> argument is <code>null</code>.
 		 * @return 	a new <code>UniqueQueue</code> with the <code>queue</code> argument wrapped.
 		 */
 		public static function getUniqueQueue(wrapQueue:IQueue): UniqueQueue
@@ -179,8 +179,8 @@ package org.as3collections.utils
 		 * 
 		 * @param  	wrapQueue 	the target queue to be wrapped.
 		 * @param  	type 		the type of the elements allowed by the returned <code>TypedQueue</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>queue</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>queue</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapQueue</code> argument are incompatible with the <code>type</code> argument.
 		 * @return 	a new <code>TypedQueue</code> with the <code>queue</code> argument wrapped.
 		 */

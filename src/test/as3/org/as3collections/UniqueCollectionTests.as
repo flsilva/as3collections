@@ -91,7 +91,7 @@ package org.as3collections
 		// UniqueCollection().addAll() TESTS //
 		///////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function addAll_invalidArgument_ThrowsError(): void
 		{
 			collection.addAll(null);
@@ -219,7 +219,7 @@ package org.as3collections
 		// UniqueCollection().removeAll() TESTS //
 		//////////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function removeAll_invalidArgument_ThrowsError(): void
 		{
 			collection.removeAll(null);

@@ -31,7 +31,6 @@ package org.as3collections
 {
 	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
-	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3coreaddendum.system.ITypeable;
 	import org.as3utils.ReflectionUtil;
@@ -76,14 +75,14 @@ package org.as3collections
 		 * 
 		 * @param 	wrapCollection 	the target collection to wrap.
 		 * @param 	type 			the type of the elements allowed by this collection.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapCollection</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapCollection</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapCollection</code> argument are incompatible with the <code>type</code> argument.
 		 */
 		public function TypedCollection(wrapCollection:ICollection, type:*)
 		{
-			if (!wrapCollection) throw new NullPointerError("The 'wrapCollection' argument must not be 'null'.");
-			if (type == null) throw new NullPointerError("The 'type' argument must not be 'null'.");
+			if (!wrapCollection) throw new ArgumentError("The 'wrapCollection' argument must not be 'null'.");
+			if (type == null) throw new ArgumentError("The 'type' argument must not be 'null'.");
 			
 			_type = type;
 			validateCollection(wrapCollection);

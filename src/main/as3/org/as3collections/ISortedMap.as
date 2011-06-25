@@ -61,7 +61,7 @@ package org.as3collections
 		 * The returned map supports all optional map operations that this map supports.
 		 * 
 		 * @param  	toKey 	high endpoint (exclusive) of the keys in the returned map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError 	if <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
+		 * @throws 	ArgumentError 	if <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
 		 * @throws 	ArgumentError 	if <code>containsKey(toKey)</code> returns <code>false</code>.
 		 * @return 	a new sorted map that is a view of the portion of this map whose keys are strictly less than <code>toKey</code>.
 		 */
@@ -109,7 +109,7 @@ package org.as3collections
 		 * 
 		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.
 		 * @param  	toKey 		high endpoint (exclusive) of the keys in the returned map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
+		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
 		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
 		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
 		 * @return 	a new sorted map that is a view of the portion of this map whose keys range from <code>fromKey</code>, inclusive, to <code>toKey</code>, exclusive.
@@ -121,7 +121,7 @@ package org.as3collections
 		 * The returned map supports all optional map operations that this map supports.
 		 * 
 		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError 	if <code>fromKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
+		 * @throws 	ArgumentError 	if <code>fromKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
 		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> returns <code>false</code>.
 		 * @return 	a new sorted map that is a view of the portion of this map whose keys are greater than or equal to <code>fromKey</code>.
 		 */

@@ -31,7 +31,6 @@ package org.as3collections.iterators
 {
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
-	import org.as3coreaddendum.errors.NullPointerError;
 
 	/**
 	 * An iterator to iterate over maps (implementations of the <code>IMap</code> interface).
@@ -48,11 +47,11 @@ package org.as3collections.iterators
 		 * Constructor, creates a new <code>MapIterator</code> object.
 		 * 
 		 * @param  	source 	the source map to iterate over.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  if the <code>source</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function MapIterator(source:IMap)
 		{
-			if (!source) throw new NullPointerError("The 'source' argument must not be 'null'.");
+			if (!source) throw new ArgumentError("The 'source' argument must not be 'null'.");
 			
 			_source = source;
 			_keysIterator = _source.getKeys().iterator();

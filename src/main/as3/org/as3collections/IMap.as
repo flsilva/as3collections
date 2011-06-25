@@ -73,7 +73,7 @@ package org.as3collections
 		 * 
 		 * @param  	key 	key whose presence in this map is to be tested.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified key is incompatible with this map (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
+		 * @throws 	ArgumentError  	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
 		 * @return 	<code>true</code> if this map contains a mapping for the specified key.
 		 */
 		function containsKey(key:*): Boolean;
@@ -83,7 +83,7 @@ package org.as3collections
 		 * 
 		 * @param  	value 	value whose presence in this map is to be tested.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified value is incompatible with this map (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified value is <code>null</code> and this map does not permit <code>null</code> values (optional).
+		 * @throws 	ArgumentError  	if the specified value is <code>null</code> and this map does not permit <code>null</code> values (optional).
 		 * @return 	<code>true</code> if this map maps one or more keys to the specified value.
 		 */
 		function containsValue(value:*): Boolean;
@@ -115,7 +115,7 @@ package org.as3collections
 		 * 
 		 * @param  	key 	the key whose associated value is to be returned.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified key is incompatible with this map (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
+		 * @throws 	ArgumentError  	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
 		 * @return 	the value to which the specified key is mapped, or <code>null</code> if this map contains no mapping for the key.
 		 */
 		function getValue(key:*): *;
@@ -143,7 +143,7 @@ package org.as3collections
 		 * @param  	value 	value to be associated with the specified key.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>put</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified key or value is incompatible with this map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  			if the specified key or value is <code>null</code> and this map does not permit <code>null</code> keys or values.
+		 * @throws 	ArgumentError  			if the specified key or value is <code>null</code> and this map does not permit <code>null</code> keys or values.
 		 * @return 	the previous value associated with key, or <code>null</code> if there was no mapping for key. (A <code>null</code> return can also indicate that the map previously associated <code>null</code> with key, if the implementation supports <code>null</code> values.)
 		 */
 		function put(key:*, value:*): *;
@@ -155,7 +155,7 @@ package org.as3collections
 		 * @param  	map 	mappings to be stored in this map.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>putAll</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of a key or value in the specified map is incompatible with this map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  			if the specified map is <code>null</code>, or if this map does not permit <code>null</code> keys or values, and the specified map contains <code>null</code> keys or values.
+		 * @throws 	ArgumentError  			if the specified map is <code>null</code>, or if this map does not permit <code>null</code> keys or values, and the specified map contains <code>null</code> keys or values.
 		 */
 		function putAll(map:IMap): void;
 
@@ -165,7 +165,7 @@ package org.as3collections
 		 * @param  	o the object to retrieve the properties.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>putAllByObject</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of a key or value in the specified object is incompatible with this map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  			if the specified object is <code>null</code>, or if this map does not permit <code>null</code> keys or values, and the specified object contains <code>null</code> keys or values.
+		 * @throws 	ArgumentError  			if the specified object is <code>null</code>, or if this map does not permit <code>null</code> keys or values, and the specified object contains <code>null</code> keys or values.
 		 */
 		function putAllByObject(o:Object): void;
 
@@ -177,7 +177,7 @@ package org.as3collections
 		 * @param  	entry 	entry to put in this map.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>putEntry</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified <code>entry.key</code> or <code>entry.value</code> is incompatible with this map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  			if the specified entry is <code>null</code>, or if the specified <code>entry.key</code> or <code>entry.value</code> is <code>null</code> and this map does not permit <code>null</code> keys or values.
+		 * @throws 	ArgumentError  			if the specified entry is <code>null</code>, or if the specified <code>entry.key</code> or <code>entry.value</code> is <code>null</code> and this map does not permit <code>null</code> keys or values.
 		 * @return 	the previous value associated with <code>entry.key</code>, or <code>null</code> if there was no mapping for <code>entry.key</code>. (A <code>null</code> return can also indicate that the map previously associated <code>null</code> with <code>entry.key</code>, if the implementation supports <code>null</code> values.)
 		 */
 		function putEntry(entry:IMapEntry): *;
@@ -191,7 +191,7 @@ package org.as3collections
 		 * @param  	key 	the key whose mapping is to be removed from the map.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified key is incompatible with this map (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  			if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
+		 * @throws 	ArgumentError  			if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
 		 * @return 	the previous value associated with key, or <code>null</code> if there was no mapping for <code>key</code>.
 		 */
 		function remove(key:*): *;
@@ -205,7 +205,7 @@ package org.as3collections
 		 * @param  	keys 	the collection whose elements are interpreted as keys to be removed from the map.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeAll</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of an element in the specified collection is incompatible with this map (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  			if the specified collection is <code>null</code>, or if this map does not permit <code>null</code> keys, and the specified collections contains <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  			if the specified collection is <code>null</code>, or if this map does not permit <code>null</code> keys, and the specified collections contains <code>null</code> elements (optional).
 		 * @return 	<code>true</code> if this map changed as a result of the call.
 		 */
 		function removeAll(keys:ICollection): Boolean;
@@ -218,7 +218,7 @@ package org.as3collections
 		 * @param  	keys 	the collection whose elements are interpreted as keys to be retained in the map.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>retainAll</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more keys in this map are incompatible with the specified collection (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> keys (optional), or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> keys (optional), or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this map changed as a result of the call.
 		 */
 		function retainAll(keys:ICollection): Boolean;

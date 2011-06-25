@@ -402,7 +402,7 @@ package org.as3collections.maps
 		// TypedMap().putAll() TESTS //
 		///////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function putAll_invalidArgument_ThrowsError(): void
 		{
 			map.putAll(null);
@@ -444,7 +444,7 @@ package org.as3collections.maps
 		// TypedMap().putAllByObject() TESTS //
 		///////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function putAllByObject_invalidArgument_ThrowsError(): void
 		{
 			map.putAllByObject(null);
@@ -533,7 +533,7 @@ package org.as3collections.maps
 		// TypedMap().removeAll() TESTS //
 		////////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function removeAll_invalidArgument_ThrowsError(): void
 		{
 			map.removeAll(null);
@@ -568,7 +568,7 @@ package org.as3collections.maps
 		// TypedMap().retainAll() TESTS //
 		//////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function retainAll_invalidArgument_ThrowsError(): void
 		{
 			map.retainAll(null);

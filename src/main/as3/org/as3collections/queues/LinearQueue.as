@@ -69,7 +69,7 @@ package org.as3collections.queues
 	 * queue                       // [3,a,1,7]
 	 * 
 	 * queue.offer(null)           // false
-	 * queue.add(null)             // NullPointerError: The 'element' argument must not be 'null'.
+	 * queue.add(null)             // ArgumentError: The 'element' argument must not be 'null'.
 	 * queue                       // [3,a,1,7]
 	 * 
 	 * queue.peek()                // 3

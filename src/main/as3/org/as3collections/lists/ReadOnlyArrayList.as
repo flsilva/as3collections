@@ -36,7 +36,6 @@ package org.as3collections.lists
 	import org.as3collections.IListIterator;
 	import org.as3collections.iterators.ReadOnlyArrayIterator;
 	import org.as3collections.iterators.ReadOnlyListIterator;
-	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
 	import org.as3utils.ReflectionUtil;
 
@@ -105,12 +104,12 @@ package org.as3collections.lists
 		 * Constructor, creates a new <code>ReadOnlyArrayList</code> object.
 		 * 
 		 * @param 	source 	an array to fill the list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>source</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function ReadOnlyArrayList(source:Array)
 		{
 			super(source);
-			if (!source) throw new NullPointerError("The 'source' argument must not be 'null'.");
+			if (!source) throw new ArgumentError ("The 'source' argument must not be 'null'.");
 		}
 
 		/**

@@ -59,7 +59,7 @@ package org.as3collections
 		 * @param  	collection 	the collection containing elements to be added to this list.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAllAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of an element of the specified collection prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
+		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
@@ -72,7 +72,7 @@ package org.as3collections
 		 * @param  	element 	the element to be added.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
+		 * @throws 	ArgumentError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
 		 * @return 	<code>true</code> if this list changed as a result of the call. Returns <code>false</code> if this list does not permit duplicates and already contains the specified element.
 		 */
@@ -93,7 +93,7 @@ package org.as3collections
 		 * @param element 		the element to search for.
 		 * @param fromIndex 	the position in the list from which to start searching for the element (inclusive).
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
 		 */
 		function indexOf(element:*, fromIndex:int = 0): int;
@@ -104,7 +104,7 @@ package org.as3collections
 		 * @param element 		the element to search for.
 		 * @param fromIndex 	the position in the list from which to start searching for the element (inclusive). The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
 		 */
 		function lastIndexOf(element:*, fromIndex:int = 0x7fffffff): int;
@@ -151,7 +151,7 @@ package org.as3collections
 		 * @param  	element 	element to be stored at the specified position.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>setAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
+		 * @throws 	ArgumentError  	 		if the specified element is <code>null</code> and this list does not permit <code>null</code> elements.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element previously at the specified position.
 		 */

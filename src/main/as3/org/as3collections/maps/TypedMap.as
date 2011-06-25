@@ -37,7 +37,6 @@ package org.as3collections.maps
 	import org.as3collections.IMapEntry;
 	import org.as3collections.utils.MapUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
-	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3utils.ReflectionUtil;
 
 	/**
@@ -124,16 +123,16 @@ package org.as3collections.maps
 		 * @param 	wrapMap 	the target map to wrap.
 		 * @param 	typeKeys	the type of the keys allowed by this map.
 		 * @param 	typeValues	the type of the values allowed by this map.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapMap</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>typeKeys</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>typeValues</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapMap</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeKeys</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeValues</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more keys or values in the <code>wrapMap</code> argument are incompatible with the <code>typeKeys</code> or <code>typeValues</code> argument.
 		 */
 		public function TypedMap(wrapMap:IMap, typeKeys:*, typeValues:*)
 		{
-			if (!wrapMap) throw new NullPointerError("The 'wrapMap' argument must not be 'null'.");
-			if (typeKeys == null) throw new NullPointerError("The 'typeKeys' argument must not be 'null'.");
-			if (typeValues == null) throw new NullPointerError("The 'typeValues' argument must not be 'null'.");
+			if (!wrapMap) throw new ArgumentError("The 'wrapMap' argument must not be 'null'.");
+			if (typeKeys == null) throw new ArgumentError("The 'typeKeys' argument must not be 'null'.");
+			if (typeValues == null) throw new ArgumentError("The 'typeValues' argument must not be 'null'.");
 			
 			_typeKeys = typeKeys;
 			_typeValues = typeValues;

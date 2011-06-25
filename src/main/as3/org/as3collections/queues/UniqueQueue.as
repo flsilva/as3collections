@@ -90,7 +90,7 @@ package org.as3collections.queues
 		 * Constructor, creates a new <code>UniqueQueue</code> object.
 		 * 
 		 * @param 	wrapQueue 	the target queue to wrap.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapQueue</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapQueue</code> argument is <code>null</code>.
 		 */
 		public function UniqueQueue(wrapQueue:IQueue)
 		{
@@ -104,7 +104,7 @@ package org.as3collections.queues
 		 * <p>If <code>wrappedQueue.contains(element)</code> returns <code>true</code> an <code>IllegalOperationError</code> is thrown.</p>
 		 * 
 		 * @param  	element 	the element to be added.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the specified element is <code>null</code>.
+		 * @throws 	ArgumentError  	if the specified element is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element prevents it from being added to this queue.
 		 * @throws 	flash.errors.IllegalOperationError  			if <code>wrappedQueue.contains(element)</code> returns <code>true</code>.
 		 * @return 	<code>true</code> if this queue changed as a result of the call.

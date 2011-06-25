@@ -44,6 +44,7 @@ package org.as3collections.iterators {
 		 * Constructor, creates a new ReadOnlyArrayIterator object.
 		 * 
 		 * @param 	source 	the source array to iterate over.
+		 * @throws 	ArgumentError  if the <code>source</code> argument is <code>null</code>.
 		 */
 		public function ReadOnlyArrayIterator(source:Array)
 		{

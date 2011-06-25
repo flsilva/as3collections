@@ -32,7 +32,6 @@ package org.as3collections.queues
 	import org.as3collections.IQueue;
 	import org.as3collections.TypedCollection;
 	import org.as3collections.utils.CollectionUtil;
-	import org.as3coreaddendum.errors.NullPointerError;
 	import org.as3utils.ReflectionUtil;
 
 	/**
@@ -95,8 +94,8 @@ package org.as3collections.queues
 		 * 
 		 * @param 	wrapQueue 	the target queue to wrap.
 		 * @param 	type 		the type of the elements allowed by this queue.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapQueue</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapQueue</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapQueue</code> argument are incompatible with the <code>type</code> argument.
 		 */
 		public function TypedQueue(wrapQueue:IQueue, type:*)
@@ -105,17 +104,17 @@ package org.as3collections.queues
 		}
 		
 		/**
-		 * If the <code>element</code> argument is <code>null</code> throws <code>org.as3coreaddendum.errors.NullPointerError</code>.
+		 * If the <code>element</code> argument is <code>null</code> throws <code>ArgumentError</code>.
 		 * Otherwise the element is validated with the <code>validateType</code> method to be forwarded to <code>wrappedCollection.add</code>.
 		 * 
 		 * @param  	element 	the element to forward to <code>wrappedCollection.add</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>element</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>element</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the element is incompatible with the type of this collection.
 		 * @return 	the return of the call <code>wrappedCollection.add</code>.
 		 */
 		override public function add(element:*): Boolean
 		{
-			if (!element) throw new NullPointerError("The 'element' argument must not be 'null'.");
+			if (!element) throw new ArgumentError("The 'element' argument must not be 'null'.");
 			return super.add(element);
 		}
 

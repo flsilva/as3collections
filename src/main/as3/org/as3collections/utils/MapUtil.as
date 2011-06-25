@@ -94,9 +94,9 @@ package org.as3collections.utils
 		 * @param  	wrapMap 	the target map to be wrapped by the <code>TypedMap</code>.
 		 * @param 	typeKeys	the type of the keys allowed by the returned <code>TypedMap</code>.
 		 * @param 	typeValues	the type of the values allowed by the returned <code>TypedMap</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapMap</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>typeKeys</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>typeValues</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapMap</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeKeys</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeValues</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more keys or values in the <code>wrapMap</code> argument are incompatible with the <code>typeKeys</code> or <code>typeValues</code> argument.
 		 * @return 	a new <code>TypedMap</code> with the <code>wrapMap</code> argument wrapped.
 		 */
@@ -144,9 +144,9 @@ package org.as3collections.utils
 		 * @param  	wrapMap 	the target map to be wrapped by the <code>TypedSortedMap</code>.
 		 * @param 	typeKeys	the type of the keys allowed by the returned <code>TypedSortedMap</code>.
 		 * @param 	typeValues	the type of the values allowed by the returned <code>TypedSortedMap</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>wrapMap</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>typeKeys</code> argument is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.NullPointerError  	if the <code>typeValues</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapMap</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeKeys</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeValues</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more keys or values in the <code>wrapMap</code> argument are incompatible with the <code>typeKeys</code> or <code>typeValues</code> argument.
 		 * @return 	a new <code>TypedSortedMap</code> with the <code>wrapMap</code> argument wrapped.
 		 */

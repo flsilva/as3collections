@@ -123,7 +123,7 @@ package org.as3collections
 		// ICollection().addAll() TESTS //
 		//////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function addAll_invalidArgument_ThrowsError(): void
 		{
 			collection.addAll(null);
@@ -273,7 +273,7 @@ package org.as3collections
 		// ICollection().containsAll() TESTS //
 		///////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function containsAll_invalidCollection_ThrowsError(): void
 		{
 			collection.containsAll(null);
@@ -447,7 +447,7 @@ package org.as3collections
 		// ICollection().removeAll() TESTS //
 		/////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function removeAll_invalidArgument_ThrowsError(): void
 		{
 			collection.removeAll(null);
@@ -553,7 +553,7 @@ package org.as3collections
 		// ICollection().retainAll() TESTS //
 		/////////////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function retainAll_invalidArgument_ThrowsError(): void
 		{
 			collection.retainAll(null);

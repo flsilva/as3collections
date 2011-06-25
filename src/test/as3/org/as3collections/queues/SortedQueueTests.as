@@ -169,7 +169,7 @@ package org.as3collections.queues
 		// SortedQueue().add() TESTS //
 		///////////////////////////////
 		
-		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		[Test(expects="ArgumentError")]
 		public function add_nullArgument_ThrowsError(): void
 		{
 			queue.add(null);
