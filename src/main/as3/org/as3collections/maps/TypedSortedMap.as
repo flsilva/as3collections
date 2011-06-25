@@ -32,6 +32,7 @@ package org.as3collections.maps
 	import org.as3collections.ISortedMap;
 	import org.as3collections.SortMapBy;
 	import org.as3coreaddendum.system.IComparator;
+	import org.as3utils.ReflectionUtil;
 
 	/**
 	 * <code>TypedSortedMap</code> works as a wrapper for a map.
@@ -135,6 +136,41 @@ package org.as3collections.maps
 		override public function clone(): *
 		{
 			return new TypedSortedMap(wrappedSortedMap.clone(), typeKeys, typeValues);
+		}
+		
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
+		 * <p>This implementation considers two differente objects equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
+		 * <li>object A contains all mappings of object B</li>
+		 * <li>object B contains all mappings of object A</li>
+		 * <li>mappings have exactly the same order</li>
+		 * <li>object A and object B has the same type of comparator</li>
+		 * <li>object A and object B has the same options</li>
+		 * <li>object A and object B has the same sortBy</li>
+		 * </ul></p>
+		 * <p>This implementation takes care of the order of the mappings in the map.
+		 * So, for two maps are equal the order of mappings returned by the iterator must be equal.</p>
+		 * 
+		 * @param  	other 	the object to be compared for equality.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		override public function equals(other:*): Boolean
+		{
+			if (this == other) return true;
+			
+			if (!ReflectionUtil.classPathEquals(this, other)) return false;
+			
+			var m:ISortedMap = other as ISortedMap;
+			
+			if (sortBy != m.sortBy) return false;
+			if (options != m.options) return false;
+			if (!comparator && m.comparator) return false;
+			if (comparator && !m.comparator) return false;
+			if (!ReflectionUtil.classPathEquals(comparator, m.comparator)) return false;
+			
+			return super.equals(other);
 		}
 
 		/**

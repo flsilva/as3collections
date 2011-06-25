@@ -138,6 +138,19 @@ package org.as3collections.maps
 			Assert.assertTrue(map.equals(map2));
 		}
 		
+		[Test]
+		public function equals_differentMaps_checkIfBothMapsAreEqual_ReturnsFalse(): void
+		{
+			map.put("element-1", 1);
+			map.put("element-2", 2);
+			
+			var map2:IMap = getMap();
+			map2.put("element-1", 1);
+			map2.put("element-3", 3);
+			
+			Assert.assertFalse(map.equals(map2));
+		}
+		
 		///////////////////////////////////
 		// ArrayMap().indexOfKey() TESTS //
 		///////////////////////////////////

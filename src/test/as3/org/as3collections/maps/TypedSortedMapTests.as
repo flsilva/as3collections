@@ -91,6 +91,36 @@ package org.as3collections.maps
 			Assert.assertTrue(isTypedSortedMap);
 		}
 		
+		/////////////////////////////////////
+		// SortedArrayMap().equals() TESTS //
+		/////////////////////////////////////
+		
+		[Test]
+		public function equals_twoEmptyMapsCreatedWithDifferentSortOptions_checkIfBothMapsAreEqual_ReturnsFalse(): void
+		{
+			typedSortedMap.options = 0;//ASCENDING
+			
+			var sortedMap2:TypedSortedMap = getMap(String, int) as TypedSortedMap;
+			sortedMap2.options = Array.DESCENDING;
+			
+			var equal:Boolean = typedSortedMap.equals(sortedMap2);
+			Assert.assertFalse(equal);
+		}
+		
+		[Test]
+		public function equals_mapWithTwoNotEquatableKeyValue_createdWithDifferentOrderButShouldBeCorrectlyOrdered_checkIfBothMapsAreEqual_ReturnsTrue(): void
+		{
+			typedSortedMap.put("element-1", 1);
+			typedSortedMap.put("element-2", 2);
+			
+			var sortedMap2:IMap = getMap(String, int);
+			sortedMap2.put("element-2", 2);
+			sortedMap2.put("element-1", 1);
+			
+			var equal:Boolean = typedSortedMap.equals(sortedMap2);
+			Assert.assertTrue(equal);
+		}
+		
 		///////////////////////////////////////
 		// TypedSortedMap().firstKey() TESTS //
 		///////////////////////////////////////

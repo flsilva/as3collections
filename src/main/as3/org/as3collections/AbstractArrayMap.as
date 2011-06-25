@@ -169,39 +169,15 @@ package org.as3collections
 		}
 
 		/**
-		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
-		 * <p>This implementation considers two differente objects equal if:</p>
-		 * <p>
-		 * <ul><li>object A and object B are instances of the same class</li>
-		 * <li>object A contains all mappings of object B</li>
-		 * <li>object B contains all mappings of object A</li>
-		 * <li>mappings have exactly the same order</li>
-		 * </ul></p>
-		 * <p>This implementation takes care of the order of the mappings in the map.
-		 * So, for two maps are equal the order of mappings returned by the iterator must be equal.</p>
+		 * This method uses <code>MapUtil.equalConsideringOrder</code> method to perform equality, sending this map and <code>other</code> argument.
 		 * 
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 * @see 	org.as3collections.utils.MapUtil#equalConsideringOrder() MapUtil.equalConsideringOrder()
 		 */
 		public function equals(other:*): Boolean
 		{
-			if (this == other) return true;
-			
-			if (!ReflectionUtil.classPathEquals(this, other)) return false;
-			
-			var o:IMap = other as IMap;
-			
-			if (o.size() != size()) return false;
-			
-			var it:IIterator = entryList().iterator();
-			var itOther:IIterator = o.entryList().iterator();
-			
-			while (it.hasNext())
-			{
-				if (!(it.next() as IMapEntry).equals(itOther.next())) return false;
-			}
-			
-			return true;
+			return MapUtil.equalConsideringOrder(this, other);
 		}
 
 		/**

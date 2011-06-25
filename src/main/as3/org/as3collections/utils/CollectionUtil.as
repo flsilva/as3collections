@@ -153,7 +153,11 @@ package org.as3collections.utils
 			if (!ReflectionUtil.classPathEquals(collection1, collection2)) return false;
 			if (collection1.size() != collection2.size()) return false;
 			
-			return collection1.containsAll(collection2) && collection2.containsAll(collection1);
+			// because collections has same size
+			// it's not necessary to perform bidirectional validation
+			// i.e. if collection1 contains all elements of collection2
+			// consequently collection2 contains all elements of collection1
+			return collection1.containsAll(collection2);
 		}
 		
 		/**

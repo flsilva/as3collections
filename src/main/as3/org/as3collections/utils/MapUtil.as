@@ -30,10 +30,13 @@
 package org.as3collections.utils
 {
 	import org.as3collections.IIterator;
+	import org.as3collections.IList;
 	import org.as3collections.IMap;
+	import org.as3collections.IMapEntry;
 	import org.as3collections.ISortedMap;
 	import org.as3collections.maps.TypedMap;
 	import org.as3collections.maps.TypedSortedMap;
+	import org.as3utils.ReflectionUtil;
 
 	import flash.errors.IllegalOperationError;
 
@@ -53,7 +56,103 @@ package org.as3collections.utils
 		{
 			throw new IllegalOperationError("MapUtil is a static class and shouldn't be instantiated.");
 		}
-
+		
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between the two arguments.
+		 * If one of the collections or both collections are <code>null</code> it will be returned <code>false</code>.
+		 * <p>Two different objects are considered equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
+		 * <li>object A contains all elements of object B</li>
+		 * <li>object B contains all elements of object A</li>
+		 * <li>elements have exactly the same order</li>
+		 * </ul></p>
+		 * <p>This implementation <b>takes care</b> of the order of the elements in the collections.
+		 * So, for two collections are equal the order of elements returned by the iterator object must be equal.</p>
+		 * 
+		 * @param  	collection1 	the first collection.
+		 * @param  	collection2 	the second collection.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
+		 * If one of the maps or both maps are <code>null</code> it will be returned <code>false</code>.
+		 * <p>Two different objects are considered equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
+		 * <li>object A contains all mappings of object B</li>
+		 * <li>object B contains all mappings of object A</li>
+		 * <li>mappings have exactly the same order</li>
+		 * </ul></p>
+		 * <p>This implementation <b>takes care</b> of the order of the mappings in the maps.
+		 * So, for two maps are equal the order of entries returned by the iterator object must be equal.</p>
+		 * 
+		 * @param  	map1 	the first map.
+		 * @param  	map2 	the second map.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		public static function equalConsideringOrder(map1:IMap, map2:IMap): Boolean
+		{
+			if (!map1 || !map2) return false;
+			if (map1 == map2) return true;
+			
+			if (!ReflectionUtil.classPathEquals(map1, map2)) return false;
+			if (map1.size() != map2.size()) return false;
+			
+			var itEntryList1:IIterator = map1.entryList().iterator();
+			var itEntryList2:IIterator = map2.entryList().iterator();
+			var mapEntry1:IMapEntry;
+			var mapEntry2:IMapEntry;
+			
+			while (itEntryList1.hasNext())
+			{
+				mapEntry1 = itEntryList1.next();
+				mapEntry2 = itEntryList2.next();
+				
+				if (!mapEntry1.equals(mapEntry2)) return false;
+			}
+			
+			return true;
+		}
+		
+		/**
+		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
+		 * If one of the maps or both maps are <code>null</code> it will be returned <code>false</code>.
+		 * <p>Two different objects are considered equal if:</p>
+		 * <p>
+		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
+		 * <li>object A contains all mappings of object B</li>
+		 * <li>object B contains all mappings of object A</li>
+		 * </ul></p>
+		 * <p>This implementation <b>does not takes care</b> of the order of the mappings in the map.</p>
+		 * 
+		 * @param  	map1 	the first map.
+		 * @param  	map2 	the second map.
+		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 */
+		public static function equalNotConsideringOrder(map1:IMap, map2:IMap): Boolean
+		{
+			if (!map1 || !map2) return false;
+			if (map1 == map2) return true;
+			
+			if (!ReflectionUtil.classPathEquals(map1, map2)) return false;
+			if (map1.size() != map2.size()) return false;
+			
+			var itMap1:IIterator = map1.entryList().iterator();
+			var entryListMap2:IList = map2.entryList();
+			
+			// because maps has same size
+			// it's not necessary to perform bidirectional validation
+			// i.e. if map1 contains all entries of map2
+			// consequently map2 contains all entries of map1
+			while (itMap1.hasNext())
+			{
+				if (!entryListMap2.contains(itMap1.next())) return false;
+			}
+			
+			return true;
+		}
+		
 		/**
 		 * Returns a new <code>TypedMap</code> with the <code>wrapMap</code> argument wrapped.
 		 * 

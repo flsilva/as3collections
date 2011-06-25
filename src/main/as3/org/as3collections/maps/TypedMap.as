@@ -192,56 +192,33 @@ package org.as3collections.maps
 		}
 
 		/**
-		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
-		 * <p>This implementation considers two differente objects equal if:</p>
-		 * <p>
-		 * <ul><li>object A and object B are instances of the same class</li>
-		 * <li>object A contains all mappings of object B</li>
-		 * <li>object B contains all mappings of object A</li>
-		 * <li>if <code>wrappedMap</code> is <code>ISortedMap</code> or <code>wrappedMap</code> is <code>ArrayMap</code>, order is considered, otherwise not.</li>
-		 * </ul></p>
+		 * This method uses <code>MapUtil.equalNotConsideringOrder</code> or <code>MapUtil.equalConsideringOrder</code> method to perform equality, sending this map and <code>other</code> argument.
+		 * <p>If <code>wrappedMap</code> is of type <code>AbstractArrayMap</code> then <code>MapUtil.equalConsideringOrder</code> method is used.
+		 * Otherwise <code>MapUtil.equalNotConsideringOrder</code> method is used.</p>
 		 * 
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
+		 * @see 	org.as3collections.utils.MapUtil#equalConsideringOrder() MapUtil.equalConsideringOrder()
+		 * @see 	org.as3collections.utils.MapUtil#equalNotConsideringOrder() MapUtil.equalNotConsideringOrder()
 		 */
 		public function equals(other:*): Boolean
 		{
 			if (this == other) return true;
-			
 			if (!ReflectionUtil.classPathEquals(this, other)) return false;
 			
-			var o:IMap = other as IMap;
-			
-			if (!o) return false;
-			
-			if (getKeys().size() != o.getKeys().size()) return false;
-			
-			//return _wrappedMap.equals(other);
-			
-			var it:IIterator = entryList().iterator();
+			var otherMap:TypedMap = other as TypedMap;
+			if (typeKeys != otherMap.typeKeys || typeValues != otherMap.typeValues) return false;
 			
 			if (wrappedMap is AbstractArrayMap)
 			{
 				// takes care of order
-				var itOther:IIterator = o.entryList().iterator();
-				
-				while (it.hasNext())
-				{
-					if (!(it.next() as IMapEntry).equals(itOther.next())) return false;
-				}
+				return MapUtil.equalConsideringOrder(this, other);
 			}
 			else
 			{
 				// do not take care of order
-				var entryListOther:IList = entryList();
-				
-				while (it.hasNext())
-				{
-					if (!entryListOther.contains(it.next())) return false;
-				}
+				return MapUtil.equalNotConsideringOrder(this, other);
 			}
-			
-			return true;
 		}
 
 		/**

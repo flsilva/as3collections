@@ -266,8 +266,15 @@ package org.as3collections.maps
 		[Test]
 		public function equals_twoEmptyMapsWithDifferentKeyType_ReturnsFalse(): void
 		{
-			var map2:IMap = getMap(int, String);
-			Assert.assertTrue(map.equals(map2));
+			var map2:IMap = getMap(int, int);
+			Assert.assertFalse(map.equals(map2));
+		}
+		
+		[Test]
+		public function equals_twoEmptyMapsWithDifferentValueType_ReturnsFalse(): void
+		{
+			var map2:IMap = getMap(String, String);
+			Assert.assertFalse(map.equals(map2));
 		}
 		
 		[Test]
