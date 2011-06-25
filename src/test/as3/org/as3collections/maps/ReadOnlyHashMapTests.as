@@ -80,6 +80,16 @@ package org.as3collections.maps
 			return new ReadOnlyHashMap(addMap);
 		}
 		
+		//////////////////////////////////////////
+		// ReadOnlyArrayMap() constructor TESTS //
+		//////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function constructor_invalidArgument_ThrowsError(): void
+		{
+			new ReadOnlyHashMap(null);
+		}
+		
 		////////////////////////////////////////////////
 		// ReadOnlyHashMap().allKeysEquatable() TESTS //
 		////////////////////////////////////////////////
