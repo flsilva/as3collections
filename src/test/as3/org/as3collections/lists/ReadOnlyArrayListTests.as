@@ -76,6 +76,16 @@ package org.as3collections.lists
 			return new ReadOnlyArrayList(array);
 		}
 		
+		///////////////////////////////////////////
+		// ReadOnlyArrayList() constructor TESTS //
+		///////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.NullPointerError")]
+		public function constructor_invalidArgument_ThrowsError(): void
+		{
+			new ReadOnlyArrayList(null);
+		}
+		
 		//////////////////////////////////////////////
 		// ReadOnlyArrayList().allEquatable() TESTS //
 		//////////////////////////////////////////////
