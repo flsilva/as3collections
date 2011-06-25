@@ -29,10 +29,12 @@
 
 package org.as3collections.queues
 {
-	import org.as3coreaddendum.system.comparators.PriorityComparator;
 	import org.as3collections.ICollection;
+	import org.as3collections.IQueue;
 	import org.as3collections.ISortedQueue;
 	import org.as3collections.PriorityObject;
+	import org.as3coreaddendum.system.comparators.PriorityComparator;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -156,6 +158,15 @@ package org.as3collections.queues
 		///////////////////////////////////
 		// PriorityQueue().clone() TESTS //
 		///////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsPriorityQueue_ReturnsTrue(): void
+		{
+			var clonedQueue:IQueue = priorityQueue.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(PriorityQueue, clonedQueue);
+			Assert.assertTrue(isCorrectType);
+		}
 		
 		[Test]
 		public function clone_emptyQueue_ReturnValidQueueObject(): void

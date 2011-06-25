@@ -33,6 +33,7 @@ package org.as3collections.lists
 	import org.as3collections.IList;
 	import org.as3collections.IListIterator;
 	import org.as3collections.UniqueCollectionTests;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -188,6 +189,15 @@ package org.as3collections.lists
 		////////////////////////////////
 		
 		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsUniqueList_ReturnsTrue(): void
+		{
+			var clonedList:IList = collection.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(UniqueList, clonedList);
+			Assert.assertTrue(isCorrectType);
+		}
+		
+		[Test]
 		public function clone_listWithTwoNotEquatableElements_cloneButChangeElementsOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
 		{
 			list.add("element-1");
@@ -202,6 +212,15 @@ package org.as3collections.lists
 		/////////////////////////////////
 		// UniqueList().equals() TESTS //
 		/////////////////////////////////
+		
+		[Test]
+		public function equals_twoEmptyLists_oneListIsReadOnly_ReturnsFalse(): void
+		{
+			var readOnlyList:IList = new ReadOnlyArrayList([]);
+			
+			var equal:Boolean = collection.equals(readOnlyList);
+			Assert.assertFalse(equal);
+		}
 		
 		[Test]
 		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void

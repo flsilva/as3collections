@@ -32,6 +32,7 @@ package org.as3collections.queues
 	import org.as3collections.ICollection;
 	import org.as3collections.IQueue;
 	import org.as3collections.UniqueCollectionTests;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -114,6 +115,15 @@ package org.as3collections.queues
 		/////////////////////////////////
 		// UniqueQueue().clone() TESTS //
 		/////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsUniqueQueue_ReturnsTrue(): void
+		{
+			var clonedQueue:IQueue = queue.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(UniqueQueue, clonedQueue);
+			Assert.assertTrue(isCorrectType);
+		}
 		
 		[Test]
 		public function clone_emptyQueue_ReturnValidiQueueObject(): void

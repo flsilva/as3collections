@@ -31,6 +31,7 @@ package org.as3collections.maps
 {
 	import org.as3collections.IMap;
 	import org.as3collections.IMapTests;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -85,9 +86,31 @@ package org.as3collections.maps
 			Assert.assertEquals(2, size);
 		}
 		
+		//////////////////////////////
+		// ArrayMap().clone() TESTS //
+		//////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsArrayMap_ReturnsTrue(): void
+		{
+			var clonedMap:IMap = map.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ArrayMap, clonedMap);
+			Assert.assertTrue(isCorrectType);
+		}
+		
 		///////////////////////////////
 		// ArrayMap().equals() TESTS //
 		///////////////////////////////
+		
+		[Test]
+		public function equals_twoEmptyMaps_oneMapIsReadOnly_ReturnsFalse(): void
+		{
+			var readOnlyMap:IMap = new ReadOnlyArrayMap(new ArrayMap());
+			
+			var equal:Boolean = map.equals(readOnlyMap);
+			Assert.assertFalse(equal);
+		}
 		
 		[Test]
 		public function equals_mapWithTwoNotEquatableKeyValue_sameKeyValuesButDifferentOrder_checkIfBothMapsAreEqual_ReturnsFalse(): void

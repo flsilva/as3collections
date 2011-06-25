@@ -34,6 +34,7 @@ package org.as3collections.queues
 	import org.as3collections.IQueue;
 	import org.as3collections.TypedCollection;
 	import org.as3collections.TypedCollectionTests;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -109,6 +110,15 @@ package org.as3collections.queues
 		////////////////////////////////
 		// TypedQueue().clone() TESTS //
 		////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsTypedQueue_ReturnsTrue(): void
+		{
+			var clonedQueue:IQueue = queue.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(TypedQueue, clonedQueue);
+			Assert.assertTrue(isCorrectType);
+		}
 		
 		[Test]
 		public function clone_emptyQueue_ReturnValidiQueueObject(): void

@@ -35,6 +35,7 @@ package org.as3collections.lists
 	import org.as3collections.IListIterator;
 	import org.as3collections.TypedCollection;
 	import org.as3collections.TypedCollectionTests;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -174,6 +175,24 @@ package org.as3collections.lists
 		////////////////////////////////
 		// TypedList().equals() TESTS //
 		////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsTypedList_ReturnsTrue(): void
+		{
+			var clonedList:IList = collection.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(TypedList, clonedList);
+			Assert.assertTrue(isCorrectType);
+		}
+		
+		[Test]
+		public function equals_twoEmptyLists_oneListIsReadOnly_ReturnsFalse(): void
+		{
+			var readOnlyList:IList = new ReadOnlyArrayList([]);
+			
+			var equal:Boolean = collection.equals(readOnlyList);
+			Assert.assertFalse(equal);
+		}
 		
 		[Test]
 		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void

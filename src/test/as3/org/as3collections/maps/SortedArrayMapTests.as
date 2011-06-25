@@ -29,18 +29,19 @@
 
 package org.as3collections.maps
 {
-	import org.as3collections.SortMapBy;
 	import org.as3collections.IMap;
 	import org.as3collections.IMapTests;
 	import org.as3collections.ISortedList;
 	import org.as3collections.ISortedMap;
 	import org.as3collections.PriorityObject;
+	import org.as3collections.SortMapBy;
 	import org.as3collections.lists.SortedArrayList;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3coreaddendum.system.comparators.AlphabeticalComparator;
 	import org.as3coreaddendum.system.comparators.AlphabeticalComparison;
 	import org.as3coreaddendum.system.comparators.NumberComparator;
 	import org.as3coreaddendum.system.comparators.PriorityComparator;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -176,6 +177,19 @@ package org.as3collections.maps
 			
 			var index:int = sortedMap.indexOfKey("element-2");
 			Assert.assertEquals(0, index);
+		}
+		
+		////////////////////////////////////
+		// SortedArrayMap().clone() TESTS //
+		////////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsHashMap_ReturnsTrue(): void
+		{
+			var clonedMap:IMap = map.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(SortedArrayMap, clonedMap);
+			Assert.assertTrue(isCorrectType);
 		}
 		
 		/////////////////////////////////////

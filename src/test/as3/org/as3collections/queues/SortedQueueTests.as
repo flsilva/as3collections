@@ -30,6 +30,7 @@
 package org.as3collections.queues
 {
 	import org.as3collections.ICollection;
+	import org.as3collections.IQueue;
 	import org.as3collections.IQueueTests;
 	import org.as3collections.ISortedList;
 	import org.as3collections.ISortedQueue;
@@ -40,6 +41,7 @@ package org.as3collections.queues
 	import org.as3coreaddendum.system.comparators.AlphabeticalComparison;
 	import org.as3coreaddendum.system.comparators.NumberComparator;
 	import org.as3coreaddendum.system.comparators.PriorityComparator;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -192,6 +194,19 @@ package org.as3collections.queues
 			
 			var size:int = queue.size();
 			Assert.assertEquals(2, size);
+		}
+		
+		/////////////////////////////////
+		// SortedQueue().clone() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsSortedQueue_ReturnsTrue(): void
+		{
+			var clonedQueue:IQueue = queue.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(SortedQueue, clonedQueue);
+			Assert.assertTrue(isCorrectType);
 		}
 		
 		///////////////////////////////////

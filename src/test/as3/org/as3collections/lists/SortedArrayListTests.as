@@ -40,6 +40,7 @@ package org.as3collections.lists
 	import org.as3coreaddendum.system.comparators.DateComparator;
 	import org.as3coreaddendum.system.comparators.NumberComparator;
 	import org.as3coreaddendum.system.comparators.PriorityComparator;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -169,9 +170,31 @@ package org.as3collections.lists
 			Assert.assertEquals("element-2", element);
 		}
 		
+		/////////////////////////////////////
+		// SortedArrayList().clone() TESTS //
+		/////////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsSortedArrayList_ReturnsTrue(): void
+		{
+			var clonedList:IList = collection.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(SortedArrayList, clonedList);
+			Assert.assertTrue(isCorrectType);
+		}
+		
 		//////////////////////////////////////
 		// SortedArrayList().equals() TESTS //
 		//////////////////////////////////////
+		
+		[Test]
+		public function equals_twoEmptyLists_oneListIsReadOnly_ReturnsFalse(): void
+		{
+			var readOnlyList:IList = new ReadOnlyArrayList([]);
+			
+			var equal:Boolean = collection.equals(readOnlyList);
+			Assert.assertFalse(equal);
+		}
 		
 		[Test]
 		public function equals_twoEmptyListsCreatedWithDifferentSortOptions_checkIfBothListsAreEqual_ReturnsFalse(): void

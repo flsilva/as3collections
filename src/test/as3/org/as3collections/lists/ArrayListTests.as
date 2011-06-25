@@ -29,6 +29,7 @@
 
 package org.as3collections.lists
 {
+	import org.as3utils.ReflectionUtil;
 	import org.as3collections.ICollection;
 	import org.as3collections.IList;
 	import org.as3collections.IListTests;
@@ -90,6 +91,19 @@ package org.as3collections.lists
 			Assert.assertEquals("element-2", element2);
 		}
 		
+		///////////////////////////////
+		// ArrayList().clone() TESTS //
+		///////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsArrayList_ReturnsTrue(): void
+		{
+			var clonedList:IList = collection.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ArrayList, clonedList);
+			Assert.assertTrue(isCorrectType);
+		}
+		
 		////////////////////////////////////////
 		// ArrayList().ensureCapacity() TESTS //
 		////////////////////////////////////////
@@ -115,6 +129,15 @@ package org.as3collections.lists
 		////////////////////////////////
 		// ArrayList().equals() TESTS //
 		////////////////////////////////
+		
+		[Test]
+		public function equals_twoEmptyLists_oneListIsReadOnly_ReturnsFalse(): void
+		{
+			var readOnlyList:IList = new ReadOnlyArrayList([]);
+			
+			var equal:Boolean = collection.equals(readOnlyList);
+			Assert.assertFalse(equal);
+		}
 		
 		[Test]
 		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void

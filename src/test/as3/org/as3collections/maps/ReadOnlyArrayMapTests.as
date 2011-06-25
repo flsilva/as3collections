@@ -177,6 +177,15 @@ package org.as3collections.maps
 		//////////////////////////////////////
 		
 		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsReadOnlyArrayMap_ReturnsTrue(): void
+		{
+			var clonedMap:IMap = map.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ReadOnlyArrayMap, clonedMap);
+			Assert.assertTrue(isCorrectType);
+		}
+		
+		[Test]
 		public function clone_mapWithThreeNotEquatableKeyValue_checkIfBothMapsAreEqual_ReturnsTrue(): void
 		{
 			var clonedMap:IMap = map.clone();

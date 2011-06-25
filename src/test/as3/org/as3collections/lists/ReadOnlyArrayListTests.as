@@ -179,6 +179,15 @@ package org.as3collections.lists
 		///////////////////////////////////////
 		
 		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsReadOnlyArrayList_ReturnsTrue(): void
+		{
+			var clonedList:IList = list.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ReadOnlyArrayList, clonedList);
+			Assert.assertTrue(isCorrectType);
+		}
+		
+		[Test]
 		public function clone_listWithTwoNotEquatableElements_checkIfBothListsAreEqual_ReturnsTrue(): void
 		{
 			var newList1:IList = new ReadOnlyArrayList(["element-1", "element-2"]);

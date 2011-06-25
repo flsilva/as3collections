@@ -31,8 +31,10 @@ package org.as3collections.queues
 {
 	import org.as3collections.ICollection;
 	import org.as3collections.IList;
+	import org.as3collections.IQueue;
 	import org.as3collections.IQueueTests;
 	import org.as3collections.lists.ArrayList;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -104,6 +106,19 @@ package org.as3collections.queues
 			
 			var size:int = queue.size();
 			Assert.assertEquals(2, size);
+		}
+		
+		/////////////////////////////////
+		// LinearQueue().clone() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsLinearQueue_ReturnsTrue(): void
+		{
+			var clonedQueue:IQueue = queue.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(LinearQueue, clonedQueue);
+			Assert.assertTrue(isCorrectType);
 		}
 		
 		///////////////////////////////////

@@ -35,6 +35,7 @@ package org.as3collections.maps
 	import org.as3collections.IMap;
 	import org.as3collections.MapEntry;
 	import org.as3collections.lists.ArrayList;
+	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
@@ -135,6 +136,16 @@ package org.as3collections.maps
 		//////////////////////////////
 		
 		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsTypedMap_ReturnsTrue(): void
+		{
+			var typedMap:IMap = new TypedMap(new HashMap(), String, int);
+			var clonedMap:IMap = typedMap.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(TypedMap, clonedMap);
+			Assert.assertTrue(isCorrectType);
+		}
+		
+		[Test]
 		public function clone_mapWithTwoNotEquatableKeyValue_checkIfBothMapsAreEqual_ReturnsTrue(): void
 		{
 			map.put("element-1", 1);
@@ -191,6 +202,15 @@ package org.as3collections.maps
 		////////////////////////////////
 		// TypedMap().equals() TESTS //
 		////////////////////////////////
+		
+		[Test]
+		public function equals_twoEmptyMaps_oneMapIsReadOnly_ReturnsFalse(): void
+		{
+			var readOnlyMap:IMap = new ReadOnlyHashMap(new HashMap());
+			
+			var equal:Boolean = map.equals(readOnlyMap);
+			Assert.assertFalse(equal);
+		}
 		
 		[Test]
 		public function equals_mapWithTwoNotEquatableKeyValue_sameElementsButDifferentOrder_HashMapWrapped_checkIfBothListsAreEqual_ReturnsTrue(): void

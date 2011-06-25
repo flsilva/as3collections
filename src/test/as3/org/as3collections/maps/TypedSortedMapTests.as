@@ -71,6 +71,15 @@ package org.as3collections.maps
 		////////////////////////////////////
 		
 		[Test]
+		public function clone_simpleCall_checkIfReturnedObjectIsTypedSortedMap_ReturnsTrue(): void
+		{
+			var clonedMap:IMap = map.clone();
+			
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(TypedSortedMap, clonedMap);
+			Assert.assertTrue(isCorrectType);
+		}
+		
+		[Test]
 		public function clone_mapWithTwoNotEquatableKeyValue_checkIfTypeOfReturnedMapIsTypedSortedMap_ReturnsTrue(): void
 		{
 			map.put("element-1", 1);
