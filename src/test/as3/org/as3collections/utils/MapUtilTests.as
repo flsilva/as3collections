@@ -30,6 +30,7 @@
 package org.as3collections.utils
 {
 	import org.as3collections.IMap;
+	import org.as3collections.maps.ArrayMap;
 	import org.as3collections.maps.HashMap;
 	import org.as3collections.maps.SortedArrayMap;
 	import org.as3collections.maps.TypedMap;
@@ -110,6 +111,30 @@ package org.as3collections.utils
 		{
 			var map:TypedMap = MapUtil.getTypedSortedMap(new SortedArrayMap(), String, int);
 			Assert.assertEquals(int, map.typeValues);
+		}
+		
+		//////////////////////////////
+		// MapUtil.toString() TESTS //
+		//////////////////////////////
+		
+		[Test]
+		public function toString_emptyMap_checkIfReturnedStringMatches_ReturnsTrue(): void
+		{
+			var map:IMap = new ArrayMap();
+			
+			var string:String = MapUtil.toString(map);
+			Assert.assertEquals("[]", string);
+		}
+		
+		[Test]
+		public function toString_notEmptyMap_checkIfReturnedStringMatches_ReturnsTrue(): void
+		{
+			var map:IMap = new ArrayMap();
+			map.put("element-2", 2);
+			map.put("element-1", 1);
+			
+			var string:String = MapUtil.toString(map);
+			Assert.assertEquals("[element-2=2,element-1=1]", string);
 		}
 		
 	}
