@@ -34,12 +34,12 @@ package org.as3collections
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class FakeAbstractArrayMap extends AbstractArrayMap
+	public class FakeHashMap extends AbstractHashMap
 	{
 		
-		public function FakeAbstractArrayMap(source:IMap = null)
+		public function FakeHashMap(source:IMap = null, weakKeys:Boolean = false)
 		{
-			super(source);
+			super(source, weakKeys);
 		}
 		
 	}

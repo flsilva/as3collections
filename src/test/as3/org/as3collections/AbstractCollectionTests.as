@@ -59,7 +59,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function add_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractCollection = new FakeAbstractCollection();
+			var fake:ICollection = new FakeCollection();
 			fake.add("element-1");
 		}
 		
@@ -70,7 +70,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function clear_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractCollection = new FakeAbstractCollection();
+			var fake:ICollection = new FakeCollection();
 			fake.clear();
 		}
 		
@@ -81,7 +81,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.CloneNotSupportedError")]
 		public function clone_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractCollection = new FakeAbstractCollection();
+			var fake:ICollection = new FakeCollection();
 			fake.clone();
 		}
 		
@@ -92,8 +92,8 @@ package org.as3collections
 		[Test]
 		public function equals_twoEqualCollections_ReturnsTrue(): void
 		{
-			var fake1:FakeAbstractCollection = new FakeAbstractCollection();
-			var fake2:FakeAbstractCollection = new FakeAbstractCollection();
+			var fake1:ICollection = new FakeCollection();
+			var fake2:ICollection = new FakeCollection();
 			
 			var equal:Boolean = fake1.equals(fake2);
 			Assert.assertTrue(equal);
@@ -106,7 +106,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function iterator_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractCollection = new FakeAbstractCollection();
+			var fake:ICollection = new FakeCollection();
 			fake.iterator();
 		}
 		
@@ -117,8 +117,8 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function toString_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractCollection = new FakeAbstractCollection();
-			fake.toString();
+			var fake:ICollection = new FakeCollection();
+			(fake as FakeCollection).toString();
 		}
 		
 	}

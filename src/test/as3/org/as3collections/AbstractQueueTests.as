@@ -58,7 +58,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function offer_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractQueue = new FakeAbstractQueue();
+			var fake:IQueue = new FakeQueue();
 			fake.offer("element-1");
 		}
 		
@@ -69,7 +69,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function peek_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractQueue = new FakeAbstractQueue();
+			var fake:IQueue = new FakeQueue();
 			fake.peek();
 		}
 		
@@ -80,7 +80,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function poll_twoEqualCollections_ReturnsTrue(): void
 		{
-			var fake:FakeAbstractQueue = new FakeAbstractQueue();
+			var fake:IQueue = new FakeQueue();
 			fake.poll();
 		}
 		

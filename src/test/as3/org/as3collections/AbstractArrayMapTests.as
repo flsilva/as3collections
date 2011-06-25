@@ -58,7 +58,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function clear_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractArrayMap = new FakeAbstractArrayMap();
+			var fake:IMap = new FakeArrayMap();
 			fake.clear();
 		}
 		
@@ -69,7 +69,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.CloneNotSupportedError")]
 		public function clone_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractArrayMap = new FakeAbstractArrayMap();
+			var fake:IMap = new FakeArrayMap();
 			fake.clone();
 		}
 		
@@ -80,7 +80,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function iterator_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractArrayMap = new FakeAbstractArrayMap();
+			var fake:IMap = new FakeArrayMap();
 			fake.iterator();
 		}
 		
@@ -91,7 +91,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function put_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractArrayMap = new FakeAbstractArrayMap();
+			var fake:IMap = new FakeArrayMap();
 			fake.put("element-1", 1);
 		}
 		
@@ -102,7 +102,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function remove_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractArrayMap = new FakeAbstractArrayMap();
+			var fake:IMap = new FakeArrayMap();
 			fake.remove("element-1");
 		}
 		
@@ -113,8 +113,8 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function toString_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractArrayMap = new FakeAbstractArrayMap();
-			fake.toString();
+			var fake:IMap = new FakeArrayMap();
+			(fake as FakeArrayMap).toString();
 		}
 		
 	}

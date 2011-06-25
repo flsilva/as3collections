@@ -34,10 +34,10 @@ package org.as3collections
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class FakeAbstractCollection extends AbstractCollection
+	public class FakeQueue extends AbstractQueue
 	{
 		
-		public function FakeAbstractCollection(source:Array = null)
+		public function FakeQueue(source:Array = null)
 		{
 			super(source);
 		}

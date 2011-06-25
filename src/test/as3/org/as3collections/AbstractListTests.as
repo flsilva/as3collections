@@ -58,7 +58,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function addAt_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractList = new FakeAbstractList();
+			var fake:IList = new FakeList();
 			fake.addAt(0, "element-1");
 		}
 		
@@ -69,7 +69,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function iterator_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractList = new FakeAbstractList();
+			var fake:IList = new FakeList();
 			fake.listIterator();
 		}
 		
@@ -80,7 +80,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function removeAt_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractList = new FakeAbstractList();
+			var fake:IList = new FakeList();
 			fake.removeAt(0);
 		}
 		
@@ -91,7 +91,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function removeRange_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractList = new FakeAbstractList();
+			var fake:IList = new FakeList();
 			fake.removeRange(0, 1);
 		}
 		
@@ -102,7 +102,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function setAt_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractList = new FakeAbstractList();
+			var fake:IList = new FakeList();
 			fake.setAt(0, "element-1");
 		}
 		
@@ -113,7 +113,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function subList_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractList = new FakeAbstractList();
+			var fake:IList = new FakeList();
 			fake.subList(0, 1);
 		}
 		

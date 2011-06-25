@@ -59,7 +59,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function clear_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractHashMap = new FakeAbstractHashMap();
+			var fake:IMap = new FakeHashMap();
 			fake.clear();
 		}
 		
@@ -70,7 +70,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.CloneNotSupportedError")]
 		public function clone_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractHashMap = new FakeAbstractHashMap();
+			var fake:IMap = new FakeHashMap();
 			fake.clone();
 		}
 		
@@ -81,8 +81,8 @@ package org.as3collections
 		[Test]
 		public function equals_twoEqualCollections_ReturnsTrue(): void
 		{
-			var fake1:FakeAbstractHashMap = new FakeAbstractHashMap();
-			var fake2:FakeAbstractHashMap = new FakeAbstractHashMap();
+			var fake1:IMap = new FakeHashMap();
+			var fake2:IMap = new FakeHashMap();
 			
 			var equal:Boolean = fake1.equals(fake2);
 			Assert.assertTrue(equal);
@@ -95,7 +95,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function iterator_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractHashMap = new FakeAbstractHashMap();
+			var fake:IMap = new FakeHashMap();
 			fake.iterator();
 		}
 		
@@ -106,7 +106,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function put_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractHashMap = new FakeAbstractHashMap();
+			var fake:IMap = new FakeHashMap();
 			fake.put("element-1", 1);
 		}
 		
@@ -117,7 +117,7 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function remove_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractHashMap = new FakeAbstractHashMap();
+			var fake:IMap = new FakeHashMap();
 			fake.remove("element-1");
 		}
 		
@@ -128,8 +128,8 @@ package org.as3collections
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function toString_simpleCall_ThrowsError(): void
 		{
-			var fake:FakeAbstractHashMap = new FakeAbstractHashMap();
-			fake.toString();
+			var fake:IMap = new FakeHashMap();
+			(fake as FakeHashMap).toString();
 		}
 		
 	}

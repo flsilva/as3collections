@@ -34,10 +34,10 @@ package org.as3collections
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class FakeAbstractList extends AbstractList
+	public class FakeCollection extends AbstractCollection
 	{
 		
-		public function FakeAbstractList(source:Array = null)
+		public function FakeCollection(source:Array = null)
 		{
 			super(source);
 		}
