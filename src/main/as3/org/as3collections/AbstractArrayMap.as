@@ -54,8 +54,8 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		protected var _allKeysEquatable: Boolean = true;
-		protected var _allValuesEquatable: Boolean = true;
+		private var _totalKeysEquatable: int;
+		private var _totalValuesEquatable: int;
 
 		private var _keys: Array;
 		private var _values: Array;
@@ -63,12 +63,12 @@ package org.as3collections
 		/**
 		 * @inheritDoc
 		 */
-		public function get allKeysEquatable(): Boolean { return _allKeysEquatable; }
+		public function get allKeysEquatable(): Boolean { return _totalKeysEquatable == size(); }
 
 		/**
 		 * @inheritDoc
 		 */
-		public function get allValuesEquatable(): Boolean { return _allValuesEquatable; }
+		public function get allValuesEquatable(): Boolean { return _totalValuesEquatable == size(); }
 
 		/**
 		 * @private
@@ -407,11 +407,15 @@ package org.as3collections
 			while (it.hasNext())
 			{
 				e = it.next();
-				if (keys.contains(it.pointer())) it.remove();
+				
+				if (keys.contains(it.pointer()))
+				{
+					it.remove();
+					
+					keyRemoved(it.pointer());
+					valueRemoved(e);
+				}
 			}
-			
-			checkAllKeysEquatable();
-			checkAllValuesEquatable();
 			
 			return prevSize != size();
 		}
@@ -442,11 +446,14 @@ package org.as3collections
 			{
 				value = it.next();
 				
-				if (!keys.contains(it.pointer())) it.remove();
+				if (!keys.contains(it.pointer()))
+				{
+					it.remove();
+					
+					keyRemoved(it.pointer());
+					valueRemoved(value);
+				}
 			}
-			
-			checkAllKeysEquatable();
-			checkAllValuesEquatable();
 			
 			return prevSize != size();
 		}
@@ -472,7 +479,7 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		protected function checkAllKeysEquatable(): void
+		/*protected function checkAllKeysEquatable(): void
 		{
 			_allKeysEquatable = true;
 			
@@ -488,12 +495,12 @@ package org.as3collections
 					return;
 				}
 			}
-		}
+		}*/
 
 		/**
 		 * @private
 		 */
-		protected function checkAllValuesEquatable(): void
+		/*protected function checkAllValuesEquatable(): void
 		{
 			_allValuesEquatable = true;
 			
@@ -509,23 +516,23 @@ package org.as3collections
 					return;
 				}
 			}
-		}
+		}*/
 
 		/**
 		 * @private
 		 */
-		protected function checkKeyEquatable(key:*): void
+		/*protected function checkKeyEquatable(key:*): void
 		{
 			if (!isEquatable(key)) _allKeysEquatable = false;
-		}
+		}*/
 
 		/**
 		 * @private
 		 */
-		protected function checkValueEquatable(value:*): void
+		/*protected function checkValueEquatable(value:*): void
 		{
 			if (!isEquatable(value)) _allValuesEquatable = false;
-		}
+		}*/
 
 		/**
 		 * @private
@@ -560,15 +567,47 @@ package org.as3collections
 			
 			return -1;
 		}
+		
+		/**
+		 * @private
+		 */
+		protected function keyAdded(key:*): void
+		{
+			if (key && key is IEquatable) _totalKeysEquatable++;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function keyRemoved(key:*): void
+		{
+			if (key && key is IEquatable) _totalKeysEquatable--;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function valueAdded(value:*): void
+		{
+			if (value && value is IEquatable) _totalValuesEquatable++;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function valueRemoved(value:*): void
+		{
+			if (value && value is IEquatable) _totalValuesEquatable--;
+		}
 
 		/**
 		 * @private
 		 */
-		protected function isEquatable(element:*): Boolean
+		/*protected function isEquatable(element:*): Boolean
 		{
 			if (element is IEquatable) return true;
 			return false;
-		}
+		}*/
 
 		/**
 		 * @private
@@ -577,8 +616,8 @@ package org.as3collections
 		{
 			_keys 		= [];
 			_values 	= [];
-			_allKeysEquatable = true;
-			_allValuesEquatable = true;
+			_totalKeysEquatable = 0;
+			_totalValuesEquatable = 0;
 		}
 
 	}

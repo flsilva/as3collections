@@ -47,7 +47,7 @@ package org.as3collections
 	 * <p>In order to this collection uses the <code>equals</code> method of its elements in comparisons (rather than the default '==' operator), <b>all elements in this collection must implement the interface</b> <code>org.as3coreaddendum.system.IEquatable</code> <b>and also the supplied element.</b></p>
 	 * <p>For example:</p>
 	 * <p>myCollection.contains(myElement);</p>
-	 * <p>All elements inside the collection and <code>myElement</code> must implement the <code>org.as3coreaddendum.system.IEquatable</code> interface so that <code>equals</code> method of each element can be used in the comparison.
+	 * <p>All elements inside <code>myCollection</code>, and <code>myElement</code>, must implement the <code>org.as3coreaddendum.system.IEquatable</code> interface so that <code>equals</code> method of each element can be used in the comparison.
 	 * Otherwise '==' operator is used.</p>
 	 * 
 	 * @author Flávio Silva
@@ -57,14 +57,14 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		protected var _allEquatable: Boolean = true;
+		protected var _totalEquatable: int;
 
 		private var _data: Array = [];
 
 		/**
 		 * @inheritDoc
 		 */
-		public function get allEquatable(): Boolean { return _allEquatable; }
+		public function get allEquatable(): Boolean { return _totalEquatable == size(); }
 
 		/**
 		 * @private
@@ -80,10 +80,19 @@ package org.as3collections
 		public function AbstractCollection(source:Array = null)
 		{
 			if (ReflectionUtil.classPathEquals(this, AbstractCollection))  throw new IllegalOperationError(ReflectionUtil.getClassName(this) + " is an abstract class and shouldn't be instantiated directly.");
-			if (source)
+			
+			if (source && source.length > 0)
 			{
 				_data.push.apply(_data, source);
-				checkAllEquatable();
+				
+				var it:IIterator = iterator();
+				var e:*;
+				
+				while(it.hasNext())
+				{
+					e = it.next();
+					elementAdded(e);
+				}
 			}
 		}
 
@@ -263,7 +272,7 @@ package org.as3collections
 						if ((e as IEquatable).equals(o))
 						{
 							it.remove();
-							checkAllEquatable();
+							elementRemoved(e);
 							found = true;
 							break;
 						}
@@ -278,7 +287,7 @@ package org.as3collections
 						if (e == o)
 						{
 							it.remove();
-							checkAllEquatable();
+							elementRemoved(e);
 							found = true;
 							break;
 						}
@@ -312,13 +321,19 @@ package org.as3collections
 			
 			var prevSize:int = size();
 			var it:IIterator = iterator();
+			var e:*;
 			
 			while (it.hasNext())
 			{
-				if (collection.contains(it.next())) it.remove();
+				e = it.next();
+				
+				if (collection.contains(e))
+				{
+					it.remove();
+					elementRemoved(e);
+				}
 			}
 			
-			checkAllEquatable();
 			return prevSize != size();
 		}
 
@@ -341,13 +356,19 @@ package org.as3collections
 			
 			var prevSize:int = size();
 			var it:IIterator = iterator();
+			var e:*;
 			
 			while (it.hasNext())
 			{
-				if (!collection.contains(it.next())) it.remove();
+				e = it.next();
+				
+				if (!collection.contains(e))
+				{
+					it.remove();
+					elementRemoved(e);
+				}
 			}
 			
-			checkAllEquatable();
 			return prevSize != size();
 		}
 
@@ -381,15 +402,31 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		protected function checkEquatable(element:*): void
+		/*protected function checkEquatable(element:*): void
 		{
 			if (!(element is IEquatable)) _allEquatable = false;
+		}*/
+		
+		/**
+		 * @private
+		 */
+		protected function elementAdded(element:*): void
+		{
+			if (element && element is IEquatable) _totalEquatable++;
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function elementRemoved(element:*): void
+		{
+			if (element && element is IEquatable) _totalEquatable--;
 		}
 
 		/**
 		 * @private
 		 */
-		protected function checkAllEquatable(): void
+		/*private function checkAllEquatable(): void
 		{
 			_allEquatable = true;
 			
@@ -402,7 +439,7 @@ package org.as3collections
 				checkEquatable(e);
 				if (!_allEquatable) return;
 			}
-		}
+		}*/
 
 		/**
 		 * @private

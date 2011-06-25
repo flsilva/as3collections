@@ -221,15 +221,14 @@ package org.as3collections
 			map.put("element-1", 1);
 			
 			var retainAllCollection:IList = new ArrayList();
-			retainAllCollection.add(equatableObject1A);
-			retainAllCollection.add(equatableObject2A);
+			retainAllCollection.add("equatable-object-1");
+			retainAllCollection.add("equatable-object-2");
 			
 			map.retainAll(retainAllCollection);
 			
 			var allValuesEquatable:Boolean = map.allValuesEquatable;
 			Assert.assertTrue(allValuesEquatable);
 		}
-		
 		
 		//////////////////////////
 		// IMap().clone() TESTS //

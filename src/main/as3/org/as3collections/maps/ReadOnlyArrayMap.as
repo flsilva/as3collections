@@ -93,8 +93,8 @@ package org.as3collections.maps
 				keys.push(it.pointer());
 				values.push(value);
 				
-				checkKeyEquatable(it.pointer());
-				checkValueEquatable(value);
+				keyAdded(it.pointer());
+				valueAdded(value);
 			}
 		}
 

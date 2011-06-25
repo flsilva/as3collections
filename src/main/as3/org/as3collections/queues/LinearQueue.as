@@ -155,7 +155,7 @@ package org.as3collections.queues
 		{
 			if (isEmpty()) return;
 			data.splice(0);
-			_allEquatable = true;
+			_totalEquatable = 0;
 		}
 
 		/**
@@ -193,7 +193,7 @@ package org.as3collections.queues
 			if (element == null) return false;
 			
 			data.push(element);
-			checkEquatable(element);
+			elementAdded(element);
 			return true;
 		}
 
@@ -218,7 +218,7 @@ package org.as3collections.queues
 			if (isEmpty()) return null;
 			
 			var e:* = data.shift();
-			checkAllEquatable();
+			elementRemoved(e);
 			
 			return e;
 		}

@@ -397,8 +397,8 @@ package org.as3collections.lists
 		override public function addAt(index:int, element:*): Boolean
 		{
 			checkIndex(index, size());
-			checkEquatable(element);
 			data.splice(index, 0, element);
+			elementAdded(element);
 			_modCount++;
 			return true;
 		}
@@ -411,7 +411,7 @@ package org.as3collections.lists
 			if (isEmpty()) return;
 			_modCount++;
 			data.splice(0);
-			_allEquatable = true;
+			_totalEquatable = 0;
 		}
 
 		/**
@@ -474,7 +474,7 @@ package org.as3collections.lists
 			_modCount++;
 			
 			var e:* = data.splice(index, 1)[0];
-			checkAllEquatable();
+			elementRemoved(e);
 			
 			return e;
 		}
@@ -497,7 +497,15 @@ package org.as3collections.lists
 			_modCount++;
 			
 			var l:IList = new ArrayList(data.splice(fromIndex, toIndex - fromIndex));
-			checkAllEquatable();
+			
+			var it:IIterator = l.iterator();
+			var e:*;
+			
+			while(it.hasNext())
+			{
+				e = it.next();
+				elementRemoved(e);
+			}
 			
 			return l;
 		}
@@ -518,7 +526,8 @@ package org.as3collections.lists
 			var old:* = data[index];
 			data[index] = element;
 			
-			checkAllEquatable();
+			elementRemoved(old);
+			elementAdded(element);
 			
 			return old;
 		}
@@ -540,7 +549,6 @@ package org.as3collections.lists
 			checkIndex(toIndex, size());
 			
 			var l:IList = new ArrayList(data.slice(fromIndex, toIndex));
-			checkAllEquatable();
 			
 			return l;
 		}

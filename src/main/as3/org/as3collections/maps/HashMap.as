@@ -308,8 +308,8 @@ package org.as3collections.maps
 			
 			values[value] = ++countValues;
 			
-			checkKeyEquatable(key);
-			checkValueEquatable(value);
+			keyAdded(key);
+			valueAdded(value);
 			
 			return old;
 		}
@@ -366,8 +366,8 @@ package org.as3collections.maps
 			
 			_size--;
 			
-			checkAllKeysEquatable();
-			checkAllValuesEquatable();
+			keyRemoved(key);
+			valueRemoved(old);
 			
 			return old;
 		}

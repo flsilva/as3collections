@@ -288,7 +288,8 @@ package org.as3collections.maps
 				old = getValue(key);
 				values[indexOfKey(key)] = value;
 				
-				checkValueEquatable(value);
+				valueRemoved(old);
+				valueAdded(value);
 				
 				return old;
 			}
@@ -297,8 +298,8 @@ package org.as3collections.maps
 				keys.push(key);
 				values.push(value);
 				
-				checkKeyEquatable(key);
-				checkValueEquatable(value);
+				keyAdded(key);
+				valueAdded(value);
 				
 				return null;
 			}
@@ -324,8 +325,8 @@ package org.as3collections.maps
 			keys.splice(index, 1);
 			values.splice(index, 1);
 			
-			checkAllKeysEquatable();
-			checkAllValuesEquatable();
+			keyRemoved(key);
+			valueRemoved(old);
 			
 			return old;
 		}
