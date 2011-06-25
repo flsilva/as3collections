@@ -86,6 +86,54 @@ package org.as3collections
 			Assert.assertFalse(allEquatable);
 		}
 		
+		[Test]
+		public function allEquatable_listWithThreeElementsOfWhichTwoEquatable_removeRangeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			list.add("equatable-object-3");
+			
+			list.removeRange(2, 3);
+			
+			var allEquatable:Boolean = list.allEquatable;
+			Assert.assertTrue(allEquatable);
+		}
+		
+		[Test]
+		public function allEquatable_listWithTwoElementsEquatable_thenSetAtNotEquatableElement_checkIfAllEquatable_ReturnsFalse(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			
+			list.setAt(0, "element-1");
+			
+			var allEquatable:Boolean = list.allEquatable;
+			Assert.assertFalse(allEquatable);
+		}
+		
+		[Test]
+		public function allEquatable_listWithThreeElementsOfWhichTwoEquatable_setAtEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
+		{
+			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
+			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
+			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
+			
+			list.add(equatableObject1A);
+			list.add(equatableObject2A);
+			list.add("equatable-object-3");
+			
+			list.setAt(2, equatableObject3A);
+			
+			var allEquatable:Boolean = list.allEquatable;
+			Assert.assertTrue(allEquatable);
+		}
+		
 		///////////////////////////
 		// IList().clone() TESTS //
 		///////////////////////////
@@ -501,6 +549,10 @@ package org.as3collections
 			Assert.assertEquals(4, modCount);
 		}
 		
+		
+		
+		
+		
 		///////////////////////////
 		// IList().setAt() TESTS //
 		///////////////////////////
@@ -558,58 +610,6 @@ package org.as3collections
 			
 			var removedElement:String = list.setAt(1, equatableObject4A);
 			Assert.assertTrue(equatableObject2A, removedElement);
-		}
-		
-		/////////////////////////
-		// IList() MIXED TESTS //
-		/////////////////////////
-		
-		[Test]
-		public function removeRange_allEquatable_listWithThreeElementsOfWhichTwoEquatable_removeNotEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			list.add("equatable-object-3");
-			
-			list.removeRange(2, 3);
-			
-			var allEquatable:Boolean = list.allEquatable;
-			Assert.assertTrue(allEquatable);
-		}
-		
-		[Test]
-		public function setAt_allEquatable_listWithTwoElementsEquatable_thenSetAtNotEquatableElement_checkIfAllEquatable_ReturnsFalse(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			
-			list.setAt(0, "element-1");
-			
-			var allEquatable:Boolean = list.allEquatable;
-			Assert.assertFalse(allEquatable);
-		}
-		
-		[Test]
-		public function setAt_allEquatable_listWithThreeElementsOfWhichTwoEquatable_setAtEquatableElement_checkIfAllEquatable_ReturnsTrue(): void
-		{
-			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
-			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
-			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
-			
-			list.add(equatableObject1A);
-			list.add(equatableObject2A);
-			list.add("equatable-object-3");
-			
-			list.setAt(2, equatableObject3A);
-			
-			var allEquatable:Boolean = list.allEquatable;
-			Assert.assertTrue(allEquatable);
 		}
 		
 	}

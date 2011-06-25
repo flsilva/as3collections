@@ -602,6 +602,26 @@ package org.as3collections
 			Assert.assertNotNull(removedList);
 		}
 		
+		[Test]
+		public function removeRange_listWithOneNotEquatabeElement_removeRangeAndCheckIfListIsEmpty_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.removeRange(0, 1);
+			
+			var isEmpty:Boolean = list.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function removeRange_listWithOneNotEquatabeElement_removeRangeAndCheckIfListSizeIsZero_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.removeRange(0, 1);
+			
+			var size:int = list.size();
+			Assert.assertEquals(0, size);
+		}
+		
 		/////////////////////////////
 		// IList().reverse() TESTS //
 		/////////////////////////////
@@ -766,40 +786,6 @@ package org.as3collections
 			
 			var contains:Boolean = subList.contains("element-3");
 			Assert.assertFalse(contains);
-		}
-		
-		/////////////////////////
-		// IList() MIXED TESTS //
-		/////////////////////////
-		
-		[Test]
-		public function removeRange_isEmpty_listWithOneNotEquatabeElement_removeRangeAndCheckIfListIsEmpty_ReturnsTrue(): void
-		{
-			list.add("element-1");
-			list.removeRange(0, 1);
-			
-			var isEmpty:Boolean = list.isEmpty();
-			Assert.assertTrue(isEmpty);
-		}
-		
-		[Test]
-		public function removeRange_size_listWithOneNotEquatabeElement_removeRangeAndCheckIfListSizeIsZero_ReturnsTrue(): void
-		{
-			list.add("element-1");
-			list.removeRange(0, 1);
-			
-			var size:int = list.size();
-			Assert.assertEquals(0, size);
-		}
-		
-		[Test]
-		public function removeRange_isEmpty_listWithOneNotEquatabeElement_removeRangeEmpty_checkIfRemovedListIsEmpty_ReturnsTrue(): void
-		{
-			list.add("element-1");
-			var removedList:ICollection = list.removeRange(0, 0);
-			
-			var isEmpty:Boolean = removedList.isEmpty();
-			Assert.assertTrue(isEmpty);
 		}
 		
 	}
