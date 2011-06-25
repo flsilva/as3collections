@@ -69,8 +69,8 @@
 
 	<!-- org.as3collections.utils -->
 
-	<component id="org.as3collections.utils:ArrayListUtil" 					class="org.as3collections.utils.ArrayListUtil" />
 	<component id="org.as3collections.utils:CollectionUtil" 				class="org.as3collections.utils.CollectionUtil" />
+	<component id="org.as3collections.utils:ListUtil" 						class="org.as3collections.utils.ListUtil" />
 	<component id="org.as3collections.utils:MapUtil" 						class="org.as3collections.utils.MapUtil" />
 	<component id="org.as3collections.utils:QueueUtil" 						class="org.as3collections.utils.QueueUtil" />
 

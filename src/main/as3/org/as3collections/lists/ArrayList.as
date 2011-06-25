@@ -48,7 +48,7 @@ package org.as3collections.lists
 	 * <p>In addition to implementing the <code>IList</code> interface, this class provides the <code>ensureCapacity</code> method to arbitrarily manipulate the size of the array (this usage is not common) that is used internally to store the elements.
 	 * Check the examples at the bottom of the page for further information about usage.</p>
 	 * <p>It's possible to create unique lists, typed lists and even unique typed lists.
-	 * You just sends the <code>ArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ArrayListUtil.getUniqueList</code>, <code>ArrayListUtil.getTypedList</code> or <code>ArrayListUtil.getUniqueTypedList</code>.</p>
+	 * You just sends the <code>ArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ListUtil.getUniqueList</code>, <code>ListUtil.getTypedList</code> or <code>ListUtil.getUniqueTypedList</code>.</p>
 	 * 
 	 * @example
 	 * 
@@ -369,9 +369,9 @@ package org.as3collections.lists
 	 * uniqueList                          // [[TestEquatableObject o1]]
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueList() ArrayListUtil.getUniqueList()
-	 * @see org.as3collections.utils.ArrayListUtil#getTypedList() ArrayListUtil.getTypedList()
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedList() ArrayListUtil.getUniqueTypedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueList() ListUtil.getUniqueList()
+	 * @see org.as3collections.utils.ListUtil#getTypedList() ListUtil.getTypedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
 	public class ArrayList extends AbstractList

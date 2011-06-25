@@ -72,7 +72,7 @@ package
 	import org.as3collections.queues.TypedQueueTests;
 	import org.as3collections.queues.UniqueQueueTests;
 	import org.as3collections.queues.UniqueQueueTestsEquatableObject;
-	import org.as3collections.utils.ArrayListUtilTests;
+	import org.as3collections.utils.ListUtilTests;
 	import org.as3collections.utils.MapUtilTests;
 	import org.as3collections.utils.QueueUtilTests;
 
@@ -138,7 +138,7 @@ package
 		public var uniqueQueueTestsEquatableObject:UniqueQueueTestsEquatableObject;
 		
 		//org.as3collections.utils
-		public var arrayListUtilTests:ArrayListUtilTests;
+		public var listUtilTests:ListUtilTests;
 		public var mapUtilTests:MapUtilTests;
 		public var queueUtilTests:QueueUtilTests;
 		

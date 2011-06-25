@@ -43,7 +43,7 @@ package org.as3collections.lists
 	 * If none was provided the default behavior of the <code>sort</code> method is used.</p>
 	 * <p>The user of this list may change their order at any time using the setters <code>comparator</code> and <code>options</code>, or by calling the <code>sort</code> or <code>sortOn</code> method and imposing others arguments to change the sort behaviour.</p>
 	 * <p>It's possible to create unique sorted lists, typed sorted lists and even unique typed sorted lists.
-	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ArrayListUtil.getUniqueTypedList</code>.
+	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ListUtil.getUniqueTypedList</code>.
 	 * But there's a problem here: the return type will be <code>UniqueList</code> or <code>TypedList</code>.
 	 * Thus you will not be able to use <code>sort</code> and <code>sortOn</code> methods directly (and even the setters <code>comparator</code> and <code>options</code>).
 	 * This is not such a big problem because <code>SortedArrayList</code> is automatically ordered whenever it changes, using the provided <code>comparator</code> and <code>options</code> constructor's arguments.
@@ -170,13 +170,13 @@ package org.as3collections.lists
 	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
-	 * import org.as3collections.utils.ArrayListUtil;
+	 * import org.as3collections.utils.ListUtil;
 	 * 
 	 * var arr:Array = [5, 1, 100, 10, 99, 5];
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ArrayListUtil.getUniqueList(l1);  // return type is UniqueList
+	 * var list1:IList = ListUtil.getUniqueList(l1);  // return type is UniqueList
 	 * 
 	 * list1                 // [100,99,10,5,1]
 	 * list1.size()          // 5
@@ -199,13 +199,13 @@ package org.as3collections.lists
 	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
-	 * import org.as3collections.utils.ArrayListUtil;
+	 * import org.as3collections.utils.ListUtil;
 	 * 
 	 * var arr:Array = [5, 1, 100, 10, 99, 5];
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ArrayListUtil.getTypedList(l1);  // return type is TypedList
+	 * var list1:IList = ListUtil.getTypedList(l1);  // return type is TypedList
 	 * 
 	 * list1                 // [100,99,10,5,5,1]
 	 * list1.size()          // 6
@@ -230,13 +230,13 @@ package org.as3collections.lists
 	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
-	 * import org.as3collections.utils.ArrayListUtil;
+	 * import org.as3collections.utils.ListUtil;
 	 * 
 	 * var arr:Array = [5, 1, 100, 10, 99, 5];
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ArrayListUtil.getUniqueTypedList(l1);  // return type is TypedList
+	 * var list1:IList = ListUtil.getUniqueTypedList(l1);  // return type is TypedList
 	 * 
 	 * list1                 // [100,99,10,5,1]
 	 * list1.size()          // 5
@@ -255,7 +255,7 @@ package org.as3collections.lists
 	 * list1.add("a")        // ClassCastError: Invalid element type. element: a | type: String | expected type: int
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ArrayListUtil ArrayListUtil
+	 * @see org.as3collections.utils.ListUtil ListUtil
 	 * @author Flávio Silva
 	 */
 	public class SortedArrayList extends ArrayList implements ISortedList

@@ -45,7 +45,7 @@ package org.as3collections.lists
 	 * The methods that need to be checked for duplication are previously validated before forward the call.
 	 * No error is thrown by the validation of duplication.
 	 * The calls that are forwarded to the <code>wrappedList</code> returns the return of the <code>wrappedList</code> call.
-	 * <p>You can also create unique and typed lists. See below the link "ArrayListUtil.getUniqueTypedList()".</p>
+	 * <p>You can also create unique and typed lists. See below the link "ListUtil.getUniqueTypedList()".</p>
 	 * 
 	 * @example
 	 * 
@@ -54,13 +54,13 @@ package org.as3collections.lists
 	 * import org.as3collections.IListIterator;
 	 * import org.as3collections.lists.ArrayList;
 	 * import org.as3collections.lists.UniqueList;
-	 * import org.as3collections.utils.ArrayListUtil;
+	 * import org.as3collections.utils.ListUtil;
 	 * 
 	 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 	 * 
 	 * var list1:IList = new UniqueList(l1); // you can use this way
 	 * 
-	 * //var list1:IList = ArrayListUtil.getUniqueList(l1); // or you can use this way
+	 * //var list1:IList = ListUtil.getUniqueList(l1); // or you can use this way
 	 * 
 	 * list1                       // [3,5,1,7]
 	 * list1.size()                // 4
@@ -122,14 +122,14 @@ package org.as3collections.lists
 	 * 
 	 * var list2:IList = new UniqueList(l2); // you can use this way
 	 * 
-	 * //var list2:IList = ArrayListUtil.getUniqueList(l2); // or you can use this way
+	 * //var list2:IList = ListUtil.getUniqueList(l2); // or you can use this way
 	 * 
 	 * list2                       // [1,2,3,4,5]
 	 * list2.size()                // 5
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueList() ArrayListUtil.getUniqueList()
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedList() ArrayListUtil.getUniqueTypedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueList() ListUtil.getUniqueList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
 	public class UniqueList extends UniqueCollection implements IList

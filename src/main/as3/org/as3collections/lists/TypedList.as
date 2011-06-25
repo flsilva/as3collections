@@ -46,7 +46,7 @@ package org.as3collections.lists
 	 * If the type of an element requested to be added to this list is incompatible with the type of the list a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
 	 * The calls that are forwarded to the <code>wrappedList</code> returns the return of the <code>wrappedList</code> call.
 	 * <p><code>TypedList</code> does not allow <code>null</code> elements.</p>
-	 * <p>You can also create unique and typed lists. See below the link "ArrayListUtil.getUniqueTypedList()".</p>
+	 * <p>You can also create unique and typed lists. See below the link "ListUtil.getUniqueTypedList()".</p>
 	 * 
 	 * @example
 	 * 
@@ -55,13 +55,13 @@ package org.as3collections.lists
 	 * import org.as3collections.IListIterator;
 	 * import org.as3collections.lists.ArrayList;
 	 * import org.as3collections.lists.TypedList;
-	 * import org.as3collections.utils.ArrayListUtil;
+	 * import org.as3collections.utils.ListUtil;
 	 * 
 	 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 	 * 
 	 * var list1:IList = new TypedList(l1, int); // you can use this way
 	 * 
-	 * //var list1:IList = ArrayListUtil.getTypedList(l1, int); // or you can use this way
+	 * //var list1:IList = ListUtil.getTypedList(l1, int); // or you can use this way
 	 * 
 	 * list1                          // [3,5,1,7]
 	 * list1.size()                   // 4
@@ -136,8 +136,8 @@ package org.as3collections.lists
 	 * list1.setAt(0, [1,2])          // ClassCastError: Invalid element type. element: 1,2 | type: Array | expected type: int
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ArrayListUtil#getTypedList() ArrayListUtil.getTypedList()
-	 * @see org.as3collections.utils.ArrayListUtil#getUniqueTypedList() ArrayListUtil.getUniqueTypedList()
+	 * @see org.as3collections.utils.ListUtil#getTypedList() ListUtil.getTypedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
 	public class TypedList extends TypedCollection implements IList

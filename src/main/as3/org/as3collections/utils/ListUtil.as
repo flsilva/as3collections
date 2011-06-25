@@ -40,16 +40,16 @@ package org.as3collections.utils
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class ArrayListUtil
+	public class ListUtil
 	{
 		/**
-		 * <code>ArrayListUtil</code> is a static class and shouldn't be instantiated.
+		 * <code>ListUtil</code> is a static class and shouldn't be instantiated.
 		 * 
-		 * @throws 	IllegalOperationError 	<code>ArrayListUtil</code> is a static class and shouldn't be instantiated.
+		 * @throws 	IllegalOperationError 	<code>ListUtil</code> is a static class and shouldn't be instantiated.
 		 */
-		public function ArrayListUtil()
+		public function ListUtil()
 		{
-			throw new IllegalOperationError("ArrayListUtil is a static class and shouldn't be instantiated.");
+			throw new IllegalOperationError("ListUtil is a static class and shouldn't be instantiated.");
 		}
 
 		/**
@@ -60,11 +60,11 @@ package org.as3collections.utils
 		 * <listing version="3.0">
 		 * import org.as3collections.IList;
 		 * import org.as3collections.lists.ArrayList;
-		 * import org.as3collections.utils.ArrayListUtil;
+		 * import org.as3collections.utils.ListUtil;
 		 * 
 		 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 		 * 
-		 * var list1:IList = ArrayListUtil.getTypedList(l1, int);
+		 * var list1:IList = ListUtil.getTypedList(l1, int);
 		 * 
 		 * list1                       // [3,5,1,7]
 		 * list1.size()                // 4
@@ -100,11 +100,11 @@ package org.as3collections.utils
 		 * <listing version="3.0">
 		 * import org.as3collections.IList;
 		 * import org.as3collections.lists.ArrayList;
-		 * import org.as3collections.utils.ArrayListUtil;
+		 * import org.as3collections.utils.ListUtil;
 		 * 
 		 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 		 * 
-		 * var list1:IList = ArrayListUtil.getUniqueList(l1);
+		 * var list1:IList = ListUtil.getUniqueList(l1);
 		 * 
 		 * list1                       // [3,5,1,7]
 		 * list1.size()                // 4
@@ -137,11 +137,11 @@ package org.as3collections.utils
 		 * import org.as3collections.IList;
 		 * import org.as3collections.lists.ArrayList;
 		 * import org.as3collections.lists.TypedList;
-		 * import org.as3collections.utils.ArrayListUtil;
+		 * import org.as3collections.utils.ListUtil;
 		 * 
 		 * var l1:IList = new ArrayList([3, 5, 1, 7]);
 		 * 
-		 * var list1:IList = ArrayListUtil.getUniqueTypedList(l1, int);
+		 * var list1:IList = ListUtil.getUniqueTypedList(l1, int);
 		 * 
 		 * list1                   // [3,5,1,7]
 		 * list1.size()            // 4
