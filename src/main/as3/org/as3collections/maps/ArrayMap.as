@@ -31,8 +31,14 @@ package org.as3collections.maps
 {
 	import org.as3collections.AbstractArrayMap;
 	import org.as3collections.IIterator;
+	import org.as3collections.IList;
+	import org.as3collections.IListMap;
+	import org.as3collections.IListMapIterator;
 	import org.as3collections.IMap;
+	import org.as3collections.iterators.ListMapIterator;
 	import org.as3collections.iterators.MapIterator;
+
+	import flash.errors.IllegalOperationError;
 
 	/**
 	 * Array based implementation of the <code>IMap</code> interface.
@@ -270,7 +276,19 @@ package org.as3collections.maps
 		{
 			return new MapIterator(this);
 		}
-
+		
+		/**
+		 * Returns a <code>IListMapIterator</code> object to iterate over the mappings in this map (in proper sequence), starting at the specified position in this map.
+		 * <p>This implementation returns a <code>ListMapIterator</code> object.</p>
+		 * 
+		 * @param  	index 	index of first value to be returned from the iterator (by a call to the <code>next</code> method) 
+		 * @return 	a <code>IListMapIterator</code> object to iterate over the mappings in this map (in proper sequence), starting at the specified position in this map.
+		 */
+		override public function listMapIterator(index:int = 0): IListMapIterator
+		{
+			return new ListMapIterator(this, index);
+		}
+		
 		/**
 		 * Associates the specified value with the specified key in this map.
 		 * If the map previously contained a mapping for the key, the old value is replaced by the specified value, and the order of the key is not affected. (A map <code>m</code> is said to contain a mapping for a key <code>k</code> if and only if <code>m.containsKey(k)</code> would return <code>true</code>.) 
@@ -286,7 +304,7 @@ package org.as3collections.maps
 			if (containsKey(key))
 			{
 				old = getValue(key);
-				values[indexOfKey(key)] = value;
+				values.setAt(indexOfKey(key), value);
 				
 				valueRemoved(old);
 				valueAdded(value);
@@ -295,14 +313,43 @@ package org.as3collections.maps
 			}
 			else
 			{
-				keys.push(key);
-				values.push(value);
+				keys.add(key);
+				values.add(value);
 				
 				keyAdded(key);
 				valueAdded(value);
 				
 				return null;
 			}
+		}
+		
+		/**
+		 * Associates the specified value with the specified key at the specified position in this map.
+		 * Shifts the entry currently at that position (if any) and any subsequent entries to the right (adds one to their indices).
+		 * 
+		 * @param  	index 	index at which the specified entry is to be inserted.
+		 * @param  	key 	key with which the specified value is to be associated.
+		 * @param  	value 	value to be associated with the specified key.
+		 * @throws 	ArgumentError  											if this map already contains the specified key.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
+		 */
+		override public function putAt(index:int, key:*, value:*): void
+		{
+			if (containsKey(key))
+			{
+				var message:String = "Argument <key> is already inside this map (at index: <" + indexOfKey(key) + ">.\n";
+				message += "Provided <index> argument: " + index + "\n";
+				message += "Provided <key> argument: " + key + "\n";
+				
+				throw new ArgumentError();
+			}
+			
+			checkIndex(index, size());
+			keys.addAt(index, key);
+			values.addAt(index, value);
+			
+			keyAdded(key);
+			valueAdded(value);
 		}
 
 		/**
@@ -322,14 +369,68 @@ package org.as3collections.maps
 			var old:* = getValue(key);
 			var index:int = indexOfKey(key);
 			
-			keys.splice(index, 1);
-			values.splice(index, 1);
+			keys.removeAt(index);
+			values.removeAt(index);
 			
 			keyRemoved(key);
 			valueRemoved(old);
 			
 			return old;
 		}
+		
+		/**
+		 *@inheritDoc 
+		 * 
+		 * @param  	fromIndex 	the index to start retrieving mappings (inclusive).
+		 * @param  	toIndex 	the index to stop retrieving mappings (exclusive).
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMapByIndex</code> operation is not supported by this map.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @return 	a new list that is a view of the specified range within this list.
+		 */
+		override public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
+		{
+			if (isEmpty()) throw new IllegalOperationError("This ArrayMap instance is empty.");
+			
+			checkIndex(fromIndex, size());
+			checkIndex(toIndex, size());
+			
+			if (fromIndex > toIndex) throw new ArgumentError("Argument <fromIndex> cannot be greater than argument <toIndex>. fromIndex: " + fromIndex + " | toIndex" + toIndex);
+			
+			var entryList:IList = entryList().subList(fromIndex, toIndex);
+			var map:IListMap = new ArrayMap();
+			
+			var it:IIterator = entryList.iterator();
+			
+			while (it.hasNext())
+			{
+				map.putEntry(it.next());
+			}
+			
+			return map;
+		}
+		
+		/**
+		 * @inheritDoc 
+		 * 
+		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
+		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
+		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
+		 */
+		override public function subMapByKey(fromKey:*, toKey:*): IListMap
+		{
+			if (isEmpty()) throw new IllegalOperationError("This ArrayMap instance is empty.");
+			
+			var fromIndex:int = indexOfKey(fromKey);
+			if (fromIndex == -1) throw new ArgumentError("This map does not contains the specified key: " + fromKey);
+			
+			var toIndex:int = indexOfKey(toKey);
+			if (toIndex == -1) throw new ArgumentError("This map does not contains the specified key: " + toKey);
+			
+			if (fromIndex > toIndex) throw new ArgumentError("The 'indexOfKey(fromKey)' cannot be greater than 'indexOfKey(toKey)'. indexOfKey(fromKey): " + fromIndex + " | indexOfKey(toKey)" + toIndex);
+			
+			return subMapByIndex(fromIndex, toIndex);
+		}
+
 	}
 
 }

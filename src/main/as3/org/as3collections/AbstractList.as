@@ -138,7 +138,8 @@ package org.as3collections
 		}
 
 		/**
-		 * Inserts the specified element at the specified position in this list (optional operation). Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+		 * Inserts the specified element at the specified position in this list (optional operation).
+		 * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @param  	index 		index at which the specified element is to be inserted.

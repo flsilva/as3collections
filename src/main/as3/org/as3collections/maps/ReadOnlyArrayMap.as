@@ -90,8 +90,8 @@ package org.as3collections.maps
 			{
 				value = it.next();
 				
-				keys.push(it.pointer());
-				values.push(value);
+				keys.add(it.pointer());
+				values.add(value);
 				
 				keyAdded(it.pointer());
 				valueAdded(value);

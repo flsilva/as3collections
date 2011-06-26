@@ -121,23 +121,6 @@ package org.as3collections.maps
 			Assert.assertTrue(equal);
 		}
 		
-		///////////////////////////////////////
-		// TypedSortedMap().firstKey() TESTS //
-		///////////////////////////////////////
-		
-		[Test]
-		public function firstKey_mapWithIntegerKeys_numericAscendingOrder_checkIfReturnedCorrectKey_ReturnsTrue(): void
-		{
-			var newMap:ISortedMap = getMap(int, String) as ISortedMap;
-			newMap.options = Array.NUMERIC;
-			newMap.put(9, "element-9");
-			newMap.put(7, "element-7");
-			newMap.put(5, "element-5");
-			
-			var key:int = newMap.firstKey();
-			Assert.assertEquals(5, key);
-		}
-		
 		//////////////////////////////////////
 		// TypedSortedMap().headMap() TESTS //
 		//////////////////////////////////////
@@ -194,23 +177,6 @@ package org.as3collections.maps
 			Assert.assertEquals(0, index);
 		}
 		
-		//////////////////////////////////////
-		// TypedSortedMap().lastKey() TESTS //
-		//////////////////////////////////////
-		
-		[Test]
-		public function lastKey_mapWithIntegerKeys_numericAscendingOrder_checkIfReturnedCorrectKey_ReturnsTrue(): void
-		{
-			var newMap:ISortedMap = getMap(int, String) as ISortedMap;
-			newMap.options = Array.NUMERIC;
-			newMap.put(9, "element-9");
-			newMap.put(7, "element-7");
-			newMap.put(5, "element-5");
-			
-			var key:int = newMap.lastKey();
-			Assert.assertEquals(9, key);
-		}
-		
 		///////////////////////////////////
 		// SortedArrayMap().sort() TESTS //
 		///////////////////////////////////
@@ -250,18 +216,18 @@ package org.as3collections.maps
 			Assert.assertEquals(0, index);
 		}
 		
-		/////////////////////////////////////
-		// TypedSortedMap().subMap() TESTS //
-		/////////////////////////////////////
+		//////////////////////////////////////////
+		// TypedSortedMap().subMapByKey() TESTS //
+		//////////////////////////////////////////
 		
 		[Test]
-		public function subMap_mapWithThreeKeyValue_checkIfReturnedMapIsCorrect_ReturnsTrue(): void
+		public function subMapByKey_mapWithThreeKeyValue_checkIfReturnedMapIsCorrect_ReturnsTrue(): void
 		{
 			typedSortedMap.put("element-1", 1);
 			typedSortedMap.put("element-2", 2);
 			typedSortedMap.put("element-3", 3);
 			
-			var subMap:IMap = typedSortedMap.subMap("element-1", "element-3");
+			var subMap:IMap = typedSortedMap.subMapByKey("element-1", "element-3");
 			
 			var equalSubMap:IMap = getMap(String, int);
 			equalSubMap.put("element-1", 1);

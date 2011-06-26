@@ -38,7 +38,7 @@ package org.as3collections
 	 * 
 	 * @author Flávio Silva
 	 */
-	public interface ISortedMap extends ISortable, IMap
+	public interface ISortedMap extends ISortable, IListMap
 	{
 
 		/**
@@ -47,49 +47,6 @@ package org.as3collections
 		function get sortBy(): SortMapBy;
 		
 		function set sortBy(value:SortMapBy): void;
-
-		/**
-		 * Returns the first (lowest) key currently in this map.
-		 * 
-		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
-		 * @return 	the first (lowest) key currently in this map.
- 		 */
-		function firstKey(): *;
-
-		/**
-		 * Returns a new sorted map that is a view of the portion of this map whose keys are strictly less than <code>toKey</code>.
-		 * The returned map supports all optional map operations that this map supports.
-		 * 
-		 * @param  	toKey 	high endpoint (exclusive) of the keys in the returned map.
-		 * @throws 	ArgumentError 	if <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
-		 * @throws 	ArgumentError 	if <code>containsKey(toKey)</code> returns <code>false</code>.
-		 * @return 	a new sorted map that is a view of the portion of this map whose keys are strictly less than <code>toKey</code>.
-		 */
-		function headMap(toKey:*): ISortedMap;
-
-		/**
-		 * Returns the position of the specified key.
-		 * 
-		 * @param  	key 	the key to search for.
-		 * @return 	the position of the specified key.
- 		 */
-		function indexOfKey(key:*): int;
-
-		/**
-		 * Returns the position of the specified value.
-		 * 
-		 * @param  	value 	the value to search for.
-		 * @return 	the position of the specified value.
- 		 */
-		function indexOfValue(value:*): int;
-
-		/**
-		 * Returns the last (highest) key currently in this map.
-		 * 
-		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
-		 * @return 	the last (highest) key currently in this map.
- 		 */
-		function lastKey(): *;
 
 		/**
 		 * Sorts the elements in an array according to one or more fields in the array.
@@ -101,31 +58,7 @@ package org.as3collections
 		 * @see http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/Array.html#sortOn()
 		 */
 		function sortOn(fieldName:*, options:* = null): Array;
-
-		/**
-		 * Returns a new sorted map that is a view of the portion of this map whose keys range from <code>fromKey</code>, inclusive, to <code>toKey</code>, exclusive.
-		 * (If <code>fromKey</code> and <code>toKey</code> are equal, the returned map is empty.)
-		 * The returned map supports all optional map operations that this map supports. 
-		 * 
-		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.
-		 * @param  	toKey 		high endpoint (exclusive) of the keys in the returned map.
-		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
-		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
-		 * @return 	a new sorted map that is a view of the portion of this map whose keys range from <code>fromKey</code>, inclusive, to <code>toKey</code>, exclusive.
-		 */
-		function subMap(fromKey:*, toKey:*): ISortedMap;
-
-		/**
-		 * Returns a new sorted map that is a view of the portion of this map whose keys are greater than or equal to <code>fromKey</code>.
-		 * The returned map supports all optional map operations that this map supports.
-		 * 
-		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.
-		 * @throws 	ArgumentError 	if <code>fromKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> returns <code>false</code>.
-		 * @return 	a new sorted map that is a view of the portion of this map whose keys are greater than or equal to <code>fromKey</code>.
-		 */
-		function tailMap(fromKey:*): ISortedMap;
+		
 	}
 
 }

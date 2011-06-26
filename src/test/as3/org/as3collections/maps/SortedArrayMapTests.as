@@ -222,23 +222,6 @@ package org.as3collections.maps
 			Assert.assertTrue(equal);
 		}
 		
-		///////////////////////////////////////
-		// SortedArrayMap().firstKey() TESTS //
-		///////////////////////////////////////
-		
-		[Test]
-		public function firstKey_mapWithIntegerKeys_numericAscendingOrder_checkIfReturnedCorrectKey_ReturnsTrue(): void
-		{
-			sortedMap.options = Array.NUMERIC;
-			
-			sortedMap.put(9, "element-9");
-			sortedMap.put(7, "element-7");
-			sortedMap.put(5, "element-5");
-			
-			var key:int = sortedMap.firstKey();
-			Assert.assertEquals(5, key);
-		}
-		
 		//////////////////////////////////////
 		// SortedArrayMap().headMap() TESTS //
 		//////////////////////////////////////
@@ -332,23 +315,6 @@ package org.as3collections.maps
 			Assert.assertEquals(0, index);
 		}
 		
-		//////////////////////////////////////
-		// SortedArrayMap().lastKey() TESTS //
-		//////////////////////////////////////
-		
-		[Test]
-		public function lastKey_mapWithIntegerKeys_numericAscendingOrder_checkIfReturnedCorrectKey_ReturnsTrue(): void
-		{
-			sortedMap.options = Array.NUMERIC;
-			
-			sortedMap.put(9, "element-9");
-			sortedMap.put(7, "element-7");
-			sortedMap.put(5, "element-5");
-			
-			var key:int = sortedMap.lastKey();
-			Assert.assertEquals(9, key);
-		}
-		
 		///////////////////////////////////
 		// SortedArrayMap().sort() TESTS //
 		///////////////////////////////////
@@ -405,83 +371,83 @@ package org.as3collections.maps
 			Assert.assertEquals(0, index);
 		}
 		
-		/////////////////////////////////////
-		// SortedArrayMap().subMap() TESTS //
-		/////////////////////////////////////
+		//////////////////////////////////////////
+		// SortedArrayMap().subMapByKey() TESTS //
+		//////////////////////////////////////////
 		
 		[Test(expects="flash.errors.IllegalOperationError")]
-		public function subMap_emptyMap_illegalOperation_ThrowsError(): void
+		public function subMapByKey_emptyMap_illegalOperation_ThrowsError(): void
 		{
-			sortedMap.subMap(0, 0);
+			sortedMap.subMapByKey(0, 0);
 		}
 		
 		[Test(expects="ArgumentError")]
-		public function subMap_notEmptyMap_notContainedFromKey_ThrowsError(): void
+		public function subMapByKey_notEmptyMap_notContainedFromKey_ThrowsError(): void
 		{
 			sortedMap.put("element-1", 1);
 			sortedMap.put("element-2", 2);
 			sortedMap.put("element-3", 3);
 			
-			sortedMap.subMap("element-0", "element-1");
+			sortedMap.subMapByKey("element-0", "element-1");
 		}
 		
 		[Test(expects="ArgumentError")]
-		public function subMap_notEmptyMap_notContainedToKey_ThrowsError(): void
+		public function subMapByKey_notEmptyMap_notContainedToKey_ThrowsError(): void
 		{
 			sortedMap.put("element-1", 1);
 			sortedMap.put("element-2", 2);
 			sortedMap.put("element-3", 3);
 			
-			sortedMap.subMap("element-1", "element-4");
+			sortedMap.subMapByKey("element-1", "element-4");
 		}
 		
 		[Test]
-		public function subMap_notEmptyMap_checkIfReturnedMapSizeMatches_ReturnsTrue(): void
+		public function subMapByKey_notEmptyMap_checkIfReturnedMapSizeMatches_ReturnsTrue(): void
 		{
 			sortedMap.put("element-1", 1);
 			sortedMap.put("element-2", 2);
 			sortedMap.put("element-3", 3);
 			
-			var subMap:IMap = sortedMap.subMap("element-1", "element-3");
+			var subMap:IMap = sortedMap.subMapByKey("element-1", "element-3");
 			
 			var size:int = subMap.size();
 			Assert.assertEquals(2, size);
 		}
 		
 		[Test]
-		public function subMap_notEmptyMap_checkIfSubMapContainsKey_ReturnsTrue(): void
+		public function subMapByKey_notEmptyMap_checkIfSubMapContainsKey_ReturnsTrue(): void
 		{
 			sortedMap.put("element-1", 1);
 			sortedMap.put("element-2", 2);
 			sortedMap.put("element-3", 3);
 			
-			var subMap:IMap = sortedMap.subMap("element-1", "element-3");
+			var subMap:IMap = sortedMap.subMapByKey("element-1", "element-3");
 			
 			var contains:Boolean = subMap.containsKey("element-2");
 			Assert.assertTrue(contains);
 		}
 		
 		[Test]
-		public function subMap_notEmptyMap_checkIfSubMapContainsKey_ReturnsFalse(): void
+		public function subMapByKey_notEmptyMap_checkIfSubMapContainsKey_ReturnsFalse(): void
 		{
 			sortedMap.put("element-1", 1);
 			sortedMap.put("element-2", 2);
 			sortedMap.put("element-3", 3);
 			
-			var subMap:IMap = sortedMap.subMap("element-1", "element-3");
+			var subMap:IMap = sortedMap.subMapByKey("element-1", "element-3");
 			
 			var contains:Boolean = subMap.containsKey("element-3");
 			Assert.assertFalse(contains);
 		}
 		
 		[Test]
-		public function subMap_mapWithThreeKeyValue_checkIfReturnedMapIsCorrect_ReturnsTrue(): void
+		public function subMapByKey_mapWithThreeKeyValue_checkIfReturnedMapIsCorrect_ReturnsTrue(): void
 		{
 			sortedMap.put("element-1", 1);
 			sortedMap.put("element-2", 2);
 			sortedMap.put("element-3", 3);
 			
-			var subMap:IMap = sortedMap.subMap("element-1", "element-3");
+			var subMap:IMap = sortedMap.subMapByKey("element-1", "element-3");
 			
 			var equalSubMap:IMap = getMap();
 			equalSubMap.put("element-1", 1);

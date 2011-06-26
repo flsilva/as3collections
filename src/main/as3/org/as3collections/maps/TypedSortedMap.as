@@ -29,6 +29,8 @@
 
 package org.as3collections.maps
 {
+	import org.as3collections.IListMap;
+	import org.as3collections.IMap;
 	import org.as3collections.ISortedMap;
 	import org.as3collections.SortMapBy;
 	import org.as3coreaddendum.system.IComparator;
@@ -81,7 +83,7 @@ package org.as3collections.maps
 	 * @see org.as3collections.utils.MapUtil#getTypedSortedMap() MapUtil.getTypedSortedMap()
 	 * @author Flávio Silva
 	 */
-	public class TypedSortedMap extends TypedMap implements ISortedMap
+	public class TypedSortedMap extends TypedListMap implements ISortedMap
 	{
 		/**
 		 * Defines the <code>wrappedMap</code> comparator object to be used automatically to sort.
@@ -172,58 +174,19 @@ package org.as3collections.maps
 			
 			return super.equals(other);
 		}
-
-		/**
-		 * Forwards the call to <code>wrappedMap.firstKey</code>.
-		 * 
-		 * @return
- 		 */
-		public function firstKey(): *
-		{
-			return wrappedSortedMap.firstKey();
-		}
-
+		
 		/**
 		 * Forwards the call to <code>wrappedMap.headMap</code>.
 		 * 
 		 * @param toKey
 		 * @return
 		 */
-		public function headMap(toKey:*): ISortedMap
+		override public function headMap(toKey:*): IListMap
 		{
-			return new TypedSortedMap(wrappedSortedMap.headMap(toKey), typeKeys, typeValues);
-		}
-
-		/**
-		 * Forwards the call to <code>wrappedMap.indexOfKey</code>.
-		 * 
-		 * @param key
-		 * @return
-		 */
-		public function indexOfKey(key:*): int
-		{
-			return wrappedSortedMap.indexOfKey(key);
-		}
-
-		/**
-		 * Forwards the call to <code>wrappedMap.indexOfValue</code>.
-		 * 
-		 * @param value
-		 * @return
-		 */
-		public function indexOfValue(value:*): int
-		{
-			return wrappedSortedMap.indexOfValue(value);
-		}
-
-		/**
-		 * Forwards the call to <code>wrappedMap.lastKey</code>.
-		 * 
-		 * @return
- 		 */
-		public function lastKey(): *
-		{
-			return wrappedSortedMap.lastKey();
+			var headMap:IMap = wrappedSortedMap.headMap(toKey);
+			var sortedSubMap:ISortedMap = new SortedArrayMap(headMap, comparator, options);
+			
+			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
 		}
 
 		/**
@@ -249,17 +212,35 @@ package org.as3collections.maps
 		{
 			return wrappedSortedMap.sortOn(fieldName, options);
 		}
-
+		
 		/**
-		 * Forwards the call to <code>wrappedMap.subMap</code>.
+		 * Forwards the call to <code>wrappedMap.subMapByIndex</code>.
+		 * 
+		 * @param fromIndex
+		 * @param toIndex
+		 * @return
+		 */
+		override public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
+		{
+			var subMap:IMap = wrappedSortedMap.subMapByIndex(fromIndex, toIndex);
+			var sortedSubMap:ISortedMap = new SortedArrayMap(subMap, comparator, options);
+			
+			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
+		}
+		
+		/**
+		 * Forwards the call to <code>wrappedMap.subMapByKey</code>.
 		 * 
 		 * @param fromKey
 		 * @param toKey
 		 * @return
 		 */
-		public function subMap(fromKey:*, toKey:*): ISortedMap
+		override public function subMapByKey(fromKey:*, toKey:*): IListMap
 		{
-			return new TypedSortedMap(wrappedSortedMap.subMap(fromKey, toKey), typeKeys, typeValues);
+			var subMap:IMap = wrappedSortedMap.subMapByKey(fromKey, toKey);
+			var sortedSubMap:ISortedMap = new SortedArrayMap(subMap, comparator, options);
+			
+			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
 		}
 
 		/**
@@ -268,9 +249,12 @@ package org.as3collections.maps
 		 * @param fromKey
 		 * @return
 		 */
-		public function tailMap(fromKey:*): ISortedMap
+		override public function tailMap(fromKey:*): IListMap
 		{
-			return new TypedSortedMap(wrappedSortedMap.tailMap(fromKey), typeKeys, typeValues);
+			var tailMap:IMap = wrappedSortedMap.tailMap(fromKey);
+			var sortedSubMap:ISortedMap = new SortedArrayMap(tailMap, comparator, options);
+			
+			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
 		}
 
 	}

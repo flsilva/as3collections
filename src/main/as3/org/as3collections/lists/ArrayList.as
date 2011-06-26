@@ -552,6 +552,8 @@ package org.as3collections.lists
 			checkIndex(fromIndex, size());
 			checkIndex(toIndex, size());
 			
+			if (fromIndex > toIndex) throw new ArgumentError("Argument <fromIndex> cannot be greater than argument <toIndex>. fromIndex: " + fromIndex + " | toIndex" + toIndex);
+			
 			var l:IList = new ArrayList(data.slice(fromIndex, toIndex));
 			
 			return l;

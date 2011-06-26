@@ -31,10 +31,11 @@ package org.as3collections.maps
 {
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
+	import org.as3collections.IListMap;
 	import org.as3collections.IMap;
 	import org.as3collections.ISortedMap;
 	import org.as3collections.SortMapBy;
-	import org.as3collections.errors.NoSuchElementError;
+	import org.as3collections.lists.ArrayList;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3utils.ArrayUtil;
 	import org.as3utils.ReflectionUtil;
@@ -201,39 +202,6 @@ package org.as3collections.maps
 			
 			return super.equals(other);
 		}
-		
-		/**
-		 * @inheritDoc
-		 * 
-		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
- 		 */
-		public function firstKey(): *
-		{
-			if (isEmpty()) throw new NoSuchElementError("The map is empty.");
-			return keys[0];
-		}
-
-		/**
-		 * @inheritDoc
-		 * 
-		 * @throws 	ArgumentError 	if <code>containsKey(toKey)</code> returns <code>false</code>.
-		 */
-		public function headMap(toKey:*): ISortedMap
-		{
-			if (!containsKey(toKey)) throw new ArgumentError("This maps does not contains the specified key: " + toKey);
-			return subMap(firstKey(), toKey);
-		}
-
-		/**
-		 * @inheritDoc
-		 * 
-		 * @throws 	org.as3collections.errors.NoSuchElementError 	if this map is empty.
- 		 */
-		public function lastKey(): *
-		{
-			if (isEmpty()) throw new NoSuchElementError("The map is empty.");
-			return keys[size() - 1];
-		}
 
 		/**
 		 * @inheritDoc
@@ -270,13 +238,13 @@ package org.as3collections.maps
 			
 			if (_sortBy == SortMapBy.KEY)
 			{
-				sortArray = keys;
-				otherArray = values;
+				sortArray = keys.toArray();
+				otherArray = values.toArray();
 			}
 			else
 			{
-				sortArray = values;
-				otherArray = keys;
+				sortArray = values.toArray();
+				otherArray = keys.toArray();
 			}
 			
 			var arr:Array;
@@ -293,6 +261,17 @@ package org.as3collections.maps
 			ArrayUtil.swapPositions(sortArray, arr);
 			ArrayUtil.swapPositions(otherArray, arr);
 			
+			if (_sortBy == SortMapBy.KEY)
+			{
+				keys = new ArrayList(sortArray);
+				values = new ArrayList(otherArray);
+			}
+			else
+			{
+				keys = new ArrayList(otherArray);
+				values = new ArrayList(sortArray);
+			}
+			
 			return arr;
 		}
 
@@ -308,13 +287,13 @@ package org.as3collections.maps
 			
 			if (_sortBy == SortMapBy.KEY)
 			{
-				sortArray = keys;
-				otherArray = values;
+				sortArray = keys.toArray();
+				otherArray = values.toArray();
 			}
 			else
 			{
-				sortArray = values;
-				otherArray = keys;
+				sortArray = values.toArray();
+				otherArray = keys.toArray();
 			}
 			
 			var arr:Array = sortArray.sortOn(fieldName, options | Array.RETURNINDEXEDARRAY);
@@ -322,30 +301,40 @@ package org.as3collections.maps
 			ArrayUtil.swapPositions(sortArray, arr);
 			ArrayUtil.swapPositions(otherArray, arr);
 			
+			if (_sortBy == SortMapBy.KEY)
+			{
+				keys = new ArrayList(sortArray);
+				values = new ArrayList(otherArray);
+			}
+			else
+			{
+				keys = new ArrayList(otherArray);
+				values = new ArrayList(sortArray);
+			}
+			
 			return arr;
 		}
-
+		
 		/**
-		 * @inheritDoc 
+		 *@inheritDoc 
 		 * 
-		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
-		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
+		 * @param  	fromIndex 	the index to start retrieving mappings (inclusive).
+		 * @param  	toIndex 	the index to stop retrieving mappings (exclusive).
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMapByIndex</code> operation is not supported by this map.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @return 	a new list that is a view of the specified range within this list.
 		 */
-		public function subMap(fromKey:*, toKey:*): ISortedMap
+		override public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
 		{
-			if (isEmpty()) throw new IllegalOperationError("This SortedArrayMap instance is empty.");
+			if (isEmpty()) throw new IllegalOperationError("This ArrayMap instance is empty.");
 			
-			if (!containsKey(fromKey)) throw new ArgumentError("This maps does not contains the specified key: " + fromKey);
-			if (!containsKey(toKey)) throw new ArgumentError("This maps does not contains the specified key: " + toKey);
+			checkIndex(fromIndex, size());
+			checkIndex(toIndex, size());
 			
-			var fromIndex:int = indexOfKey(fromKey);
-			var toIndex:int = indexOfKey(toKey);
-			
-			if (fromIndex > toIndex) throw new ArgumentError("The 'indexOfKey(fromKey)' cannot be greater than 'indexOfKey(toKey)'. indexOfKey(fromKey): " + fromIndex + " | indexOfKey(toKey)" + toIndex);
+			if (fromIndex > toIndex) throw new ArgumentError("Argument <fromIndex> cannot be greater than argument <toIndex>. fromIndex: " + fromIndex + " | toIndex" + toIndex);
 			
 			var entryList:IList = entryList().subList(fromIndex, toIndex);
-			var map:ISortedMap = new SortedArrayMap(null, _comparator, _options);
+			var map:IListMap = new SortedArrayMap(null, comparator, options);
 			
 			var it:IIterator = entryList.iterator();
 			
@@ -353,21 +342,6 @@ package org.as3collections.maps
 			{
 				map.putEntry(it.next());
 			}
-			
-			return map;
-		}
-
-		/**
-		 * @inheritDoc
-		 * 
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> returns <code>false</code>.
-		 */
-		public function tailMap(fromKey:*): ISortedMap
-		{
-			if (!containsKey(fromKey)) throw new ArgumentError("This maps does not contains the specified key: " + fromKey);
-			
-			var map:ISortedMap = subMap(fromKey, lastKey());
-			map.put(lastKey(), getValue(lastKey()));
 			
 			return map;
 		}
