@@ -393,6 +393,18 @@ package org.as3collections
 			Assert.assertEquals(2, size);
 		}
 		
+		[Test]
+		public function getKeys_mapWithTwoNotEquatableElements_checkIfReturnedListContainsKey_ReturnsTrue(): void
+		{
+			map.put("element-1", 1);
+			map.put("element-2", 2);
+			
+			var keys:IList = map.getKeys();
+			
+			var contains:Boolean = keys.contains("element-1");
+			Assert.assertTrue(contains);
+		}
+		
 		/////////////////////////////
 		// IMap().getValue() TESTS //
 		/////////////////////////////
@@ -465,6 +477,18 @@ package org.as3collections
 			
 			var values:int = keys.size();
 			Assert.assertEquals(2, values);
+		}
+		
+		[Test]
+		public function getValues_mapWithTwoNotEquatableElements_checkIfReturnedListContainsValue_ReturnsTrue(): void
+		{
+			map.put("element-1", 1);
+			map.put("element-2", 2);
+			
+			var values:IList = map.getValues();
+			
+			var contains:Boolean = values.contains(2);
+			Assert.assertTrue(contains);
 		}
 		
 		////////////////////////////

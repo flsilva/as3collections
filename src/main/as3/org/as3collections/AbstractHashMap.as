@@ -217,7 +217,6 @@ package org.as3collections
 		 */
 		public function getValue(key:*): *
 		{
-			if (!containsKey(key)) return null;
 			if (allKeysEquatable && key is IEquatable) return getValueByEquality(key);
 			return _map[key];
 		}
@@ -384,13 +383,7 @@ package org.as3collections
 			{
 				e = it.next();
 				
-				if (keys.contains(it.pointer()))
-				{
-					it.remove();
-					
-					keyRemoved(it.pointer());
-					valueRemoved(e);
-				}
+				if (keys.contains(it.pointer())) it.remove();
 			}
 			
 			return prevSize != size();
@@ -422,13 +415,7 @@ package org.as3collections
 			{
 				value = it.next();
 				
-				if (!keys.contains(it.pointer()))
-				{
-					it.remove();
-					
-					keyRemoved(it.pointer());
-					valueRemoved(value);
-				}
+				if (!keys.contains(it.pointer())) it.remove();
 			}
 			
 			return prevSize != size();
@@ -457,13 +444,14 @@ package org.as3collections
 		 */
 		private function containsKeyByEquality(key:*): Boolean
 		{
-			var it:IIterator = getKeys().iterator();
-			var e:IEquatable;
+			var it:IIterator = iterator();
+			var $key:IEquatable;
 			
 			while (it.hasNext())
 			{
-				e = it.next();
-				if (e.equals(key)) return true;
+				it.next();
+				$key = it.pointer();
+				if ($key.equals(key)) return true;
 			}
 			
 			return false;
@@ -474,13 +462,13 @@ package org.as3collections
 		 */
 		private function containsValueByEquality(value:*): Boolean
 		{
-			var it:IIterator = getValues().iterator();
-			var e:IEquatable;
+			var it:IIterator = iterator();
+			var $value:IEquatable;
 			
 			while (it.hasNext())
 			{
-				e = it.next();
-				if (e.equals(value)) return true;
+				$value = it.next();
+				if ($value.equals(value)) return true;
 			}
 			
 			return false;
@@ -491,21 +479,24 @@ package org.as3collections
 		 */
 		protected function getValueByEquality(key:*) :*
 		{
-			var it:IIterator = entryList().iterator();
-			var e:IMapEntry;
+			var it:IIterator = iterator();
+			var $key:IEquatable;
 			var value:*;
+			var returnValue:*;
 			
 			while (it.hasNext())
 			{
-				e = it.next();
-				if ((e.key as IEquatable).equals(key))
+				value = it.next();
+				$key = it.pointer();
+				
+				if ($key.equals(key))
 				{
-					value = e.value;
+					returnValue = value;
 					break;
 				}
 			}
 			
-			return value;
+			return returnValue;
 		}
 		
 		/**

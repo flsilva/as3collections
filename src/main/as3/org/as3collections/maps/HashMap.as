@@ -284,34 +284,21 @@ package org.as3collections.maps
 		 */
 		override public function put(key:*, value:*): *
 		{
-			var old:*;
+			var oldValue:*;
 			
-			if (containsKey(key))
-			{
-				if (allKeysEquatable && key is IEquatable)
-				{
-					old = getValue(key);
-				}
-				else
-				{
-					old = map[key];
-				}
-				
-				remove(key);
-			}
+			if (containsKey(key)) oldValue = remove(key);
 			
 			_size++;
 			map[key] = value;
 			
 			var countValues:int = values[value];
 			if (countValues < 1) countValues = 0;
-			
 			values[value] = ++countValues;
 			
 			keyAdded(key);
 			valueAdded(value);
 			
-			return old;
+			return oldValue;
 		}
 
 		/**
@@ -326,44 +313,75 @@ package org.as3collections.maps
 		 */
 		override public function remove(key:*): *
 		{
-			if (!containsKey(key)) return null;
-			
-			var old:*;
-			
-			if (allKeysEquatable)
+			if (allKeysEquatable && key is IEquatable)
 			{
-				var it:IIterator = iterator();
-				var e:*;
-				
-				while (it.hasNext())
-				{
-					e = it.next();
-					
-					if ((key as IEquatable).equals(it.pointer()))
-					{
-						old = e;
-						delete map[it.pointer()];
-						
-						break;
-					}
-				}
+				return removeByEquality(key);
 			}
 			else
 			{
-				old = map[key];
-				delete map[key];
+				return removeByInstance(key);
 			}
+		}
+		
+		/**
+		 * @private
+		 */
+		override protected function valueRemoved(value:*): void
+		{
+			super.valueRemoved(value);
 			
-			var countValues:int = values[old];
+			var countValues:int = values[value];
+			
 			if (countValues > 1)
 			{
-				values[old] = --countValues;
+				values[value] = --countValues;
 			}
 			else
 			{
-				delete values[old];
+				delete values[value];
+			}
+		}
+		
+		/**
+		 * @private
+		 */
+		private function removeByEquality(key:*): *
+		{
+			var it:IIterator = iterator();
+			var $key:IEquatable;
+			var value:*;
+			var returnValue:*;
+			
+			while (it.hasNext())
+			{
+				value = it.next();
+				$key = it.pointer();
+				
+				if ($key.equals(key))
+				{
+					returnValue = value;
+					delete map[$key];
+					_size--;
+					
+					keyRemoved(key);
+					valueRemoved(value);
+					
+					break;
+				}
 			}
 			
+			return returnValue;
+		}
+		
+		/**
+		 * @private
+		 */
+		private function removeByInstance(key:*): *
+		{
+			if (map[key] === undefined) return null;
+			
+			var old:* = map[key];
+			delete map[key];
 			_size--;
 			
 			keyRemoved(key);
@@ -371,6 +389,7 @@ package org.as3collections.maps
 			
 			return old;
 		}
+		
 	}
 
 }
