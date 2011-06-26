@@ -399,7 +399,6 @@ package org.as3collections.lists
 			checkIndex(index, size());
 			data.splice(index, 0, element);
 			elementAdded(element);
-			_modCount++;
 			return true;
 		}
 
@@ -471,7 +470,6 @@ package org.as3collections.lists
 			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This list is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
 			
 			checkIndex(index, size() - 1);
-			_modCount++;
 			
 			var e:* = data.splice(index, 1)[0];
 			elementRemoved(e);
@@ -494,9 +492,14 @@ package org.as3collections.lists
 			
 			checkIndex(fromIndex, size());
 			checkIndex(toIndex, size());
-			_modCount++;
 			
 			var l:IList = new ArrayList(data.splice(fromIndex, toIndex - fromIndex));
+			
+			if (_totalEquatable < 1)
+			{
+				_modCount += l.size();
+				return l;
+			}
 			
 			var it:IIterator = l.iterator();
 			var e:*;
@@ -528,6 +531,7 @@ package org.as3collections.lists
 			
 			elementRemoved(old);
 			elementAdded(element);
+			_modCount -= 2;// elementRemoved() and elementAdded() will increase modCount undesirably
 			
 			return old;
 		}

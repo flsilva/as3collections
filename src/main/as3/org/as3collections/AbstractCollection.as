@@ -59,7 +59,7 @@ package org.as3collections
 		 */
 		protected var _totalEquatable: int;
 
-		private var _data: Array = [];
+		private var _data: Array;
 
 		/**
 		 * @inheritDoc
@@ -80,6 +80,8 @@ package org.as3collections
 		public function AbstractCollection(source:Array = null)
 		{
 			if (ReflectionUtil.classPathEquals(this, AbstractCollection))  throw new IllegalOperationError(ReflectionUtil.getClassName(this) + " is an abstract class and shouldn't be instantiated directly.");
+			
+			_data = [];
 			
 			if (source && source.length > 0)
 			{
@@ -262,8 +264,7 @@ package org.as3collections
 			}
 			else
 			{
-				if (!contains(o)) return false;
-				return _remove(o);
+				return removeByInstance(o);
 			}
 		}
 
@@ -440,26 +441,15 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		private function _remove(o:*): Boolean
+		private function removeByInstance(o:*): Boolean
 		{
-			var it:IIterator = iterator();
-			var e:*;
-			var removed:Boolean;
+			var index:int = _data.indexOf(o);
+			if (index == -1) return false;
 			
-			while (it.hasNext())
-			{
-				e = it.next();
-				
-				if (e == o)
-				{
-					it.remove();
-					elementRemoved(e);
-					removed = true;
-					break;
-				}
-			}
+			_data.splice(index, 1);
+			elementRemoved(o);
 			
-			return removed;
+			return true;
 		}
 
 	}

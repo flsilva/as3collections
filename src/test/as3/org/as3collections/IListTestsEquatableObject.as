@@ -525,7 +525,7 @@ package org.as3collections
 			list.removeRange(1, 3);
 			
 			var modCount:int = list.modCount;
-			Assert.assertEquals(4, modCount);
+			Assert.assertEquals(5, modCount);
 		}
 		
 		[Test]

@@ -201,8 +201,10 @@ package org.as3collections
 		 */
 		public function getValue(key:*): *
 		{
-			if (!containsKey(key)) return null;
-			return _values[indexOfKey(key)];
+			var indexKey:int = indexOfKey(key);
+			if (indexKey == -1) return null;
+			
+			return _values[indexKey];
 		}
 
 		/**
@@ -378,18 +380,18 @@ package org.as3collections
 			
 			var prevSize:int = size();
 			var it:IIterator = iterator();
-			var e:*;
+			var value:*;
 			
 			while (it.hasNext())
 			{
-				e = it.next();
+				value = it.next();
 				
 				if (keys.contains(it.pointer()))
 				{
 					it.remove();
 					
 					keyRemoved(it.pointer());
-					valueRemoved(e);
+					valueRemoved(value);
 				}
 			}
 			

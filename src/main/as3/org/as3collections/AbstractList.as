@@ -190,16 +190,7 @@ package org.as3collections
 		{
 			if (allEquatable && element is IEquatable)
 			{
-				var it:IIterator = iterator();
-				var e:*;
-				
-				while (it.hasNext())
-				{
-					e = it.next();
-					if (it.pointer() >= fromIndex && (e as IEquatable).equals(element)) return it.pointer();
-				}
-				
-				return -1;
+				return indexOfByEquality(element, fromIndex);
 			}
 			else
 			{
@@ -221,19 +212,7 @@ package org.as3collections
 		{
 			if (allEquatable && element is IEquatable)
 			{
-				if (fromIndex < 0x7fffffff) fromIndex++;
-				if (fromIndex > size()) fromIndex = size();
-				
-				var it:IListIterator = listIterator(fromIndex);
-				var e:IEquatable;
-				
-				while (it.hasPrevious())
-				{
-					e = it.previous();
-					if (e.equals(element)) return it.nextIndex();
-				}
-				
-				return -1;
+				return lastIndexOfByEquality(element, fromIndex);
 			}
 			else
 			{
@@ -251,87 +230,6 @@ package org.as3collections
 		public function listIterator(index:int = 0): IListIterator
 		{
 			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
-		}
-
-		/**
-		 * Removes a single instance (only one occurrence) of the specified object from this list, if it is present (optional operation).
-		 * <p>This implementation iterates over the list looking for the specified element. If it finds the element, it removes the element from the list using the iterator's remove method.</p>
-		 * <p>Note that this implementation throws an <code>UnsupportedOperationError</code> if the iterator returned by this list's iterator method does not implement the <code>remove</code> method and this list contains the specified object.</p>
-		 * 
-		 * @param  	o 	the object to be removed from this list, if present.
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this list.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified object is incompatible with this list (optional).
-		 * @throws 	ArgumentError  	 		if the specified object is <code>null</code> and this list does not permit <code>null</code> elements (optional).
-		 * @return 	<code>true</code> if an object was removed as a result of this call.
-		 */
-		override public function remove(o:*): Boolean
-		{
-			/*
-			if (!contains(o)) return false;
-			
-			var it:IIterator = iterator();
-			var e:*;
-			
-			while (it.hasNext())
-			{
-				e = it.next();
-				
-				if ((allEquatable && o is IEquatable && (e as IEquatable).equals(o)) || e == o)
-				{
-					it.remove();
-					_modCount++;
-					return true;
-				}
-			}
-			
-			return false;
-			*/
-			
-			var b:Boolean = super.remove(o);
-			if (b) _modCount++;
-			
-			return b;
-		}
-
-		/**
-		 * Removes all of this list's elements that are also contained in the specified collection (optional operation). After this call returns, this list will contain no elements in common with the specified collection.
-		 * <p>This implementation iterates over this list, checking each element returned by the iterator in turn to see if it's contained in the specified collection.
-		 * If it's so contained, it's removed from this list with the iterator's <code>remove</code> method. </p>
-		 * <p>Note that this implementation will throw an <code>UnsupportedOperationError</code> if the iterator returned by the iterator method does not implement the <code>remove</code> method and this list contains one or more elements in common with the specified collection.</p>
-		 * 
-		 * @param  	collection 	the collection containing elements to be removed from this list.
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the removeAll operation is not supported by this list.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements the specified colleciton are incompatible with this list (optional).
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
-		 * @return 	<code>true</code> if this list changed as a result of the call.
-		 */
-		override public function removeAll(collection:ICollection): Boolean
-		{
-			/*
-			if (!collection) throw new ArgumentError("The 'collection' argument must not be 'null'.");
-			if (collection.isEmpty()) return false;
-			
-			var prevSize:int = size();
-			var it:IIterator = iterator();
-			
-			while (it.hasNext())
-			{
-				if (collection.contains(it.next()))
-				{
-					it.remove();
-					_modCount++;
-				}
-			}
-			
-			return prevSize != size();
-			*/
-			
-			var prevSize:int = size();
-			
-			var b:Boolean = super.removeAll(collection);
-			if (b) _modCount += prevSize - size();
-			
-			return b;
 		}
 
 		/**
@@ -374,47 +272,6 @@ package org.as3collections
 		}
 
 		/**
-		 * Retains only the elements in this list that are contained in the specified collection (optional operation). In other words, removes from this list all of its elements that are not contained in the specified collection.
-		 * <p>This implementation iterates over this list, checking each element returned by the iterator in turn to see if it's contained in the specified collection.
-		 * If it's not so contained, it's removed from this collection with the iterator's <code>remove</code> method.</p>
-		 * <p>Note that this implementation will throw an <code>UnsupportedOperationError</code> if the iterator returned by the iterator method does not implement the <code>remove</code> method and this list contains one or more elements not present in the specified collection.</p>
-		 * 
-		 * @param  	collection 	the collection containing elements to be retained in this collection.
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>retainAll</code> operation is not supported by this collection.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in this list are incompatible with the specified collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
-		 * @return 	<code>true</code> if this collection changed as a result of the call. 	
-		 */
-		override public function retainAll(collection:ICollection): Boolean
-		{
-			/*
-			if (!collection) throw new ArgumentError("The 'collection' argument must not be 'null'.");
-			if (collection.isEmpty()) return false;
-			
-			var prevSize:int = size();
-			var it:IIterator = iterator();
-			
-			while (it.hasNext())
-			{
-				if (!collection.contains(it.next()))
-				{
-					it.remove();
-					_modCount++;
-				}
-			}
-			
-			return prevSize != size();
-			*/
-			
-			var prevSize:int = size();
-			
-			var b:Boolean = super.retainAll(collection);
-			if (b) _modCount += prevSize - size();
-			
-			return b;
-		}
-
-		/**
 		 * Replaces the element at the specified position in this list with the specified element (optional operation).
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
@@ -453,6 +310,61 @@ package org.as3collections
 		protected function checkIndex(index:int, max:int):void
 		{
 			if (index < 0 || index > max) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: " + index + " (min: 0, max: " + max + ")");
+		}
+		
+		/**
+		 * @private
+		 */
+		override protected function elementAdded(element:*): void
+		{
+			super.elementAdded(element);
+			_modCount++;
+		}
+		
+		/**
+		 * @private
+		 */
+		override protected function elementRemoved(element:*): void
+		{
+			super.elementRemoved(element);
+			_modCount++;
+		}
+
+		/**
+		 * @private
+		 */
+		private function indexOfByEquality(element:*, fromIndex:int = 0): int
+		{
+			var it:IListIterator = listIterator(fromIndex);
+			var e:IEquatable;
+			
+			while (it.hasNext())
+			{
+				e = it.next();
+				if (e.equals(element)) return it.pointer();
+			}
+			
+			return -1;
+		}
+		
+		/**
+		 * @private
+		 */
+		private function lastIndexOfByEquality(element:*, fromIndex:int = 0x7fffffff): int
+		{
+			if (fromIndex < 0x7fffffff) fromIndex++;
+			if (fromIndex > size()) fromIndex = size();
+			
+			var it:IListIterator = listIterator(fromIndex);
+			var e:IEquatable;
+			
+			while (it.hasPrevious())
+			{
+				e = it.previous();
+				if (e.equals(element)) return it.nextIndex();
+			}
+			
+			return -1;
 		}
 
 	}

@@ -42,6 +42,7 @@ package org.as3collections.iterators
 		private var _key :*;
 		private var _keysIterator :IIterator;
 		private var _source :IMap;
+		private var _values :Array;
 
 		/**
 		 * Constructor, creates a new <code>MapIterator</code> object.
@@ -55,6 +56,7 @@ package org.as3collections.iterators
 			
 			_source = source;
 			_keysIterator = _source.getKeys().iterator();
+			_values = _source.getValues().toArray();
 		}
 
 		/**
@@ -72,7 +74,7 @@ package org.as3collections.iterators
 		public function next(): *
 		{
 			_key = _keysIterator.next();
-			return _source.getValue(_key);
+			return _values[_keysIterator.pointer()];
 		}
 
 		/**
@@ -90,6 +92,7 @@ package org.as3collections.iterators
 		public function remove(): void
 		{
 			_source.remove(_key);
+			_values.splice(_keysIterator.pointer(), 1);
 			_keysIterator.remove();
 		}
 
