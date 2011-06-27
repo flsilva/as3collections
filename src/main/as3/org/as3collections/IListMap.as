@@ -65,7 +65,7 @@ package org.as3collections
 		function getValueAt(index:int): *;
 		
 		/**
-		 * Returns a new <code>IListMap</code> that is a view of the portion of this map whose keys are strictly less than <code>toKey</code>.
+		 * Returns a new <code>IListMap</code> object that is a view of the portion of this map whose keys are strictly less than <code>toKey</code>.
 		 * The returned map supports all optional map operations that this map supports.
 		 * 
 		 * @param  	toKey 	high endpoint (exclusive) of the keys in the returned map.
@@ -115,6 +115,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>putAllAt</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of a key or value in the specified map is incompatible with this map.
 		 * @throws 	ArgumentError  			if the specified map is <code>null</code>, or if this map does not permit <code>null</code> keys or values, and the specified map contains <code>null</code> keys or values.
+		 * @throws 	ArgumentError  			if the specified map contains one or more keys already added in this map.
 		 */
 		function putAllAt(index:int, map:IMap): void;
 
@@ -129,7 +130,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified key or value is incompatible with this map.
 		 * @throws 	ArgumentError  											if the specified key or value is <code>null</code> and this map does not permit <code>null</code> keys or values.
 		 * @throws 	ArgumentError  											if this map already contains the specified key.
-		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>. 
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 */
 		function putAt(index:int, key:*, value:*): void;
 		
@@ -152,26 +153,11 @@ package org.as3collections
 		 * 
 		 * @param  	fromIndex 	the index to start removing mappings (inclusive).
 		 * @param  	toIndex 	the index to stop removing mappings (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeRangeByIndex</code> operation is not supported by this map.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeRange</code> operation is not supported by this map.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new map containing all the removed mappings.
 		 */
-		//function removeRangeByIndex(fromIndex:int, toIndex:int): IListMap;
-		
-		/**
-		 * Removes all of the mappings whose index is between <code>map.indexOfKey(fromIndex)</code>, inclusive, and <code>map.indexOfKey(toIndex)</code>, exclusive (optional operation).
-		 * Shifts any subsequent mappings to the left (subtracts their indices).
-		 * <p>If <code>fromKey == toKey</code>, this operation has no effect.</p>
-		 * 
-		 * @param  	fromKey 	the key to retrieve its index to start removing mappings (inclusive).
-		 * @param  	toKey 		the key to retrieve its index to stop removing mappings (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeRangeByKey</code> operation is not supported by this map.
-		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys (optional operation).
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
-		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
-		 * @return 	a new map containing all the removed mappings.
-		 */
-		//function removeRangeByKey(fromKey:*, toKey:*): IListMap;
+		function removeRange(fromIndex:int, toIndex:int): IListMap;
 
 		/**
 		 * Reverses the order of the mappings in this map.
@@ -186,8 +172,9 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>setKeyAt</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified key prevents it from being added to this map.
 		 * @throws 	ArgumentError  	 										if the specified key is <code>null</code> and this map does not permit <code>null</code> keys.
+		 * @throws 	ArgumentError  											if this map already contains the specified key.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
-		 * @return 	the element previously at the specified position.
+		 * @return 	the key previously at the specified position.
 		 */
 		function setKeyAt(index:int, key:*): *;
 		
@@ -200,38 +187,24 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified value prevents it from being added to this map.
 		 * @throws 	ArgumentError  	 										if the specified value is <code>null</code> and this map does not permit <code>null</code> values.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
-		 * @return 	the element previously at the specified position.
+		 * @return 	the value previously at the specified position.
 		 */
 		function setValueAt(index:int, value:*): *;
 
 		/**
-		 * Returns a new map that is a view of the portion of this map between the specified <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
+		 * Returns a new <code>IListMap</code> object that is a view of the portion of this map between the specified <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
 		 * <p>The returned map supports all of the optional map operations supported by this map.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving mappings (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving mappings (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMapByIndex</code> operation is not supported by this map.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMap</code> operation is not supported by this map.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new list that is a view of the specified range within this list.
 		 */
-		function subMapByIndex(fromIndex:int, toIndex:int): IListMap;
-		
-		/**
-		 * Returns a new <code>IListMap</code> object that is a view of the portion of this map whose keys range from <code>fromKey</code>, inclusive, to <code>toKey</code>, exclusive.
-		 * (If <code>fromKey</code> and <code>toKey</code> are equal, the returned map is empty.)
-		 * The returned map supports all optional map operations that this map supports. 
-		 * 
-		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.
-		 * @param  	toKey 		high endpoint (exclusive) of the keys in the returned map.
-		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
-		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
-		 * @return 	a new <code>IListMap</code> object that is a view of the portion of this map whose keys range from <code>fromKey</code>, inclusive, to <code>toKey</code>, exclusive.
-		 */
-		function subMapByKey(fromKey:*, toKey:*): IListMap;
+		function subMap(fromIndex:int, toIndex:int): IListMap;
 
 		/**
-		 * Returns a new sorted map that is a view of the portion of this map whose keys are greater than or equal to <code>fromKey</code>.
+		 * Returns a new <code>IListMap</code> object that is a view of the portion of this map whose keys are greater than or equal to <code>fromKey</code>.
 		 * The returned map supports all optional map operations that this map supports.
 		 * 
 		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.

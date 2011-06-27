@@ -90,6 +90,19 @@ package org.as3collections
 			Assert.assertTrue(added);
 		}
 		
+		[Test]
+		public function addAt_listWithThreeNotEquatableElements_validArgumentNotEquatableAndIndexOne_checkIfElementIsInCorrectIndex_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.add("element-3");
+			list.add("element-4");
+			
+			list.addAt(1, "element-2");
+			
+			var element:String = list.getAt(1);
+			Assert.assertEquals("element-2", element);
+		}
+		
 		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
 		public function addAt_emptyList_indexOutOfBounds_ThrowsError(): void
 		{
@@ -393,6 +406,17 @@ package org.as3collections
 			Assert.assertEquals(0, index);
 		}
 		
+		//////////////////////////////////
+		// IList().listIterator() TESTS //
+		//////////////////////////////////
+		
+		[Test]
+		public function listIterator_emptyList_ReturnValidIListIteratorObject(): void
+		{
+			var it:IListIterator = list.listIterator();
+			Assert.assertNotNull(it);
+		}
+		
 		//////////////////////////////
 		// IList().modCount() TESTS //
 		//////////////////////////////
@@ -613,10 +637,11 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function removeRange_listWithOneNotEquatabeElement_removeRangeAndCheckIfListSizeIsZero_ReturnsTrue(): void
+		public function removeRange_listWithTwoNotEquatabeElement_removeRangeAndCheckIfListSizeIsZero_ReturnsTrue(): void
 		{
 			list.add("element-1");
-			list.removeRange(0, 1);
+			list.add("element-2");
+			list.removeRange(0, 2);
 			
 			var size:int = list.size();
 			Assert.assertEquals(0, size);
@@ -683,7 +708,7 @@ package org.as3collections
 		}
 		
 		[Test]
-		public function setAt_notEmptyList_validArgumentNotEquatable_boundaryCondition_checkIfListNotContainsReplacedElement_ReturnsFalse(): void
+		public function setAt_notEmptyList_validArgumentNotEquatable_boundaryCondition_checkIfListContainsReplacedElement_ReturnsFalse(): void
 		{
 			list.add("element-1");
 			list.add("element-2");
@@ -786,6 +811,23 @@ package org.as3collections
 			
 			var contains:Boolean = subList.contains("element-3");
 			Assert.assertFalse(contains);
+		}
+		
+		[Test]
+		public function subList_notEmptyLit_checkIfReturnedLitIsCorrect_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			list.add("element-3");
+			
+			var subList:IList = list.subList(1, 3);
+			
+			var equalList:ICollection = getCollection();
+			equalList.add("element-2");
+			equalList.add("element-3");
+			
+			var equal:Boolean = subList.equals(equalList);
+			Assert.assertTrue(equal);
 		}
 		
 	}

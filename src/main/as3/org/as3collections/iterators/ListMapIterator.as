@@ -37,7 +37,7 @@ package org.as3collections.iterators
 	import org.as3coreaddendum.errors.IllegalStateError;
 
 	/**
-	 * description & examples
+	 * description and examples
 	 * 
 	 * @author Flávio Silva
 	 */

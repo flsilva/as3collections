@@ -56,8 +56,8 @@ package org.as3collections
 		 * @private
 		 */
 		protected var _modCount: int;
-		private var _totalKeysEquatable: int;
-		private var _totalValuesEquatable: int;
+		protected var _totalKeysEquatable: int;
+		protected var _totalValuesEquatable: int;
 
 		private var _keys: IList;
 		private var _values: IList;
@@ -255,7 +255,12 @@ package org.as3collections
 		public function headMap(toKey:*): IListMap
 		{
 			if (!containsKey(toKey)) throw new ArgumentError("This maps does not contains the specified key: " + toKey);
-			return subMapByKey(getKeyAt(0), toKey);
+			
+			var fromIndex:int = 0;
+			var toIndex:int = indexOfKey(toKey);
+			
+			var map:IListMap = subMap(fromIndex, toIndex);
+			return map;
 		}
 		
 		/**
@@ -266,7 +271,6 @@ package org.as3collections
  		 */
 		public function indexOfKey(key:*): int
 		{
-			//if (allKeysEquatable && key is IEquatable) return indexOfKeyByEquality(key);
 			return _keys.indexOf(key);
 		}
 
@@ -278,7 +282,6 @@ package org.as3collections
  		 */
 		public function indexOfValue(value:*): int
 		{
-			//if (allValuesEquatable && value is IEquatable) return indexOfValueByEquality(value);
 			return _values.indexOf(value);
 		}
 
@@ -480,13 +483,7 @@ package org.as3collections
 			{
 				value = it.next();
 				
-				if (keys.contains(it.pointer()))
-				{
-					it.remove();
-					
-					keyRemoved(it.pointer());
-					valueRemoved(value);
-				}
+				if (keys.contains(it.pointer())) it.remove();
 			}
 			
 			return prevSize != size();
@@ -534,13 +531,7 @@ package org.as3collections
 			{
 				value = it.next();
 				
-				if (!keys.contains(it.pointer()))
-				{
-					it.remove();
-					
-					keyRemoved(it.pointer());
-					valueRemoved(value);
-				}
+				if (!keys.contains(it.pointer())) it.remove();
 			}
 			
 			return prevSize != size();
@@ -557,6 +548,23 @@ package org.as3collections
 		}
 		
 		/**
+		 * Removes all of the mappings whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive (optional operation).
+		 * Shifts any subsequent mappings to the left (subtracts their indices).
+		 * <p>If <code>toIndex == fromIndex</code>, this operation has no effect.</p>
+		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
+		 * 
+		 * @param  	fromIndex 	the index to start removing mappings (inclusive).
+		 * @param  	toIndex 	the index to stop removing mappings (exclusive).
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeRange</code> operation is not supported by this map.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @return 	a new map containing all the removed mappings.
+		 */
+		public function removeRange(fromIndex:int, toIndex:int): IListMap
+		{
+			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
+		}
+		
+		/**
 		 * Replaces the key at the specified position in this map with the specified key (optional operation).
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
@@ -565,8 +573,9 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>setKeyAt</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified key prevents it from being added to this map.
 		 * @throws 	ArgumentError  	 										if the specified key is <code>null</code> and this map does not permit <code>null</code> keys.
+		 * @throws 	ArgumentError  											if this map already contains the specified key.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
-		 * @return 	the element previously at the specified position.
+		 * @return 	the key previously at the specified position.
 		 */
 		public function setKeyAt(index:int, key:*): *
 		{
@@ -583,7 +592,7 @@ package org.as3collections
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified value prevents it from being added to this map.
 		 * @throws 	ArgumentError  	 										if the specified value is <code>null</code> and this map does not permit <code>null</code> values.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
-		 * @return 	the element previously at the specified position.
+		 * @return 	the value previously at the specified position.
 		 */
 		public function setValueAt(index:int, value:*): *
 		{
@@ -605,29 +614,11 @@ package org.as3collections
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving mappings (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving mappings (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMapByIndex</code> operation is not supported by this map.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMap</code> operation is not supported by this map.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new list that is a view of the specified range within this list.
 		 */
-		public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
-		{
-			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
-		}
-		
-		/**
-		 * Returns a new <code>IListMap</code> object that is a view of the portion of this map whose keys range from <code>fromKey</code>, inclusive, to <code>toKey</code>, exclusive.
-		 * (If <code>fromKey</code> and <code>toKey</code> are equal, the returned map is empty.)
-		 * The returned map supports all optional map operations that this map supports. 
-		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
-		 * 
-		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.
-		 * @param  	toKey 		high endpoint (exclusive) of the keys in the returned map.
-		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
-		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
-		 * @return 	a new <code>IListMap</code> object that is a view of the portion of this map whose keys range from <code>fromKey</code>, inclusive, to <code>toKey</code>, exclusive.
-		 */
-		public function subMapByKey(fromKey:*, toKey:*): IListMap
+		public function subMap(fromIndex:int, toIndex:int): IListMap
 		{
 			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
 		}
@@ -641,10 +632,10 @@ package org.as3collections
 		{
 			if (!containsKey(fromKey)) throw new ArgumentError("This maps does not contains the specified key: " + fromKey);
 			
-			var lastKey:* = getKeyAt(size() - 1);
-			var map:IListMap = subMapByKey(fromKey, lastKey);
-			map.put(lastKey, getValue(lastKey));
+			var fromIndex:int = indexOfKey(fromKey);
+			var toIndex:int = size();
 			
+			var map:IListMap = subMap(fromIndex, toIndex);
 			return map;
 		}
 		
@@ -664,6 +655,14 @@ package org.as3collections
 		protected function checkIndex(index:int, max:int):void
 		{
 			if (index < 0 || index > max) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: " + index + " (min: 0, max: " + max + ")");
+		}
+		
+		/**
+		 * @private
+		 */
+		protected function createEmptyMap(): IListMap
+		{
+			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
 		}
 		
 		/**
@@ -706,6 +705,7 @@ package org.as3collections
 		protected function keyAdded(key:*): void
 		{
 			if (key && key is IEquatable) _totalKeysEquatable++;
+			_modCount++;
 		}
 		
 		/**
@@ -714,6 +714,7 @@ package org.as3collections
 		protected function keyRemoved(key:*): void
 		{
 			if (key && key is IEquatable) _totalKeysEquatable--;
+			_modCount++;
 		}
 		
 		/**
@@ -735,12 +736,10 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		protected function _init(): void
+		private function _init(): void
 		{
 			_keys 		= new ArrayList();
 			_values 	= new ArrayList();
-			_totalKeysEquatable = 0;
-			_totalValuesEquatable = 0;
 		}
 
 	}

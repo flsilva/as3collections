@@ -29,18 +29,16 @@
 
 package org.as3collections.maps
 {
+	import org.as3collections.IListMapTests;
 	import org.as3collections.IMap;
-	import org.as3collections.IMapTests;
 	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
 	/**
 	 * @author Flávio Silva
 	 */
-	public class ArrayMapTests extends IMapTests
+	public class ArrayMapTests extends IListMapTests
 	{
-		
-		public function get arrayMap():ArrayMap { return map as ArrayMap; }
 		
 		public function ArrayMapTests()
 		{
@@ -149,56 +147,6 @@ package org.as3collections.maps
 			map2.put("element-3", 3);
 			
 			Assert.assertFalse(map.equals(map2));
-		}
-		
-		///////////////////////////////////
-		// ArrayMap().indexOfKey() TESTS //
-		///////////////////////////////////
-		
-		[Test]
-		public function indexOfKey_mapWithTwoNotEquatableKeyValue_checkIfIndexOfFirstKeyIsCorrect_ReturnsTrue(): void
-		{
-			arrayMap.put("element-1", 1);
-			arrayMap.put("element-2", 2);
-			
-			var index:int = arrayMap.indexOfKey("element-1");
-			Assert.assertEquals(0, index);
-		}
-		
-		[Test]
-		public function indexOfKey_listWithThreeNotEquatableElements_checkIfIndexOfSecondKeyIsCorrect_ReturnsTrue(): void
-		{
-			arrayMap.put("element-1", 1);
-			arrayMap.put("element-2", 2);
-			arrayMap.put("element-3", 3);
-			
-			var index:int = arrayMap.indexOfKey("element-2");
-			Assert.assertEquals(1, index);
-		}
-		
-		/////////////////////////////////////
-		// ArrayMap().indexOfValue() TESTS //
-		/////////////////////////////////////
-		
-		[Test]
-		public function indexOfValue_mapWithTwoNotEquatableKeyValue_checkIfIndexOfFirstValueIsCorrect_ReturnsTrue(): void
-		{
-			arrayMap.put("element-1", 1);
-			arrayMap.put("element-2", 2);
-			
-			var index:int = arrayMap.indexOfValue(1);
-			Assert.assertEquals(0, index);
-		}
-		
-		[Test]
-		public function indexOfValue_listWithThreeNotEquatableElements_checkIfIndexOfSecondValueIsCorrect_ReturnsTrue(): void
-		{
-			arrayMap.put("element-1", 1);
-			arrayMap.put("element-2", 2);
-			arrayMap.put("element-3", 3);
-			
-			var index:int = arrayMap.indexOfValue(2);
-			Assert.assertEquals(1, index);
 		}
 		
 		/////////////////////////////////

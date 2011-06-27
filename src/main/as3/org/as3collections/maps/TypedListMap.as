@@ -238,6 +238,18 @@ package org.as3collections.maps
 		}
 		
 		/**
+		 * Forwards the call to <code>wrappedMap.removeRange</code>.
+		 * 
+		 * @param fromIndex
+		 * @param toIndex
+		 * @return 	the return of the call <code>wrappedMap.removeRange</code>.
+		 */
+		public function removeRange(fromIndex:int, toIndex:int): IListMap
+		{
+			return wrappedListMap.removeRange(fromIndex, toIndex);
+		}
+		
+		/**
 		 * The key is validated to be forwarded to <code>wrappedMap.setKeyAt</code>.
 		 * 
 		 * @param index
@@ -266,27 +278,15 @@ package org.as3collections.maps
 		}
 		
 		/**
-		 * Forwards the call to <code>wrappedMap.subMapByIndex</code>.
+		 * Forwards the call to <code>wrappedMap.subMap</code>.
 		 * 
 		 * @param fromIndex
 		 * @param toIndex
 		 * @return
 		 */
-		public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
+		public function subMap(fromIndex:int, toIndex:int): IListMap
 		{
-			return new TypedListMap(wrappedListMap.subMapByIndex(fromIndex, toIndex), typeKeys, typeValues);
-		}
-		
-		/**
-		 * Forwards the call to <code>wrappedMap.subMapByKey</code>.
-		 * 
-		 * @param fromKey
-		 * @param toKey
-		 * @return
-		 */
-		public function subMapByKey(fromKey:*, toKey:*): IListMap
-		{
-			return new TypedListMap(wrappedListMap.subMapByKey(fromKey, toKey), typeKeys, typeValues);
+			return new TypedListMap(wrappedListMap.subMap(fromIndex, toIndex), typeKeys, typeValues);
 		}
 
 		/**

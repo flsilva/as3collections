@@ -214,30 +214,15 @@ package org.as3collections.maps
 		}
 		
 		/**
-		 * Forwards the call to <code>wrappedMap.subMapByIndex</code>.
+		 * Forwards the call to <code>wrappedMap.subMap</code>.
 		 * 
 		 * @param fromIndex
 		 * @param toIndex
 		 * @return
 		 */
-		override public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
+		override public function subMap(fromIndex:int, toIndex:int): IListMap
 		{
-			var subMap:IMap = wrappedSortedMap.subMapByIndex(fromIndex, toIndex);
-			var sortedSubMap:ISortedMap = new SortedArrayMap(subMap, comparator, options);
-			
-			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
-		}
-		
-		/**
-		 * Forwards the call to <code>wrappedMap.subMapByKey</code>.
-		 * 
-		 * @param fromKey
-		 * @param toKey
-		 * @return
-		 */
-		override public function subMapByKey(fromKey:*, toKey:*): IListMap
-		{
-			var subMap:IMap = wrappedSortedMap.subMapByKey(fromKey, toKey);
+			var subMap:IMap = wrappedSortedMap.subMap(fromIndex, toIndex);
 			var sortedSubMap:ISortedMap = new SortedArrayMap(subMap, comparator, options);
 			
 			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);

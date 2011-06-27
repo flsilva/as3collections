@@ -14,6 +14,8 @@
 	<component id="org.as3collections:IIterator" 					class="org.as3collections.IIterator" />
 	<component id="org.as3collections:IList" 						class="org.as3collections.IList" />
 	<component id="org.as3collections:IListIterator" 				class="org.as3collections.IListIterator" />
+	<component id="org.as3collections:IListMap" 					class="org.as3collections.IListMap" />
+	<component id="org.as3collections:IListMapIterator" 			class="org.as3collections.IListMapIterator" />
 	<component id="org.as3collections:IMap" 						class="org.as3collections.IMap" />
 	<component id="org.as3collections:IMapEntry" 					class="org.as3collections.IMapEntry" />
 	<component id="org.as3collections:IQueue" 						class="org.as3collections.IQueue" />
@@ -35,6 +37,7 @@
 
 	<component id="org.as3collections.iterators:ArrayIterator" 				class="org.as3collections.iterators.ArrayIterator" />
 	<component id="org.as3collections.iterators:ListIterator" 				class="org.as3collections.iterators.ListIterator" />
+	<component id="org.as3collections.iterators:ListMapIterator" 			class="org.as3collections.iterators.ListMapIterator" />
 	<component id="org.as3collections.iterators:MapIterator" 				class="org.as3collections.iterators.MapIterator" />
 	<component id="org.as3collections.iterators:ReadOnlyArrayIterator" 		class="org.as3collections.iterators.ReadOnlyArrayIterator" />
 	<component id="org.as3collections.iterators:ReadOnlyListIterator" 		class="org.as3collections.iterators.ReadOnlyListIterator" />

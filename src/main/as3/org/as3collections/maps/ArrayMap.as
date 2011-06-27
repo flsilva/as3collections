@@ -30,13 +30,18 @@
 package org.as3collections.maps
 {
 	import org.as3collections.AbstractArrayMap;
+	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IListMap;
 	import org.as3collections.IListMapIterator;
 	import org.as3collections.IMap;
+	import org.as3collections.IMapEntry;
+	import org.as3collections.MapEntry;
+	import org.as3collections.errors.IndexOutOfBoundsError;
 	import org.as3collections.iterators.ListMapIterator;
 	import org.as3collections.iterators.MapIterator;
+	import org.as3utils.EquatableUtil;
 
 	import flash.errors.IllegalOperationError;
 
@@ -252,7 +257,13 @@ package org.as3collections.maps
 		 */
 		override public function clear(): void
 		{
-			_init();
+			if (isEmpty()) return;
+			
+			keys.clear();
+			values.clear();
+			_totalKeysEquatable = 0;
+			_totalValuesEquatable = 0;
+			_modCount++;
 		}
 
 		/**
@@ -337,7 +348,7 @@ package org.as3collections.maps
 		{
 			if (containsKey(key))
 			{
-				var message:String = "Argument <key> is already inside this map (at index: <" + indexOfKey(key) + ">.\n";
+				var message:String = "Argument <key> is already inside this map (at index: <" + indexOfKey(key) + ">.\n";//TODO:review this message
 				message += "Provided <index> argument: " + index + "\n";
 				message += "Provided <key> argument: " + key + "\n";
 				
@@ -379,15 +390,150 @@ package org.as3collections.maps
 		}
 		
 		/**
-		 *@inheritDoc 
+		 * Removes the mapping at the specified position in this map (optional operation).
+		 * Shifts any subsequent mappings to the left (subtracts one from their indices).
+		 * Returns an <code>IMapEntry</code> object containing the mapping (key/value) that was removed from the map.
+		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p> 
+		 * 
+		 * @param  	index 	the index of the mapping to be removed.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeAt</code> operation is not supported by this map.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @return 	an <code>IMapEntry</code> object containing the mapping (key/value) that was removed from the map.
+		 */
+		override public function removeAt(index:int): IMapEntry
+		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This map is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			
+			checkIndex(index, size() - 1);
+			
+			var key:* = getKeyAt(index);
+			var value:* = getValueAt(index);
+			var entry:IMapEntry = new MapEntry(key, value);
+			
+			keys.removeAt(index);
+			values.removeAt(index);
+			
+			keyRemoved(key);
+			valueRemoved(value);
+			
+			return entry;
+		}
+		
+		/**
+		 * Removes all of the mappings whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive (optional operation).
+		 * Shifts any subsequent mappings to the left (subtracts their indices).
+		 * <p>If <code>toIndex == fromIndex</code>, this operation has no effect.</p>
+		 * 
+		 * @param  	fromIndex 	the index to start removing mappings (inclusive).
+		 * @param  	toIndex 	the index to stop removing mappings (exclusive).
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeRange</code> operation is not supported by this map.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
+		 * @return 	a new map containing all the removed mappings.
+		 */
+		override public function removeRange(fromIndex:int, toIndex:int): IListMap
+		{
+			if (isEmpty()) throw new IllegalOperationError("This map is empty.");
+			
+			checkIndex(fromIndex, size());
+			checkIndex(toIndex, size());
+			
+			var removedKeys:ICollection = keys.removeRange(fromIndex, toIndex);
+			var removedValues:ICollection = values.removeRange(fromIndex, toIndex);
+			
+			var removedMap:IListMap = createEmptyMap();
+			var itKeys:IIterator = removedKeys.iterator();
+			var itValues:IIterator = removedValues.iterator();
+			var removedKey:*;
+			var removedValue:*;
+			
+			while(itKeys.hasNext())
+			{
+				removedKey = itKeys.next();
+				removedValue = itValues.next();
+				
+				keyRemoved(removedKey);
+				valueRemoved(removedValue);
+				
+				removedMap.put(removedKey, removedValue);
+			}
+			
+			return removedMap;
+		}
+		
+		/**
+		 * Replaces the key at the specified position in this map with the specified key (optional operation).
+		 * 
+		 * @param  	index 	index of the key to replace.
+		 * @param  	key 	key to be stored at the specified position.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>setKeyAt</code> operation is not supported by this map.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified key prevents it from being added to this map.
+		 * @throws 	ArgumentError  	 										if the specified key is <code>null</code> and this map does not permit <code>null</code> keys.
+		 * @throws 	ArgumentError  											if this map already contains the specified key.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @return 	the key previously at the specified position.
+		 */
+		override public function setKeyAt(index:int, key:*): *
+		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This map is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			checkIndex(index, size() - 1);
+			
+			var old:* = keys.getAt(index);
+			
+			if (!EquatableUtil.areEqual(old, key) && containsKey(key))
+			{
+				var message:String = "Argument <key> is already inside this map (at index: <" + indexOfKey(key) + ">.\n";//TODO:review this message
+				message += "Provided <index> argument: " + index + "\n";
+				message += "Provided <key> argument: " + key + "\n";
+				
+				throw new ArgumentError();
+			}
+			
+			keys.setAt(index, key);
+			
+			keyRemoved(old);
+			keyAdded(key);
+			_modCount -= 2;// keyRemoved() and keyAdded() will undesirably increase modCount.
+			
+			return old;
+		}
+		
+		/**
+		 * Replaces the value at the specified position in this map with the specified value (optional operation).
+		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
+		 * 
+		 * @param  	index 	index of the value to replace.
+		 * @param  	value 	value to be stored at the specified position.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>setValueAt</code> operation is not supported by this map.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified value prevents it from being added to this map.
+		 * @throws 	ArgumentError  	 										if the specified value is <code>null</code> and this map does not permit <code>null</code> values.
+		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @return 	the value previously at the specified position.
+		 */
+		override public function setValueAt(index:int, value:*): *
+		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This map is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			checkIndex(index, size() - 1);
+			
+			var old:* = values.getAt(index);
+			values.setAt(index, value);
+			
+			valueRemoved(old);
+			valueAdded(value);
+			
+			return old;
+		}
+		
+		/**
+		 * Returns a new map that is a view of the portion of this map between the specified <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
+		 * <p>The returned map supports all of the optional map operations supported by this map.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving mappings (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving mappings (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMapByIndex</code> operation is not supported by this map.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMap</code> operation is not supported by this map.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new list that is a view of the specified range within this list.
 		 */
-		override public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
+		override public function subMap(fromIndex:int, toIndex:int): IListMap
 		{
 			if (isEmpty()) throw new IllegalOperationError("This ArrayMap instance is empty.");
 			
@@ -397,7 +543,7 @@ package org.as3collections.maps
 			if (fromIndex > toIndex) throw new ArgumentError("Argument <fromIndex> cannot be greater than argument <toIndex>. fromIndex: " + fromIndex + " | toIndex" + toIndex);
 			
 			var entryList:IList = entryList().subList(fromIndex, toIndex);
-			var map:IListMap = new ArrayMap();
+			var map:IListMap = createEmptyMap();
 			
 			var it:IIterator = entryList.iterator();
 			
@@ -410,25 +556,11 @@ package org.as3collections.maps
 		}
 		
 		/**
-		 * @inheritDoc 
-		 * 
-		 * @throws 	ArgumentError 	if <code>fromKey</code> or <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
-		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> or <code>containsKey(toKey)</code> returns <code>false</code>.
-		 * @throws 	ArgumentError 	if <code>indexOfKey(fromKey)</code> is greater than <code>indexOfKey(toKey)</code>.
+		 * @private
 		 */
-		override public function subMapByKey(fromKey:*, toKey:*): IListMap
+		override protected function createEmptyMap(): IListMap
 		{
-			if (isEmpty()) throw new IllegalOperationError("This ArrayMap instance is empty.");
-			
-			var fromIndex:int = indexOfKey(fromKey);
-			if (fromIndex == -1) throw new ArgumentError("This map does not contains the specified key: " + fromKey);
-			
-			var toIndex:int = indexOfKey(toKey);
-			if (toIndex == -1) throw new ArgumentError("This map does not contains the specified key: " + toKey);
-			
-			if (fromIndex > toIndex) throw new ArgumentError("The 'indexOfKey(fromKey)' cannot be greater than 'indexOfKey(toKey)'. indexOfKey(fromKey): " + fromIndex + " | indexOfKey(toKey)" + toIndex);
-			
-			return subMapByIndex(fromIndex, toIndex);
+			return new ArrayMap();
 		}
 
 	}

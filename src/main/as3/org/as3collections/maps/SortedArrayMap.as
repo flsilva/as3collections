@@ -29,18 +29,15 @@
 
 package org.as3collections.maps 
 {
-	import org.as3collections.IIterator;
-	import org.as3collections.IList;
 	import org.as3collections.IListMap;
 	import org.as3collections.IMap;
+	import org.as3collections.IMapEntry;
 	import org.as3collections.ISortedMap;
 	import org.as3collections.SortMapBy;
 	import org.as3collections.lists.ArrayList;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3utils.ArrayUtil;
 	import org.as3utils.ReflectionUtil;
-
-	import flash.errors.IllegalOperationError;
 
 	/**
 	 * A map that provides a <em>total ordering</em> on its mappings.
@@ -212,6 +209,15 @@ package org.as3collections.maps
 			_sort();
 			return old;
 		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		override public function putAt(index:int, key:*, value:*): void
+		{
+			super.putAt(index, key, value);
+			_sort();
+		}
 
 		/**
 		 * @inheritDoc
@@ -221,6 +227,36 @@ package org.as3collections.maps
 			var value:* = super.remove(key);
 			_sort();
 			return value;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		override public function removeAt(index:int): IMapEntry
+		{
+			var old:IMapEntry = super.removeAt(index);
+			_sort();
+			return old;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		override public function setKeyAt(index:int, key:*): *
+		{
+			var old:* = super.setKeyAt(index, key);
+			if (_sortBy == SortMapBy.KEY) _sort();
+			return old;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		override public function setValueAt(index:int, value:*): *
+		{
+			var old:* = super.setValueAt(index, value);
+			if (_sortBy == SortMapBy.VALUE) _sort();
+			return old;
 		}
 
 		/**
@@ -320,32 +356,27 @@ package org.as3collections.maps
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving mappings (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving mappings (exclusive).
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMapByIndex</code> operation is not supported by this map.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMap</code> operation is not supported by this map.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	a new list that is a view of the specified range within this list.
 		 */
-		override public function subMapByIndex(fromIndex:int, toIndex:int): IListMap
+		override public function subMap(fromIndex:int, toIndex:int): IListMap
 		{
-			if (isEmpty()) throw new IllegalOperationError("This ArrayMap instance is empty.");
-			
-			checkIndex(fromIndex, size());
-			checkIndex(toIndex, size());
-			
-			if (fromIndex > toIndex) throw new ArgumentError("Argument <fromIndex> cannot be greater than argument <toIndex>. fromIndex: " + fromIndex + " | toIndex" + toIndex);
-			
-			var entryList:IList = entryList().subList(fromIndex, toIndex);
-			var map:IListMap = new SortedArrayMap(null, comparator, options);
-			
-			var it:IIterator = entryList.iterator();
-			
-			while (it.hasNext())
-			{
-				map.putEntry(it.next());
-			}
+			var map:ISortedMap = super.subMap(fromIndex, toIndex) as ISortedMap;
+			map.comparator = comparator;
+			map.options = options;
 			
 			return map;
 		}
-
+		
+		/**
+		 * @private
+		 */
+		override protected function createEmptyMap(): IListMap
+		{
+			return new SortedArrayMap();
+		}
+		
 		/**
 		 * @private
 		 */

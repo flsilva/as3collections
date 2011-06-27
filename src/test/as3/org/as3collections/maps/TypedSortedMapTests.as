@@ -216,27 +216,6 @@ package org.as3collections.maps
 			Assert.assertEquals(0, index);
 		}
 		
-		//////////////////////////////////////////
-		// TypedSortedMap().subMapByKey() TESTS //
-		//////////////////////////////////////////
-		
-		[Test]
-		public function subMapByKey_mapWithThreeKeyValue_checkIfReturnedMapIsCorrect_ReturnsTrue(): void
-		{
-			typedSortedMap.put("element-1", 1);
-			typedSortedMap.put("element-2", 2);
-			typedSortedMap.put("element-3", 3);
-			
-			var subMap:IMap = typedSortedMap.subMapByKey("element-1", "element-3");
-			
-			var equalSubMap:IMap = getMap(String, int);
-			equalSubMap.put("element-1", 1);
-			equalSubMap.put("element-2", 2);
-			
-			var equal:Boolean = subMap.equals(equalSubMap);
-			Assert.assertTrue(equal);
-		}
-		
 		//////////////////////////////////////
 		// TypedSortedMap().tailMap() TESTS //
 		//////////////////////////////////////
