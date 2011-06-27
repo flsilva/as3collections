@@ -47,15 +47,15 @@ package org.as3collections.maps
 	 * The <code>sortBy</code> property defines whether the sorting will be made by <code>key</code> or <code>value</code>.
 	 * <p>The user of this map may change their order at any time by calling the <code>sort</code> or <code>sortOn</code> method and imposing others arguments to change the sort behaviour.</p>
 	 * <p>It's possible to create typed sorted maps.
-	 * You just sends the <code>SortedArrayMap</code> object to the wrapper <code>TypedSortedMap</code> or uses the <code>MapUtil.getTypedSortedMap</code>.</p>
+	 * You just sends the <code>SortedArrayListMap</code> object to the wrapper <code>TypedSortedMap</code> or uses the <code>MapUtil.getTypedSortedMap</code>.</p>
 	 * 
 	 * @example
 	 * 
 	 * <listing version="3.0">
 	 * import org.as3collections.ISortedMap;
-	 * import org.as3collections.maps.SortedArrayMap;
+	 * import org.as3collections.maps.SortedArrayListMap;
 	 * 
-	 * var map1:ISortedMap = new SortedArrayMap();
+	 * var map1:ISortedMap = new SortedArrayListMap();
 	 * 
 	 * map1.put("e", 1)            // null
 	 * map1.put("d", 2)            // null
@@ -95,7 +95,7 @@ package org.as3collections.maps
 	 * @see org.as3collections.utils.MapUtil#getTypedSortedMap() MapUtil.getTypedSortedMap()
 	 * @author Flávio Silva
 	 */
-	public class SortedArrayMap extends ArrayMap implements ISortedMap
+	public class SortedArrayListMap extends ArrayListMap implements ISortedMap
 	{
 		private var _comparator: IComparator;
 		private var _options: uint;
@@ -139,13 +139,13 @@ package org.as3collections.maps
 		}
 
 		/**
-		 * Constructor, creates a new <code>SortedArrayMap</code> object.
+		 * Constructor, creates a new <code>SortedArrayListMap</code> object.
 		 * 
 		 * @param 	source 		a map with wich fill this map.
 		 * @param 	comparator 	the comparator object to be used internally to sort.
 		 * @param 	options 	the options to be used internally to sort.
 		 */
-		public function SortedArrayMap(source:IMap = null, comparator:IComparator = null, options:uint = 0)
+		public function SortedArrayListMap(source:IMap = null, comparator:IComparator = null, options:uint = 0)
 		{
 			super(source);
 			
@@ -156,13 +156,13 @@ package org.as3collections.maps
 		}
 
 		/**
-		 * Creates and return a new <code>SortedArrayMap</code> object containing all elements in this map (in the same order).
+		 * Creates and return a new <code>SortedArrayListMap</code> object containing all elements in this map (in the same order).
 		 * 
-		 * @return 	a new <code>SortedArrayMap</code> object containing all elements in this map (in the same order).
+		 * @return 	a new <code>SortedArrayListMap</code> object containing all elements in this map (in the same order).
  		 */
 		override public function clone(): *
 		{
-			return new SortedArrayMap(this, _comparator, _options);
+			return new SortedArrayListMap(this, _comparator, _options);
 		}
 		
 		/**
@@ -374,7 +374,7 @@ package org.as3collections.maps
 		 */
 		override protected function createEmptyMap(): IListMap
 		{
-			return new SortedArrayMap();
+			return new SortedArrayListMap();
 		}
 		
 		/**

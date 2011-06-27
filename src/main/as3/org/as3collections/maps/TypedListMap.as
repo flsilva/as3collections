@@ -48,10 +48,10 @@ package org.as3collections.maps
 	 * 
 	 * <listing version="3.0">
 	 * import org.as3collections.ISortedMap;
-	 * import org.as3collections.maps.SortedArrayMap;
+	 * import org.as3collections.maps.SortedArrayListMap;
 	 * import org.as3collections.maps.TypedSortedMap;
 	 * 
-	 * var map1:ISortedMap = new SortedArrayMap();
+	 * var map1:ISortedMap = new SortedArrayListMap();
 	 * 
 	 * map1.put("e", 1)            // null
 	 * map1.put("d", 2)            // null

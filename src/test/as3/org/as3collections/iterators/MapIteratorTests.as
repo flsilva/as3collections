@@ -31,7 +31,7 @@ package org.as3collections.iterators
 {
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
-	import org.as3collections.maps.ArrayMap;
+	import org.as3collections.maps.ArrayListMap;
 	import org.flexunit.Assert;
 
 	/**
@@ -68,9 +68,9 @@ package org.as3collections.iterators
 		
 		public function getIterator():IIterator
 		{
-			// used an ArrayMap to validate the order of the elements
+			// used an ArrayListMap to validate the order of the elements
 			// returned by the MapIterator.
-			var map:IMap = new ArrayMap();
+			var map:IMap = new ArrayListMap();
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			map.put("element-3", 3);
@@ -96,7 +96,7 @@ package org.as3collections.iterators
 		[Test]
 		public function hasNext_emptyIterator_ReturnsFalse(): void
 		{
-			var newIterator:IIterator = new MapIterator(new ArrayMap());
+			var newIterator:IIterator = new MapIterator(new ArrayListMap());
 			
 			var hasNext:Boolean = newIterator.hasNext();
 			Assert.assertFalse(hasNext);
@@ -116,7 +116,7 @@ package org.as3collections.iterators
 		[Test(expects="org.as3collections.errors.NoSuchElementError")]
 		public function next_emptyIterator_ReturnsFalse(): void
 		{
-			var newIterator:IIterator = new MapIterator(new ArrayMap());
+			var newIterator:IIterator = new MapIterator(new ArrayListMap());
 			newIterator.next();
 		}
 		
@@ -262,7 +262,7 @@ package org.as3collections.iterators
 		[Test]
 		public function reset_emptyIterator_Void(): void
 		{
-			var newIterator:IIterator = new MapIterator(new ArrayMap());
+			var newIterator:IIterator = new MapIterator(new ArrayListMap());
 			newIterator.reset();
 		}
 		

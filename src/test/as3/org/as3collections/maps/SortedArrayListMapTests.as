@@ -47,12 +47,12 @@ package org.as3collections.maps
 	/**
 	 * @author Flávio Silva
 	 */
-	public class SortedArrayMapTests extends IListMapTests
+	public class SortedArrayListMapTests extends IListMapTests
 	{
 		
 		public function get sortedMap():ISortedMap { return map as ISortedMap; }
 		
-		public function SortedArrayMapTests()
+		public function SortedArrayListMapTests()
 		{
 			
 		}
@@ -67,11 +67,11 @@ package org.as3collections.maps
 			// it uses the default sort behavior
 			// which is sort objects by String using Object.toString()
 			
-			return new SortedArrayMap();
+			return new SortedArrayListMap();
 		}
 		
 		////////////////////////////////////////
-		// SortedArrayMap() constructor TESTS //
+		// SortedArrayListMap() constructor TESTS //
 		////////////////////////////////////////
 		
 		[Test]
@@ -81,7 +81,7 @@ package org.as3collections.maps
 			addMap.put("element-1", 1);
 			addMap.put("element-2", 2);
 			
-			var newMap:IMap = new SortedArrayMap(addMap);
+			var newMap:IMap = new SortedArrayListMap(addMap);
 			
 			var isEmpty:Boolean = newMap.isEmpty();
 			Assert.assertFalse(isEmpty);
@@ -94,14 +94,14 @@ package org.as3collections.maps
 			addMap.put("element-1", 1);
 			addMap.put("element-2", 2);
 			
-			var newMap:IMap = new SortedArrayMap(addMap);
+			var newMap:IMap = new SortedArrayListMap(addMap);
 			
 			var size:int = newMap.size();
 			Assert.assertEquals(2, size);
 		}
 		
 		///////////////////////////////////////
-		// SortedArrayMap().comparator TESTS //
+		// SortedArrayListMap().comparator TESTS //
 		///////////////////////////////////////
 		
 		[Test]
@@ -144,14 +144,14 @@ package org.as3collections.maps
 		}
 		
 		////////////////////////////////////
-		// SortedArrayMap().options TESTS //
+		// SortedArrayListMap().options TESTS //
 		////////////////////////////////////
 		
 		[Test]
 		public function options_createMapWithOptions_checkIfReturnedOptionsMathes_ReturnTrue(): void
 		{
 			var options:uint = Array.CASEINSENSITIVE;
-			var newSortedMap:ISortedMap = new SortedArrayMap(null, null, options);
+			var newSortedMap:ISortedMap = new SortedArrayListMap(null, null, options);
 			
 			Assert.assertEquals(options, newSortedMap.options);
 		}
@@ -160,7 +160,7 @@ package org.as3collections.maps
 		public function options_createMapWithOptionsButChangesIt_checkIfReturnedOptionsMathes_ReturnTrue(): void
 		{
 			var options:uint = Array.CASEINSENSITIVE;
-			var newSortedMap:ISortedMap = new SortedArrayMap(null, null, options);
+			var newSortedMap:ISortedMap = new SortedArrayListMap(null, null, options);
 			
 			var options2:uint = Array.NUMERIC;
 			newSortedMap.options = options2;
@@ -180,7 +180,7 @@ package org.as3collections.maps
 		}
 		
 		////////////////////////////////////
-		// SortedArrayMap().clone() TESTS //
+		// SortedArrayListMap().clone() TESTS //
 		////////////////////////////////////
 		
 		[Test]
@@ -188,12 +188,12 @@ package org.as3collections.maps
 		{
 			var clonedMap:IMap = map.clone();
 			
-			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(SortedArrayMap, clonedMap);
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(SortedArrayListMap, clonedMap);
 			Assert.assertTrue(isCorrectType);
 		}
 		
 		/////////////////////////////////////
-		// SortedArrayMap().equals() TESTS //
+		// SortedArrayListMap().equals() TESTS //
 		/////////////////////////////////////
 		
 		[Test]
@@ -223,7 +223,7 @@ package org.as3collections.maps
 		}
 		
 		/////////////////////////////////////////
-		// SortedArrayMap().indexOfKey() TESTS //
+		// SortedArrayListMap().indexOfKey() TESTS //
 		/////////////////////////////////////////
 		
 		[Test]
@@ -253,7 +253,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////////////
-		// SortedArrayMap().indexOfValue() TESTS //
+		// SortedArrayListMap().indexOfValue() TESTS //
 		///////////////////////////////////////////
 		
 		[Test]
@@ -285,7 +285,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////
-		// SortedArrayMap().sort() TESTS //
+		// SortedArrayListMap().sort() TESTS //
 		///////////////////////////////////
 		
 		[Test]
@@ -303,7 +303,7 @@ package org.as3collections.maps
 		}
 		
 		/////////////////////////////////////
-		// SortedArrayMap().sortOn() TESTS //
+		// SortedArrayListMap().sortOn() TESTS //
 		/////////////////////////////////////
 		
 		[Test]

@@ -50,7 +50,7 @@ package org.as3collections
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class AbstractArrayMap implements IListMap
+	public class AbstractListMap implements IListMap
 	{
 		/**
 		 * @private
@@ -90,14 +90,14 @@ package org.as3collections
 		protected function set values(value:IList): void { _values = value; }
 
 		/**
-		 * Constructor, creates a new AbstractArrayMap object.
+		 * Constructor, creates a new AbstractListMap object.
 		 * 
 		 * @param 	source 	a map with wich fill this map.
 		 * @throws 	IllegalOperationError 	If this class is instantiated directly, in other words, if there is <b>not</b> another class extending this class.
 		 */
-		public function AbstractArrayMap(source:IMap = null)
+		public function AbstractListMap(source:IMap = null)
 		{
-			if (ReflectionUtil.classPathEquals(this, AbstractArrayMap))  throw new IllegalOperationError(ReflectionUtil.getClassName(this) + " is an abstract class and shouldn't be instantiated directly.");
+			if (ReflectionUtil.classPathEquals(this, AbstractListMap))  throw new IllegalOperationError(ReflectionUtil.getClassName(this) + " is an abstract class and shouldn't be instantiated directly.");
 			
 			_init();
 			

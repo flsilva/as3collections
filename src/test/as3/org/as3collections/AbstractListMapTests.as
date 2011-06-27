@@ -33,88 +33,88 @@ package org.as3collections
 	/**
 	 * @author Flávio Silva
 	 */
-	public class AbstractArrayMapTests
+	public class AbstractListMapTests
 	{
 		
-		public function AbstractArrayMapTests()
+		public function AbstractListMapTests()
 		{
 			
 		}
 		
 		//////////////////////////////////////////
-		// AbstractArrayMap() constructor TESTS //
+		// AbstractListMap() constructor TESTS //
 		//////////////////////////////////////////
 		
 		[Test(expects="flash.errors.IllegalOperationError")]
 		public function constructor_tryToInstanciate_ThrowsError(): void
 		{
-			new AbstractArrayMap();
+			new AbstractListMap();
 		}
 		
 		//////////////////////////////////////
-		// AbstractArrayMap().clear() TESTS //
+		// AbstractListMap().clear() TESTS //
 		//////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function clear_simpleCall_ThrowsError(): void
 		{
-			var fake:IMap = new FakeArrayMap();
+			var fake:IMap = new FakeArrayListMap();
 			fake.clear();
 		}
 		
 		//////////////////////////////////////
-		// AbstractArrayMap().clone() TESTS //
+		// AbstractListMap().clone() TESTS //
 		//////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.CloneNotSupportedError")]
 		public function clone_simpleCall_ThrowsError(): void
 		{
-			var fake:IMap = new FakeArrayMap();
+			var fake:IMap = new FakeArrayListMap();
 			fake.clone();
 		}
 		
 		/////////////////////////////////////////
-		// AbstractArrayMap().iterator() TESTS //
+		// AbstractListMap().iterator() TESTS //
 		/////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function iterator_simpleCall_ThrowsError(): void
 		{
-			var fake:IMap = new FakeArrayMap();
+			var fake:IMap = new FakeArrayListMap();
 			fake.iterator();
 		}
 		
 		////////////////////////////////////
-		// AbstractArrayMap().put() TESTS //
+		// AbstractListMap().put() TESTS //
 		////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function put_simpleCall_ThrowsError(): void
 		{
-			var fake:IMap = new FakeArrayMap();
+			var fake:IMap = new FakeArrayListMap();
 			fake.put("element-1", 1);
 		}
 		
 		///////////////////////////////////////
-		// AbstractArrayMap().remove() TESTS //
+		// AbstractListMap().remove() TESTS //
 		///////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function remove_simpleCall_ThrowsError(): void
 		{
-			var fake:IMap = new FakeArrayMap();
+			var fake:IMap = new FakeArrayListMap();
 			fake.remove("element-1");
 		}
 		
 		/////////////////////////////////////////
-		// AbstractArrayMap().toString() TESTS //
+		// AbstractListMap().toString() TESTS //
 		/////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function toString_simpleCall_ThrowsError(): void
 		{
-			var fake:IMap = new FakeArrayMap();
-			(fake as FakeArrayMap).toString();
+			var fake:IMap = new FakeArrayListMap();
+			(fake as FakeArrayListMap).toString();
 		}
 		
 	}

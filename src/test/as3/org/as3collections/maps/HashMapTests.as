@@ -150,7 +150,7 @@ package org.as3collections.maps
 		}
 		
 		/////////////////////////////////
-		// ArrayMap().toString() TESTS //
+		// ArrayListMap().toString() TESTS //
 		/////////////////////////////////
 		
 		[Test]

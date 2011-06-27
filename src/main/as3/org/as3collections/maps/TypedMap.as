@@ -29,7 +29,7 @@
 
 package org.as3collections.maps 
 {
-	import org.as3collections.AbstractArrayMap;
+	import org.as3collections.AbstractListMap;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
@@ -52,10 +52,10 @@ package org.as3collections.maps
 	 * 
 	 * <listing version="3.0">
 	 * import org.as3collections.IMap;
-	 * import org.as3collections.maps.ArrayMap;
+	 * import org.as3collections.maps.ArrayListMap;
 	 * import org.as3collections.maps.TypedMap;
 	 * 
-	 * var map1:IMap = new ArrayMap();
+	 * var map1:IMap = new ArrayListMap();
 	 * 
 	 * map1.put("e", 1)            // null
 	 * map1.put("d", 2)            // null
@@ -193,7 +193,7 @@ package org.as3collections.maps
 
 		/**
 		 * This method uses <code>MapUtil.equalNotConsideringOrder</code> or <code>MapUtil.equalConsideringOrder</code> method to perform equality, sending this map and <code>other</code> argument.
-		 * <p>If <code>wrappedMap</code> is of type <code>AbstractArrayMap</code> then <code>MapUtil.equalConsideringOrder</code> method is used.
+		 * <p>If <code>wrappedMap</code> is of type <code>AbstractListMap</code> then <code>MapUtil.equalConsideringOrder</code> method is used.
 		 * Otherwise <code>MapUtil.equalNotConsideringOrder</code> method is used.</p>
 		 * 
 		 * @param  	other 	the object to be compared for equality.
@@ -209,7 +209,7 @@ package org.as3collections.maps
 			var otherMap:TypedMap = other as TypedMap;
 			if (typeKeys != otherMap.typeKeys || typeValues != otherMap.typeValues) return false;
 			
-			if (wrappedMap is AbstractArrayMap)
+			if (wrappedMap is AbstractListMap)
 			{
 				// takes care of order
 				return MapUtil.equalConsideringOrder(this, other);

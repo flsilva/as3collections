@@ -30,9 +30,9 @@
 package org.as3collections.utils
 {
 	import org.as3collections.IMap;
-	import org.as3collections.maps.ArrayMap;
+	import org.as3collections.maps.ArrayListMap;
 	import org.as3collections.maps.HashMap;
-	import org.as3collections.maps.SortedArrayMap;
+	import org.as3collections.maps.SortedArrayListMap;
 	import org.as3collections.maps.TypedMap;
 	import org.as3collections.maps.TypedSortedMap;
 	import org.as3utils.ReflectionUtil;
@@ -93,7 +93,7 @@ package org.as3collections.utils
 		[Test]
 		public function getTypedSortedMap_simpleCall_checkIfReturnedTypedList_ReturnsTrue(): void
 		{
-			var map:IMap = MapUtil.getTypedSortedMap(new SortedArrayMap(), String, int);
+			var map:IMap = MapUtil.getTypedSortedMap(new SortedArrayListMap(), String, int);
 			
 			var classPathEqual:Boolean = ReflectionUtil.classPathEquals(map, TypedSortedMap);
 			Assert.assertTrue(classPathEqual);
@@ -102,14 +102,14 @@ package org.as3collections.utils
 		[Test]
 		public function getTypedSortedMap_simpleCall_checkIfReturnedTypedMapWithCorrectTypeKeys_ReturnsTrue(): void
 		{
-			var map:TypedMap = MapUtil.getTypedSortedMap(new SortedArrayMap(), String, int);
+			var map:TypedMap = MapUtil.getTypedSortedMap(new SortedArrayListMap(), String, int);
 			Assert.assertEquals(String, map.typeKeys);
 		}
 		
 		[Test]
 		public function getTypedSortedMap_simpleCall_checkIfReturnedTypedMapWithCorrectTypeValues_ReturnsTrue(): void
 		{
-			var map:TypedMap = MapUtil.getTypedSortedMap(new SortedArrayMap(), String, int);
+			var map:TypedMap = MapUtil.getTypedSortedMap(new SortedArrayListMap(), String, int);
 			Assert.assertEquals(int, map.typeValues);
 		}
 		
@@ -120,7 +120,7 @@ package org.as3collections.utils
 		[Test]
 		public function toString_emptyMap_checkIfReturnedStringMatches_ReturnsTrue(): void
 		{
-			var map:IMap = new ArrayMap();
+			var map:IMap = new ArrayListMap();
 			
 			var string:String = MapUtil.toString(map);
 			Assert.assertEquals("[]", string);
@@ -129,7 +129,7 @@ package org.as3collections.utils
 		[Test]
 		public function toString_notEmptyMap_checkIfReturnedStringMatches_ReturnsTrue(): void
 		{
-			var map:IMap = new ArrayMap();
+			var map:IMap = new ArrayListMap();
 			map.put("element-2", 2);
 			map.put("element-1", 1);
 			

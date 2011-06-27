@@ -56,14 +56,14 @@ package org.as3collections.maps
 		
 		override public function getMap(typeKeys:Class, typeValues:Class):TypedMap
 		{
-			// using a SortedArrayMap object
+			// using a SortedArrayListMap object
 			// instead of a fake to simplify tests
-			// since SortedArrayMap is fully tested it is ok
+			// since SortedArrayListMap is fully tested it is ok
 			// but it means that unit testing of this class are in some degree "integration testing"
-			// so changes in SortedArrayMap may break some tests in this class
+			// so changes in SortedArrayListMap may break some tests in this class
 			// when errors in tests of this class occur
-			// consider that it can be in the SortedArrayMap object
-			return new TypedSortedMap(new SortedArrayMap(), typeKeys, typeValues);
+			// consider that it can be in the SortedArrayListMap object
+			return new TypedSortedMap(new SortedArrayListMap(), typeKeys, typeValues);
 		}
 		
 		////////////////////////////////////
@@ -92,7 +92,7 @@ package org.as3collections.maps
 		}
 		
 		/////////////////////////////////////
-		// SortedArrayMap().equals() TESTS //
+		// SortedArrayListMap().equals() TESTS //
 		/////////////////////////////////////
 		
 		[Test]
@@ -178,7 +178,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////
-		// SortedArrayMap().sort() TESTS //
+		// SortedArrayListMap().sort() TESTS //
 		///////////////////////////////////
 		
 		[Test]

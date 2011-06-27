@@ -160,11 +160,11 @@ package org.as3collections.utils
 		 * 
 		 * <listing version="3.0">
 		 * import org.as3collections.IMap;
-		 * import org.as3collections.maps.ArrayMap;
+		 * import org.as3collections.maps.ArrayListMap;
 		 * import org.as3collections.maps.TypedMap;
 		 * import org.as3collections.maps.utils.MapUtil;
 		 * 
-		 * var map1:IMap = new ArrayMap();
+		 * var map1:IMap = new ArrayListMap();
 		 * 
 		 * map1.put("e", 1)            // null
 		 * map1.put("d", 2)            // null
@@ -211,10 +211,10 @@ package org.as3collections.utils
 		 * 
 		 * <listing version="3.0">
 		 * import org.as3collections.ISortedMap;
-		 * import org.as3collections.maps.SortedArrayMap;
+		 * import org.as3collections.maps.SortedArrayListMap;
 		 * import org.as3collections.maps.TypedSortedMap;
 		 * 
-		 * var map1:ISortedMap = new SortedArrayMap();
+		 * var map1:ISortedMap = new SortedArrayListMap();
 		 * 
 		 * map1.put("e", 1)            // null
 		 * map1.put("d", 2)            // null

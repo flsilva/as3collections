@@ -30,15 +30,15 @@ package org.as3collections
 {
 
 	/**
-	 * This class was created exclusively to test the behavior of its super class (<code>AbstractArrayMap</code>).
-	 * <p>Since <code>AbstractArrayMap</code> is an abstract class and does not support instanciation, this class was created to enable its instanciation.</p>
+	 * This class was created exclusively to test the behavior of its super class (<code>AbstractListMap</code>).
+	 * <p>Since <code>AbstractListMap</code> is an abstract class and does not support instanciation, this class was created to enable its instanciation.</p>
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class FakeArrayMap extends AbstractArrayMap
+	public class FakeArrayListMap extends AbstractListMap
 	{
 		
-		public function FakeArrayMap(source:IMap = null)
+		public function FakeArrayListMap(source:IMap = null)
 		{
 			super(source);
 		}

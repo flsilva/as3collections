@@ -35,7 +35,7 @@ package org.as3collections
 	/**
 	 * An object that maps keys to values. A map cannot contain duplicate keys, each key can map to at most one value.
 	 * <p>This interface provides three collection views, which allow a map's contents to be viewed as a list of keys, a list of values, or a list of key-value mappings (<code>IMapEntry</code>).
-	 * Some map implementations, like the <code>ArrayMap</code> class, make specific guarantees as to their order; others, like the <code>HashMap</code> class, do not.</p>
+	 * Some map implementations, like the <code>ArrayListMap</code> class, make specific guarantees as to their order; others, like the <code>HashMap</code> class, do not.</p>
 	 * <p>These views, plus <code>IMap.iterator()</code>, enable various forms of iteration over the keys and values of the map.
 	 * To iterate over the keys/values the user can use <code>IMap.iterator()</code> or <code>IMap.entryList().iterator()</code>.
 	 * To iterate over the keys the user can use <code>IMap.getKeys().iterator()</code>.

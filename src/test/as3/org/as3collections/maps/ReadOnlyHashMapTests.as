@@ -81,7 +81,7 @@ package org.as3collections.maps
 		}
 		
 		//////////////////////////////////////////
-		// ReadOnlyArrayMap() constructor TESTS //
+		// ReadOnlyArrayListMap() constructor TESTS //
 		//////////////////////////////////////////
 		
 		[Test(expects="ArgumentError")]

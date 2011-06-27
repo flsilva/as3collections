@@ -31,7 +31,7 @@ package org.as3collections.iterators
 {
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
-	import org.as3collections.maps.ArrayMap;
+	import org.as3collections.maps.ArrayListMap;
 
 	/**
 	 * @author Flávio Silva
@@ -67,7 +67,7 @@ package org.as3collections.iterators
 		
 		public function getIterator():IIterator
 		{
-			var map:IMap = new ArrayMap();
+			var map:IMap = new ArrayListMap();
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			map.put("element-3", 3);

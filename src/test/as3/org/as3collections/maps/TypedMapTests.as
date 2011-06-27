@@ -227,32 +227,32 @@ package org.as3collections.maps
 		}
 		
 		[Test]
-		public function equals_mapWithTwoNotEquatableKeyValue_sameElementsButDifferentOrder_ArrayMapWrapped_checkIfBothListsAreEqual_ReturnsFalse(): void
+		public function equals_mapWithTwoNotEquatableKeyValue_sameElementsButDifferentOrder_ArrayListMapWrapped_checkIfBothListsAreEqual_ReturnsFalse(): void
 		{
-			var newMap1:IMap = new TypedMap(new ArrayMap(), String, int);
+			var newMap1:IMap = new TypedMap(new ArrayListMap(), String, int);
 			newMap1.put("element-1", 1);
 			newMap1.put("element-2", 2);
 			
-			var newMap2:IMap = new TypedMap(new ArrayMap(), String, int);
+			var newMap2:IMap = new TypedMap(new ArrayListMap(), String, int);
 			newMap2.put("element-2", 2);
 			newMap2.put("element-1", 1);
 			
-			var equal:Boolean = newMap1.equals(newMap2);// ArrayMap takes care of order
+			var equal:Boolean = newMap1.equals(newMap2);// ArrayListMap takes care of order
 			Assert.assertFalse(equal);
 		}
 		
 		[Test]
-		public function equals_mapWithTwoNotEquatableKeyValue_sameElementsAndSameOrder_ArrayMapWrapped_checkIfBothListsAreEqual_ReturnsTrue(): void
+		public function equals_mapWithTwoNotEquatableKeyValue_sameElementsAndSameOrder_ArrayListMapWrapped_checkIfBothListsAreEqual_ReturnsTrue(): void
 		{
-			var newMap1:IMap = new TypedMap(new ArrayMap(), String, int);
+			var newMap1:IMap = new TypedMap(new ArrayListMap(), String, int);
 			newMap1.put("element-1", 1);
 			newMap1.put("element-2", 2);
 			
-			var newMap2:IMap = new TypedMap(new ArrayMap(), String, int);
+			var newMap2:IMap = new TypedMap(new ArrayListMap(), String, int);
 			newMap2.put("element-1", 1);
 			newMap2.put("element-2", 2);
 			
-			var equal:Boolean = newMap1.equals(newMap2);// ArrayMap takes care of order
+			var equal:Boolean = newMap1.equals(newMap2);// ArrayListMap takes care of order
 			Assert.assertTrue(equal);
 		}
 		

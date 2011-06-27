@@ -4,10 +4,10 @@
 
 	<!-- org.as3collections -->
 	
-	<component id="org.as3collections:AbstractArrayMap" 			class="org.as3collections.AbstractArrayMap" />
 	<component id="org.as3collections:AbstractCollection" 			class="org.as3collections.AbstractCollection" />
 	<component id="org.as3collections:AbstractHashMap" 				class="org.as3collections.AbstractHashMap" />
 	<component id="org.as3collections:AbstractList" 				class="org.as3collections.AbstractList" />
+	<component id="org.as3collections:AbstractListMap" 				class="org.as3collections.AbstractListMap" />
 	<component id="org.as3collections:AbstractQueue" 				class="org.as3collections.AbstractQueue" />
 	<component id="org.as3collections:ICollection" 					class="org.as3collections.ICollection" />
 	<component id="org.as3collections:IIterable" 					class="org.as3collections.IIterable" />
@@ -53,11 +53,11 @@
 	
 	<!-- org.as3collections.maps -->
 
-	<component id="org.as3collections.maps:ArrayMap" 						class="org.as3collections.maps.ArrayMap" />
+	<component id="org.as3collections.maps:ArrayListMap" 					class="org.as3collections.maps.ArrayListMap" />
 	<component id="org.as3collections.maps:HashMap" 						class="org.as3collections.maps.HashMap" />
-	<component id="org.as3collections.maps:ReadOnlyArrayMap" 				class="org.as3collections.maps.ReadOnlyArrayMap" />
+	<component id="org.as3collections.maps:ReadOnlyArrayListMap" 			class="org.as3collections.maps.ReadOnlyArrayListMap" />
 	<component id="org.as3collections.maps:ReadOnlyHashMap" 				class="org.as3collections.maps.ReadOnlyHashMap" />
-	<component id="org.as3collections.maps:SortedArrayMap" 					class="org.as3collections.maps.SortedArrayMap" />
+	<component id="org.as3collections.maps:SortedArrayListMap" 				class="org.as3collections.maps.SortedArrayListMap" />
 	<component id="org.as3collections.maps:TypedMap" 						class="org.as3collections.maps.TypedMap" />
 	<component id="org.as3collections.maps:TypedSortedMap" 					class="org.as3collections.maps.TypedSortedMap" />
 

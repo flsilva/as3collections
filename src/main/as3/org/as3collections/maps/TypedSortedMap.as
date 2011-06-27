@@ -49,10 +49,10 @@ package org.as3collections.maps
 	 * 
 	 * <listing version="3.0">
 	 * import org.as3collections.ISortedMap;
-	 * import org.as3collections.maps.SortedArrayMap;
+	 * import org.as3collections.maps.SortedArrayListMap;
 	 * import org.as3collections.maps.TypedSortedMap;
 	 * 
-	 * var map1:ISortedMap = new SortedArrayMap();
+	 * var map1:ISortedMap = new SortedArrayListMap();
 	 * 
 	 * map1.put("e", 1)            // null
 	 * map1.put("d", 2)            // null
@@ -184,7 +184,7 @@ package org.as3collections.maps
 		override public function headMap(toKey:*): IListMap
 		{
 			var headMap:IMap = wrappedSortedMap.headMap(toKey);
-			var sortedSubMap:ISortedMap = new SortedArrayMap(headMap, comparator, options);
+			var sortedSubMap:ISortedMap = new SortedArrayListMap(headMap, comparator, options);
 			
 			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
 		}
@@ -223,7 +223,7 @@ package org.as3collections.maps
 		override public function subMap(fromIndex:int, toIndex:int): IListMap
 		{
 			var subMap:IMap = wrappedSortedMap.subMap(fromIndex, toIndex);
-			var sortedSubMap:ISortedMap = new SortedArrayMap(subMap, comparator, options);
+			var sortedSubMap:ISortedMap = new SortedArrayListMap(subMap, comparator, options);
 			
 			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
 		}
@@ -237,7 +237,7 @@ package org.as3collections.maps
 		override public function tailMap(fromKey:*): IListMap
 		{
 			var tailMap:IMap = wrappedSortedMap.tailMap(fromKey);
-			var sortedSubMap:ISortedMap = new SortedArrayMap(tailMap, comparator, options);
+			var sortedSubMap:ISortedMap = new SortedArrayListMap(tailMap, comparator, options);
 			
 			return new TypedSortedMap(sortedSubMap, typeKeys, typeValues);
 		}

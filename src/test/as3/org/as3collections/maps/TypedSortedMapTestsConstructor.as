@@ -51,7 +51,7 @@ package org.as3collections.maps
 		[Test]
 		public function constructor_argumentValidKeyValues_checkIfIsEmpty_ReturnsFalse(): void
 		{
-			var addMap:ISortedMap = new SortedArrayMap();
+			var addMap:ISortedMap = new SortedArrayListMap();
 			addMap.put("element-1", 1);
 			addMap.put("element-2", 2);
 			
@@ -64,7 +64,7 @@ package org.as3collections.maps
 		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
 		public function constructor_argumentWithValidAndInvalidKeys_ThrowsError(): void
 		{
-			var addMap:ISortedMap = new SortedArrayMap();
+			var addMap:ISortedMap = new SortedArrayListMap();
 			addMap.put("element-1", 1);
 			addMap.put(1, 2);
 			
@@ -74,7 +74,7 @@ package org.as3collections.maps
 		[Test(expects="org.as3coreaddendum.errors.ClassCastError")]
 		public function constructor_argumentWithValidAndInvalidValues_ThrowsError(): void
 		{
-			var addMap:ISortedMap = new SortedArrayMap();
+			var addMap:ISortedMap = new SortedArrayListMap();
 			addMap.put("element-1", 1);
 			addMap.put("element-2", "2");
 			

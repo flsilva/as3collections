@@ -41,11 +41,11 @@ package org.as3collections.maps
 	/**
 	 * @author Flávio Silva
 	 */
-	public class ReadOnlyArrayMapTests
+	public class ReadOnlyArrayListMapTests
 	{
 		public var map:IMap;
 		
-		public function ReadOnlyArrayMapTests()
+		public function ReadOnlyArrayListMapTests()
 		{
 			
 		}
@@ -77,27 +77,27 @@ package org.as3collections.maps
 			addMap.put("element-2", 2);
 			addMap.put("element-3", 3);
 			
-			return new ReadOnlyArrayMap(addMap);
+			return new ReadOnlyArrayListMap(addMap);
 		}
 		
 		//////////////////////////////////////////
-		// ReadOnlyArrayMap() constructor TESTS //
+		// ReadOnlyArrayListMap() constructor TESTS //
 		//////////////////////////////////////////
 		
 		[Test(expects="ArgumentError")]
 		public function constructor_invalidArgument_ThrowsError(): void
 		{
-			new ReadOnlyArrayMap(null);
+			new ReadOnlyArrayListMap(null);
 		}
 		
 		/////////////////////////////////////////////////
-		// ReadOnlyArrayMap().allKeysEquatable() TESTS //
+		// ReadOnlyArrayListMap().allKeysEquatable() TESTS //
 		/////////////////////////////////////////////////
 		
 		[Test]
 		public function allKeysEquatable_emptyMap_ReturnsTrue(): void
 		{
-			var newMap:IMap = new ReadOnlyArrayMap(new HashMap());
+			var newMap:IMap = new ReadOnlyArrayListMap(new HashMap());
 			
 			var allKeysEquatable:Boolean = newMap.allKeysEquatable;
 			Assert.assertTrue(allKeysEquatable);
@@ -120,20 +120,20 @@ package org.as3collections.maps
 			addMap.put(equatableObject1A, 1);
 			addMap.put(equatableObject2A, 2);
 			
-			var newMap:IMap = new ReadOnlyArrayMap(addMap);
+			var newMap:IMap = new ReadOnlyArrayListMap(addMap);
 			
 			var allKeysEquatable:Boolean = newMap.allKeysEquatable;
 			Assert.assertTrue(allKeysEquatable);
 		}
 		
 		///////////////////////////////////////////////////
-		// ReadOnlyArrayMap().allValuesEquatable() TESTS //
+		// ReadOnlyArrayListMap().allValuesEquatable() TESTS //
 		///////////////////////////////////////////////////
 		
 		[Test]
 		public function allValuesEquatable_emptyMap_ReturnsTrue(): void
 		{
-			var newMap:IMap = new ReadOnlyArrayMap(new HashMap());
+			var newMap:IMap = new ReadOnlyArrayListMap(new HashMap());
 			
 			var allValuesEquatable:Boolean = newMap.allValuesEquatable;
 			Assert.assertTrue(allValuesEquatable);
@@ -156,14 +156,14 @@ package org.as3collections.maps
 			addMap.put("equatable-object-1", equatableObject1A);
 			addMap.put("equatable-object-2", equatableObject2A);
 			
-			var newMap:IMap = new ReadOnlyArrayMap(addMap);
+			var newMap:IMap = new ReadOnlyArrayListMap(addMap);
 			
 			var allValuesEquatable:Boolean = newMap.allValuesEquatable;
 			Assert.assertTrue(allValuesEquatable);
 		}
 		
 		//////////////////////////////////////
-		// ReadOnlyArrayMap().clear() TESTS //
+		// ReadOnlyArrayListMap().clear() TESTS //
 		//////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
@@ -173,15 +173,15 @@ package org.as3collections.maps
 		}
 		
 		//////////////////////////////////////
-		// ReadOnlyArrayMap().clone() TESTS //
+		// ReadOnlyArrayListMap().clone() TESTS //
 		//////////////////////////////////////
 		
 		[Test]
-		public function clone_simpleCall_checkIfReturnedObjectIsReadOnlyArrayMap_ReturnsTrue(): void
+		public function clone_simpleCall_checkIfReturnedObjectIsReadOnlyArrayListMap_ReturnsTrue(): void
 		{
 			var clonedMap:IMap = map.clone();
 			
-			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ReadOnlyArrayMap, clonedMap);
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ReadOnlyArrayListMap, clonedMap);
 			Assert.assertTrue(isCorrectType);
 		}
 		
@@ -195,23 +195,23 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////////
-		// ReadOnlyArrayMap().equals() TESTS //
+		// ReadOnlyArrayListMap().equals() TESTS //
 		///////////////////////////////////////
 		
 		[Test]
 		public function equals_mapWithTwoNotEquatableKeyValue_sameKeyValuesButDifferentOrder_checkIfBothMapsAreEqual_ReturnsFalse(): void
 		{
-			var addMap1:IMap = new ArrayMap();
+			var addMap1:IMap = new ArrayListMap();
 			addMap1.put("element-1", 1);
 			addMap1.put("element-2", 2);
 			
-			var map1:IMap = new ReadOnlyArrayMap(addMap1);
+			var map1:IMap = new ReadOnlyArrayListMap(addMap1);
 			
-			var addMap2:IMap = new ArrayMap();
+			var addMap2:IMap = new ArrayListMap();
 			addMap2.put("element-2", 2);
 			addMap2.put("element-1", 1);
 			
-			var map2:IMap = new ReadOnlyArrayMap(addMap2);
+			var map2:IMap = new ReadOnlyArrayListMap(addMap2);
 			
 			var equal:Boolean = map1.equals(map2);
 			Assert.assertFalse(equal);
@@ -220,24 +220,24 @@ package org.as3collections.maps
 		[Test]
 		public function equals_mapWithTwoNotEquatableKeyValue_sameKeyValuesAndSameOrder_checkIfBothMapsAreEqual_ReturnsTrue(): void
 		{
-			var addMap1:IMap = new ArrayMap();
+			var addMap1:IMap = new ArrayListMap();
 			addMap1.put("element-1", 1);
 			addMap1.put("element-2", 2);
 			
-			var map1:IMap = new ReadOnlyArrayMap(addMap1);
+			var map1:IMap = new ReadOnlyArrayListMap(addMap1);
 			
-			var addMap2:IMap = new ArrayMap();
+			var addMap2:IMap = new ArrayListMap();
 			addMap2.put("element-1", 1);
 			addMap2.put("element-2", 2);
 			
-			var map2:IMap = new ReadOnlyArrayMap(addMap2);
+			var map2:IMap = new ReadOnlyArrayListMap(addMap2);
 			
 			var equal:Boolean = map1.equals(map2);
 			Assert.assertTrue(equal);
 		}
 		
 		/////////////////////////////////////////
-		// ReadOnlyArrayMap().iterator() TESTS //
+		// ReadOnlyArrayListMap().iterator() TESTS //
 		/////////////////////////////////////////
 		
 		[Test]
@@ -257,7 +257,7 @@ package org.as3collections.maps
 		}
 		
 		////////////////////////////////////
-		// ReadOnlyArrayMap().put() TESTS //
+		// ReadOnlyArrayListMap().put() TESTS //
 		////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
@@ -267,7 +267,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////////
-		// ReadOnlyArrayMap().putAll() TESTS //
+		// ReadOnlyArrayListMap().putAll() TESTS //
 		///////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
@@ -277,7 +277,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////////////////
-		// ReadOnlyArrayMap().putAllByObject() TESTS //
+		// ReadOnlyArrayListMap().putAllByObject() TESTS //
 		///////////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
@@ -287,7 +287,7 @@ package org.as3collections.maps
 		}
 		
 		////////////////////////////////////////
-		// ReadOnlyArrayMap().putEntry() TESTS //
+		// ReadOnlyArrayListMap().putEntry() TESTS //
 		////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
@@ -297,7 +297,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////////
-		// ReadOnlyArrayMap().remove() TESTS //
+		// ReadOnlyArrayListMap().remove() TESTS //
 		///////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
@@ -307,7 +307,7 @@ package org.as3collections.maps
 		}
 		
 		//////////////////////////////////////////
-		// ReadOnlyArrayMap().removeAll() TESTS //
+		// ReadOnlyArrayListMap().removeAll() TESTS //
 		//////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
@@ -317,7 +317,7 @@ package org.as3collections.maps
 		}
 		
 		//////////////////////////////////////////
-		// ReadOnlyArrayMap().retainAll() TESTS //
+		// ReadOnlyArrayListMap().retainAll() TESTS //
 		//////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]

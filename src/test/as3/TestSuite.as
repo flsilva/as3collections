@@ -29,9 +29,9 @@
 
 package 
 {
-	import org.as3collections.AbstractArrayMapTests;
 	import org.as3collections.AbstractCollectionTests;
 	import org.as3collections.AbstractHashMapTests;
+	import org.as3collections.AbstractListMapTests;
 	import org.as3collections.AbstractListTests;
 	import org.as3collections.AbstractQueueTests;
 	import org.as3collections.MapEntryTests;
@@ -52,13 +52,13 @@ package
 	import org.as3collections.lists.TypedListTests;
 	import org.as3collections.lists.UniqueListTests;
 	import org.as3collections.lists.UniqueListTestsEquatableObject;
-	import org.as3collections.maps.ArrayMapTests;
-	import org.as3collections.maps.ArrayMapTestsEquatableObject;
+	import org.as3collections.maps.ArrayListMapTests;
+	import org.as3collections.maps.ArrayListMapTestsEquatableObject;
 	import org.as3collections.maps.HashMapTests;
 	import org.as3collections.maps.HashMapTestsEquatableObject;
-	import org.as3collections.maps.ReadOnlyArrayMapTests;
+	import org.as3collections.maps.ReadOnlyArrayListMapTests;
 	import org.as3collections.maps.ReadOnlyHashMapTests;
-	import org.as3collections.maps.SortedArrayMapTests;
+	import org.as3collections.maps.SortedArrayListMapTests;
 	import org.as3collections.maps.TypedMapTests;
 	import org.as3collections.maps.TypedMapTestsConstructor;
 	import org.as3collections.maps.TypedSortedMapTests;
@@ -85,7 +85,7 @@ package
 	{
 		
 		//org.as3collections
-		public var abstractArrayMapTests:AbstractArrayMapTests;
+		public var abstractListMapTests:AbstractListMapTests;
 		public var abstractCollectionTests:AbstractCollectionTests;
 		public var abstractHashMapTests:AbstractHashMapTests;
 		public var abstractListTests:AbstractListTests;
@@ -114,13 +114,13 @@ package
 		public var uniqueListTestsEquatableObject:UniqueListTestsEquatableObject;
 		
 		//org.as3collections.maps
-		public var arrayMapTests:ArrayMapTests;
-		public var arrayMapTestsEquatableObject:ArrayMapTestsEquatableObject;
+		public var arrayListMapTests:ArrayListMapTests;
+		public var arrayListMapTestsEquatableObject:ArrayListMapTestsEquatableObject;
 		public var hashMapTests:HashMapTests;
 		public var hashMapTestsEquatableObject:HashMapTestsEquatableObject;
-		public var readOnlyArrayMapTests:ReadOnlyArrayMapTests;
+		public var readOnlyArrayListMapTests:ReadOnlyArrayListMapTests;
 		public var readOnlyHashMapTests:ReadOnlyHashMapTests;
-		public var sortedArrayMapTests:SortedArrayMapTests;
+		public var sortedArrayListMapTests:SortedArrayListMapTests;
 		public var typedMapTests:TypedMapTests;
 		public var typedMapTestsConstructor:TypedMapTestsConstructor;
 		public var typedSortedMapTests:TypedSortedMapTests;

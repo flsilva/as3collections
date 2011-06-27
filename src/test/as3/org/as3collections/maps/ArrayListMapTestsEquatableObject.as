@@ -37,12 +37,12 @@ package org.as3collections.maps
 	/**
 	 * @author Flávio Silva
 	 */
-	public class ArrayMapTestsEquatableObject extends IMapTestsEquatableObject
+	public class ArrayListMapTestsEquatableObject extends IMapTestsEquatableObject
 	{
 		
-		public function get arrayMap():ArrayMap { return map as ArrayMap; }
+		public function get arrayListMap():ArrayListMap { return map as ArrayListMap; }
 		
-		public function ArrayMapTestsEquatableObject()
+		public function ArrayListMapTestsEquatableObject()
 		{
 			
 		}
@@ -53,11 +53,11 @@ package org.as3collections.maps
 		
 		override public function getMap():IMap
 		{
-			return new ArrayMap();
+			return new ArrayListMap();
 		}
 		
 		//////////////////////////////////
-		// ArrayMap() constructor TESTS //
+		// ArrayListMap() constructor TESTS //
 		//////////////////////////////////
 		
 		[Test]
@@ -93,7 +93,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////
-		// ArrayMap().equals() TESTS //
+		// ArrayListMap().equals() TESTS //
 		///////////////////////////////
 		
 		[Test]
@@ -135,7 +135,7 @@ package org.as3collections.maps
 		}
 		
 		///////////////////////////////////
-		// ArrayMap().indexOfKey() TESTS //
+		// ArrayListMap().indexOfKey() TESTS //
 		///////////////////////////////////
 		
 		[Test]
@@ -144,12 +144,12 @@ package org.as3collections.maps
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
 			
-			arrayMap.put(equatableObject1A, 1);
-			arrayMap.put(equatableObject2A, 2);
+			arrayListMap.put(equatableObject1A, 1);
+			arrayListMap.put(equatableObject2A, 2);
 			
 			var equatableObject1B:EquatableObject = new EquatableObject("equatable-object-1");
 			
-			var index:int = arrayMap.indexOfKey(equatableObject1B);
+			var index:int = arrayListMap.indexOfKey(equatableObject1B);
 			Assert.assertEquals(0, index);
 		}
 		
@@ -160,18 +160,18 @@ package org.as3collections.maps
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
 			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
 			
-			arrayMap.put(equatableObject1A, 1);
-			arrayMap.put(equatableObject2A, 2);
-			arrayMap.put(equatableObject3A, 3);
+			arrayListMap.put(equatableObject1A, 1);
+			arrayListMap.put(equatableObject2A, 2);
+			arrayListMap.put(equatableObject3A, 3);
 			
 			var equatableObject2B:EquatableObject = new EquatableObject("equatable-object-2");
 			
-			var index:int = arrayMap.indexOfKey(equatableObject2B);
+			var index:int = arrayListMap.indexOfKey(equatableObject2B);
 			Assert.assertEquals(1, index);
 		}
 		
 		/////////////////////////////////////
-		// ArrayMap().indexOfValue() TESTS //
+		// ArrayListMap().indexOfValue() TESTS //
 		/////////////////////////////////////
 		
 		[Test]
@@ -180,10 +180,10 @@ package org.as3collections.maps
 			var equatableObject1A:EquatableObject = new EquatableObject("equatable-object-1");
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
 			
-			arrayMap.put("equatable-object-1", equatableObject1A);
-			arrayMap.put("equatable-object-2", equatableObject2A);
+			arrayListMap.put("equatable-object-1", equatableObject1A);
+			arrayListMap.put("equatable-object-2", equatableObject2A);
 			
-			var index:int = arrayMap.indexOfValue(equatableObject1A);
+			var index:int = arrayListMap.indexOfValue(equatableObject1A);
 			Assert.assertEquals(0, index);
 		}
 		
@@ -194,11 +194,11 @@ package org.as3collections.maps
 			var equatableObject2A:EquatableObject = new EquatableObject("equatable-object-2");
 			var equatableObject3A:EquatableObject = new EquatableObject("equatable-object-3");
 			
-			arrayMap.put("equatable-object-1", equatableObject1A);
-			arrayMap.put("equatable-object-2", equatableObject2A);
-			arrayMap.put("equatable-object-3", equatableObject3A);
+			arrayListMap.put("equatable-object-1", equatableObject1A);
+			arrayListMap.put("equatable-object-2", equatableObject2A);
+			arrayListMap.put("equatable-object-3", equatableObject3A);
 			
-			var index:int = arrayMap.indexOfValue(equatableObject2A);
+			var index:int = arrayListMap.indexOfValue(equatableObject2A);
 			Assert.assertEquals(1, index);
 		}
 		

@@ -37,10 +37,10 @@ package org.as3collections.maps
 	/**
 	 * @author Flávio Silva
 	 */
-	public class ArrayMapTests extends IListMapTests
+	public class ArrayListMapTests extends IListMapTests
 	{
 		
-		public function ArrayMapTests()
+		public function ArrayListMapTests()
 		{
 			
 		}
@@ -51,11 +51,11 @@ package org.as3collections.maps
 		
 		override public function getMap():IMap
 		{
-			return new ArrayMap();
+			return new ArrayListMap();
 		}
 		
 		//////////////////////////////////
-		// ArrayMap() constructor TESTS //
+		// ArrayListMap() constructor TESTS //
 		//////////////////////////////////
 		
 		[Test]
@@ -85,26 +85,26 @@ package org.as3collections.maps
 		}
 		
 		//////////////////////////////
-		// ArrayMap().clone() TESTS //
+		// ArrayListMap().clone() TESTS //
 		//////////////////////////////
 		
 		[Test]
-		public function clone_simpleCall_checkIfReturnedObjectIsArrayMap_ReturnsTrue(): void
+		public function clone_simpleCall_checkIfReturnedObjectIsArrayListMap_ReturnsTrue(): void
 		{
 			var clonedMap:IMap = map.clone();
 			
-			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ArrayMap, clonedMap);
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(ArrayListMap, clonedMap);
 			Assert.assertTrue(isCorrectType);
 		}
 		
 		///////////////////////////////
-		// ArrayMap().equals() TESTS //
+		// ArrayListMap().equals() TESTS //
 		///////////////////////////////
 		
 		[Test]
 		public function equals_twoEmptyMaps_oneMapIsReadOnly_ReturnsFalse(): void
 		{
-			var readOnlyMap:IMap = new ReadOnlyArrayMap(new ArrayMap());
+			var readOnlyMap:IMap = new ReadOnlyArrayListMap(new ArrayListMap());
 			
 			var equal:Boolean = map.equals(readOnlyMap);
 			Assert.assertFalse(equal);
@@ -120,7 +120,7 @@ package org.as3collections.maps
 			map2.put("element-2", 2);
 			map2.put("element-1", 1);
 			
-			Assert.assertFalse(map.equals(map2));//ArrayMap does take cares of order
+			Assert.assertFalse(map.equals(map2));//ArrayListMap does take cares of order
 		}
 		
 		[Test]
@@ -150,7 +150,7 @@ package org.as3collections.maps
 		}
 		
 		/////////////////////////////////
-		// ArrayMap().toString() TESTS //
+		// ArrayListMap().toString() TESTS //
 		/////////////////////////////////
 		
 		[Test]

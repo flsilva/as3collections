@@ -29,7 +29,7 @@
 
 package org.as3collections.maps
 {
-	import org.as3collections.AbstractArrayMap;
+	import org.as3collections.AbstractListMap;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
@@ -51,17 +51,17 @@ package org.as3collections.maps
 	 * <p>This class makes guarantees as to the order of the map.
 	 * The order in which elements are stored is the order in which they were inserted.</p>
 	 * <p>It's possible to create typed maps.
-	 * You just sends the <code>ArrayMap</code> object to the wrapper <code>TypedMap</code> or uses the <code>MapUtil.getTypedMap</code>.</p>
+	 * You just sends the <code>ArrayListMap</code> object to the wrapper <code>TypedMap</code> or uses the <code>MapUtil.getTypedMap</code>.</p>
 	 * 
 	 * @example
 	 * 
 	 * <listing version="3.0">
 	 * import org.as3collections.IMap;
 	 * import org.as3collections.IList;
-	 * import org.as3collections.maps.ArrayMap;
+	 * import org.as3collections.maps.ArrayListMap;
 	 * import org.as3collections.maps.MapEntry;
 	 * 
-	 * var map1:IMap = new ArrayMap();
+	 * var map1:IMap = new ArrayListMap();
 	 * var tf1:TextField = new TextField();
 	 * var tf2:TextField = new TextField();
 	 * 
@@ -239,14 +239,14 @@ package org.as3collections.maps
 	 * @see org.as3collections.utils.MapUtil#getTypedMap() MapUtil.getTypedMap()
 	 * @author Flávio Silva
 	 */
-	public class ArrayMap extends AbstractArrayMap
+	public class ArrayListMap extends AbstractListMap
 	{
 		/**
-		 * Constructor, creates a new <code>ArrayMap</code> object.
+		 * Constructor, creates a new <code>ArrayListMap</code> object.
 		 * 
 		 * @param 	source 		a map with wich fill this map.
 		 */
-		public function ArrayMap(source:IMap = null)
+		public function ArrayListMap(source:IMap = null)
 		{
 			super(source);
 		}
@@ -267,13 +267,13 @@ package org.as3collections.maps
 		}
 
 		/**
-		 * Creates and return a new <code>ArrayMap</code> object containing all mappings in this map (in the same order).
+		 * Creates and return a new <code>ArrayListMap</code> object containing all mappings in this map (in the same order).
 		 * 
-		 * @return 	a new <code>ArrayMap</code> object containing all mappings in this map.
+		 * @return 	a new <code>ArrayListMap</code> object containing all mappings in this map.
  		 */
 		override public function clone(): *
 		{
-			return new ArrayMap(this);
+			return new ArrayListMap(this);
 		}
 
 		/**
@@ -535,7 +535,7 @@ package org.as3collections.maps
 		 */
 		override public function subMap(fromIndex:int, toIndex:int): IListMap
 		{
-			if (isEmpty()) throw new IllegalOperationError("This ArrayMap instance is empty.");
+			if (isEmpty()) throw new IllegalOperationError("This ArrayListMap instance is empty.");
 			
 			checkIndex(fromIndex, size());
 			checkIndex(toIndex, size());
@@ -560,7 +560,7 @@ package org.as3collections.maps
 		 */
 		override protected function createEmptyMap(): IListMap
 		{
-			return new ArrayMap();
+			return new ArrayListMap();
 		}
 
 	}

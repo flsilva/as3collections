@@ -29,7 +29,7 @@
 
 package org.as3collections.maps 
 {
-	import org.as3collections.AbstractArrayMap;
+	import org.as3collections.AbstractListMap;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IMap;
@@ -39,7 +39,7 @@ package org.as3collections.maps
 	import org.as3utils.ReflectionUtil;
 
 	/**
-	 * An <code>ArrayMap</code> that doesn't allow modifications.
+	 * An <code>ArrayListMap</code> that doesn't allow modifications.
 	 * It receives all the mappings by its constructor and can no longer be changed.
 	 * All methods that change the map will throw an <code>UnsupportedOperationError</code>.
 	 * 
@@ -47,10 +47,10 @@ package org.as3collections.maps
 	 * 
 	 * <listing version="3.0">
 	 * import org.as3collections.IMap;
-	 * import org.as3collections.maps.ArrayMap;
-	 * import org.as3collections.maps.ReadOnlyArrayMap;
+	 * import org.as3collections.maps.ArrayListMap;
+	 * import org.as3collections.maps.ReadOnlyArrayListMap;
 	 * 
-	 * var map1:IMap = new ArrayMap();
+	 * var map1:IMap = new ArrayListMap();
 	 * 
 	 * map1.put("fa", "fb"):     // null
 	 * map1.put("ga", "gb"):     // null
@@ -59,27 +59,27 @@ package org.as3collections.maps
 	 * map1                      // {fa=fb,ga=gb,ha=hb}
 	 * map1.size()               // 3
 	 * 
-	 * var map2:IMap = new ReadOnlyArrayMap(map1);
+	 * var map2:IMap = new ReadOnlyArrayListMap(map1);
 	 * 
 	 * map2                      // {fa=fb,ga=gb,ha=hb}
 	 * map2.size()               // 3
 	 * 
-	 * map2.put(1, 2)            // UnsupportedOperationError: ReadOnlyArrayMap is a read-only map and doesn't allow modifications.
+	 * map2.put(1, 2)            // UnsupportedOperationError: ReadOnlyArrayListMap is a read-only map and doesn't allow modifications.
 	 * 
-	 * map2.remove(1)            // UnsupportedOperationError: ReadOnlyArrayMap is a read-only map and doesn't allow modifications.
+	 * map2.remove(1)            // UnsupportedOperationError: ReadOnlyArrayListMap is a read-only map and doesn't allow modifications.
 	 * </listing>
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class ReadOnlyArrayMap extends AbstractArrayMap
+	public class ReadOnlyArrayListMap extends AbstractListMap
 	{
 		/**
-		 * Constructor, creates a new <code>ReadOnlyArrayMap</code> object.
+		 * Constructor, creates a new <code>ReadOnlyArrayListMap</code> object.
 		 * 
 		 * @param 	source 	an map to fill the list.
 		 * @throws 	ArgumentError  	if the <code>source</code> argument is <code>null</code>.
 		 */
-		public function ReadOnlyArrayMap(source:IMap)
+		public function ReadOnlyArrayListMap(source:IMap)
 		{
 			if (!source) throw new ArgumentError("The 'source' argument must not be 'null'.");
 			
@@ -101,7 +101,7 @@ package org.as3collections.maps
 		/**
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 */
 		override public function clear(): void
 		{
@@ -109,13 +109,13 @@ package org.as3collections.maps
 		}
 
 		/**
-		 * Creates and return a new <code>ReadOnlyArrayMap</code> object containing all mappings in this map (in the same order).
+		 * Creates and return a new <code>ReadOnlyArrayListMap</code> object containing all mappings in this map (in the same order).
 		 * 
-		 * @return 	a new <code>ReadOnlyArrayMap</code> object containing all mappings in this map (in the same order).
+		 * @return 	a new <code>ReadOnlyArrayListMap</code> object containing all mappings in this map (in the same order).
  		 */
 		override public function clone(): *
 		{
-			return new ReadOnlyArrayMap(this);
+			return new ReadOnlyArrayListMap(this);
 		}
 		
 		/**
@@ -135,7 +135,7 @@ package org.as3collections.maps
 		 * 
 		 * @param key
 		 * @param value
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 * @return 
 		 */
 		override public function put(key:*, value:*): *
@@ -147,7 +147,7 @@ package org.as3collections.maps
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param map
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 */
 		override public function putAll(map:IMap): void
 		{
@@ -158,7 +158,7 @@ package org.as3collections.maps
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param o
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 */
 		override public function putAllByObject(o:Object): void
 		{
@@ -169,7 +169,7 @@ package org.as3collections.maps
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param entry
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 * @return
 		 */
 		override public function putEntry(entry:IMapEntry): *
@@ -181,7 +181,7 @@ package org.as3collections.maps
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param key
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 * @return
 		 */
 		override public function remove(key:*): *
@@ -193,7 +193,7 @@ package org.as3collections.maps
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param keys
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 * @return
 		 */
 		override public function removeAll(keys:ICollection): Boolean
@@ -205,7 +205,7 @@ package org.as3collections.maps
 		 * This implementation always throws an <code>UnsupportedOperationError</code>.
 		 * 
 		 * @param keys
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayMap</code> is a read-only map and doesn't allow modifications.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	<code>ReadOnlyArrayListMap</code> is a read-only map and doesn't allow modifications.
 		 * @return
 		 */
 		override public function retainAll(keys:ICollection): Boolean
