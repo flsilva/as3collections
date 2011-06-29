@@ -31,7 +31,6 @@ package org.as3collections.maps
 {
 	import org.as3collections.IListMap;
 	import org.as3collections.IMap;
-	import org.as3collections.IMapEntry;
 	import org.as3collections.ISortedMap;
 	import org.as3collections.SortMapBy;
 	import org.as3collections.lists.ArrayList;
@@ -219,26 +218,6 @@ package org.as3collections.maps
 			_sort();
 		}
 
-		/**
-		 * @inheritDoc
-		 */
-		override public function remove(key:*): *
-		{
-			var value:* = super.remove(key);
-			_sort();
-			return value;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		override public function removeAt(index:int): IMapEntry
-		{
-			var old:IMapEntry = super.removeAt(index);
-			_sort();
-			return old;
-		}
-		
 		/**
 		 * @inheritDoc
 		 */

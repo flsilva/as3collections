@@ -44,6 +44,7 @@ package org.as3collections
 	 * 
 	 * @see 	org.as3collections.AbstractList AbstractList
 	 * @see 	org.as3collections.ICollection ICollection
+	 * @see 	org.as3collections.ISortedList ISortedList
 	 * @see 	org.as3collections.IListIterator IListIterator
 	 * @author Flávio Silva
 	 */

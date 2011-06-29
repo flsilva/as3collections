@@ -33,7 +33,8 @@ package org.as3collections
 	import org.as3coreaddendum.system.IEquatable;
 
 	/**
-	 * An object that maps keys to values. A map cannot contain duplicate keys, each key can map to at most one value.
+	 * An object that maps keys to values.
+	 * A map cannot contain duplicate keys, each key can map to at most one value.
 	 * <p>This interface provides three collection views, which allow a map's contents to be viewed as a list of keys, a list of values, or a list of key-value mappings (<code>IMapEntry</code>).
 	 * Some map implementations, like the <code>ArrayListMap</code> class, make specific guarantees as to their order; others, like the <code>HashMap</code> class, do not.</p>
 	 * <p>These views, plus <code>IMap.iterator()</code>, enable various forms of iteration over the keys and values of the map.
@@ -44,19 +45,24 @@ package org.as3collections
 	 * For example, some implementations prohibit <code>null</code> keys and values, and some have restrictions on the types of their keys or values.</p>
 	 * <p>The methods that modify the map are specified to throw <code>org.as3coreaddendum.errors.UnsupportedOperationError</code> if the map does not support the operation.
 	 * These methods are documented as "optional operation".</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
+	 * @see org.as3collections.AbstractHashMap AbstractHashMap
+	 * @see org.as3collections.AbstractListMap AbstractListMap
 	 * @see org.as3collections.IMapEntry IMapEntry
+	 * @see org.as3collections.IListMap IListMap
 	 * @author Flávio Silva
 	 */
 	public interface IMap extends IIterable, ICloneable, IEquatable
 	{
 		/**
-		 * Indicates whether all keys in this map implements the interface org.as3coreaddendum.system.IEquatable.
+		 * Indicates whether all keys in this map implements <code>org.as3coreaddendum.system.IEquatable</code> interface.
 		 */
 		function get allKeysEquatable(): Boolean;
 
 		/**
-		 * Indicates whether all values in this map implements the interface org.as3coreaddendum.system.IEquatable.
+		 * Indicates whether all values in this map implements <code>org.as3coreaddendum.system.IEquatable</code> interface.
 		 */
 		function get allValuesEquatable(): Boolean;
 
@@ -89,23 +95,23 @@ package org.as3collections
 		function containsValue(value:*): Boolean;
 
 		/**
-		 * Returns an <code>IList</code> object that is a view of the mappings contained in this map.
-		 * The type of the objects within the list is <code>IMapEntry</code>
-		 * <p>Modifications in the <code>IList</code> object doesn't affect this map.</p>
+		 * Returns an <code>ICollection</code> object that is a view of the mappings contained in this map.
+		 * The type of the objects within the map is <code>IMapEntry</code>
+		 * <p>Modifications in the <code>ICollection</code> object does not affect this map.</p>
 		 * 
-		 * @return 	an <code>IList</code> object that is a view of the mappings contained in this map.
+		 * @return 	an <code>ICollection</code> object that is a view of the mappings contained in this map.
 		 * @see org.as3collections.IMapEntry IMapEntry
-		 * @see org.as3collections.IList IList
+		 * @see org.as3collections.ICollection ICollection
  		 */
-		function entryList(): IList;
+		function entryCollection(): ICollection;
 
 		/**
-		 * Returns an <code>IList</code> object that is a view of the keys contained in this map.
-		 * <p>Modifications in the <code>IList</code> object doesn't affect this map.</p>
+		 * Returns an <code>ICollection</code> object that is a view of the keys contained in this map.
+		 * <p>Modifications in the <code>ICollection</code> object doesn't affect this map.</p>
 		 * 
-		 * @return 	an <code>IList</code> object that is a view of the keys contained in this map.
+		 * @return 	an <code>ICollection</code> object that is a view of the keys contained in this map.
  		 */
-		function getKeys(): IList;
+		function getKeys(): ICollection;
 
 		/**
 		 * Returns the value to which the specified key is mapped, or <code>null</code> if this map contains no mapping for the key.
@@ -121,12 +127,12 @@ package org.as3collections
 		function getValue(key:*): *;
 
 		/**
-		 * Returns an <code>IList</code> object that is a view of the values contained in this map.
-		 * <p>Modifications in the <code>IList</code> object doesn't affect this map.</p>
+		 * Returns an <code>ICollection</code> object that is a view of the values contained in this map.
+		 * <p>Modifications in the <code>ICollection</code> object does not affect this map.</p>
 		 * 
-		 * @return 	an <code>IList</code> object that is a view of the values contained in this map.
+		 * @return 	an <code>ICollection</code> object that is a view of the values contained in this map.
  		 */
-		function getValues(): IList;
+		function getValues(): ICollection;
 
 		/**
 		 * Returns <code>true</code> if this map contains no key-value mappings.

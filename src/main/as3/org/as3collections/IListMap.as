@@ -30,15 +30,27 @@
 package org.as3collections
 {
 	/**
-	 * description
+	 * An ordered map.
+	 * The user of this interface has precise control over where in the map each mapping is inserted.
+	 * The user can access mappings by their integer index (position in the map), and search for mappings in the map.
+	 * <p>The <code>IListMap</code> interface provides the special <code>IListMapIterator</code> iterator, that allows mapping insertion and replacement, and bidirectional access in addition to the normal operations that the <code>IIterator</code> interface provides.
+	 * The <code>listMapIterator()</code> method is provided to obtain a <code>IListMapIterator</code> implementation that may start at a specified position in the map.</p>
+	 * <p>This interface has the purpose to, in certain degree, unify <code>IList</code> and <code>IMap</code> interfaces.</p>
+	 * <p>The methods that modify the map are specified to throw <code>org.as3coreaddendum.errors.UnsupportedOperationError</code> if the map does not support the operation.
+	 * These methods are documented as "optional operation".</p>
 	 * 
+	 * @see 	org.as3collections.AbstractListMap AbstractListMap
+	 * @see 	org.as3collections.IMap IMap
+	 * @see 	org.as3collections.ISortedMap ISortedMap
+	 * @see 	org.as3collections.IListMapIterator IListMapIterator
 	 * @author Flávio Silva
 	 */
 	public interface IListMap extends IMap
 	{
 		/**
-		 * The number of times this map has been <em>structurally modified</em>. Structural modifications are those that change the size of the map.
-		 * <p>This field is used by the <code>IListMapIterator</code> implementation returned by the <code>listIterator</code> method.
+		 * The number of times this map has been <em>structurally modified</em>.
+		 * Structural modifications are those that change the size of the map.
+		 * <p>This field is used by the <code>IListMapIterator</code> implementation returned by the <code>listMapIterator</code> method.
 		 * If the value of this field changes unexpectedly, the <code>IListMapIterator</code> object will throw a <code>org.as3collections.errors.ConcurrentModificationError</code> in response to the <code>next</code>, <code>remove</code>, <code>previous</code> or <code>put</code> operations.</p>
 		 * <p>Implementations merely has to increment this field in its <code>put</code>, <code>remove</code> and any other methods that result in structural modifications to the map.
 		 * A single call to <code>put</code> or <code>remove</code> must add no more than one to this field.</p>
@@ -49,7 +61,7 @@ package org.as3collections
 		/**
 		 * Returns the key at the specified position in this map.
 		 * 
-		 * @param index 	index of the key to return.
+		 * @param 	index 	index of the key to return.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 	if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the key at the specified position in this map.
 		 */
@@ -76,7 +88,7 @@ package org.as3collections
 		function headMap(toKey:*): IListMap;
 		
 		/**
-		 * Returns the index of the <b>first occurrence</b> of the specified key in this map, or -1 if this map does not contain the key.
+		 * Returns the index of the <em>first occurrence</em> of the specified key in this map, or -1 if this map does not contain the key.
 		 * 
 		 * @param  	key 	the key to search for.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified key is incompatible with this map (optional).
@@ -86,7 +98,7 @@ package org.as3collections
 		function indexOfKey(key:*): int;
 
 		/**
-		 * Returns the index of the <b>first occurrence</b> of the specified value in this map, or -1 if this map does not contain the value.
+		 * Returns the index of the <em>first occurrence</em> of the specified value in this map, or -1 if this map does not contain the value.
 		 * 
 		 * @param  	value 	the value to search for.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified value is incompatible with this map (optional).
@@ -199,7 +211,7 @@ package org.as3collections
 		 * @param  	toIndex 	the index to stop retrieving mappings (exclusive).
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>subMap</code> operation is not supported by this map.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
-		 * @return 	a new list that is a view of the specified range within this list.
+		 * @return 	a new map that is a view of the specified range within this map.
 		 */
 		function subMap(fromIndex:int, toIndex:int): IListMap;
 
@@ -210,7 +222,7 @@ package org.as3collections
 		 * @param  	fromKey 	low endpoint (inclusive) of the keys in the returned map.
 		 * @throws 	ArgumentError 	if <code>fromKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
 		 * @throws 	ArgumentError 	if <code>containsKey(fromKey)</code> returns <code>false</code>.
-		 * @return 	a new sorted map that is a view of the portion of this map whose keys are greater than or equal to <code>fromKey</code>.
+		 * @return 	a new map that is a view of the portion of this map whose keys are greater than or equal to <code>fromKey</code>.
 		 */
 		function tailMap(fromKey:*): IListMap;
 	}

@@ -41,13 +41,30 @@ package org.as3collections
 
 	/**
 	 * This class provides a skeletal hash table based implementation of the <code>IMap</code> interface, to minimize the effort required to implement this interface.
-	 * It's backed by the <code>flash.utils.Dictionary</code> class.
+	 * <p>This is an abstract class and shouldn't be instantiated directly.</p>
+	 * <p>This class maintains a native <code>flash.utils.Dictionary</code> object as its source.</p>
 	 * <p>This class makes no guarantees as to the order of the map.
 	 * In particular, it does not guarantee that the order will remain constant over time.</p>
 	 * <p>The documentation for each non-abstract method in this class describes its implementation in detail.
 	 * Each of these methods may be overridden if the map being implemented admits a more efficient implementation.</p>
-	 * <p>This is an abstract class and shouldn't be instantiated directly.</p> 
+	 * <p><b>IMPORTANT:</b></p>
+	 * <p>This class implements equality through <code>org.as3coreaddendum.system.IEquatable</code> interface in the <code>equals</code> method and in all methods that compares the elements inside this collection (i.e. <code>containsKey</code>, <code>containsValue</code>, <code>put</code>, <code>remove</code>, <code>removeAll</code> and <code>retainAll</code>).</p>
+	 * <p>In order to this map uses the <code>equals</code> method of its keys and/or values in comparisons (rather than default '==' operator), <b>all keys and/or values in this map must implement the</b> <code>org.as3coreaddendum.system.IEquatable</code> <b>interface and also the supplied key and/or value.</b></p>
+	 * <p>For example:</p>
+	 * <p>myMap.containsKey(myKey);</p>
+	 * <p>All keys (but in this case only keys) inside <code>myMap</code>, and <code>myKey</code>, must implement the <code>org.as3coreaddendum.system.IEquatable</code> interface so that <code>equals</code> method of each key can be used in the comparison.
+	 * Otherwise '==' operator is used. The same is true for values.
+	 * The use of equality for keys and values are independent.
+	 * It's possible to use only keys that implement <code>IEquatable</code>, only values, both, or none.
+	 * This usage varies according to application needs.</p>
+	 * <p>All subclasses of this class <em>must</em> conform with this behavior.</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
+	 * @see 	org.as3collections.IMap IMap
+	 * @see 	org.as3collections.HashMap HashMap
+	 * @see 	org.as3collections.AbstractListMap AbstractListMap
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
 	 * @author Flávio Silva
 	 */
 	public class AbstractHashMap implements IMap
@@ -88,7 +105,7 @@ package org.as3collections
 		protected function get values(): Dictionary { return _values; }
 
 		/**
-		 * Constructor, creates a new AbstractHashMap object.
+		 * Constructor, creates a new <code>AbstractHashMap</code> object.
 		 * 
 		 * @param 	source 		a map with wich fill this map.
 		 * @param 	weakKeys 	instructs the backed <code>Dictionary</code> object to use "weak" references on object keys. If the only reference to an object is in the specified <code>Dictionary</code> object, the key is eligible for garbage collection and is removed from the table when the object is collected.
@@ -129,7 +146,9 @@ package org.as3collections
 		}
 
 		/**
-		 * @inheritDoc
+		 * Returns <code>true</code> if this map contains a mapping for the specified key.
+		 * <p>If all keys in this map and <code>key</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, this implementation will iterate over this map using <code>equals</code> method of the keys.
+		 * Otherwise this implementation uses <code>Dictionary[key] !== undefined</code>.</p>
 		 * 
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified key is incompatible with this map (optional).
 		 * @throws 	ArgumentError  	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
@@ -141,7 +160,9 @@ package org.as3collections
 		}
 
 		/**
-		 * @inheritDoc
+		 * Returns <code>true</code> if this map maps one or more keys to the specified value.
+		 * <p>If all values in this map and <code>value</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, this implementation will iterate over this map using <code>equals</code> method of the values.
+		 * Otherwise this implementation uses <code>Dictionary[value] !== undefined</code>.</p>
 		 * 
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified value is incompatible with this map (optional).
 		 * @throws 	ArgumentError  	if the specified value is <code>null</code> and this map does not permit <code>null</code> values (optional).
@@ -163,7 +184,7 @@ package org.as3collections
 		 * @see org.as3collections.IList IList
 		 * @see org.as3collections.lists.ArrayList ArrayList
  		 */
-		public function entryList(): IList
+		public function entryCollection(): ICollection
 		{
 			var list:IList = new ArrayList();
 			var entry:IMapEntry;
@@ -183,6 +204,7 @@ package org.as3collections
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
 		 * @see 	org.as3collections.utils.MapUtil#equalNotConsideringOrder() MapUtil.equalNotConsideringOrder()
+		 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
 		 */
 		public function equals(other:*): Boolean
 		{
@@ -197,7 +219,7 @@ package org.as3collections
 		 * @see org.as3collections.IList IList
 		 * @see org.as3collections.lists.ArrayList ArrayList
  		 */
-		public function getKeys(): IList
+		public function getKeys(): ICollection
 		{
 			var list:IList = new ArrayList();
 			
@@ -210,10 +232,17 @@ package org.as3collections
 		}
 
 		/**
-		 * @inheritDoc
+		 * Returns the value to which the specified key is mapped, or <code>null</code> if this map contains no mapping for the key.
+		 * <p>If this map permits <code>null</code> values, then a return value of <code>null</code> does not <em>necessarily</em> indicate that the map contains no mapping for the key.
+		 * It's possible that the map explicitly maps the key to <code>null</code>.
+		 * The <code>containsKey</code> method may be used to distinguish these two cases.</p>
+		 * <p>If all keys in this map and <code>key</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, this implementation will iterate over this map using <code>equals</code> method of the keys.
+		 * Otherwise this implementation returns <code>Dictionary[key]</code>.</p>
 		 * 
+		 * @param  	key 	the key whose associated value is to be returned.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified key is incompatible with this map (optional).
 		 * @throws 	ArgumentError  	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
+		 * @return 	the value to which the specified key is mapped, or <code>null</code> if this map contains no mapping for the key.
 		 */
 		public function getValue(key:*): *
 		{
@@ -229,7 +258,7 @@ package org.as3collections
 		 * @see org.as3collections.IList IList
 		 * @see org.as3collections.lists.ArrayList ArrayList
  		 */
-		public function getValues(): IList
+		public function getValues(): ICollection
 		{
 			var list:IList = new ArrayList();
 			
@@ -263,7 +292,8 @@ package org.as3collections
 
 		/**
 		 * Associates the specified value with the specified key in this map (optional operation).
-		 * If the map previously contained a mapping for the key, the old value is replaced by the specified value. (A map <code>m</code> is said to contain a mapping for a key <code>k</code> if and only if <code>m.containsKey(k)</code> would return <code>true</code>.) 
+		 * If the map previously contained a mapping for the key, the old value is replaced by the specified value.
+		 * (A map <code>m</code> is said to contain a mapping for a key <code>k</code> if and only if <code>m.containsKey(k)</code> would return <code>true</code>.) 
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @param  	key 	key with which the specified value is to be associated.
@@ -359,7 +389,7 @@ package org.as3collections
 		/**
 		 * Removes the mapping for a key from this map (if it is present) for each element in the specified collection (optional operation).
 		 * The elements in the specified collection are interpreted as keys.
-		 * <p>This implementation iterates over this map, checking each key returned by the iterator in turn to see if it's contained in the specified collection.
+		 * <p>This implementation iterates over this map, checking each key returned by the iterator in turn to see if it's contained in the specified <code>keys</code> collection (using <code>contains</code> method of the <code>keys</code> argument).
 		 * If it's so contained, it's removed from this map with the iterator's <code>remove</code> method.</p>
 		 * <p>Note that this implementation will throw an <code>UnsupportedOperationError</code> if the iterator returned by the iterator method does not implement the <code>remove</code> method and this map contains one or more keys in common with the specified collection.</p>
 		 * <p>The map will not contain mappings for the elements in the specified collection once the call returns.</p>
@@ -367,7 +397,7 @@ package org.as3collections
 		 * @param  	keys 	the collection whose elements are interpreted as keys to be removed from the map.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeAll</code> operation is not supported by this map.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of an element in the specified collection is incompatible with this map (optional).
-		 * @throws 	ArgumentError  			if the specified collection is <code>null</code>, or if this map does not permit <code>null</code> keys, and the specified collections contains <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  											if the specified collection is <code>null</code>, or if this map does not permit <code>null</code> keys, and the specified collections contains <code>null</code> elements (optional).
 		 * @return 	<code>true</code> if this map changed as a result of the call.
 		 */
 		public function removeAll(keys:ICollection): Boolean
@@ -391,7 +421,7 @@ package org.as3collections
 
 		/**
 		 * Retains only the mappings in this map that the keys are contained (as elements) in the specified collection (optional operation).
-		 * In other words, removes from this map all of its mappings whose keys are not contained (as elements) in the specified collection.
+		 * In other words, removes from this map all of its mappings whose keys are not contained (as elements) in the specified <code>keys</code> collection (using <code>contains</code> method of the <code>keys</code> argument).
 		 * The elements in the specified collection are interpreted as keys.
 		 * <p>This implementation iterates over this map and calls <code>IIterator.remove</code> once for each key that are not contained in the specified collection.</p>
 		 * <p>Note that this implementation will throw an <code>UnsupportedOperationError</code> if the iterator returned by the iterator method does not implement the <code>remove</code> method and this map contains one or more keys not present in the specified collection.</p>
@@ -431,8 +461,10 @@ package org.as3collections
 
 		/**
 		 * Returns the string representation of this instance.
+		 * <p>This method uses <code>MapUtil.toString</code> method.</p>
 		 * 
 		 * @return 	the string representation of this instance.
+		 * @see 	org.as3collections.utils.MapUtil#toString() MapUtil.toString()
  		 */
 		public function toString():String 
 		{

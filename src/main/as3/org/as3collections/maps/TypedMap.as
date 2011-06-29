@@ -32,7 +32,6 @@ package org.as3collections.maps
 	import org.as3collections.AbstractListMap;
 	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
-	import org.as3collections.IList;
 	import org.as3collections.IMap;
 	import org.as3collections.IMapEntry;
 	import org.as3collections.utils.MapUtil;
@@ -182,13 +181,13 @@ package org.as3collections.maps
 		}
 
 		/**
-		 * Forwards the call to <code>wrappedMap.entryList</code>.
+		 * Forwards the call to <code>wrappedMap.entryCollection</code>.
 		 * 
 		 * @return
  		 */
-		public function entryList(): IList
+		public function entryCollection(): ICollection
 		{
-			return wrappedMap.entryList();
+			return wrappedMap.entryCollection();
 		}
 
 		/**
@@ -226,7 +225,7 @@ package org.as3collections.maps
 		 * 
 		 * @return
  		 */
-		public function getKeys(): IList
+		public function getKeys(): ICollection
 		{
 			return wrappedMap.getKeys();
 		}
@@ -246,7 +245,7 @@ package org.as3collections.maps
 		 * 
 		 * @return
  		 */
-		public function getValues(): IList
+		public function getValues(): ICollection
 		{
 			return wrappedMap.getValues();
 		}

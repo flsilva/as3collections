@@ -45,6 +45,7 @@ package org.as3collections
 	 * 
 	 * @see 	org.as3collections.AbstractCollection AbstractCollection
 	 * @see 	org.as3collections.IIterable IIterable
+	 * @see 	org.as3collections.IList IList
 	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
 	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/ICloneable.html	org.as3coreaddendum.system.ICloneable
 	 * @author Flávio Silva

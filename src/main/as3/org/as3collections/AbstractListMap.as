@@ -34,20 +34,34 @@ package org.as3collections
 	import org.as3collections.utils.MapUtil;
 	import org.as3coreaddendum.errors.CloneNotSupportedError;
 	import org.as3coreaddendum.errors.UnsupportedOperationError;
-	import org.as3coreaddendum.system.IEquatable;
 	import org.as3utils.ReflectionUtil;
 
 	import flash.errors.IllegalOperationError;
 
 	/**
-	 * This class provides a skeletal array-based implementation of the <code>IMap</code> interface, to minimize the effort required to implement this interface.
-	 * It's backed by the <code>Array</code> class.
+	 * This class provides a skeletal implementation of the <code>IListMap</code> interface, to minimize the effort required to implement this interface.
+	 * <p>This class maintains two <code>ArrayList</code> objects as its source, one for <code>keys</code> and one for <code>values</code>.</p>
+	 * <p>This is an abstract class and shouldn't be instantiated directly.</p>
 	 * <p>This class makes guarantees as to the order of the map.
 	 * The order in which elements are stored is the order in which they were inserted.</p>
 	 * <p>The documentation for each non-abstract method in this class describes its implementation in detail.
 	 * Each of these methods may be overridden if the map being implemented admits a more efficient implementation.</p>
-	 * <p>This is an abstract class and shouldn't be instantiated directly.</p> 
+	 * <p><b>IMPORTANT:</b></p>
+	 * <p>This class implements equality through <code>org.as3coreaddendum.system.IEquatable</code> interface in the <code>equals</code> method and in all methods that compares the elements inside this collection (i.e. <code>containsKey</code>, <code>containsValue</code>, <code>put</code>, <code>remove</code>, <code>removeAll</code> and <code>retainAll</code>).</p>
+	 * <p>In order to this map uses the <code>equals</code> method of its keys and/or values in comparisons (rather than default '==' operator), <b>all keys and/or values in this map must implement the</b> <code>org.as3coreaddendum.system.IEquatable</code> <b>interface and also the supplied key and/or value.</b></p>
+	 * <p>For example:</p>
+	 * <p>myMap.containsKey(myKey);</p>
+	 * <p>All keys (but in this case only keys) inside <code>myMap</code>, and <code>myKey</code>, must implement the <code>org.as3coreaddendum.system.IEquatable</code> interface so that <code>equals</code> method of each key can be used in the comparison.
+	 * Otherwise '==' operator is used. The same is true for values.
+	 * The use of equality for keys and values are independent.
+	 * It's possible to use only keys that implement <code>IEquatable</code>, only values, both, or none.
+	 * This usage varies according to application needs.</p>
+	 * <p>All subclasses of this class <em>must</em> conform with this behavior.</p>
 	 * 
+	 * @see 	org.as3collections.IListMap IListMap
+	 * @see 	org.as3collections.IList IList
+	 * @see 	org.as3collections.lists.ArrayList ArrayList
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
 	 * @author Flávio Silva
 	 */
 	public class AbstractListMap implements IListMap
@@ -56,8 +70,6 @@ package org.as3collections
 		 * @private
 		 */
 		protected var _modCount: int;
-		protected var _totalKeysEquatable: int;
-		protected var _totalValuesEquatable: int;
 
 		private var _keys: IList;
 		private var _values: IList;
@@ -65,12 +77,12 @@ package org.as3collections
 		/**
 		 * @inheritDoc
 		 */
-		public function get allKeysEquatable(): Boolean { return _totalKeysEquatable == size(); }
+		public function get allKeysEquatable(): Boolean { return _keys.allEquatable; }
 
 		/**
 		 * @inheritDoc
 		 */
-		public function get allValuesEquatable(): Boolean { return _totalValuesEquatable == size(); }
+		public function get allValuesEquatable(): Boolean { return _values.allEquatable; }
 		
 		/**
 		 * @inheritDoc
@@ -160,7 +172,7 @@ package org.as3collections
 		 * @see org.as3collections.IList IList
 		 * @see org.as3collections.lists.ArrayList ArrayList
  		 */
-		public function entryList(): IList
+		public function entryCollection(): ICollection
 		{
 			var list:IList = new ArrayList();
 			var it:IIterator = iterator();
@@ -190,8 +202,12 @@ package org.as3collections
 		}
 		
 		/**
-		 * @inheritDoc
+		 * Returns the key at the specified position in this map.
+		 * <p>This implementation forwards the call to <code>keys.getAt(index)</code>.</p>
+		 * 
+		 * @param 	index 	index of the key to return.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 	if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @return 	the key at the specified position in this map.
 		 */
 		public function getKeyAt(index:int): *
 		{
@@ -199,8 +215,12 @@ package org.as3collections
 		}
 		
 		/**
-		 * @inheritDoc
+		 * Returns the value at the specified position in this map.
+		 * <p>This implementation forwards the call to <code>values.getAt(index)</code>.</p>
+		 * 
+		 * @param 	index 	index of the value to return.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 	if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
+		 * @return 	the value at the specified position in this map.
 		 */
 		public function getValueAt(index:int): *
 		{
@@ -215,16 +235,22 @@ package org.as3collections
 		 * @see org.as3collections.IList IList
 		 * @see org.as3collections.lists.ArrayList ArrayList
  		 */
-		public function getKeys(): IList
+		public function getKeys(): ICollection
 		{
 			return _keys.clone();
 		}
 
 		/**
-		 * @inheritDoc
+		 * Returns the value to which the specified key is mapped, or <code>null</code> if this map contains no mapping for the key.
+		 * <p>If this map permits <code>null</code> values, then a return value of <code>null</code> does not <em>necessarily</em> indicate that the map contains no mapping for the key.
+		 * It's possible that the map explicitly maps the key to <code>null</code>.
+		 * The <code>containsKey</code> method may be used to distinguish these two cases.</p>
+		 * <p>This implementation uses <code>indexOfKey</code> method to get the index of the key/value and then calls <code>values.getAt</code> method.</p>
 		 * 
+		 * @param  	key 	the key whose associated value is to be returned.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified key is incompatible with this map (optional).
-		 * @throws 	ArgumentError	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
+		 * @throws 	ArgumentError  	if the specified key is <code>null</code> and this map does not permit <code>null</code> keys (optional).
+		 * @return 	the value to which the specified key is mapped, or <code>null</code> if this map contains no mapping for the key.
 		 */
 		public function getValue(key:*): *
 		{
@@ -242,15 +268,21 @@ package org.as3collections
 		 * @see org.as3collections.IList IList
 		 * @see org.as3collections.lists.ArrayList ArrayList
  		 */
-		public function getValues(): IList
+		public function getValues(): ICollection
 		{
 			return _values.clone();
 		}
 		
 		/**
-		 * @inheritDoc
+		 * Returns a new <code>IListMap</code> object that is a view of the portion of this map whose keys are strictly less than <code>toKey</code>.
+		 * The returned map supports all optional map operations that this map supports.
+		 * <p>This implementation uses <code>subMap(0, indexOfKey(toKey))</code>.</p>
+		 * <p>Note that this implementation will throw an <code>UnsupportedOperationError</code> unless <code>subMap</code> is overridden.</p>
 		 * 
+		 * @param  	toKey 	high endpoint (exclusive) of the keys in the returned map.
+		 * @throws 	ArgumentError 	if <code>toKey</code> is <code>null</code> and this map does not permit <code>null</code> keys.
 		 * @throws 	ArgumentError 	if <code>containsKey(toKey)</code> returns <code>false</code>.
+		 * @return 	a new <code>IListMap</code> that is a view of the portion of this map whose keys are strictly less than <code>toKey</code>.
 		 */
 		public function headMap(toKey:*): IListMap
 		{
@@ -265,6 +297,7 @@ package org.as3collections
 		
 		/**
 		 * Returns the position of the specified key.
+		 * <p>This implementation forwards the call to <code>keys.indexOf(key)</code>.</p>
 		 * 
 		 * @param  	key 	the key to search for.
 		 * @return 	the position of the specified key.
@@ -276,6 +309,7 @@ package org.as3collections
 
 		/**
 		 * Returns the position of the specified value.
+		 * <p>This implementation forwards the call to <code>values.indexOf(value)</code>.</p>
 		 * 
 		 * @param  	value 	the value to search for.
 		 * @return 	the position of the specified value.
@@ -441,7 +475,8 @@ package org.as3collections
 		/**
 		 * Removes the mapping for a key from this map if it is present (optional operation).
 		 * <p>Returns the value to which this map previously associated the key, or <code>null</code> if the map contained no mapping for the key.
-		 * If this map permits <code>null</code> values, then a return value of <code>null</code> does not <em>necessarily</em> indicate that the map contained no mapping for the key. It's possible that the map explicitly mapped the key to <code>null</code>.</p>
+		 * If this map permits <code>null</code> values, then a return value of <code>null</code> does not <em>necessarily</em> indicate that the map contained no mapping for the key.
+		 * It's possible that the map explicitly mapped the key to <code>null</code>.</p>
 		 * <p>The map will not contain a mapping for the specified key once the call returns.</p>
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
@@ -668,43 +703,8 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		/*protected function indexOfKeyByEquality(key:*): int
-		{
-			var it:IIterator = getKeys().iterator();
-			var e:IEquatable;
-			
-			while (it.hasNext())
-			{
-				e = it.next();
-				if (e.equals(key)) return it.pointer();
-			}
-			
-			return -1;
-		}*/
-
-		/**
-		 * @private
-		 */
-		/*protected function indexOfValueByEquality(value:*): int
-		{
-			var it:IIterator = getValues().iterator();
-			var e:IEquatable;
-			
-			while (it.hasNext())
-			{
-				e = it.next();
-				if (e.equals(value)) return it.pointer();
-			}
-			
-			return -1;
-		}*/
-		
-		/**
-		 * @private
-		 */
 		protected function keyAdded(key:*): void
 		{
-			if (key && key is IEquatable) _totalKeysEquatable++;
 			_modCount++;
 		}
 		
@@ -713,7 +713,6 @@ package org.as3collections
 		 */
 		protected function keyRemoved(key:*): void
 		{
-			if (key && key is IEquatable) _totalKeysEquatable--;
 			_modCount++;
 		}
 		
@@ -722,7 +721,7 @@ package org.as3collections
 		 */
 		protected function valueAdded(value:*): void
 		{
-			if (value && value is IEquatable) _totalValuesEquatable++;
+			
 		}
 		
 		/**
@@ -730,7 +729,7 @@ package org.as3collections
 		 */
 		protected function valueRemoved(value:*): void
 		{
-			if (value && value is IEquatable) _totalValuesEquatable--;
+			
 		}
 
 		/**

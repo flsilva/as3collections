@@ -30,6 +30,7 @@
 package org.as3collections.maps
 {
 	import org.as3collections.EquatableObject;
+	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
 	import org.as3collections.IList;
 	import org.as3collections.IMap;
@@ -183,17 +184,17 @@ package org.as3collections.maps
 			Assert.assertTrue(contains);
 		}
 		
-		//////////////////////////////
-		// IMap().entryList() TESTS //
-		//////////////////////////////
+		////////////////////////////////////
+		// IMap().entryCollection() TESTS //
+		////////////////////////////////////
 		
 		[Test]
-		public function entryList_mapWithTwoNotEquatableElements_checkIfReturnedListSizeIsTwo_ReturnsTrue(): void
+		public function entryCollection_mapWithTwoNotEquatableElements_checkIfReturnedListSizeIsTwo_ReturnsTrue(): void
 		{
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var entries:IList = map.entryList();
+			var entries:ICollection = map.entryCollection();
 			
 			var size:int = entries.size();
 			Assert.assertEquals(2, size);
@@ -322,7 +323,7 @@ package org.as3collections.maps
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var keys:IList = map.getKeys();
+			var keys:ICollection = map.getKeys();
 			
 			var size:int = keys.size();
 			Assert.assertEquals(2, size);
@@ -363,7 +364,7 @@ package org.as3collections.maps
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var keys:IList = map.getValues();
+			var keys:ICollection = map.getValues();
 			
 			var values:int = keys.size();
 			Assert.assertEquals(2, values);

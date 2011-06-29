@@ -46,7 +46,7 @@ package org.as3collections
 	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p> 
 	 * 
 	 * @see 	org.as3collections.IList IList
-	 * @see org.as3collections.lists.ArrayList ArrayList
+	 * @see 	org.as3collections.lists.ArrayList ArrayList
 	 * @author Flávio Silva
 	 */
 	public class AbstractList extends AbstractCollection implements IList

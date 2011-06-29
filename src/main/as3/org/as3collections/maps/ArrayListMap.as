@@ -50,8 +50,10 @@ package org.as3collections.maps
 	 * This implementation provides all of the optional map operations, and permits <code>null</code> values and the <code>null</code> key.
 	 * <p>This class makes guarantees as to the order of the map.
 	 * The order in which elements are stored is the order in which they were inserted.</p>
-	 * <p>It's possible to create typed maps.
-	 * You just sends the <code>ArrayListMap</code> object to the wrapper <code>TypedMap</code> or uses the <code>MapUtil.getTypedMap</code>.</p>
+	 * <p>This class has great similarity to <code>ArrayList</code> class.
+	 * In a way this class can be thought of as an <code>ArrayList</code> of mappings.</p>
+	 * <p>It's possible to create typed list maps.
+	 * You just sends the <code>ArrayListMap</code> object to the wrapper <code>TypedListMap</code> or uses the <code>MapUtil.getTypedListMap</code>.</p>
 	 * 
 	 * @example
 	 * 
@@ -236,7 +238,10 @@ package org.as3collections.maps
 	 * map1.size()                     // 3
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.MapUtil#getTypedMap() MapUtil.getTypedMap()
+	 * @see org.as3collections.AbstractListMap AbstractListMap
+	 * @see org.as3collections.maps.TypedListMap TypedListMap
+	 * @see org.as3collections.maps.SortedArrayListMap SortedArrayListMap
+	 * @see org.as3collections.utils.MapUtil#getTypedListMap() MapUtil.getTypedListMap()
 	 * @author Flávio Silva
 	 */
 	public class ArrayListMap extends AbstractListMap
@@ -261,8 +266,6 @@ package org.as3collections.maps
 			
 			keys.clear();
 			values.clear();
-			_totalKeysEquatable = 0;
-			_totalValuesEquatable = 0;
 			_modCount++;
 		}
 
@@ -293,7 +296,7 @@ package org.as3collections.maps
 		 * <p>This implementation returns a <code>ListMapIterator</code> object.</p>
 		 * 
 		 * @param  	index 	index of first value to be returned from the iterator (by a call to the <code>next</code> method) 
-		 * @return 	a <code>IListMapIterator</code> object to iterate over the mappings in this map (in proper sequence), starting at the specified position in this map.
+		 * @return 	a <code>ListMapIterator</code> object to iterate over the mappings in this map (in proper sequence), starting at the specified position in this map.
 		 */
 		override public function listMapIterator(index:int = 0): IListMapIterator
 		{
@@ -302,7 +305,8 @@ package org.as3collections.maps
 		
 		/**
 		 * Associates the specified value with the specified key in this map.
-		 * If the map previously contained a mapping for the key, the old value is replaced by the specified value, and the order of the key is not affected. (A map <code>m</code> is said to contain a mapping for a key <code>k</code> if and only if <code>m.containsKey(k)</code> would return <code>true</code>.) 
+		 * If the map previously contained a mapping for the key, the old value is replaced by the specified value, and the order of the key is not affected.
+		 * (A map <code>m</code> is said to contain a mapping for a key <code>k</code> if and only if <code>m.containsKey(k)</code> would return <code>true</code>.) 
 		 * 
 		 * @param  	key 	key with which the specified value is to be associated.
 		 * @param  	value 	value to be associated with the specified key.
@@ -542,7 +546,7 @@ package org.as3collections.maps
 			
 			if (fromIndex > toIndex) throw new ArgumentError("Argument <fromIndex> cannot be greater than argument <toIndex>. fromIndex: " + fromIndex + " | toIndex" + toIndex);
 			
-			var entryList:IList = entryList().subList(fromIndex, toIndex);
+			var entryList:IList = (entryCollection() as IList).subList(fromIndex, toIndex);
 			var map:IListMap = createEmptyMap();
 			
 			var it:IIterator = entryList.iterator();

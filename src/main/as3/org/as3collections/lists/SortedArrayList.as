@@ -29,7 +29,6 @@
 
 package org.as3collections.lists
 {
-	import org.as3collections.ICollection;
 	import org.as3collections.IList;
 	import org.as3collections.ISortedList;
 	import org.as3collections.errors.IndexOutOfBoundsError;
@@ -370,85 +369,6 @@ package org.as3collections.lists
 			if (!ReflectionUtil.classPathEquals(_comparator, l.comparator)) return false;
 			
 			return super.equals(other);
-		}
-
-		/**
-		 * Removes a single instance (only one occurrence) of the specified object from this list, if it is present.
-		 * <p>Before returning, the list is reordered.</p>
-		 * 
-		 * @param  	o 	the object to be removed from this collection, if present.
-		 * @return 	<code>true</code> if an object was removed as a result of this call.
-		 */
-		override public function remove(o:*): Boolean
-		{
-			var b:Boolean = super.remove(o);
-			if (b) _sort();
-			return b;
-		}
-
-		/**
-		 * Removes all of this list's elements that are also contained in the specified collection.
-		 * After this call returns, this list will contain no elements in common with the specified collection.
-		 * <p>Before returning, the list is reordered.</p>
-		 * 
-		 * @param  	collection 	the collection containing elements to be removed from this list.
-		 * @return 	<code>true</code> if this list changed as a result of the call.
-		 */
-		override public function removeAll(collection:ICollection): Boolean
-		{
-			var b:Boolean = super.removeAll(collection);
-			if (b) _sort();
-			return b;
-		}
-
-		/**
-		 * Removes the element at the specified position in this list.
-		 * Shifts any subsequent elements to the left (subtracts one from their indices).
-		 * Returns the element that was removed from the list. 
-		 * <p>Before returning, the list is reordered.</p>
-		 * 
-		 * @param  	index 	the index of the element to be removed.
-		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
-		 * @return 	the element previously at the specified position.
-		 */
-		override public function removeAt(index:int): *
-		{
-			var e:* = super.removeAt(index);
-			_sort();
-			return e;
-		}
-
-		/**
-		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
-		 * Shifts any subsequent elements to the left (subtracts their indices).
-		 * <p>If <code>toIndex == fromIndex</code>, this operation has no effect.</p>
-		 * <p>Before returning, the list is reordered.</p>
-		 * 
-		 * @param  	fromIndex 	the index to start removing elements (inclusive).
-		 * @param  	toIndex 	the index to stop removing elements (exclusive).
-		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if <code>fromIndex</code> or <code>toIndex</code> is out of range <code>(index &lt; 0 || index &gt; size())</code>.
-		 * @return 	a new <code>ArrayList</code> object containing all the removed elements.
-		 */
-		override public function removeRange(fromIndex:int, toIndex:int): ICollection
-		{
-			var c:ICollection = super.removeRange(fromIndex, toIndex);
-			_sort();
-			return c;
-		}
-
-		/**
-		 * Retains only the elements in this list that are contained in the specified collection.
-		 * In other words, removes from this list all of its elements that are not contained in the specified collection.
-		 * <p>Before returning, the list is reordered.</p>
-		 * 
-		 * @param  	collection 	the collection containing elements to be retained in this collection.
-		 * @return 	<code>true</code> if this list changed as a result of the call. 	
-		 */
-		override public function retainAll(collection:ICollection): Boolean
-		{
-			var b:Boolean = super.retainAll(collection);
-			if (b) _sort();
-			return b;
 		}
 
 		/**

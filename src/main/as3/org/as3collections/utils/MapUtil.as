@@ -29,11 +29,13 @@
 
 package org.as3collections.utils
 {
+	import org.as3collections.ICollection;
 	import org.as3collections.IIterator;
-	import org.as3collections.IList;
+	import org.as3collections.IListMap;
 	import org.as3collections.IMap;
 	import org.as3collections.IMapEntry;
 	import org.as3collections.ISortedMap;
+	import org.as3collections.maps.TypedListMap;
 	import org.as3collections.maps.TypedMap;
 	import org.as3collections.maps.TypedSortedMap;
 	import org.as3utils.ReflectionUtil;
@@ -57,23 +59,6 @@ package org.as3collections.utils
 			throw new IllegalOperationError("MapUtil is a static class and shouldn't be instantiated.");
 		}
 		
-		/**
-		 * Performs an arbitrary, specific evaluation of equality between the two arguments.
-		 * If one of the collections or both collections are <code>null</code> it will be returned <code>false</code>.
-		 * <p>Two different objects are considered equal if:</p>
-		 * <p>
-		 * <ul><li>object A and object B are instances of the same class (i.e. if they have <b>exactly</b> the same type)</li>
-		 * <li>object A contains all elements of object B</li>
-		 * <li>object B contains all elements of object A</li>
-		 * <li>elements have exactly the same order</li>
-		 * </ul></p>
-		 * <p>This implementation <b>takes care</b> of the order of the elements in the collections.
-		 * So, for two collections are equal the order of elements returned by the iterator object must be equal.</p>
-		 * 
-		 * @param  	collection1 	the first collection.
-		 * @param  	collection2 	the second collection.
-		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
-		 */
 		/**
 		 * Performs an arbitrary, specific evaluation of equality between this object and the <code>other</code> object.
 		 * If one of the maps or both maps are <code>null</code> it will be returned <code>false</code>.
@@ -99,8 +84,8 @@ package org.as3collections.utils
 			if (!ReflectionUtil.classPathEquals(map1, map2)) return false;
 			if (map1.size() != map2.size()) return false;
 			
-			var itEntryList1:IIterator = map1.entryList().iterator();
-			var itEntryList2:IIterator = map2.entryList().iterator();
+			var itEntryList1:IIterator = map1.entryCollection().iterator();
+			var itEntryList2:IIterator = map2.entryCollection().iterator();
 			var mapEntry1:IMapEntry;
 			var mapEntry2:IMapEntry;
 			
@@ -138,8 +123,8 @@ package org.as3collections.utils
 			if (!ReflectionUtil.classPathEquals(map1, map2)) return false;
 			if (map1.size() != map2.size()) return false;
 			
-			var itMap1:IIterator = map1.entryList().iterator();
-			var entryListMap2:IList = map2.entryList();
+			var itMap1:IIterator = map1.entryCollection().iterator();
+			var entryListMap2:ICollection = map2.entryCollection();
 			
 			// because maps has same size
 			// it's not necessary to perform bidirectional validation
@@ -156,40 +141,6 @@ package org.as3collections.utils
 		/**
 		 * Returns a new <code>TypedMap</code> with the <code>wrapMap</code> argument wrapped.
 		 * 
-		 * @example
-		 * 
-		 * <listing version="3.0">
-		 * import org.as3collections.IMap;
-		 * import org.as3collections.maps.ArrayListMap;
-		 * import org.as3collections.maps.TypedMap;
-		 * import org.as3collections.maps.utils.MapUtil;
-		 * 
-		 * var map1:IMap = new ArrayListMap();
-		 * 
-		 * map1.put("e", 1)            // null
-		 * map1.put("d", 2)            // null
-		 * map1.put("c", 3)            // null
-		 * map1.put("b", 4)            // null
-		 * map1.put("a", 5)            // null
-		 * 
-		 * map1                        // {e=1,d=2,c=3,b=4,a=5}
-		 * map1.size()                 // 5
-		 * 
-		 * var map2:IMap = MapUtil.getTypedMap(map1, String, Number);
-		 * 
-		 * map2                        // {e=1,d=2,c=3,b=4,a=5}
-		 * map2.size()                 // 5
-		 * 
-		 * map2.equals(map1)           // false
-		 * 
-		 * map2.put("f", 6)            // null
-		 * map2                        // {e=1,d=2,c=3,b=4,a=5,f=6}
-		 * map2.size()                 // 6
-		 * 
-		 * map2.put("g", "h")          // ClassCastError: Invalid value type. value: h | type: String | expected value type: Number
-		 * map2.put(7, 8)              // ClassCastError: Invalid key type. key: 7 | type: int | expected key type: String
-		 * </listing>
-		 * 
 		 * @param  	wrapMap 	the target map to be wrapped by the <code>TypedMap</code>.
 		 * @param 	typeKeys	the type of the keys allowed by the returned <code>TypedMap</code>.
 		 * @param 	typeValues	the type of the values allowed by the returned <code>TypedMap</code>.
@@ -203,42 +154,26 @@ package org.as3collections.utils
 		{
 			return new TypedMap(wrapMap, typeKeys, typeValues);
 		}
+		
+		/**
+		 * Returns a new <code>TypedListMap</code> with the <code>wrapMap</code> argument wrapped.
+		 * 
+		 * @param  	wrapMap 	the target map to be wrapped by the <code>TypedListMap</code>.
+		 * @param 	typeKeys	the type of the keys allowed by the returned <code>TypedListMap</code>.
+		 * @param 	typeValues	the type of the values allowed by the returned <code>TypedListMap</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapMap</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeKeys</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>typeValues</code> argument is <code>null</code>.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more keys or values in the <code>wrapMap</code> argument are incompatible with the <code>typeKeys</code> or <code>typeValues</code> argument.
+		 * @return 	a new <code>TypedListMap</code> with the <code>wrapMap</code> argument wrapped.
+		 */
+		public static function getTypedListMap(wrapMap:IListMap, typeKeys:*, typeValues:*): TypedListMap
+		{
+			return new TypedListMap(wrapMap, typeKeys, typeValues);
+		}
 
 		/**
 		 * Returns a new <code>TypedSortedMap</code> with the <code>wrapMap</code> argument wrapped.
-		 * 
-		 * @example
-		 * 
-		 * <listing version="3.0">
-		 * import org.as3collections.ISortedMap;
-		 * import org.as3collections.maps.SortedArrayListMap;
-		 * import org.as3collections.maps.TypedSortedMap;
-		 * 
-		 * var map1:ISortedMap = new SortedArrayListMap();
-		 * 
-		 * map1.put("e", 1)            // null
-		 * map1.put("d", 2)            // null
-		 * map1.put("c", 3)            // null
-		 * map1.put("b", 4)            // null
-		 * map1.put("a", 5)            // null
-		 * 
-		 * map1                        // {a=5,b=4,c=3,d=2,e=1}
-		 * map1.size()                 // 5
-		 * 
-		 * var map2:ISortedMap = MapUtil.getTypedSortedMap(map1, String, Number);
-		 * 
-		 * map2                        // {a=5,b=4,c=3,d=2,e=1}
-		 * map2.size()                 // 5
-		 * 
-		 * map2.equals(map1)           // false
-		 * 
-		 * map2.put("f", 6)            // null
-		 * map2                        // {a=5,b=4,c=3,d=2,e=1,f=6}
-		 * map2.size()                 // 6
-		 * 
-		 * map2.put("g", "h")          // ClassCastError: Invalid value type. value: h | type: String | expected value type: Number
-		 * map2.put(7, 8)              // ClassCastError: Invalid key type. key: 7 | type: int | expected key type: String
-		 * </listing>
 		 * 
 		 * @param  	wrapMap 	the target map to be wrapped by the <code>TypedSortedMap</code>.
 		 * @param 	typeKeys	the type of the keys allowed by the returned <code>TypedSortedMap</code>.

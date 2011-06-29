@@ -298,34 +298,34 @@ package org.as3collections
 			Assert.assertFalse(contains);
 		}
 		
-		//////////////////////////////
-		// IMap().entryList() TESTS //
-		//////////////////////////////
+		////////////////////////////////////
+		// IMap().entryCollection() TESTS //
+		////////////////////////////////////
 		
 		[Test]
-		public function entryList_emptyMap_ReturnsValidIListObject(): void
+		public function entryCollection_emptyMap_ReturnsValidIListObject(): void
 		{
-			var entries:IList = map.entryList();
+			var entries:ICollection = map.entryCollection();
 			Assert.assertNotNull(entries);
 		}
 		
 		[Test]
-		public function entryList_mapWithTwoNotEquatableKeyValue_ReturnsListObject(): void
+		public function entryCollection_mapWithTwoNotEquatableKeyValue_ReturnsListObject(): void
 		{
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var entries:IList = map.entryList();
+			var entries:ICollection = map.entryCollection();
 			Assert.assertNotNull(entries);
 		}
 		
 		[Test]
-		public function entryList_mapWithTwoNotEquatableElements_checkIfReturnedListSizeIsTwo_ReturnsTrue(): void
+		public function entryCollection_mapWithTwoNotEquatableElements_checkIfReturnedListSizeIsTwo_ReturnsTrue(): void
 		{
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var entries:IList = map.entryList();
+			var entries:ICollection = map.entryCollection();
 			
 			var size:int = entries.size();
 			Assert.assertEquals(2, size);
@@ -367,7 +367,7 @@ package org.as3collections
 		[Test]
 		public function getKeys_emptyMap_ReturnsValidIListObject(): void
 		{
-			var keys:IList = map.getKeys();
+			var keys:ICollection = map.getKeys();
 			Assert.assertNotNull(keys);
 		}
 		
@@ -377,7 +377,7 @@ package org.as3collections
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var keys:IList = map.getKeys();
+			var keys:ICollection = map.getKeys();
 			Assert.assertNotNull(keys);
 		}
 		
@@ -387,7 +387,7 @@ package org.as3collections
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var keys:IList = map.getKeys();
+			var keys:ICollection = map.getKeys();
 			
 			var size:int = keys.size();
 			Assert.assertEquals(2, size);
@@ -399,7 +399,7 @@ package org.as3collections
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var keys:IList = map.getKeys();
+			var keys:ICollection = map.getKeys();
 			
 			var contains:Boolean = keys.contains("element-1");
 			Assert.assertTrue(contains);
@@ -453,7 +453,7 @@ package org.as3collections
 		[Test]
 		public function getValues_emptyMap_ReturnsValidIListObject(): void
 		{
-			var values:IList = map.getValues();
+			var values:ICollection = map.getValues();
 			Assert.assertNotNull(values);
 		}
 		
@@ -463,7 +463,7 @@ package org.as3collections
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var values:IList = map.getValues();
+			var values:ICollection = map.getValues();
 			Assert.assertNotNull(values);
 		}
 		
@@ -473,7 +473,7 @@ package org.as3collections
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var keys:IList = map.getValues();
+			var keys:ICollection = map.getValues();
 			
 			var values:int = keys.size();
 			Assert.assertEquals(2, values);
@@ -485,7 +485,7 @@ package org.as3collections
 			map.put("element-1", 1);
 			map.put("element-2", 2);
 			
-			var values:IList = map.getValues();
+			var values:ICollection = map.getValues();
 			
 			var contains:Boolean = values.contains(2);
 			Assert.assertTrue(contains);

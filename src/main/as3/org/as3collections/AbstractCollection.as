@@ -378,6 +378,7 @@ package org.as3collections
 		 * <p>This method uses <code>CollectionUtil.toString</code> method.</p>
 		 * 
 		 * @return the string representation of this instance.
+		 * @see 	org.as3collections.utils.CollectionUtil#toString() CollectionUtil.toString()
  		 */
 		public function toString(): String 
 		{
