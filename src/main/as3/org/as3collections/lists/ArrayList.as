@@ -44,11 +44,13 @@ package org.as3collections.lists
 	 * <p>Each <code>ArrayList</code> instance has a capacity.
 	 * The capacity is the size of the array used to store the elements in the list.
 	 * It is always at least as large as the list size.
-	 * As elements are added to an <code>ArrayList</code>, its capacity grows automatically.</p>
+	 * As elements are added to an <code>ArrayList</code> object, its capacity grows automatically.</p>
 	 * <p>In addition to implementing the <code>IList</code> interface, this class provides the <code>ensureCapacity</code> method to arbitrarily manipulate the size of the array (this usage is not common) that is used internally to store the elements.
 	 * Check the examples at the bottom of the page for further information about usage.</p>
 	 * <p>It's possible to create unique lists, typed lists and even unique typed lists.
-	 * You just sends the <code>ArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ListUtil.getUniqueList</code>, <code>ListUtil.getTypedList</code> or <code>ListUtil.getUniqueTypedList</code>.</p>
+	 * You just send the <code>ArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ListUtil.getUniqueList</code>, <code>ListUtil.getTypedList</code> or <code>ListUtil.getUniqueTypedList</code>.</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
 	 * @example
 	 * 
@@ -369,6 +371,10 @@ package org.as3collections.lists
 	 * uniqueList                          // [[TestEquatableObject o1]]
 	 * </listing>
 	 * 
+	 * @see org.as3collections.AbstractList AbstractList
+	 * @see org.as3collections.lists.TypedList TypedList
+	 * @see org.as3collections.lists.UniqueList UniqueList
+	 * @see org.as3collections.lists.SortedArrayList SortedArrayList
 	 * @see org.as3collections.utils.ListUtil#getUniqueList() ListUtil.getUniqueList()
 	 * @see org.as3collections.utils.ListUtil#getTypedList() ListUtil.getTypedList()
 	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
@@ -377,7 +383,7 @@ package org.as3collections.lists
 	public class ArrayList extends AbstractList
 	{
 		/**
-		 * Constructor, creates a new ArrayList object.
+		 * Constructor, creates a new <code>ArrayList</code> object.
 		 * 
 		 * @param 	source 	an array to fill the list.
 		 */
@@ -387,7 +393,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Inserts the specified element at the specified position in this list. Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+		 * Inserts the specified element at the specified position in this list.
+		 * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
 		 * 
 		 * @param  	index 		index at which the specified element is to be inserted.
 		 * @param  	element 	the element to be added.
@@ -403,7 +410,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Removes all of the elements from this list. The list will be empty after this method returns.
+		 * Removes all of the elements from this list.
+		 * The list will be empty after this method returns.
 		 */
 		override public function clear(): void
 		{
@@ -424,7 +432,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Increases the capacity of this <code>ArrayList</code> instance, if necessary, to ensure that it can hold at least the number of elements specified by the <code>minCapacity</code> argument. 
+		 * Increases the capacity of this <code>ArrayList</code> instance, if necessary, to ensure that it can hold at least the number of elements specified by the <code>minCapacity</code> argument.
+		 * <p>This implementation uses <code>Array.length = minCapacity</code> of the internal array object.</p>
  		 */
 		public function ensureCapacity(minCapacity:int): void
 		{
@@ -446,7 +455,9 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one. 
+		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+		 * The specified index indicates the first element that would be returned by an initial call to <code>next</code>.
+		 * An initial call to <code>previous</code> would return the element with the specified index minus one. 
 		 * <p>This implementation returns an <code>ListIterator</code> object.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
@@ -459,7 +470,9 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Removes the element at the specified position in this list. Shifts any subsequent elements to the left (subtracts one from their indices). Returns the element that was removed from the list. 
+		 * Removes the element at the specified position in this list.
+		 * Shifts any subsequent elements to the left (subtracts one from their indices).
+		 * Returns the element that was removed from the list. 
 		 * 
 		 * @param  	index 	the index of the element to be removed.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
@@ -478,7 +491,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive. Shifts any subsequent elements to the left (subtracts their indices).
+		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
+		 * Shifts any subsequent elements to the left (subtracts their indices).
 		 * <p>If <code>toIndex == fromIndex</code>, this operation has no effect.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start removing elements (inclusive).
@@ -538,7 +552,9 @@ package org.as3collections.lists
 
 		/**
 		 * Returns a new <code>ArrayList</code> that is a view of the portion of this <code>ArrayList</code> between the specified <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
+		 * This method uses native <code>Array.slice</code> method.
 		 * <p>Modifications in the returned <code>ArrayList</code> object doesn't affect this list.</p>
+		 * <p>This list is not modified.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving elements (exclusive).

@@ -42,14 +42,22 @@ package org.as3collections
 	 * <p>This is an abstract class and shouldn't be instantiated directly.</p>
 	 * <p>The documentation for each non-abstract method in this class describes its implementation in detail.
 	 * Each of these methods may be overridden if the collection being implemented admits a more efficient implementation.</p>
+	 * <p>This class maintains a native <code>Array</code> object as its source.</p>
 	 * <p><b>IMPORTANT:</b></p>
-	 * <p>This class implements equality through the interface <code>org.as3coreaddendum.system.IEquatable</code> in the method <code>equals</code> and in all methods that compare the elements inside this collection (i.e. <code>contains</code>, <code>containsAll</code>, <code>remove</code>, <code>removeAll</code> and <code>retainAll</code>).</p>
-	 * <p>In order to this collection uses the <code>equals</code> method of its elements in comparisons (rather than the default '==' operator), <b>all elements in this collection must implement the interface</b> <code>org.as3coreaddendum.system.IEquatable</code> <b>and also the supplied element.</b></p>
+	 * <p>This class implements equality through <code>org.as3coreaddendum.system.IEquatable</code> interface in the <code>equals</code> method and in all methods that compares the elements inside this collection (i.e. <code>contains</code>, <code>containsAll</code>, <code>remove</code>, <code>removeAll</code> and <code>retainAll</code>).</p>
+	 * <p>In order to this collection uses the <code>equals</code> method of its elements in comparisons (rather than default '==' operator), <b>all elements in this collection must implement the</b> <code>org.as3coreaddendum.system.IEquatable</code> <b>interface and also the supplied element.</b></p>
 	 * <p>For example:</p>
 	 * <p>myCollection.contains(myElement);</p>
 	 * <p>All elements inside <code>myCollection</code>, and <code>myElement</code>, must implement the <code>org.as3coreaddendum.system.IEquatable</code> interface so that <code>equals</code> method of each element can be used in the comparison.
 	 * Otherwise '==' operator is used.</p>
+	 * <p>All subclasses of this class <em>must</em> conform with this behavior.</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
+	 * @see 	org.as3collections.ICollection ICollection
+	 * @see 	org.as3collections.AbstractList AbstractList
+	 * @see 	org.as3collections.AbstractQueue AbstractQueue
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
 	 * @author Flávio Silva
 	 */
 	public class AbstractCollection implements ICollection
@@ -72,10 +80,10 @@ package org.as3collections
 		protected function get data(): Array { return _data; }
 
 		/**
-		 * Constructor, creates a new AbstractCollection object.
+		 * This is an abstract class and shouldn't be instantiated directly.
 		 * 
 		 * @param 	source 	an array to fill the collection.
-		 * @throws 	IllegalOperationError 	If this class is instantiated directly, in other words, if there is <b>not</b> another class extending this class.
+		 * @throws 	IllegalOperationError 	If this class is instantiated directly. In other words, if there is <em>not</em> another class extending this class.
 		 */
 		public function AbstractCollection(source:Array = null)
 		{
@@ -103,14 +111,14 @@ package org.as3collections
 		 * <p>Collections that support this operation may place limitations on what elements may be added to this collection.
 		 * In particular, some collections will refuse to add <code>null</code> elements, and others will impose restrictions on the type of elements that may be added.
 		 * Collection classes should clearly specify in their documentation any restrictions on what elements may be added.</p>
-		 * <p>If a collection refuses to add a particular element for any reason other than that it already contains the element, it <b>must</b> throw an error (rather than returning <code>false</code>).
+		 * <p>If a collection refuses to add a particular element for any reason other than that it already contains the element, it <em>must</em> throw an error (rather than returning <code>false</code>).
 		 * This preserves the invariant that a collection always contains the specified element after this call returns.</p>
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @param  	element 	the element to be added.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>add</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this collection.
-		 * @throws 	ArgumentError  	 		if the specified element is <code>null</code> and this collection does not permit <code>null</code> elements.
+		 * @throws 	ArgumentError  	 										if the specified element is <code>null</code> and this collection does not permit <code>null</code> elements.
 		 * @return 	<code>true</code> if this collection changed as a result of the call. Returns <code>false</code> if this collection does not permit duplicates and already contains the specified element.
 		 */
 		public function add(element:*): Boolean
@@ -146,7 +154,8 @@ package org.as3collections
 		}
 
 		/**
-		 * Removes all of the elements from this collection (optional operation). The collection will be empty after this method returns.
+		 * Removes all of the elements from this collection (optional operation).
+		 * The collection will be empty after this method returns.
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the clear operation is not supported by this collection.
@@ -158,7 +167,7 @@ package org.as3collections
 
 		/**
 		 * Creates and return a shallow copy of this collection.
-		 * <p>This implementation always throws a <code>CloneNotSupportedError</code>.</p>
+		 * <p>This implementation always throws a <code>org.as3coreaddendum.errors.CloneNotSupportedError</code>.</p>
 		 * 
 		 * @throws 	org.as3coreaddendum.errors.CloneNotSupportedError  	if this collection doesn't support clone.
 		 * @return 	A new object that is a shallow copy of this instance.
@@ -170,7 +179,8 @@ package org.as3collections
 
 		/**
 		 * Returns <code>true</code> if this collection contains the specified object.
-		 * <p>This implementation uses the native <code>Array.indexOf</code> method.</p>
+		 * <p>If all elements in this collection and <code>o</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, this implementation will iterate over this collection using <code>equals</code> method of the elements.
+		 * Otherwise this implementation uses native <code>Array.indexOf</code> method.</p>
 		 * 
 		 * @param  	o 	object whose presence in this collection is to be tested.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the type of the specified object is incompatible with this collection (optional).
@@ -188,11 +198,14 @@ package org.as3collections
 
 		/**
 		 * Returns <code>true</code> if this collection contains all of the elements in the specified collection. 
-		 * <p>This implementation iterates over the specified collection, checking each element returned by the iterator in turn to see if it's contained in this collection. If all elements are so contained <code>true</code> is returned, otherwise <code>false</code>.</p>
+		 * <p>This implementation iterates over the specified collection, checking each element returned by the iterator in turn to see if it's contained in this collection.
+		 * If all elements are so contained <code>true</code> is returned, otherwise <code>false</code>.</p>
+		 * <p>If all elements in this collection and all elements in <code>collection</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, <code>equals</code> method of the elements will be used.
+		 * Otherwise this implementation uses native <code>Array.indexOf</code> method.</p>
 		 * 
 		 * @param  	collection 	the collection to be checked for containment in this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in the specified collection are incompatible with this collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified collection contains one or more <code>null</code> elements and this collection does not permit <code>null</code> elements (optional), or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 										if the specified collection contains one or more <code>null</code> elements and this collection does not permit <code>null</code> elements (optional), or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this collection contains all of the elements in the specified collection.
 		 */
 		public function containsAll(collection:ICollection): Boolean
@@ -219,6 +232,7 @@ package org.as3collections
 		 * @param  	other 	the object to be compared for equality.
 		 * @return 	<code>true</code> if the arbitrary evaluation considers the objects equal.
 		 * @see 	org.as3collections.utils.CollectionUtil#equalNotConsideringOrder() CollectionUtil.equalNotConsideringOrder()
+		 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
 		 */
 		public function equals(other:*): Boolean
 		{
@@ -239,6 +253,7 @@ package org.as3collections
 		 * 
 		 * @return 	an iterator over a set of elements.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	this method must be overridden in subclass.
+		 * @see 	org.as3collections.IIterator IIterator
  		 */
 		public function iterator(): IIterator
 		{
@@ -247,13 +262,15 @@ package org.as3collections
 
 		/**
 		 * Removes a single instance (only one occurrence) of the specified object from this collection, if it is present (optional operation).
-		 * <p>This implementation iterates over the collection looking for the specified element. If it finds the element, it removes the element from the collection using the iterator's remove method.</p>
-		 * <p>Note that this implementation throws an <code>UnsupportedOperationError</code> if the iterator returned by this collection's iterator method does not implement the <code>remove</code> method and this collection contains the specified object.</p>
+		 * <p>If all elements in this collection and <code>o</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, this implementation iterates over this collection looking for the specified element.
+		 * If it finds the element, it removes the element from the collection using the iterator's remove method.
+		 * In this case, note that this implementation throws an <code>UnsupportedOperationError</code> if the iterator returned by this collection's iterator method does not implement the <code>remove</code> method.</p>
+		 * <p>Otherwise this implementation uses native <code>Array.indexOf</code> method to get the index of the element and then uses native <code>Array.splice</code> method to remove it.</p>
 		 * 
 		 * @param  	o 	the object to be removed from this collection, if present.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified object is incompatible with this collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified object is <code>null</code> and this collection does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  	 										if the specified object is <code>null</code> and this collection does not permit <code>null</code> elements (optional).
 		 * @return 	<code>true</code> if an object was removed as a result of this call.
 		 */
 		public function remove(o:*): Boolean
@@ -269,15 +286,16 @@ package org.as3collections
 		}
 
 		/**
-		 * Removes all of this collection's elements that are also contained in the specified collection (optional operation). After this call returns, this collection will contain no elements in common with the specified collection.
-		 * <p>This implementation iterates over this collection, checking each element returned by the iterator in turn to see if it's contained in the specified collection.
+		 * Removes all of this collection's elements that are also contained in the specified collection (optional operation).
+		 * After this call returns, this collection will contain no elements in common with the specified collection.
+		 * <p>This implementation iterates over this collection, checking each element returned by the iterator in turn to see if it's contained in the specified collection (using <code>contains</code> method of the <code>collection</code> argument).
 		 * If it's so contained, it's removed from this collection with the iterator's <code>remove</code> method.</p>
 		 * <p>Note that this implementation will throw an <code>UnsupportedOperationError</code> if the iterator returned by the iterator method does not implement the <code>remove</code> method and this collection contains one or more elements in common with the specified collection.</p>
 		 * 
 		 * @param  	collection 	the collection containing elements to be removed from this collection.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the removeAll operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in the specified collection are incompatible with this collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 										if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this collection changed as a result of the call.
 		 */
 		public function removeAll(collection:ICollection): Boolean
@@ -304,15 +322,16 @@ package org.as3collections
 		}
 
 		/**
-		 * Retains only the elements in this collection that are contained in the specified collection (optional operation). In other words, removes from this collection all of its elements that are not contained in the specified collection.
-		 * <p>This implementation iterates over this collection, checking each element returned by the iterator in turn to see if it's contained in the specified collection.
+		 * Retains only the elements in this collection that are contained in the specified collection (optional operation).
+		 * In other words, removes from this collection all of its elements that are not contained in the specified collection.
+		 * <p>This implementation iterates over this collection, checking each element returned by the iterator in turn to see if it's contained in the specified collection (using <code>contains</code> method of the <code>collection</code> argument).
 		 * If it's not so contained, it's removed from this collection with the iterator's <code>remove</code> method.</p>
 		 * <p>Note that this implementation will throw an <code>UnsupportedOperationError</code> if the iterator returned by the iterator method does not implement the <code>remove</code> method and this collection contains one or more elements not present in the specified collection.</p>
 		 * 
 		 * @param  	collection 	the collection containing elements to be retained in this collection.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>retainAll</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in this collection are incompatible with the specified collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements (optional), or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 										if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements (optional), or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this collection changed as a result of the call. 	
 		 */
 		public function retainAll(collection:ICollection): Boolean

@@ -34,48 +34,60 @@ package org.as3collections
 	import org.as3coreaddendum.system.IEquatable;
 
 	/**
-	 * The root interface in the <em>collection hierarchy</em>. A collection represents a group of objects, known as its <em>elements</em>.
+	 * The root interface in the <em>collection hierarchy</em>.
+	 * A collection represents a group of objects, known as its <em>elements</em>.
 	 * <p>Some collections allow duplicate elements and others do not. Some are ordered and others unordered.</p>
 	 * <p>This interface is typically used to pass collections around and manipulate them where maximum generality is desired.</p>
 	 * <p>The methods that modify the collection are specified to throw org.as3coreaddendum.errors.UnsupportedOperationError if the collection does not support the operation.
 	 * These methods are documented as "optional operation".</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
+	 * @see 	org.as3collections.AbstractCollection AbstractCollection
 	 * @see 	org.as3collections.IIterable IIterable
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/ICloneable.html	org.as3coreaddendum.system.ICloneable
 	 * @author Flávio Silva
 	 */
 	public interface ICollection extends IIterable, ICloneable, IEquatable
 	{
 		/**
-		 * Indicates whether all elements in this collection implements the interface org.as3coreaddendum.system.IEquatable.
+		 * Indicates whether all elements in this collection implement the interface <code>org.as3coreaddendum.system.IEquatable</code>.
 		 */
 		function get allEquatable(): Boolean;
 
 		/**
-		 * Ensures that this collection contains the specified element (optional operation).
+		 * Ensures that this collection contains the specified element (optional operation). 
+		 * <p>Collections that support this operation may place limitations on what elements may be added to this collection.
+		 * In particular, some collections will refuse to add <code>null</code> elements, and others will impose restrictions on the type of elements that may be added.
+		 * Collection classes should clearly specify in their documentation any restrictions on what elements may be added.</p>
+		 * <p>If a collection refuses to add a particular element for any reason other than that it already contains the element, it <em>must</em> throw an error (rather than returning <code>false</code>).
+		 * This preserves the invariant that a collection always contains the specified element after this call returns.</p>
 		 * 
 		 * @param  	element 	the element to be added.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>add</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this collection.
-		 * @throws 	ArgumentError  	 		if the specified element is <code>null</code> and this collection does not permit <code>null</code> elements. 
-		 * @return 	<code>true</code> if this collection has changed as a result of the call. Returns <code>false</code> if this collection does not permit duplicates and already contains the specified element.
+		 * @throws 	ArgumentError  	 										if the specified element is <code>null</code> and this collection does not permit <code>null</code> elements.
+		 * @return 	<code>true</code> if this collection changed as a result of the call. Returns <code>false</code> if this collection does not permit duplicates and already contains the specified element.
 		 */
 		function add(element:*): Boolean;
 
 		/**
 		 * Adds all of the elements in the specified collection to this collection (optional operation).
 		 * 
-		 * @param  	collection 	the collection containing elements to be added to this collection.
+		 * @param  	collection 	collection containing elements to be added to this collection.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAll</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of an element of the specified collection prevents it from being added to this collection.
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
+		 * @throws 	ArgumentError  	 										if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
 		 * @return 	<code>true</code> if this collection changed as a result of the call.
 		 */
 		function addAll(collection:ICollection): Boolean;
 
 		/**
-		 * Removes all of the elements from this collection (optional operation). The collection will be empty after this method returns.
+		 * Removes all of the elements from this collection (optional operation).
+		 * The collection will be empty after this method returns.
 		 * 
-		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the clear operation is not supported by this collection.
+		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>clear</code> operation is not supported by this collection.
 		 */
 		function clear(): void;
 
@@ -112,29 +124,32 @@ package org.as3collections
 		 * @param  	o 	the object to be removed from this collection, if present.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>remove</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the type of the specified object is incompatible with this collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified object is <code>null</code> and this collection does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  	 										if the specified object is <code>null</code> and this collection does not permit <code>null</code> elements (optional).
 		 * @return 	<code>true</code> if an object was removed as a result of this call.
+		 * @see 	org.as3collections.utils.CollectionUtil#removeAllOccurances() 	CollectionUtil.removeAllOccurances()
 		 */
 		function remove(o:*): Boolean;
 
 		/**
-		 * Removes all elements of this collection that are also contained in the specified collection (optional operation). After this call returns, this collection will contain no elements in common with the specified collection.
+		 * Removes all elements of this collection that are also contained in the specified collection (optional operation).
+		 * After this call returns, this collection will contain no elements in common with the specified collection.
 		 * 
 		 * @param  	collection 	the collection containing elements to be removed from this collection.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeAll</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in this collection are incompatible with the specified collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 										if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements (optional), or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this collection has changed as a result of the call.
 		 */
 		function removeAll(collection:ICollection): Boolean;
 
 		/**
-		 * Retains only the elements in this collection that are contained in the specified collection (optional operation). In other words, removes from this collection all of its elements that are not contained in the specified collection.
+		 * Retains only the elements in this collection that are contained in the specified collection (optional operation).
+		 * In other words, removes from this collection all of its elements that are not contained in the specified collection.
 		 * 
 		 * @param  	collection 	the collection containing elements to be retained in this collection.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>retainAll</code> operation is not supported by this collection.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the types of one or more elements in this collection are incompatible with the specified collection (optional).
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements (optional), or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 										if the specified collection contains a <code>null</code> element and this collection does not permit <code>null</code> elements (optional), or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this collection changed as a result of the call. 	
 		 */
 		function retainAll(collection:ICollection): Boolean;
@@ -149,7 +164,8 @@ package org.as3collections
 		/**
 		 * Returns an array containing all of the elements in this collection.
 		 * <p>If this collection makes any guarantees as to what order its elements are returned by its iterator, this method must return the elements in the same order.</p>
-		 * <p>The returned array will be "safe" in that no references to it are maintained by this collection. (In other words, this method must allocate a new array even if this collection is backed by an array).
+		 * <p>The returned array will be "safe" in that no references to it are maintained by this collection.
+		 * (In other words, this method must allocate a new array even if this collection is backed by an array).
 		 * The caller is thus free to modify the returned array.</p>
 		 * 
 		 * @return 	a new array object containing all of the elements in this collection.

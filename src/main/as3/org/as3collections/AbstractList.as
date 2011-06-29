@@ -41,8 +41,12 @@ package org.as3collections
 	 * This class provides a skeletal implementation of the <code>IList</code> interface, to minimize the effort required to implement this interface.
 	 * <p>This is an abstract class and shouldn't be instantiated directly.</p>
 	 * <p>The documentation for each non-abstract method in this class describes its implementation in detail.
-	 * Each of these methods may be overridden if the collection being implemented admits a more efficient implementation.</p> 
+	 * Each of these methods may be overridden if the collection being implemented admits a more efficient implementation.</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p> 
 	 * 
+	 * @see 	org.as3collections.IList IList
+	 * @see org.as3collections.lists.ArrayList ArrayList
 	 * @author Flávio Silva
 	 */
 	public class AbstractList extends AbstractCollection implements IList
@@ -58,7 +62,7 @@ package org.as3collections
 		public function get modCount(): int { return _modCount; }
 		
 		/**
-		 * Constructor, creates a new AbstractList object.
+		 * This is an abstract class and shouldn't be instantiated directly.
 		 * 
 		 * @param 	source 	an array to fill the list.
 		 * @throws 	IllegalOperationError 	If this class is instantiated directly, in other words, if there is <b>not</b> another class extending this class.
@@ -74,7 +78,7 @@ package org.as3collections
 		 * <p>Lists that support this operation may place limitations on what elements may be added to this list.
 		 * In particular, some lists will refuse to add <code>null</code> elements, and others will impose restrictions on the type of elements that may be added.
 		 * Lists classes should clearly specify in their documentation any restrictions on what elements may be added.</p>
-		 * <p>If a list refuses to add a particular element for any reason other than that it already contains the element, it <b>must</b> throw an error (rather than returning <code>false</code>).
+		 * <p>If a list refuses to add a particular element for any reason other than that it already contains the element, it <em>must</em> throw an error (rather than returning <code>false</code>).
 		 * This preserves the invariant that a list always contains the specified element after this call returns.</p>
 		 * <p>This implementation calls <code>addAt(size(), element)</code>.</p>
 		 * <p>Note that this implementation throws an <code>UnsupportedOperationError</code> unless <code>addAt</code> is overridden.</p>
@@ -98,7 +102,7 @@ package org.as3collections
 		 * @param  	collection 	the collection containing elements to be added to this list.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAll</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of an element of the specified collection prevents it from being added to this list.
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
+		 * @throws 	ArgumentError  	 										if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>.
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
 		override public function addAll(collection:ICollection): Boolean
@@ -107,7 +111,9 @@ package org.as3collections
 		}
 
 		/**
-		 * Inserts all of the elements in the specified collection into this list at the specified position (optional operation). Shifts the element currently at that position (if any) and any subsequent elements to the right (increases their indices). The new elements will appear in this list in the order that they are returned by the specified collection's iterator.
+		 * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
+		 * Shifts the element currently at that position (if any) and any subsequent elements to the right (increases their indices).
+		 * The new elements will appear in this list in the order that they are returned by the specified collection's iterator.
 		 * <p>This implementation gets an iterator over the specified collection and iterates over it, inserting the elements obtained from the iterator into this list at the appropriate position, one at a time, using <code>addAt</code>.
 		 * Other implementations can override this method for efficiency.</p>
 		 * <p>Note that this implementation throws an <code>UnsupportedOperationError</code> unless <code>addAt</code> is overridden.</p>
@@ -178,11 +184,12 @@ package org.as3collections
 		}
 
 		/**
-		 * Returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
-		 * <p>This implementation uses the native <code>Array.indexOf</code> method.</p>
+		 * Returns the index of the <em>first occurrence</em> of the specified element in this list, or -1 if this list does not contain the element.
+		 * <p>If all elements in this list and <code>element</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, this implementation will iterate over this list using <code>equals</code> method of the elements.
+		 * Otherwise this implementation uses native <code>Array.indexOf</code> method.</p>
 		 * 
-		 * @param element 		the element to search for.
-		 * @param fromIndex 	the position in the list from which to start searching for the element.
+		 * @param 	element 	the element to search for.
+		 * @param 	fromIndex 	the position in the list from which to start searching for the element.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
 		 * @throws 	ArgumentError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
@@ -200,8 +207,9 @@ package org.as3collections
 		}
 
 		/**
-		 * Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
-		 * <p>This implementation uses the native <code>Array.lastIndexOf</code> method.</p>
+		 * Returns the index of the <em>last occurrence</em> of the specified element in this list, or -1 if this list does not contain the element.
+		 * <p>If all elements in this list and <code>element</code> argument implement <code>org.as3coreaddendum.system.IEquatable</code>, this implementation will iterate over this list using <code>equals</code> method of the elements.
+		 * Otherwise this implementation uses native <code>Array.lastIndexOf</code> method.</p>
 		 * 
 		 * @param element 		the element to search for.
 		 * @param fromIndex 	the position in the list from which to start searching for the element. The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
@@ -222,11 +230,14 @@ package org.as3collections
 		}
 
 		/**
-		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one.
+		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+		 * The specified index indicates the first element that would be returned by an initial call to <code>next</code>.
+		 * An initial call to <code>previous</code> would return the element with the specified index minus one.
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
 		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+		 * @see 	org.as3collections.IListIterator IListIterator
 		 */
 		public function listIterator(index:int = 0): IListIterator
 		{
@@ -234,7 +245,9 @@ package org.as3collections
 		}
 
 		/**
-		 * Removes the element at the specified position in this list (optional operation). Shifts any subsequent elements to the left (subtracts one from their indices). Returns the element that was removed from the list. 
+		 * Removes the element at the specified position in this list (optional operation).
+		 * Shifts any subsequent elements to the left (subtracts one from their indices).
+		 * Returns the element that was removed from the list. 
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @param  	index 	the index of the element to be removed.
@@ -248,7 +261,8 @@ package org.as3collections
 		}
 
 		/**
-		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive (optional operation). Shifts any subsequent elements to the left (subtracts their indices).
+		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive (optional operation).
+		 * Shifts any subsequent elements to the left (subtracts their indices).
 		 * <p>If <code>toIndex == fromIndex</code>, this operation has no effect.</p>
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
@@ -264,7 +278,8 @@ package org.as3collections
 		}
 
 		/**
-		 * @inheritDoc
+		 * Reverses the order of the elements in this list.
+		 * This implementation uses native <code>Array.reverse</code> method.
 		 */
 		public function reverse(): void
 		{
@@ -291,7 +306,8 @@ package org.as3collections
 
 		/**
 		 * Returns a new list that is a view of the portion of this list between the specified <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
-		 * <p>The returned list supports all of the optional list operations supported by this list.</p>
+		 * <p>This list should not be modified.</p>
+		 * <p>The returned list should support all of the optional list operations supported by this list.</p>
 		 * <p>This implementation always throws an <code>UnsupportedOperationError</code>.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).

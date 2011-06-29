@@ -38,11 +38,11 @@ package org.as3collections.lists
 	import org.as3utils.ReflectionUtil;
 
 	/**
-	 * <code>TypedList</code> works as a wrapper for a list.
+	 * <code>TypedList</code> works as a wrapper for a <code>IList</code> object.
 	 * Since ActionScript 3.0 does not support typed arrays, <code>TypedList</code> is a way to create typed lists.
-	 * It stores the <code>wrapList</code> constructor's argument in the <code>wrappedList</code> variable.
+	 * It stores the <code>wrapList</code> constructor's argument internaly.
 	 * So every method call to this class is forwarded to the <code>wrappedList</code> object.
-	 * The methods that need to be checked for the type of the elements are previously validated with the <code>validateType</code> or <code>validateCollection</code> method before forward the call.
+	 * The methods that need to be checked for the type of the elements are previously validated before forward the call.
 	 * If the type of an element requested to be added to this list is incompatible with the type of the list a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
 	 * The calls that are forwarded to the <code>wrappedList</code> returns the return of the <code>wrappedList</code> call.
 	 * <p><code>TypedList</code> does not allow <code>null</code> elements.</p>
@@ -167,7 +167,7 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * The collection is validated with the <code>validateCollection</code> method to be forwarded to <code>wrappedList.addAllAt</code>.
+		 * The collection is validated to be forwarded to <code>wrappedList.addAllAt</code>.
 		 * 
 		 * @param index
 		 * @param  	collection 	the collection to forward to <code>wrappedList.addAllAt</code>.
@@ -181,7 +181,7 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * The element is validated with the <code>validateType</code> method to be forwarded to <code>wrappedList.addAt</code>.
+		 * The element is validated to be forwarded to <code>wrappedList.addAt</code>.
 		 * 
 		 * @param index
 		 * @param  	element 	the element to forward to <code>wrappedList.addAt</code>.
@@ -195,9 +195,9 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Creates and return a new <code>TypedList</code> object with the clone of the <code>wrappedList</code> object.
+		 * Creates and return a new <code>TypedList</code> object with a clone of the <code>wrappedList</code> object.
 		 * 
-		 * @return 	a new <code>TypedList</code> object with the clone of the <code>wrappedList</code> object.
+		 * @return 	a new <code>TypedList</code> object with a clone of the <code>wrappedList</code> object.
  		 */
 		override public function clone(): *
 		{
@@ -206,7 +206,8 @@ package org.as3collections.lists
 
 		/**
 		 * This method first checks if <code>other</code> argument is a <code>TypedList</code>.
-		 * If not it returns <code>false</code>. If <code>true</code> it checks the <code>type</code> property of both lists.
+		 * If not it returns <code>false</code>.
+		 * If <code>true</code> it checks the <code>type</code> property of both lists.
 		 * If they are different it returns <code>false</code>.
 		 * Otherwise it uses <code>CollectionUtil.equalConsideringOrder</code> method to perform equality, sending this list and <code>other</code> argument.
 		 * 
@@ -305,7 +306,7 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * The element is validated with the <code>validateType</code> method to be forwarded to <code>wrappedList.setAt</code>.
+		 * The element is validated to be forwarded to <code>wrappedList.setAt</code>.
 		 * 
 		 * @param index
 		 * @param  	element 	the element to forward to <code>wrappedList.setAt</code>.
@@ -320,7 +321,7 @@ package org.as3collections.lists
 
 		/**
 		 * Returns a new <code>TypedList(wrappedList.subList(fromIndex, toIndex))</code>. 
-		 * <p>Modifications in the returned <code>TypedList</code> object doesn't affect this list.</p>
+		 * <p>Modifications in the returned <code>TypedList</code> object does not affect this list.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving elements (exclusive).

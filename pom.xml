@@ -80,9 +80,9 @@
 		<asdoc.footer>"Copyright 2010-2011 Flavio Silva - http://flsilva.com"</asdoc.footer>
 		<asdoc.keep-xml>true</asdoc.keep-xml>
 		<asdoc.left-frameset-width>280</asdoc.left-frameset-width>
-		<asdoc.main-title>"AS3Collections API Documentation"</asdoc.main-title>
+		<asdoc.main-title>"AS3Collections API Documentation - Version ${project.version}"</asdoc.main-title>
 		<asdoc.name>"AS3Collections ASDocs"</asdoc.name>
-		<asdoc.window-title>"AS3Collections API Documentation"</asdoc.window-title>
+		<asdoc.window-title>"AS3Collections API Documentation - Version ${project.version}"</asdoc.window-title>
 		<asdoc.output>target/asdoc</asdoc.output>
 		
 		<!-- TESTING -->

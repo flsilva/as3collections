@@ -40,9 +40,9 @@ package org.as3collections.lists
 	import org.as3utils.ReflectionUtil;
 
 	/**
-	 * A list that doesn't allow modifications.
+	 * A list that does not allow modifications.
 	 * It receives all the elements by its constructor and can no longer be changed.
-	 * All methods that change the list will throw an <code>UnsupportedOperationError</code>.
+	 * All methods that change this list will throw an <code>org.as3coreaddendum.errors.UnsupportedOperationError</code>.
 	 * 
 	 * @example
 	 * 

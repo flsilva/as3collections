@@ -155,7 +155,9 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * If the specified collection is empty returns <code>false</code>. Otherwise, it clones the specified collection, removes from the cloned collection all elements that already are in the <code>wrappedList</code> and removes all duplicates. Then it forwards the call to <code>wrappedList.addAllAt</code> sending the cloned/filtered collection.
+		 * If the specified collection is empty returns <code>false</code>.
+		 * Otherwise, it clones the specified collection, removes from the cloned collection all elements that already are in the <code>wrappedList</code> and removes all duplicates.
+		 * Then it forwards the call to <code>wrappedList.addAllAt</code> sending the cloned (and filtered) collection.
 		 * 
 		 * @param  	index 		index at which to insert the first element from the specified collection.
 		 * @param  	collection 	the collection to forward to <code>wrappedList.addAllAt</code>.
@@ -176,7 +178,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * If <code>wrappedList.contains(element)</code> returns <code>true</code> then returns <code>false</code>. Otherwise, it forwards the call to <code>wrappedList.addAt</code>.
+		 * If <code>wrappedList.contains(element)</code> returns <code>true</code> then returns <code>false</code>.
+		 * Otherwise, it forwards the call to <code>wrappedList.addAt</code>.
 		 * 
 		 * @param  	index 		index at which the specified element is to be inserted.
 		 * @param  	element 	the element to be added.
@@ -246,7 +249,9 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one. 
+		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+		 * The specified index indicates the first element that would be returned by an initial call to <code>next</code>.
+		 * An initial call to <code>previous</code> would return the element with the specified index minus one. 
 		 * <p>This implementation returns an <code>ListIterator</code> object.</p>
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
@@ -304,7 +309,7 @@ package org.as3collections.lists
 
 		/**
 		 * Returns a new <code>UniqueList(wrappedList.subList(fromIndex, toIndex))</code>. 
-		 * <p>Modifications in the returned <code>UniqueList</code> object doesn't affect this list.</p>
+		 * <p>Modifications in the returned <code>UniqueList</code> object does not affect this list.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start retrieving elements (inclusive).
 		 * @param  	toIndex 	the index to stop retrieving elements (exclusive).

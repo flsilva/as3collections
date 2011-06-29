@@ -30,20 +30,28 @@
 package org.as3collections
 {
 	/**
-	 * An ordered collection. The user of this interface has precise control over where in the list each element is inserted. The user can access elements by their integer index (position in the list), and search for elements in the list.
+	 * An ordered collection.
+	 * The user of this interface has precise control over where in the list each element is inserted.
+	 * The user can access elements by their integer index (position in the list), and search for elements in the list.
 	 * <p>Lists typically allow duplicate elements and multiple <code>null</code> elements if they allow <code>null</code> elements at all.
 	 * But there are lists that prohibits duplicates and/or <code>null</code> elements, by throwing runtime errors when the user attempts to insert them.</p>
 	 * <p>The <code>IList</code> interface provides the special <code>IListIterator</code> iterator, that allows element insertion and replacement, and bidirectional access in addition to the normal operations that the <code>IIterator</code> interface provides.
 	 * The <code>listIterator()</code> method is provided to obtain a <code>IListIterator</code> implementation that may start at a specified position in the list.</p>
 	 * <p>The methods that modify the list are specified to throw <code>org.as3coreaddendum.errors.UnsupportedOperationError</code> if the list does not support the operation.
 	 * These methods are documented as "optional operation".</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
+	 * @see 	org.as3collections.AbstractList AbstractList
+	 * @see 	org.as3collections.ICollection ICollection
+	 * @see 	org.as3collections.IListIterator IListIterator
 	 * @author Flávio Silva
 	 */
 	public interface IList extends ICollection
 	{
 		/**
-		 * The number of times this list has been <em>structurally modified</em>. Structural modifications are those that change the size of the list.
+		 * The number of times this list has been <em>structurally modified</em>.
+		 * Structural modifications are those that change the size of the list.
 		 * <p>This field is used by the list iterator implementation returned by the <code>listIterator</code> method.
 		 * If the value of this field changes unexpectedly, the list iterator will throw a <code>org.as3collections.errors.ConcurrentModificationError</code> in response to the <code>next</code>, <code>remove</code>, <code>previous</code>, <code>set</code> or <code>add</code> operations.</p>
 		 * <p>Implementations merely has to increment this field in its <code>add</code>, <code>remove</code> and any other methods that result in structural modifications to the list.
@@ -53,20 +61,23 @@ package org.as3collections
 		function get modCount(): int;
 
 		/**
-		 * Inserts all of the elements in the specified collection into this list at the specified position (optional operation). Shifts the element currently at that position (if any) and any subsequent elements to the right (increases their indices). The new elements will appear in this list in the order that they are returned by the specified collection's iterator.
+		 * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
+		 * Shifts the element currently at that position (if any) and any subsequent elements to the right (increases their indices).
+		 * The new elements will appear in this list in the order that they are returned by the specified collection's iterator.
 		 * 
 		 * @param  	index 		index at which to insert the first element from the specified collection.
 		 * @param  	collection 	the collection containing elements to be added to this list.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>addAllAt</code> operation is not supported by this list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of an element of the specified collection prevents it from being added to this list.
-		 * @throws 	ArgumentError  	 		if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
+		 * @throws 	ArgumentError  	 										if the specified collection contains a <code>null</code> element and this list does not permit <code>null</code> elements, or if the specified collection is <code>null</code>. 
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 		if the index is out of range <code>(index &lt; 0 || index &gt; size())</code>.
 		 * @return 	<code>true</code> if this list changed as a result of the call.
 		 */
 		function addAllAt(index:int, collection:ICollection): Boolean;
 
 		/**
-		 * Inserts the specified element at the specified position in this list (optional operation). Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+		 * Inserts the specified element at the specified position in this list (optional operation).
+		 * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
 		 * 
 		 * @param  	index 		index at which the specified element is to be inserted.
 		 * @param  	element 	the element to be added.
@@ -81,17 +92,17 @@ package org.as3collections
 		/**
 		 * Returns the element at the specified position in this list.
 		 * 
-		 * @param index 	index of the element to return.
+		 * @param 	index 	index of the element to return.
 		 * @throws 	org.as3collections.errors.IndexOutOfBoundsError 	if the index is out of range <code>(index &lt; 0 || index &gt;= size())</code>.
 		 * @return 	the element at the specified position in this list.
 		 */
 		function getAt(index:int): *;
 
 		/**
-		 * Returns the index of the <b>first occurrence</b> of the specified element in this list, or -1 if this list does not contain the element.
+		 * Returns the index of the <em>first occurrence</em> of the specified element in this list, or -1 if this list does not contain the element.
 		 * 
-		 * @param element 		the element to search for.
-		 * @param fromIndex 	the position in the list from which to start searching for the element (inclusive).
+		 * @param 	element 	the element to search for.
+		 * @param 	fromIndex 	the position in the list from which to start searching for the element (inclusive).
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
 		 * @throws 	ArgumentError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element.
@@ -99,26 +110,31 @@ package org.as3collections
 		function indexOf(element:*, fromIndex:int = 0): int;
 
 		/**
-		 * Returns the index of the <b>last occurrence</b> of the specified element in this list, or -1 if this list does not contain the element.
+		 * Returns the index of the <em>last occurrence</em> of the specified element in this list, or -1 if this list does not contain the element.
 		 * 
-		 * @param element 		the element to search for.
-		 * @param fromIndex 	the position in the list from which to start searching for the element (inclusive). The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
+		 * @param 	element 	the element to search for.
+		 * @param 	fromIndex 	the position in the list from which to start searching for the element (inclusive). The default is the maximum value allowed for an index. If you do not specify <code>fromIndex</code>, the search starts at the last item in the list.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the class of the specified element is incompatible with this list (optional).
-		 * @throws 	ArgumentError  	if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
+		 * @throws 	ArgumentError  									if the specified element is <code>null</code> and this list does not permit <code>null</code> elements (optional).
 		 * @return 	the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
 		 */
 		function lastIndexOf(element:*, fromIndex:int = 0x7fffffff): int;
 
 		/**
-		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list. The specified index indicates the first element that would be returned by an initial call to <code>next</code>. An initial call to <code>previous</code> would return the element with the specified index minus one. 
+		 * Returns a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+		 * The specified index indicates the first element that would be returned by an initial call to <code>next</code>.
+		 * An initial call to <code>previous</code> would return the element with the specified index minus one. 
 		 * 
 		 * @param  	index 	index of first element to be returned from the list iterator (by a call to the <code>next</code> method) 
 		 * @return 	a list iterator of the elements in this list (in proper sequence), starting at the specified position in this list.
+		 * @see 	org.as3collections.IListIterator IListIterator
 		 */
 		function listIterator(index:int = 0): IListIterator;
 
 		/**
-		 * Removes the element at the specified position in this list (optional operation). Shifts any subsequent elements to the left (subtracts one from their indices). Returns the element that was removed from the list. 
+		 * Removes the element at the specified position in this list (optional operation).
+		 * Shifts any subsequent elements to the left (subtracts one from their indices).
+		 * Returns the element that was removed from the list. 
 		 * 
 		 * @param  	index 	the index of the element to be removed.
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>removeAt</code> operation is not supported by this list.
@@ -128,7 +144,8 @@ package org.as3collections
 		function removeAt(index:int): *;
 
 		/**
-		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive (optional operation). Shifts any subsequent elements to the left (subtracts their indices).
+		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive (optional operation).
+		 * Shifts any subsequent elements to the left (subtracts their indices).
 		 * <p>If <code>toIndex == fromIndex</code>, this operation has no effect.</p>
 		 * 
 		 * @param  	fromIndex 	the index to start removing elements (inclusive).

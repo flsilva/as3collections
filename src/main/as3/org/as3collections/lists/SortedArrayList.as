@@ -39,9 +39,9 @@ package org.as3collections.lists
 	/**
 	 * A list that provides a <em>total ordering</em> on its elements.
 	 * The list is ordered according to the <em>natural ordering</em> of its elements, by a <em>IComparator</em> typically provided at sorted list creation time, or by the arguments provided to the <code>sort</code> or <code>sortOn</code> methods.
-	 * <p>For each change that occurs the list is automatically ordered using the <code>comparator</code> and <code>options</code>.
-	 * If none was provided the default behavior of the <code>sort</code> method is used.</p>
-	 * <p>The user of this list may change their order at any time using the setters <code>comparator</code> and <code>options</code>, or by calling the <code>sort</code> or <code>sortOn</code> method and imposing others arguments to change the sort behaviour.</p>
+	 * <p>For each change that occurs the list is automatically reordered using <code>comparator</code> and <code>options</code>.
+	 * If none was provided the default behavior of <code>sort</code> method is used.</p>
+	 * <p>The user of this list may change their order at any time using the setters <code>comparator</code> and <code>options</code>, or by calling <code>sort</code> or <code>sortOn</code> methods and imposing other arguments to change the sort behaviour.</p>
 	 * <p>It's possible to create unique sorted lists, typed sorted lists and even unique typed sorted lists.
 	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ListUtil.getUniqueTypedList</code>.
 	 * But there's a problem here: the return type will be <code>UniqueList</code> or <code>TypedList</code>.
@@ -49,6 +49,8 @@ package org.as3collections.lists
 	 * This is not such a big problem because <code>SortedArrayList</code> is automatically ordered whenever it changes, using the provided <code>comparator</code> and <code>options</code> constructor's arguments.
 	 * But you will not be able to change the <code>comparator</code> and <code>options</code>.
 	 * Check the examples at the bottom of the page for further information about usage.</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
 	 * @example
 	 * 
@@ -255,7 +257,13 @@ package org.as3collections.lists
 	 * list1.add("a")        // ClassCastError: Invalid element type. element: a | type: String | expected type: int
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ListUtil ListUtil
+	 * @see org.as3collections.ISortedList ISortedList
+	 * @see org.as3collections.lists.ArrayList ArrayList
+	 * @see org.as3collections.lists.TypedList TypedList
+	 * @see org.as3collections.lists.UniqueList UniqueList
+	 * @see org.as3collections.utils.ListUtil#getUniqueList() ListUtil.getUniqueList()
+	 * @see org.as3collections.utils.ListUtil#getTypedList() ListUtil.getTypedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
 	public class SortedArrayList extends ArrayList implements ISortedList
@@ -305,7 +313,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Inserts the specified element at the specified position in this list. Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+		 * Inserts the specified element at the specified position in this list.
+		 * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
 		 * <p>Before returning, the list is reordered, so there's no guarantee that the element remains in the inserted position.</p>
 		 * 
 		 * @param  	index 		index at which the specified element is to be inserted.
@@ -378,7 +387,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Removes all of this list's elements that are also contained in the specified collection. After this call returns, this list will contain no elements in common with the specified collection.
+		 * Removes all of this list's elements that are also contained in the specified collection.
+		 * After this call returns, this list will contain no elements in common with the specified collection.
 		 * <p>Before returning, the list is reordered.</p>
 		 * 
 		 * @param  	collection 	the collection containing elements to be removed from this list.
@@ -392,7 +402,9 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Removes the element at the specified position in this list. Shifts any subsequent elements to the left (subtracts one from their indices). Returns the element that was removed from the list. 
+		 * Removes the element at the specified position in this list.
+		 * Shifts any subsequent elements to the left (subtracts one from their indices).
+		 * Returns the element that was removed from the list. 
 		 * <p>Before returning, the list is reordered.</p>
 		 * 
 		 * @param  	index 	the index of the element to be removed.
@@ -407,7 +419,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive. Shifts any subsequent elements to the left (subtracts their indices).
+		 * Removes all of the elements whose index is between <code>fromIndex</code>, inclusive, and <code>toIndex</code>, exclusive.
+		 * Shifts any subsequent elements to the left (subtracts their indices).
 		 * <p>If <code>toIndex == fromIndex</code>, this operation has no effect.</p>
 		 * <p>Before returning, the list is reordered.</p>
 		 * 
@@ -424,7 +437,8 @@ package org.as3collections.lists
 		}
 
 		/**
-		 * Retains only the elements in this list that are contained in the specified collection. In other words, removes from this list all of its elements that are not contained in the specified collection.
+		 * Retains only the elements in this list that are contained in the specified collection.
+		 * In other words, removes from this list all of its elements that are not contained in the specified collection.
 		 * <p>Before returning, the list is reordered.</p>
 		 * 
 		 * @param  	collection 	the collection containing elements to be retained in this collection.
@@ -471,11 +485,11 @@ package org.as3collections.lists
 
 		/**
 		 * Sorts the objects within this class.
-		 * <p>For more info see <code>org.as3coreaddendum.system.ISortable.sort()</code> in the link below.</p>
 		 * 
 		 * @param compare
 		 * @param options
 		 * @return
+		 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/ISortable.html	org.as3coreaddendum.system.ISortable
 		 */
 		public function sort(compare:Function = null, options:uint = 0): Array
 		{

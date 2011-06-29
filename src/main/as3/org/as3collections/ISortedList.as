@@ -34,8 +34,10 @@ package org.as3collections
 
 	/**
 	 * A list that provides a <em>total ordering</em> on its elements.
-	 * The list is ordered according to the <em>natural ordering</em> of its elements, by a <em>IComparator</em> typically provided at sorted list creation time, or by the arguments provided to the <code>sort</code> or <code>sortOn</code> methods.
+	 * The list is ordered according to the <em>natural ordering</em> of its elements, by a <code>IComparator</code> typically provided at sorted list creation time, or by the arguments provided to the <code>sort</code> or <code>sortOn</code> methods.
 	 * 
+	 * @see 	org.as3collections.lists.SortedArrayList SortedArrayList
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/ISortable.html	org.as3coreaddendum.system.ISortable
 	 * @author Flávio Silva
 	 */
 	public interface ISortedList extends IList, ISortable
