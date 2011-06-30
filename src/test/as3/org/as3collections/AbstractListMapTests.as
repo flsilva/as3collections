@@ -84,6 +84,17 @@ package org.as3collections
 			fake.iterator();
 		}
 		
+		///////////////////////////////////////////////
+		// AbstractListMap().listMapIterator() TESTS //
+		///////////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function listMapIterator_simpleCall_ThrowsError(): void
+		{
+			var fake:IListMap = new FakeArrayListMap();
+			fake.listMapIterator();
+		}
+		
 		////////////////////////////////////
 		// AbstractListMap().put() TESTS //
 		////////////////////////////////////
@@ -95,6 +106,17 @@ package org.as3collections
 			fake.put("element-1", 1);
 		}
 		
+		/////////////////////////////////////
+		// AbstractListMap().putAt() TESTS //
+		/////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function putAt_simpleCall_ThrowsError(): void
+		{
+			var fake:IListMap = new FakeArrayListMap();
+			fake.putAt(0, "element-1", 1);
+		}
+		
 		///////////////////////////////////////
 		// AbstractListMap().remove() TESTS //
 		///////////////////////////////////////
@@ -104,6 +126,61 @@ package org.as3collections
 		{
 			var fake:IMap = new FakeArrayListMap();
 			fake.remove("element-1");
+		}
+		
+		////////////////////////////////////////
+		// AbstractListMap().removeAt() TESTS //
+		////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function removeAt_simpleCall_ThrowsError(): void
+		{
+			var fake:IListMap = new FakeArrayListMap();
+			fake.removeAt(0);
+		}
+		
+		///////////////////////////////////////////
+		// AbstractListMap().removeRange() TESTS //
+		///////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function removeRange_simpleCall_ThrowsError(): void
+		{
+			var fake:IListMap = new FakeArrayListMap();
+			fake.removeRange(0, 1);
+		}
+		
+		////////////////////////////////////////
+		// AbstractListMap().setKeyAt() TESTS //
+		////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function setKeyAt_simpleCall_ThrowsError(): void
+		{
+			var fake:IListMap = new FakeArrayListMap();
+			fake.setKeyAt(0, "element-1");
+		}
+		
+		//////////////////////////////////////////
+		// AbstractListMap().setValueAt() TESTS //
+		//////////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function setValueAt_simpleCall_ThrowsError(): void
+		{
+			var fake:IListMap = new FakeArrayListMap();
+			fake.setValueAt(0, "element-1");
+		}
+		
+		//////////////////////////////////////
+		// AbstractListMap().subMap() TESTS //
+		//////////////////////////////////////
+		
+		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
+		public function subList_simpleCall_ThrowsError(): void
+		{
+			var fake:IListMap = new FakeArrayListMap();
+			fake.subMap(0, 1);
 		}
 		
 		/////////////////////////////////////////

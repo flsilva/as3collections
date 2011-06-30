@@ -33,6 +33,7 @@ package org.as3collections.utils
 	import org.as3collections.maps.ArrayListMap;
 	import org.as3collections.maps.HashMap;
 	import org.as3collections.maps.SortedArrayListMap;
+	import org.as3collections.maps.TypedListMap;
 	import org.as3collections.maps.TypedMap;
 	import org.as3collections.maps.TypedSortedMap;
 	import org.as3utils.ReflectionUtil;
@@ -59,12 +60,12 @@ package org.as3collections.utils
 			new MapUtil();
 		}
 		
-		//////////////////////////////////
-		// MapUtil.getTypedList() TESTS //
-		//////////////////////////////////
+		/////////////////////////////////
+		// MapUtil.getTypedMap() TESTS //
+		/////////////////////////////////
 		
 		[Test]
-		public function getTypedList_simpleCall_checkIfReturnedTypedList_ReturnsTrue(): void
+		public function getTypedMap_simpleCall_checkIfReturnedTypedMap_ReturnsTrue(): void
 		{
 			var map:IMap = MapUtil.getTypedMap(new HashMap(), String, int);
 			
@@ -87,11 +88,38 @@ package org.as3collections.utils
 		}
 		
 		///////////////////////////////////////
+		// MapUtil.getTypedListMap() TESTS //
+		///////////////////////////////////////
+		
+		[Test]
+		public function getTypedListMap_simpleCall_checkIfReturnedgetTypedListMap_ReturnsTrue(): void
+		{
+			var map:IMap = MapUtil.getTypedListMap(new ArrayListMap(), String, int);
+			
+			var classPathEqual:Boolean = ReflectionUtil.classPathEquals(map, TypedListMap);
+			Assert.assertTrue(classPathEqual);
+		}
+		
+		[Test]
+		public function getTypedListMap_simpleCall_checkIfReturnedTypedMapWithCorrectTypeKeys_ReturnsTrue(): void
+		{
+			var map:TypedMap = MapUtil.getTypedListMap(new ArrayListMap(), String, int);
+			Assert.assertEquals(String, map.typeKeys);
+		}
+		
+		[Test]
+		public function getTypedListMap_simpleCall_checkIfReturnedTypedMapWithCorrectTypeValues_ReturnsTrue(): void
+		{
+			var map:TypedMap = MapUtil.getTypedListMap(new ArrayListMap(), String, int);
+			Assert.assertEquals(int, map.typeValues);
+		}
+		
+		///////////////////////////////////////
 		// MapUtil.getTypedSortedMap() TESTS //
 		///////////////////////////////////////
 		
 		[Test]
-		public function getTypedSortedMap_simpleCall_checkIfReturnedTypedList_ReturnsTrue(): void
+		public function getTypedSortedMap_simpleCall_checkIfReturnedTypedSortedMap_ReturnsTrue(): void
 		{
 			var map:IMap = MapUtil.getTypedSortedMap(new SortedArrayListMap(), String, int);
 			

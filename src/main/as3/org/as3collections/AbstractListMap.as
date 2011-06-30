@@ -695,14 +695,6 @@ package org.as3collections
 		/**
 		 * @private
 		 */
-		protected function createEmptyMap(): IListMap
-		{
-			throw new UnsupportedOperationError("Method must be overridden in subclass: " + ReflectionUtil.getClassPath(this));
-		}
-		
-		/**
-		 * @private
-		 */
 		protected function keyAdded(key:*): void
 		{
 			_modCount++;

@@ -562,7 +562,7 @@ package org.as3collections.maps
 		/**
 		 * @private
 		 */
-		override protected function createEmptyMap(): IListMap
+		protected function createEmptyMap(): IListMap
 		{
 			return new ArrayListMap();
 		}
