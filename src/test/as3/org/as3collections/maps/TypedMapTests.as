@@ -216,14 +216,15 @@ package org.as3collections.maps
 		[Test]
 		public function equals_mapWithTwoNotEquatableKeyValue_sameElementsButDifferentOrder_HashMapWrapped_checkIfBothListsAreEqual_ReturnsTrue(): void
 		{
-			map.put("element-1", 1);
-			map.put("element-2", 2);
+			var newMap1:IMap = new TypedMap(new HashMap(), String, int);
+			newMap1.put("element-1", 1);
+			newMap1.put("element-2", 2);
 			
-			var map2:IMap = getMap(String, int);
-			map2.put("element-2", 2);
-			map2.put("element-1", 1);
+			var newMap2:IMap = new TypedMap(new HashMap(), String, int);
+			newMap2.put("element-2", 2);
+			newMap2.put("element-1", 1);
 			
-			var equal:Boolean = map.equals(map2);// HashMap does not take care of order
+			var equal:Boolean = newMap1.equals(newMap2);// HashMap does not take care of order
 			Assert.assertTrue(equal);
 		}
 		

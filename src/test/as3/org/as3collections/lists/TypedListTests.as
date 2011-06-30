@@ -378,6 +378,28 @@ package org.as3collections.lists
 			Assert.assertNotNull(removedList);
 		}
 		
+		/////////////////////////////////
+		// TypedList().reverse() TESTS //
+		/////////////////////////////////
+		
+		[Test]
+		public function reverse_emptyCollection_Void(): void
+		{
+			list.reverse();
+		}
+		
+		[Test]
+		public function reverse_listWithTwoNotEquatableElements_checkIfFirstElementNowIsTheSecond_ReturnsTrue(): void
+		{
+			list.add("element-1");
+			list.add("element-2");
+			
+			list.reverse();
+			
+			var element1:String = list.getAt(1);
+			Assert.assertEquals("element-1", element1);
+		}
+		
 		///////////////////////////////
 		// TypedList().setAt() TESTS //
 		///////////////////////////////

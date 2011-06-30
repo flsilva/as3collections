@@ -60,6 +60,7 @@ package
 	import org.as3collections.maps.ReadOnlyArrayListMapTests;
 	import org.as3collections.maps.ReadOnlyHashMapTests;
 	import org.as3collections.maps.SortedArrayListMapTests;
+	import org.as3collections.maps.TypedListMapTests;
 	import org.as3collections.maps.TypedMapTests;
 	import org.as3collections.maps.TypedMapTestsConstructor;
 	import org.as3collections.maps.TypedSortedMapTests;
@@ -123,6 +124,7 @@ package
 		public var readOnlyArrayListMapTests:ReadOnlyArrayListMapTests;
 		public var readOnlyHashMapTests:ReadOnlyHashMapTests;
 		public var sortedArrayListMapTests:SortedArrayListMapTests;
+		public var typedListMapTests:TypedListMapTests;
 		public var typedMapTests:TypedMapTests;
 		public var typedMapTestsConstructor:TypedMapTestsConstructor;
 		public var typedSortedMapTests:TypedSortedMapTests;

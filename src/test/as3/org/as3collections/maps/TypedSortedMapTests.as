@@ -92,7 +92,7 @@ package org.as3collections.maps
 		}
 		
 		/////////////////////////////////////
-		// SortedArrayListMap().equals() TESTS //
+		// TypedSortedMap().equals() TESTS //
 		/////////////////////////////////////
 		
 		[Test]
@@ -142,6 +142,19 @@ package org.as3collections.maps
 			Assert.assertTrue(equal);
 		}
 		
+		[Test]
+		public function headMap_mapWithThreeKeyValue_checkIfReturnedMapIsTypedSortedMap_ReturnsTrue(): void
+		{
+			typedSortedMap.put("element-5", 5);
+			typedSortedMap.put("element-7", 7);
+			typedSortedMap.put("element-9", 9);
+			
+			var headMap:IMap = typedSortedMap.headMap("element-9");
+			
+			var isTypedSortedMap:Boolean = ReflectionUtil.classPathEquals(TypedSortedMap, headMap);
+			Assert.assertTrue(isTypedSortedMap);
+		}
+		
 		/////////////////////////////////////////
 		// TypedSortedMap().indexOfKey() TESTS //
 		/////////////////////////////////////////
@@ -177,9 +190,9 @@ package org.as3collections.maps
 			Assert.assertEquals(0, index);
 		}
 		
-		///////////////////////////////////
-		// SortedArrayListMap().sort() TESTS //
-		///////////////////////////////////
+		///////////////////////////////////////
+		// TypedSortedMap().sort() TESTS //
+		///////////////////////////////////////
 		
 		[Test]
 		public function sort_mapWithThreeStringKeys_checkIfKeyIsInCorrectIndex_ReturnsTrue(): void
@@ -216,6 +229,52 @@ package org.as3collections.maps
 			Assert.assertEquals(0, index);
 		}
 		
+		/////////////////////////////////////
+		// TypedSortedMap().subMap() TESTS //
+		/////////////////////////////////////
+		
+		[Test(expects="flash.errors.IllegalOperationError")]
+		public function subMap_emptyMap_indexOutOfBounds_ThrowsError(): void
+		{
+			typedSortedMap.subMap(0, 0);
+		}
+		
+		[Test(expects="org.as3collections.errors.IndexOutOfBoundsError")]
+		public function subMap_notEmptyMap_indexOutOfBounds_ThrowsError(): void
+		{
+			typedSortedMap.put("element-1", 1);
+			typedSortedMap.put("element-2", 2);
+			typedSortedMap.put("element-3", 4);
+			
+			typedSortedMap.subMap(0, 4);
+		}
+		
+		[Test]
+		public function subMap_notEmptyMap_checkIfReturnedMapSizeMatches_ReturnsTrue(): void
+		{
+			typedSortedMap.put("element-1", 1);
+			typedSortedMap.put("element-2", 2);
+			typedSortedMap.put("element-3", 4);
+			
+			var subMap:IMap = typedSortedMap.subMap(0, 2);
+			
+			var size:int = subMap.size();
+			Assert.assertEquals(2, size);
+		}
+		
+		[Test]
+		public function subMap_notEmptyMap_checkIfReturnedMapIsTypedSortedMap_ReturnsTrue(): void
+		{
+			typedSortedMap.put("element-1", 1);
+			typedSortedMap.put("element-2", 2);
+			typedSortedMap.put("element-3", 4);
+			
+			var subMap:IMap = typedSortedMap.subMap(0, 2);
+			
+			var isTypedSortedMap:Boolean = ReflectionUtil.classPathEquals(TypedSortedMap, subMap);
+			Assert.assertTrue(isTypedSortedMap);
+		}
+		
 		//////////////////////////////////////
 		// TypedSortedMap().tailMap() TESTS //
 		//////////////////////////////////////
@@ -235,6 +294,19 @@ package org.as3collections.maps
 			
 			var equal:Boolean = tailMap.equals(equalTailMap);
 			Assert.assertTrue(equal);
+		}
+		
+		[Test]
+		public function tailMap_notEmptyMap_checkIfReturnedMapIsTypedSortedMap_ReturnsTrue(): void
+		{
+			typedSortedMap.put("element-5", 5);
+			typedSortedMap.put("element-7", 7);
+			typedSortedMap.put("element-9", 9);
+			
+			var tailMap:IMap = typedSortedMap.tailMap("element-7");
+			
+			var isTypedSortedMap:Boolean = ReflectionUtil.classPathEquals(TypedSortedMap, tailMap);
+			Assert.assertTrue(isTypedSortedMap);
 		}
 		
 	}
