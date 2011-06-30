@@ -111,6 +111,7 @@ package org.as3collections.iterators
 		 */
 		public function pointer(): *
 		{
+			if (_pointer < 0) return null;
 			return _source.getKeyAt(_pointer);
 		}
 

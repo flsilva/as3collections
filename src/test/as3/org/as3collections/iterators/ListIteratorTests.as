@@ -72,9 +72,9 @@ package org.as3collections.iterators
 			return new ListIterator(new ArrayList(["element-1", "element-2", "element-3", "element-4"]));
 		}
 		
-		///////////////////////////////////////
-		// ArrayIterator() constructor TESTS //
-		///////////////////////////////////////
+		//////////////////////////////////////
+		// ListIterator() constructor TESTS //
+		//////////////////////////////////////
 		
 		[Test(expects="ArgumentError")]
 		public function constructor_invalidArgument_ThrowsError(): void
@@ -100,9 +100,9 @@ package org.as3collections.iterators
 			new ListIterator(new ArrayList(["element-1", "element-2", "element-3", "element-4"]), -1);
 		}
 		
-		/////////////////////////////////
-		// ArrayIterator().add() TESTS //
-		/////////////////////////////////
+		////////////////////////////////
+		// ListIterator().add() TESTS //
+		////////////////////////////////
 		
 		[Test]
 		public function add_emptyIterator_ReturnsTrue(): void
@@ -150,9 +150,9 @@ package org.as3collections.iterators
 			newListIterator.add("element-5");
 		}
 		
-		/////////////////////////////////////
-		// ArrayIterator().hasNext() TESTS //
-		/////////////////////////////////////
+		////////////////////////////////////
+		// ListIterator().hasNext() TESTS //
+		////////////////////////////////////
 		
 		[Test]
 		public function hasNext_emptyIterator_ReturnsFalse(): void
@@ -182,9 +182,9 @@ package org.as3collections.iterators
 			Assert.assertFalse(hasNext);
 		}
 		
-		/////////////////////////////////////////
-		// ArrayIterator().hasPrevious() TESTS //
-		/////////////////////////////////////////
+		////////////////////////////////////////
+		// ListIterator().hasPrevious() TESTS //
+		////////////////////////////////////////
 		
 		[Test]
 		public function hasPrevious_emptyIterator_ReturnsFalse(): void
@@ -223,9 +223,9 @@ package org.as3collections.iterators
 			Assert.assertTrue(hasNext);
 		}
 		
-		//////////////////////////////////
-		// ArrayIterator().next() TESTS //
-		//////////////////////////////////
+		/////////////////////////////////
+		// ListIterator().next() TESTS //
+		/////////////////////////////////
 		
 		[Test(expects="org.as3collections.errors.NoSuchElementError")]
 		public function next_emptyIterator_ThrowsError(): void
@@ -311,9 +311,9 @@ package org.as3collections.iterators
 			newListIterator.next();
 		}
 		
-		///////////////////////////////////////
-		// ArrayIterator().nextIndex() TESTS //
-		///////////////////////////////////////
+		//////////////////////////////////////
+		// ListIterator().nextIndex() TESTS //
+		//////////////////////////////////////
 		
 		[Test]
 		public function nextIndex_emptyIterator_ReturnsZero(): void
@@ -344,9 +344,9 @@ package org.as3collections.iterators
 			Assert.assertEquals(1, nextIndex);
 		}
 		
-		/////////////////////////////////////
-		// ArrayIterator().pointer() TESTS //
-		/////////////////////////////////////
+		////////////////////////////////////
+		// ListIterator().pointer() TESTS //
+		////////////////////////////////////
 		
 		[Test]
 		public function pointer_emptyIterator_ReturnsMinusOne(): void
@@ -376,9 +376,9 @@ package org.as3collections.iterators
 			Assert.assertEquals(3, pointer);
 		}
 		
-		//////////////////////////////////////
-		// ArrayIterator().previous() TESTS //
-		//////////////////////////////////////
+		/////////////////////////////////////
+		// ListIterator().previous() TESTS //
+		/////////////////////////////////////
 		
 		[Test(expects="org.as3collections.errors.NoSuchElementError")]
 		public function previous_emptyIterator_ThrowsError(): void
@@ -453,9 +453,9 @@ package org.as3collections.iterators
 			newListIterator.previous();
 		}
 		
-		///////////////////////////////////////////
-		// ArrayIterator().previousIndex() TESTS //
-		///////////////////////////////////////////
+		//////////////////////////////////////////
+		// ListIterator().previousIndex() TESTS //
+		//////////////////////////////////////////
 		
 		[Test]
 		public function previousIndex_emptyIterator_ReturnsMinusOne(): void
@@ -486,9 +486,9 @@ package org.as3collections.iterators
 			Assert.assertEquals(0, previousIndex);
 		}
 		
-		////////////////////////////////////
-		// ArrayIterator().remove() TESTS //
-		////////////////////////////////////
+		///////////////////////////////////
+		// ListIterator().remove() TESTS //
+		///////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.IllegalStateError")]
 		public function remove_notEmptyIterator_callRemoveBeforeCallNext_ThrowsError(): void
@@ -621,9 +621,9 @@ package org.as3collections.iterators
 			newListIterator.remove();
 		}
 		
-		///////////////////////////////////
-		// ArrayIterator().reset() TESTS //
-		///////////////////////////////////
+		//////////////////////////////////
+		// ListIterator().reset() TESTS //
+		//////////////////////////////////
 		
 		[Test]
 		public function reset_emptyIterator_Void(): void
@@ -653,9 +653,9 @@ package org.as3collections.iterators
 			Assert.assertEquals("element-1", next);
 		}
 		
-		/////////////////////////////////
-		// ArrayIterator().set() TESTS //
-		/////////////////////////////////
+		////////////////////////////////
+		// ListIterator().set() TESTS //
+		////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.IllegalStateError")]
 		public function set_iteratorWithThreeElements_setWithoutCallNextOrPrevious_ThrowsError(): void
