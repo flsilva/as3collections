@@ -34,91 +34,91 @@ package org.as3collections
 	/**
 	 * @author Flávio Silva
 	 */
-	public class AbstractCollectionTests
+	public class AbstractArrayCollectionTests
 	{
 		
-		public function AbstractCollectionTests()
+		public function AbstractArrayCollectionTests()
 		{
 			
 		}
 		
 		////////////////////////////////////////////
-		// AbstractCollection() constructor TESTS //
+		// AbstractArrayCollection() constructor TESTS //
 		////////////////////////////////////////////
 		
 		[Test(expects="flash.errors.IllegalOperationError")]
 		public function constructor_tryToInstanciate_ThrowsError(): void
 		{
-			new AbstractCollection();
+			new AbstractArrayCollection();
 		}
 		
 		//////////////////////////////////////
-		// AbstractCollection().add() TESTS //
+		// AbstractArrayCollection().add() TESTS //
 		//////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function add_simpleCall_ThrowsError(): void
 		{
-			var fake:ICollection = new FakeCollection();
+			var fake:ICollection = new FakeArrayCollection();
 			fake.add("element-1");
 		}
 		
 		////////////////////////////////////////
-		// AbstractCollection().clear() TESTS //
+		// AbstractArrayCollection().clear() TESTS //
 		////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function clear_simpleCall_ThrowsError(): void
 		{
-			var fake:ICollection = new FakeCollection();
+			var fake:ICollection = new FakeArrayCollection();
 			fake.clear();
 		}
 		
 		////////////////////////////////////////
-		// AbstractCollection().clone() TESTS //
+		// AbstractArrayCollection().clone() TESTS //
 		////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.CloneNotSupportedError")]
 		public function clone_simpleCall_ThrowsError(): void
 		{
-			var fake:ICollection = new FakeCollection();
+			var fake:ICollection = new FakeArrayCollection();
 			fake.clone();
 		}
 		
 		/////////////////////////////////////////
-		// AbstractCollection().equals() TESTS //
+		// AbstractArrayCollection().equals() TESTS //
 		/////////////////////////////////////////
 		
 		[Test]
 		public function equals_twoEqualCollections_ReturnsTrue(): void
 		{
-			var fake1:ICollection = new FakeCollection();
-			var fake2:ICollection = new FakeCollection();
+			var fake1:ICollection = new FakeArrayCollection();
+			var fake2:ICollection = new FakeArrayCollection();
 			
 			var equal:Boolean = fake1.equals(fake2);
 			Assert.assertTrue(equal);
 		}
 		
 		///////////////////////////////////////////
-		// AbstractCollection().iterator() TESTS //
+		// AbstractArrayCollection().iterator() TESTS //
 		///////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function iterator_simpleCall_ThrowsError(): void
 		{
-			var fake:ICollection = new FakeCollection();
+			var fake:ICollection = new FakeArrayCollection();
 			fake.iterator();
 		}
 		
 		///////////////////////////////////////////
-		// AbstractCollection().toString() TESTS //
+		// AbstractArrayCollection().toString() TESTS //
 		///////////////////////////////////////////
 		
 		[Test(expects="org.as3coreaddendum.errors.UnsupportedOperationError")]
 		public function toString_simpleCall_ThrowsError(): void
 		{
-			var fake:ICollection = new FakeCollection();
-			(fake as FakeCollection).toString();
+			var fake:ICollection = new FakeArrayCollection();
+			(fake as FakeArrayCollection).toString();
 		}
 		
 	}

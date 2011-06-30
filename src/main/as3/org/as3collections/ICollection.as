@@ -43,7 +43,7 @@ package org.as3collections
 	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
 	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
-	 * @see 	org.as3collections.AbstractCollection AbstractCollection
+	 * @see 	org.as3collections.AbstractArrayCollection AbstractArrayCollection
 	 * @see 	org.as3collections.IIterable IIterable
 	 * @see 	org.as3collections.IList IList
 	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable

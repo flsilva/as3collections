@@ -60,7 +60,7 @@ package org.as3collections
 	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IEquatable.html	org.as3coreaddendum.system.IEquatable
 	 * @author Flávio Silva
 	 */
-	public class AbstractCollection implements ICollection
+	public class AbstractArrayCollection implements ICollection
 	{
 		/**
 		 * @private
@@ -85,9 +85,9 @@ package org.as3collections
 		 * @param 	source 	an array to fill the collection.
 		 * @throws 	IllegalOperationError 	If this class is instantiated directly. In other words, if there is <em>not</em> another class extending this class.
 		 */
-		public function AbstractCollection(source:Array = null)
+		public function AbstractArrayCollection(source:Array = null)
 		{
-			if (ReflectionUtil.classPathEquals(this, AbstractCollection))  throw new IllegalOperationError(ReflectionUtil.getClassName(this) + " is an abstract class and shouldn't be instantiated directly.");
+			if (ReflectionUtil.classPathEquals(this, AbstractArrayCollection))  throw new IllegalOperationError(ReflectionUtil.getClassName(this) + " is an abstract class and shouldn't be instantiated directly.");
 			
 			_data = [];
 			

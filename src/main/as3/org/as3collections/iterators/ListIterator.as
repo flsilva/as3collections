@@ -302,8 +302,11 @@ package org.as3collections.iterators
 		}
 
 		/**
-		 * @inheritDoc
-		 */
+		 * Returns the internal pointer of the iteration.
+		 * <p>In this implementation the pointer is the index (position) of the iteration, typically an <code>int</code>.</p>
+		 * 
+		 * @return 	the internal pointer of the iteration.
+ 		 */
 		public function pointer(): *
 		{
 			return _pointer;

@@ -42,11 +42,11 @@ package org.as3collections
 	 * Methods <code>add</code>, <code>dequeue</code>, and <code>element</code> are based on <code>offer</code>, <code>poll</code>, and <code>peek</code>, respectively but throw errors instead of indicating failure via <code>false</code> or <code>null</code> returns. 
 	 * <p>An <code>IQueue</code> implementation that extends this class must minimally define a method <code>offer</code> which does not permit insertion of <code>null</code> elements, along with methods <code>peek</code>, <code>poll</code>, <code>ICollection.iterator</code> supporting <code>IIterator.remove</code> and <code>clone</code>.
 	 * Typically, additional methods will be overridden as well.
-	 * If these requirements cannot be met, consider instead subclassing <code>AbstractCollection</code>.</p>
+	 * If these requirements cannot be met, consider instead subclassing <code>AbstractArrayCollection</code>.</p>
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class AbstractQueue extends AbstractCollection implements IQueue
+	public class AbstractQueue extends AbstractArrayCollection implements IQueue
 	{
 		/**
 		 * Constructor, creates a new <code>AbstractQueue</code> object.

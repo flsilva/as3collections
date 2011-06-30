@@ -30,15 +30,15 @@ package org.as3collections
 {
 
 	/**
-	 * This class was created exclusively to test the behavior of its super class (<code>AbstractCollection</code>).
-	 * <p>Since <code>AbstractCollection</code> is an abstract class and does not support instanciation, this class was created to enable its instanciation.</p>
+	 * This class was created exclusively to test the behavior of its super class (<code>AbstractArrayCollection</code>).
+	 * <p>Since <code>AbstractArrayCollection</code> is an abstract class and does not support instanciation, this class was created to enable its instanciation.</p>
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class FakeCollection extends AbstractCollection
+	public class FakeArrayCollection extends AbstractArrayCollection
 	{
 		
-		public function FakeCollection(source:Array = null)
+		public function FakeArrayCollection(source:Array = null)
 		{
 			super(source);
 		}

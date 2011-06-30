@@ -4,7 +4,7 @@
 
 	<!-- org.as3collections -->
 	
-	<component id="org.as3collections:AbstractCollection" 			class="org.as3collections.AbstractCollection" />
+	<component id="org.as3collections:AbstractArrayCollection" 		class="org.as3collections.AbstractArrayCollection" />
 	<component id="org.as3collections:AbstractHashMap" 				class="org.as3collections.AbstractHashMap" />
 	<component id="org.as3collections:AbstractList" 				class="org.as3collections.AbstractList" />
 	<component id="org.as3collections:AbstractListMap" 				class="org.as3collections.AbstractListMap" />

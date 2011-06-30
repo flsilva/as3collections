@@ -49,7 +49,7 @@ package org.as3collections
 	 * @see 	org.as3collections.lists.ArrayList ArrayList
 	 * @author Flávio Silva
 	 */
-	public class AbstractList extends AbstractCollection implements IList
+	public class AbstractList extends AbstractArrayCollection implements IList
 	{
 		/**
 		 * @private

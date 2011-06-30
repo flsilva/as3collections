@@ -267,7 +267,9 @@ package org.as3collections.iterators
 		}
 
 		/**
-		 * @inheritDoc
+		 * Returns the next <code>value</code> in the iteration.
+		 * The <code>pointer</code> operation returns the <code>key</code> associated with the returned <code>value</code>.
+		 * 
 		 * @throws 	org.as3collections.errors.NoSuchElementError 	if the iteration has no more mappings.
 		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the map was changed directly (without using the iterator) during iteration.
 		 */
@@ -291,8 +293,11 @@ package org.as3collections.iterators
 		}
 
 		/**
-		 * @inheritDoc
-		 */
+		 * Returns the internal pointer of the iteration.
+		 * <p>In this implementation the pointer is a <code>key</code>.</p>
+		 * 
+		 * @return 	the internal pointer of the iteration.
+ 		 */
 		public function pointer(): *
 		{
 			if (_pointer < 0) return null;
@@ -300,7 +305,9 @@ package org.as3collections.iterators
 		}
 
 		/**
-		 * @inheritDoc
+		 * Returns the previous <code>value</code> in the iteration.
+		 * The <code>pointer</code> operation returns the <code>key</code> associated with the returned <code>value</code>.
+		 * 
 		 * @throws 	org.as3collections.errors.NoSuchElementError 	if the iteration has no previous mappings.
 		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the map was changed directly (without using the iterator) during iteration.
 		 */
