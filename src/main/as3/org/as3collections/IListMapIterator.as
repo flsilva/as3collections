@@ -32,8 +32,8 @@ package org.as3collections
 	import org.as3collections.IIterator;
 
 	/**
-	 * An iterator for lists that allows the programmer to traverse the list in either direction, modify the list during iteration, and obtain the iterator's current position in the list.
-	 * <p>Note that the <code>remove</code> and <code>set</code> methods are defined to operate on the last element returned by a call to <code>next</code> or <code>previous</code>.</p>
+	 * An iterator for maps that allows the programmer to traverse the map in either direction, modify the map during iteration, and obtain the iterator's current position in the map.
+	 * <p>Note that the <code>remove</code> and <code>set</code> methods are defined to operate on the last mapping returned by a call to <code>next</code> or <code>previous</code>.</p>
 	 * 
 	 * @author Flávio Silva
 	 */
@@ -79,7 +79,8 @@ package org.as3collections
 		 * The new mapping is inserted before the implicit cursor: a subsequent call to <code>next</code> would be unaffected, and a subsequent call to <code>previous</code> would return the new mapping.
 		 * (This call increases by one the value that would be returned by a call to <code>nextIndex</code> or <code>previousIndex</code>.) 
 		 * 
-		 * @param  	element 	the element to add.
+		 * @param  	key 	key with which the specified value is to be associated.
+		 * @param  	value 	value to be associated with the specified key.
 		 * @throws 	org.as3collections.errors.ConcurrentModificationError 	if the map was changed directly (without using the iterator) during iteration.
 		 * @throws 	ArgumentError  											if the map already contains the specified key.
 		 */
@@ -89,7 +90,8 @@ package org.as3collections
 		 * Replaces the last mapping returned by <code>next</code> or <code>previous</code> with the specified mapping (optional operation).
 		 * This call can be made only if neither <code>IListMapIterator.remove</code> nor <code>IListMapIterator.add</code> have been called after the last call to <code>next</code> or <code>previous</code>. 
 		 * 
-		 * @param element 	the element with which to replace the last element returned by <code>next</code> or <code>previous</code>. 
+		 * @param  	key 	key with which the specified value is to be associated.
+		 * @param  	value 	value to be associated with the specified key. 
 		 * @throws 	org.as3coreaddendum.errors.UnsupportedOperationError  	if the <code>set</code> operation is not supported by this iterator.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  				if the class of the specified element prevents it from being added to this list.
 		 * @throws 	org.as3coreaddendum.errors.IllegalStateError  			if neither <code>next</code> or <code>previous</code> have been called, or <code>remove</code> or <code>add</code> have been called after the last call to <code>next</code> or <code>previous</code>.

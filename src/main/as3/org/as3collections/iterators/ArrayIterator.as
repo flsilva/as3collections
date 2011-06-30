@@ -130,7 +130,7 @@ package org.as3collections.iterators
  		 */
 		public function next(): *
 		{
-			if (!hasNext()) throw new NoSuchElementError("Iterator doesn't has next element. Call hasNext() method before.");
+			if (!hasNext()) throw new NoSuchElementError("Iterator has no next element. Call hasNext() method before.");
 			_allowRemove = true;
 			return _source[++_pointer];
 		}

@@ -56,6 +56,8 @@ package org.as3collections.iterators
 	 * ^</p>
 	 * <p>Note that the <code>remove()</code> and <code>set()</code> methods are <em>not</em> defined in terms of the cursor position; they are defined to operate on the last element returned by a call to <code>next()</code> or <code>previous()</code>.</p>
 	 * <p>For further information do not hesitate to see the examples at the end of the page.</p>
+	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
+	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
 	 * @example
 	 * 
@@ -282,7 +284,7 @@ package org.as3collections.iterators
 		 */
 		public function next(): *
 		{
-			if (!hasNext()) throw new NoSuchElementError("Iterator doesn't has next element. Call hasNext() method before.");
+			if (!hasNext()) throw new NoSuchElementError("Iterator has no next element. Call hasNext() method before.");
 			
 			checkConcurrentModificationError();
 			_allowModification = true;
@@ -314,7 +316,7 @@ package org.as3collections.iterators
 		 */
 		public function previous(): *
 		{
-			if (!hasPrevious()) throw new NoSuchElementError("Iterator doesn't has previous element. Call hasPrevious() method before.");
+			if (!hasPrevious()) throw new NoSuchElementError("Iterator has no previous element. Call hasPrevious() method before.");
 			
 			checkConcurrentModificationError();
 			_allowModification = true;
