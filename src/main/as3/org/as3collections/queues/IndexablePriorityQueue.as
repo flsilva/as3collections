@@ -226,7 +226,7 @@ package org.as3collections.queues
 		protected function validateCollection(collection:ICollection): void
 		{
 			if (!collection || collection.isEmpty()) return;
-			//TODO:pensar em criar metodo em CollectionUtil que recebe varios types e valida.
+			//TODO:pensar em criar metodo em CollectionUtil que recebe varios types e valida. pensar em incluir em org.as3utils.ArrayUtil
 			var containsOnlyTypePriority:Boolean = CollectionUtil.containsOnlyType(collection, IPriority, false);
 			var containsOnlyTypeIndexable:Boolean = CollectionUtil.containsOnlyType(collection, IIndexable, false);
 			if (containsOnlyTypePriority && containsOnlyTypeIndexable) return;

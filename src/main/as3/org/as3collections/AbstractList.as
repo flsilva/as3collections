@@ -179,6 +179,8 @@ package org.as3collections
 		 */
 		public function getAt(index:int): *
 		{
+			if (isEmpty()) throw new IndexOutOfBoundsError("This list is empty.");
+			
 			checkIndex(index, size() - 1);
 			return data[index];
 		}

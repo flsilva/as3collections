@@ -352,7 +352,7 @@ package org.as3collections.maps
 		{
 			if (containsKey(key))
 			{
-				var message:String = "Argument <key> is already inside this map (at index: <" + indexOfKey(key) + ">.\n";//TODO:review this message
+				var message:String = "Argument <key> is already in this map (at index: <" + indexOfKey(key) + ">.\n";
 				message += "Provided <index> argument: " + index + "\n";
 				message += "Provided <key> argument: " + key + "\n";
 				
@@ -406,7 +406,7 @@ package org.as3collections.maps
 		 */
 		override public function removeAt(index:int): IMapEntry
 		{
-			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This map is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			if (isEmpty()) throw new IndexOutOfBoundsError("This map is empty.");
 			
 			checkIndex(index, size() - 1);
 			
@@ -478,14 +478,14 @@ package org.as3collections.maps
 		 */
 		override public function setKeyAt(index:int, key:*): *
 		{
-			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This map is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			if (isEmpty()) throw new IndexOutOfBoundsError("This map is empty.");
 			checkIndex(index, size() - 1);
 			
 			var old:* = keys.getAt(index);
 			
 			if (!EquatableUtil.areEqual(old, key) && containsKey(key))
 			{
-				var message:String = "Argument <key> is already inside this map (at index: <" + indexOfKey(key) + ">.\n";//TODO:review this message
+				var message:String = "Argument <key> is already in this map (at index: <" + indexOfKey(key) + ">.\n";
 				message += "Provided <index> argument: " + index + "\n";
 				message += "Provided <key> argument: " + key + "\n";
 				
@@ -515,7 +515,7 @@ package org.as3collections.maps
 		 */
 		override public function setValueAt(index:int, value:*): *
 		{
-			if (isEmpty()) throw new IndexOutOfBoundsError("The 'index' argument is out of bounds: <" + index + ">. This map is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			if (isEmpty()) throw new IndexOutOfBoundsError("This map is empty.");
 			checkIndex(index, size() - 1);
 			
 			var old:* = values.getAt(index);

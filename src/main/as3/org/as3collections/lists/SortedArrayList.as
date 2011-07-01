@@ -424,7 +424,7 @@ package org.as3collections.lists
 		 */
 		override public function subList(fromIndex:int, toIndex:int): IList
 		{
-			if (isEmpty()) throw new IndexOutOfBoundsError("This list is empty.");//TODO:pensar em mudar para outro erro, por ex IllegalOperationError
+			if (isEmpty()) throw new IndexOutOfBoundsError("This list is empty.");
 			
 			checkIndex(fromIndex, size());
 			checkIndex(toIndex, size());

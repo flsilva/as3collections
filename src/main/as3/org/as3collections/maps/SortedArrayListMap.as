@@ -127,12 +127,14 @@ package org.as3collections.maps
 		/**
 		 * Defines whether the map should be sorted by its keys or values. The default is <code>SortMapBy.KEY</code>.
 		 * <p>If this value change the map is automatically reordered with the new value.</p>
+		 * 
+		 * @throws 	ArgumentError  	 if try to set a <code>null</code> value.
 		 */
 		public function get sortBy(): SortMapBy { return _sortBy; }
 
 		public function set sortBy(value:SortMapBy): void
 		{
-			//TODO: validate null
+			if (!value) throw new ArgumentError("Argument must no be null.");
 			_sortBy = value;
 			_sort();
 		}
