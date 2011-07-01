@@ -29,11 +29,14 @@
 
 package org.as3collections.utils
 {
-	import flash.errors.IllegalOperationError;
-	
 	import org.as3collections.IList;
+	import org.as3collections.ISortedList;
 	import org.as3collections.lists.TypedList;
+	import org.as3collections.lists.TypedSortedList;
 	import org.as3collections.lists.UniqueList;
+	import org.as3collections.lists.UniqueSortedList;
+
+	import flash.errors.IllegalOperationError;
 
 	/**
 	 * A utility class to work with implementations of the <code>IList</code> interface.
@@ -66,6 +69,21 @@ package org.as3collections.utils
 		{
 			return new TypedList(wrapList, type);
 		}
+		
+		/**
+		 * Returns a new <code>TypedSortedList</code> with the <code>wrapList</code> argument wrapped.
+		 * 
+		 * @param  	wrapList 	the target list to be wrapped by the <code>TypedSortedList</code>.
+		 * @param  	type 		the type of the elements allowed by the returned <code>TypedSortedList</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
+		 * @return 	a new <code>TypedSortedList</code> with the <code>wrapList</code> argument wrapped.
+		 */
+		public static function getTypedSortedList(wrapList:ISortedList, type:*): TypedSortedList
+		{
+			return new TypedSortedList(wrapList, type);
+		}
 
 		/**
 		 * Returns a new <code>UniqueList</code> with the <code>wrapList</code> argument wrapped.
@@ -78,6 +96,18 @@ package org.as3collections.utils
 		{
 			return new UniqueList(wrapList);
 		}
+		
+		/**
+		 * Returns a new <code>UniqueSortedList</code> with the <code>wrapList</code> argument wrapped.
+		 * 
+		 * @param  	wrapList 	the target list to be wrapped by the <code>UniqueSortedList</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
+		 * @return 	a new <code>UniqueSortedList</code> with the <code>wrapList</code> argument wrapped.
+		 */
+		public static function getUniqueSortedList(wrapList:ISortedList): UniqueSortedList
+		{
+			return new UniqueSortedList(wrapList);
+		}
 
 		/**
 		 * Returns a new <code>TypedList</code> that wraps a new <code>UniqueList</code> that wraps the <code>wrapList</code> argument.
@@ -88,11 +118,27 @@ package org.as3collections.utils
 		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
 		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
-		 * @return 	a new <code>TypedList</code> with the <code>wrapList</code> argument wrapped.
+		 * @return 	a new <code>TypedList</code> that wraps a new <code>UniqueList</code> that wraps the <code>wrapList</code> argument.
 		 */
 		public static function getUniqueTypedList(wrapList:IList, type:*): TypedList
 		{
 			return new TypedList(new UniqueList(wrapList), type);
+		}
+		
+		/**
+		 * Returns a new <code>TypedSortedList</code> that wraps a new <code>UniqueSortedList</code> that wraps the <code>wrapList</code> argument.
+		 * <p>The result will be a unique and typed sorted list, despite of the return type <code>TypedSortedList</code>.</p>
+		 * 
+		 * @param  	wrapList 	the target list to be wrapped.
+		 * @param  	type 		the type of the elements allowed by the returned <code>TypedSortedList</code>.
+		 * @throws 	ArgumentError  	if the <code>wrapList</code> argument is <code>null</code>.
+		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
+		 * @return 	a new <code>TypedSortedList</code> that wraps a new <code>UniqueSortedList</code> that wraps the <code>wrapList</code> argument.
+		 */
+		public static function getUniqueTypedSortedList(wrapList:ISortedList, type:*): TypedSortedList
+		{
+			return new TypedSortedList(new UniqueSortedList(wrapList), type);
 		}
 
 	}

@@ -77,7 +77,7 @@ package org.as3collections.lists
 	 * </listing>
 	 * 
 	 * @see org.as3collections.utils.ListUtil#getUniqueSortedList() ListUtil.getUniqueSortedList()
-	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueTypedSortedList() ListUtil.getUniqueTypedSortedList()
 	 * @author Flávio Silva
 	 */
 	public class UniqueSortedList extends UniqueList implements ISortedList

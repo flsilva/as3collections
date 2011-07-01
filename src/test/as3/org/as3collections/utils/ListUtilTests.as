@@ -30,9 +30,13 @@
 package org.as3collections.utils
 {
 	import org.as3collections.IList;
+	import org.as3collections.ISortedList;
 	import org.as3collections.lists.ArrayList;
+	import org.as3collections.lists.SortedArrayList;
 	import org.as3collections.lists.TypedList;
+	import org.as3collections.lists.TypedSortedList;
 	import org.as3collections.lists.UniqueList;
+	import org.as3collections.lists.UniqueSortedList;
 	import org.as3utils.ReflectionUtil;
 	import org.flexunit.Assert;
 
@@ -77,6 +81,26 @@ package org.as3collections.utils
 			Assert.assertEquals(String, list.type);
 		}
 		
+		/////////////////////////////////////////
+		// ListUtil.getTypedSortedList() TESTS //
+		/////////////////////////////////////////
+		
+		[Test]
+		public function getTypedSortedList_simpleCall_checkIfReturnedTypedSortedList_ReturnsTrue(): void
+		{
+			var list:ISortedList = ListUtil.getTypedSortedList(new SortedArrayList(), String);
+			
+			var classPathEqual:Boolean = ReflectionUtil.classPathEquals(list, TypedSortedList);
+			Assert.assertTrue(classPathEqual);
+		}
+		
+		[Test]
+		public function getTypedSortedList_simpleCall_checkIfReturnedTypedSortedListWithCorrectType_ReturnsTrue(): void
+		{
+			var list:TypedSortedList = ListUtil.getTypedSortedList(new SortedArrayList(), String);
+			Assert.assertEquals(String, list.type);
+		}
+		
 		////////////////////////////////////
 		// ListUtil.getUniqueList() TESTS //
 		////////////////////////////////////
@@ -87,6 +111,19 @@ package org.as3collections.utils
 			var list:IList = ListUtil.getUniqueList(new ArrayList());
 			
 			var classPathEqual:Boolean = ReflectionUtil.classPathEquals(list, UniqueList);
+			Assert.assertTrue(classPathEqual);
+		}
+		
+		//////////////////////////////////////////
+		// ListUtil.getUniqueSortedList() TESTS //
+		//////////////////////////////////////////
+		
+		[Test]
+		public function getUniqueSortedList_simpleCall_checkIfReturnedTypedSortedList_ReturnsTrue(): void
+		{
+			var list:ISortedList = ListUtil.getUniqueSortedList(new SortedArrayList());
+			
+			var classPathEqual:Boolean = ReflectionUtil.classPathEquals(list, UniqueSortedList);
 			Assert.assertTrue(classPathEqual);
 		}
 		
@@ -107,6 +144,26 @@ package org.as3collections.utils
 		public function getUniqueTypedList_simpleCall_checkIfReturnedTypedListWithCorrectType_ReturnsTrue(): void
 		{
 			var list:TypedList = ListUtil.getUniqueTypedList(new ArrayList(), String);
+			Assert.assertEquals(String, list.type);
+		}
+		
+		///////////////////////////////////////////////
+		// ListUtil.getUniqueTypedSortedList() TESTS //
+		///////////////////////////////////////////////
+		
+		[Test]
+		public function getUniqueTypedSortedList_simpleCall_checkIfReturnedTypedSortedList_ReturnsTrue(): void
+		{
+			var list:ISortedList = ListUtil.getUniqueTypedSortedList(new SortedArrayList(), String);
+			
+			var classPathEqual:Boolean = ReflectionUtil.classPathEquals(list, TypedSortedList);
+			Assert.assertTrue(classPathEqual);
+		}
+		
+		[Test]
+		public function getUniqueTypedSortedList_simpleCall_checkIfReturnedTypedListWithCorrectType_ReturnsTrue(): void
+		{
+			var list:TypedSortedList = ListUtil.getUniqueTypedSortedList(new SortedArrayList(), String);
 			Assert.assertEquals(String, list.type);
 		}
 		

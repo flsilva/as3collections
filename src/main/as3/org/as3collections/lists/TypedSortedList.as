@@ -96,8 +96,8 @@ package org.as3collections.lists
 	 * list1.setAt(0, [1,2])          // ClassCastError: Invalid element type. element: 1,2 | type: Array | expected type: int
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ListUtil#getTypedList() ListUtil.getTypedList()
-	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
+	 * @see org.as3collections.utils.ListUtil#getTypedSortedList() ListUtil.getTypedSortedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueTypedSortedList() ListUtil.getUniqueTypedSortedList()
 	 * @author Flávio Silva
 	 */
 	public class TypedSortedList extends TypedList implements ISortedList
