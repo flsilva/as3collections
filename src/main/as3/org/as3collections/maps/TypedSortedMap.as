@@ -95,7 +95,7 @@ package org.as3collections.maps
 
 		/**
 		 * Defines the <code>wrappedMap</code> options to be used automatically to sort.
-		 * <p>If this value change the list is automatically reordered with the new value.</p>
+		 * <p>If this value change the map is automatically reordered with the new value.</p>
 		 */
 		public function get options(): uint { return wrappedSortedMap.options; }
 

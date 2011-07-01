@@ -179,7 +179,8 @@ package org.as3collections.lists
 		[Test]
 		public function clone_simpleCall_checkIfReturnedObjectIsTypedList_ReturnsTrue(): void
 		{
-			var clonedList:IList = collection.clone();
+			var newTypedList:IList = new TypedList(new ArrayList(), String);
+			var clonedList:IList = newTypedList.clone();
 			
 			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(TypedList, clonedList);
 			Assert.assertTrue(isCorrectType);
@@ -197,14 +198,16 @@ package org.as3collections.lists
 		[Test]
 		public function equals_listWithTwoNotEquatableElements_sameElementsButDifferentOrder_checkIfBothListsAreEqual_ReturnsFalse(): void
 		{
-			list.add("element-1");
-			list.add("element-2");
+			var newTypedList1:IList = new TypedList(new ArrayList(), String);
 			
-			var list2:ICollection = getCollection(String);
-			list2.add("element-2");
-			list2.add("element-1");
+			newTypedList1.add("element-1");
+			newTypedList1.add("element-2");
 			
-			Assert.assertFalse(list.equals(list2));
+			var newTypedList2:IList = new TypedList(new ArrayList(), String);
+			newTypedList2.add("element-2");
+			newTypedList2.add("element-1");
+			
+			Assert.assertFalse(newTypedList1.equals(newTypedList2));
 		}
 		
 		[Test]
