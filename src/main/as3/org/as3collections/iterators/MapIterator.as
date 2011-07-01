@@ -35,6 +35,70 @@ package org.as3collections.iterators
 	/**
 	 * An iterator to iterate over maps (implementations of the <code>IMap</code> interface).
 	 * 
+	 * @example
+	 * 
+	 * <listing version="3.0">
+	 * import org.as3collections.IIterator;
+	 * import org.as3collections.IMap;
+	 * import org.as3collections.maps.ArrayListMap;
+	 * 
+	 * var map1:IMap = new ArrayListMap();
+	 * map1.put("element-1", 1);
+	 * map1.put("element-3", 3);
+	 * map1.put("element-5", 5);
+	 * map1.put("element-7", 7);
+	 * 
+	 * map1                             // ["element-1"=1,"element-3"=3,"element-5"=5,"element-7"=7]
+	 * 
+	 * var it:IIterator = map1.iterator();
+	 * var e:int;
+	 * 
+	 * while (it.hasNext())
+	 * {
+	 *     ITERATION N.1
+	 * 
+	 *     it.pointer()                  // null
+	 * 
+	 *     e = it.next();
+	 *     e                             // 1
+	 * 
+	 *     it.pointer()                  // "element-1"
+	 * 
+	 *     ITERATION N.2
+	 * 
+	 *     it.pointer()                  // "element-1"
+	 * 
+	 *     e = it.next();
+	 *     e                             // 3
+	 * 
+	 *     it.pointer()                  // "element-3"
+	 * 
+	 *     if (e == 3)
+	 *     {
+	 *         it.remove();
+	 *         map1                      // ["element-1"=1,"element-5"=5,"element-7"=7]
+	 *     }
+	 * 
+	 *     ITERATION N.3
+	 * 
+	 *     it.pointer()                  // "element-1"
+	 * 
+	 *     e = it.next();
+	 *     e                             // 5
+	 * 
+	 *     it.pointer()                  // "element-5"
+	 * 
+	 *     ITERATION N.4
+	 * 
+	 *     it.pointer()                  // "element-5"
+	 * 
+	 *     e = it.next();
+	 *     e                             // 7
+	 * 
+	 *     it.pointer()                  // "element-7"
+	 * }
+	 * </listing>
+	 * 
 	 * @author Flávio Silva
 	 */
 	public class MapIterator implements IIterator

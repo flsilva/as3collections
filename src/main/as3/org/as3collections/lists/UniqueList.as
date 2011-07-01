@@ -37,7 +37,7 @@ package org.as3collections.lists
 	import org.as3collections.utils.CollectionUtil;
 
 	/**
-	 * <code>UniqueList</code> works as a wrapper for a list.
+	 * <code>UniqueList</code> works as a wrapper for a <code>IList</code> object.
 	 * It does not allow duplicated elements in the collection.
 	 * It stores the <code>wrapList</code> constructor's argument in the <code>wrappedList</code> variable.
 	 * So every method call to this class is forwarded to the <code>wrappedList</code> object.

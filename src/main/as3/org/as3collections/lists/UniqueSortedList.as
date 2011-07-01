@@ -35,14 +35,13 @@ package org.as3collections.lists
 	import org.as3utils.ReflectionUtil;
 
 	/**
-	 * <code>TypedSortedList</code> works as a wrapper for a <code>ISortedList</code> object.
-	 * Since ActionScript 3.0 does not support typed arrays, <code>TypedSortedList</code> is a way to create typed lists.
-	 * It stores the <code>wrapList</code> constructor's argument internaly.
+	 * <code>UniqueSortedList</code> works as a wrapper for a <code>ISortedList</code> object.
+	 * It does not allow duplicated elements in the collection.
+	 * It stores the <code>wrapList</code> constructor's argument in the <code>wrappedList</code> variable.
 	 * So every method call to this class is forwarded to the <code>wrappedList</code> object.
-	 * The methods that need to be checked for the type of the elements are previously validated before forward the call.
-	 * If the type of an element requested to be added to this list is incompatible with the type of the list a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
+	 * The methods that need to be checked for duplication are previously validated before forward the call.
+	 * No error is thrown by the validation of duplication.
 	 * The calls that are forwarded to the <code>wrappedList</code> returns the return of the <code>wrappedList</code> call.
-	 * <p><code>TypedSortedList</code> does not allow <code>null</code> elements.</p>
 	 * <p>You can also create unique and typed sorted lists.
 	 * See below the link "ListUtil.getUniqueTypedSortedList()".</p>
 	 * 
@@ -52,55 +51,36 @@ package org.as3collections.lists
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.IListIterator;
 	 * import org.as3collections.lists.SortedArrayList;
-	 * import org.as3collections.lists.TypedSortedList;
+	 * import org.as3collections.lists.UniqueSortedList;
 	 * import org.as3collections.utils.ListUtil;
 	 * 
-	 * var l1:ISortedList = new SortedArrayList([3, 5, 7], null, Array.NUMERIC);
+	 * var l1:ISortedList = new SortedArrayList([3, 5, 1, 7], null, Array.NUMERIC);
 	 * 
-	 * var list1:ISortedList = new TypedSortedList(l1, int); // you can use this way
+	 * var list1:ISortedList = new UniqueSortedList(l1); // you can use this way
 	 * 
-	 * //var list1:ISortedList = ListUtil.getTypedSortedList(l1, int); // or you can use this way
+	 * //var list1:ISortedList = ListUtil.getUniqueSortedList(l1); // or you can use this way
 	 * 
-	 * list1                          // [3,5,7]
-	 * list1.size()                   // 3
+	 * list1                       // [1,3,5,7]
+	 * list1.size()                // 4
 	 * 
-	 * list1.add(8)                   // true
-	 * list1                          // [3,5,7,8]
-	 * list1.size()                   // 4
+	 * list1.addAt(1, 4)           // true
+	 * list1                       // [1,3,4,5,7]
+	 * list1.size()                // 5
 	 * 
-	 * list1.remove("abc")            // false
-	 * list1                          // [3,4,5,7,8]
-	 * list1.size()                   // 5
+	 * list1.addAt(2, 3)           // false
+	 * list1                       // [1,3,4,5,7]
+	 * list1.size()                // 5
 	 * 
-	 * var it:IListIterator = list1.listIterator();
-	 * var e:int;
-	 * 
-	 * while (it.hasNext())
-	 * {
-	 * 
-	 *     e = it.next()
-	 *     e                          // 3
-	 * 
-	 *     e = it.next()
-	 *     e:                         // 4
-	 * 
-	 *     e = it.next()
-	 *     e                          // 5
-	 * 
-	 *     if (e == 5)
-	 *     {
-	 *         it.add("ghi")          // ClassCastError: Invalid element type. element: ghi | type: String | expected type: int
-	 *     }
-	 * }
-	 * 
-	 * list1.setAt(0, [1,2])          // ClassCastError: Invalid element type. element: 1,2 | type: Array | expected type: int
+	 * list1.add(5)                // false
+	 * list1                       // [1,3,4,5,7]
+	 * list1.size()                // 5
 	 * </listing>
 	 * 
-	 * @see org.as3collections.utils.ListUtil#getTypedList() ListUtil.getTypedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueSortedList() ListUtil.getUniqueSortedList()
 	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
 	 * @author Flávio Silva
 	 */
-	public class TypedSortedList extends TypedList implements ISortedList
+	public class UniqueSortedList extends UniqueList implements ISortedList
 	{
 		/**
 		 * Defines the <code>wrappedList</code> comparator object to be used automatically to sort.
@@ -132,19 +112,19 @@ package org.as3collections.lists
 		 * @throws 	ArgumentError  	if the <code>type</code> argument is <code>null</code>.
 		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the types of one or more elements in the <code>wrapList</code> argument are incompatible with the <code>type</code> argument.
 		 */
-		public function TypedSortedList(wrapList:ISortedList, type:*)
+		public function UniqueSortedList(wrapList:ISortedList)
 		{
-			super(wrapList, type);
+			super(wrapList);
 		}
 
 		/**
-		 * Creates and return a new <code>TypedSortedList</code> object with the clone of the <code>wrappedMap</code> object.
+		 * Creates and return a new <code>UniqueSortedList</code> object with the clone of the <code>wrappedMap</code> object.
 		 * 
-		 * @return 	a new <code>TypedSortedList</code> object with the clone of the <code>wrappedMap</code> object.
+		 * @return 	a new <code>UniqueSortedList</code> object with the clone of the <code>wrappedMap</code> object.
  		 */
 		override public function clone(): *
 		{
-			return new TypedSortedList(wrappedSortedList.clone(), type);
+			return new UniqueSortedList(wrappedSortedList.clone());
 		}
 		
 		/**
@@ -216,7 +196,7 @@ package org.as3collections.lists
 			var subList:IList = wrappedSortedList.subList(fromIndex, toIndex);
 			var sortedSubList:ISortedList = new SortedArrayList(subList.toArray(), comparator, options);
 			
-			return new TypedSortedList(sortedSubList, type);
+			return new UniqueSortedList(sortedSubList);
 		}
 
 	}

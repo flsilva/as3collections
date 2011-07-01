@@ -54,6 +54,7 @@ package
 	import org.as3collections.lists.TypedSortedListTests;
 	import org.as3collections.lists.UniqueListTests;
 	import org.as3collections.lists.UniqueListTestsEquatableObject;
+	import org.as3collections.lists.UniqueSortedListTests;
 	import org.as3collections.maps.ArrayListMapTests;
 	import org.as3collections.maps.ArrayListMapTestsEquatableObject;
 	import org.as3collections.maps.HashMapTests;
@@ -117,6 +118,7 @@ package
 		public var typedSortedListTests:TypedSortedListTests;
 		public var uniqueListTests:UniqueListTests;
 		public var uniqueListTestsEquatableObject:UniqueListTestsEquatableObject;
+		public var uniqueSortedListTests:UniqueSortedListTests;
 		
 		//org.as3collections.maps
 		public var arrayListMapTests:ArrayListMapTests;

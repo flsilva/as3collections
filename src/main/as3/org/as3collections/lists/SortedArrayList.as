@@ -42,12 +42,7 @@ package org.as3collections.lists
 	 * If none was provided the default behavior of <code>sort</code> method is used.</p>
 	 * <p>The user of this list may change their order at any time using the setters <code>comparator</code> and <code>options</code>, or by calling <code>sort</code> or <code>sortOn</code> methods and imposing other arguments to change the sort behaviour.</p>
 	 * <p>It's possible to create unique sorted lists, typed sorted lists and even unique typed sorted lists.
-	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueList</code> or <code>TypedList</code> or uses the <code>ListUtil.getUniqueTypedList</code>.
-	 * But there's a problem here: the return type will be <code>UniqueList</code> or <code>TypedList</code>.
-	 * Thus you will not be able to use <code>sort</code> and <code>sortOn</code> methods directly (and even the setters <code>comparator</code> and <code>options</code>).
-	 * This is not such a big problem because <code>SortedArrayList</code> is automatically ordered whenever it changes, using the provided <code>comparator</code> and <code>options</code> constructor's arguments.
-	 * But you will not be able to change the <code>comparator</code> and <code>options</code>.
-	 * Check the examples at the bottom of the page for further information about usage.</p>
+	 * You just sends the <code>SortedArrayList</code> object to the wrappers <code>UniqueSortedList</code> or <code>TypedSortedList</code> or uses the <code>ListUtil.getUniqueSortedList</code>, <code>ListUtil.getTypedSortedList</code> or <code>ListUtil.getUniqueTypedSortedList</code>.</p>
 	 * <p>This documentation is partially based in the <em>Java Collections Framework</em> JavaDoc documentation.
 	 * For further information see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/collections/index.html" target="_blank">Java Collections Framework</a></p>
 	 * 
@@ -56,7 +51,6 @@ package org.as3collections.lists
 	 * <b>Example 1</b>
 	 * 
 	 * <listing version="3.0">
-	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
 	 * 
@@ -108,7 +102,6 @@ package org.as3collections.lists
 	 * <b>Example 2</b>
 	 * 
 	 * <listing version="3.0">
-	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
 	 * import org.as3coreaddendum.system.comparators.AlphabeticComparator;
@@ -143,7 +136,6 @@ package org.as3collections.lists
 	 * <b>Example 3</b>
 	 * 
 	 * <listing version="3.0">
-	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
 	 * 
@@ -168,7 +160,6 @@ package org.as3collections.lists
 	 * <b>Example 4 - Unique Sorted List</b>
 	 * 
 	 * <listing version="3.0">
-	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
 	 * import org.as3collections.utils.ListUtil;
@@ -177,7 +168,7 @@ package org.as3collections.lists
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ListUtil.getUniqueList(l1);  // return type is UniqueList
+	 * var list1:ISortedList = ListUtil.getUniqueSortedList(l1);  // return type is UniqueSortedList
 	 * 
 	 * list1                 // [100,99,10,5,1]
 	 * list1.size()          // 5
@@ -185,9 +176,6 @@ package org.as3collections.lists
 	 * list1.add(50)         // true
 	 * list1                 // [100,99,50,10,5,1]
 	 * list1.size()          // 6
-	 * 
-	 * //list1.sort()        // cannot do this
-	 * //list1.sortOn()      // or this
 	 * 
 	 * list1.add(10)         // false
 	 * list1                 // [100,99,50,10,5,1]
@@ -197,7 +185,6 @@ package org.as3collections.lists
 	 * <b>Example 5 - Typed Sorted List</b>
 	 * 
 	 * <listing version="3.0">
-	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
 	 * import org.as3collections.utils.ListUtil;
@@ -206,7 +193,7 @@ package org.as3collections.lists
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ListUtil.getTypedList(l1);  // return type is TypedList
+	 * var list1:ISortedList = ListUtil.getTypedSortedList(l1);  // return type is TypedSortedList
 	 * 
 	 * list1                 // [100,99,10,5,5,1]
 	 * list1.size()          // 6
@@ -214,9 +201,6 @@ package org.as3collections.lists
 	 * list1.add(50)         // true
 	 * list1                 // [100,99,50,10,5,5,1]
 	 * list1.size()          // 7
-	 * 
-	 * //list1.sort()        // cannot do this
-	 * //list1.sortOn()      // or this
 	 * 
 	 * list1.add(10)         // true
 	 * list1                 // [100,99,50,10,10,5,5,1]
@@ -228,7 +212,6 @@ package org.as3collections.lists
 	 * <b>Example 6 - Unique Typed Sorted List</b>
 	 * 
 	 * <listing version="3.0">
-	 * import org.as3collections.IList;
 	 * import org.as3collections.ISortedList;
 	 * import org.as3collections.lists.SortedArrayList;
 	 * import org.as3collections.utils.ListUtil;
@@ -237,7 +220,7 @@ package org.as3collections.lists
 	 * 
 	 * var l1:ISortedList = new SortedArrayList(arr, null, Array.NUMERIC | Array.DESCENDING);
 	 * 
-	 * var list1:IList = ListUtil.getUniqueTypedList(l1);  // return type is TypedList
+	 * var list1:ISortedList = ListUtil.getUniqueTypedSortedList(l1);  // return type is TypedSortedList
 	 * 
 	 * list1                 // [100,99,10,5,1]
 	 * list1.size()          // 5
@@ -245,9 +228,6 @@ package org.as3collections.lists
 	 * list1.add(50)         // true
 	 * list1                 // [100,99,50,10,5,1]
 	 * list1.size()          // 6
-	 * 
-	 * //list1.sort()        // cannot do this
-	 * //list1.sortOn()      // or this
 	 * 
 	 * list1.add(10)         // false
 	 * list1                 // [100,99,50,10,5,1]
@@ -258,11 +238,11 @@ package org.as3collections.lists
 	 * 
 	 * @see org.as3collections.ISortedList ISortedList
 	 * @see org.as3collections.lists.ArrayList ArrayList
-	 * @see org.as3collections.lists.TypedList TypedList
-	 * @see org.as3collections.lists.UniqueList UniqueList
-	 * @see org.as3collections.utils.ListUtil#getUniqueList() ListUtil.getUniqueList()
-	 * @see org.as3collections.utils.ListUtil#getTypedList() ListUtil.getTypedList()
-	 * @see org.as3collections.utils.ListUtil#getUniqueTypedList() ListUtil.getUniqueTypedList()
+	 * @see org.as3collections.lists.TypedSortedList TypedSortedList
+	 * @see org.as3collections.lists.UniqueSortedList UniqueSortedList
+	 * @see org.as3collections.utils.ListUtil#getUniqueSortedList() ListUtil.getUniqueSortedList()
+	 * @see org.as3collections.utils.ListUtil#getTypedSortedList() ListUtil.getTypedSortedList()
+	 * @see org.as3collections.utils.ListUtil#getUniqueTypedSortedList() ListUtil.getUniqueTypedSortedList()
 	 * @author Flávio Silva
 	 */
 	public class SortedArrayList extends ArrayList implements ISortedList

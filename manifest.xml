@@ -49,7 +49,9 @@
 	<component id="org.as3collections.lists:ReadOnlyArrayList" 				class="org.as3collections.lists.ReadOnlyArrayList" />
 	<component id="org.as3collections.lists:SortedArrayList" 				class="org.as3collections.lists.SortedArrayList" />
 	<component id="org.as3collections.lists:TypedList" 						class="org.as3collections.lists.TypedList" />
+	<component id="org.as3collections.lists:TypedSortedList" 				class="org.as3collections.lists.TypedSortedList" />
 	<component id="org.as3collections.lists:UniqueList" 					class="org.as3collections.lists.UniqueList" />
+	<component id="org.as3collections.lists:UniqueSortedList" 				class="org.as3collections.lists.UniqueSortedList" />
 	
 	<!-- org.as3collections.maps -->
 
