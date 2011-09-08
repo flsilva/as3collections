@@ -58,6 +58,33 @@ package org.as3collections.utils
 			throw new IllegalOperationError("CollectionUtil is a static class and shouldn't be instantiated.");
 		}
 		
+		//TODO:asdoc e ordenar
+		public static function containsDuplication(collection:ICollection): Boolean
+		{
+			return getDuplicate(collection).size() > 0;
+		}
+		
+		public static function getDuplicate(collection:ICollection): ICollection
+		{
+			if (!collection || collection.isEmpty()) return new ArrayList();
+			
+			var duplicate:ICollection = new ArrayList();
+			var temp:ICollection = new ArrayList();
+			var it:IIterator = collection.iterator();
+			var element:*;
+			
+			while(it.hasNext())
+			{
+				element = it.next();
+				
+				if (temp.contains(element)) duplicate.add(element);
+				
+				temp.add(element); 
+			}
+			
+			return duplicate;
+		}
+		
 		/**
 		 * Returns <code>true</code> if the collection contains only elements of the <code>type</code> argument.
 		 * <p>This method uses <code>org.as3utils.ArrayUtil.containsOnlyType()</code></p>
