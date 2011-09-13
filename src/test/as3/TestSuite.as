@@ -67,9 +67,10 @@ package
 	import org.as3collections.maps.TypedMapTestsConstructor;
 	import org.as3collections.maps.TypedSortedMapTests;
 	import org.as3collections.maps.TypedSortedMapTestsConstructor;
-	import org.as3collections.queues.IndexablePriorityQueueTests;
+	import org.as3collections.queues.IndexQueueTests;
 	import org.as3collections.queues.LinearQueueTests;
 	import org.as3collections.queues.LinearQueueTestsEquatableObject;
+	import org.as3collections.queues.PriorityIndexQueueTests;
 	import org.as3collections.queues.PriorityQueueTests;
 	import org.as3collections.queues.SortedQueueTests;
 	import org.as3collections.queues.SortedQueueTestsEquatableObject;
@@ -135,9 +136,10 @@ package
 		public var typedSortedMapTestsConstructor:TypedSortedMapTestsConstructor;
 		
 		//org.as3collections.queues
-		public var indexablePriorityQueueTests:IndexablePriorityQueueTests;
+		public var indexQueueTests:IndexQueueTests;
 		public var linearQueueTests:LinearQueueTests;
 		public var linearQueueTestsEquatableObject:LinearQueueTestsEquatableObject;
+		public var priorityIndexQueueTests:PriorityIndexQueueTests;
 		public var priorityQueueTests:PriorityQueueTests;
 		public var sortedQueueTests:SortedQueueTests;
 		public var sortedQueueTestsEquatableObject:SortedQueueTestsEquatableObject;

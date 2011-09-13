@@ -65,8 +65,9 @@
 
 	<!-- org.as3collections.queues -->
 
-	<component id="org.as3collections.queues:IndexablePriorityQueue"		class="org.as3collections.queues.IndexablePriorityQueue" />
+	<component id="org.as3collections.queues:IndexQueue"					class="org.as3collections.queues.IndexQueue" />
 	<component id="org.as3collections.queues:LinearQueue" 					class="org.as3collections.queues.LinearQueue" />
+	<component id="org.as3collections.queues:PriorityIndexQueue"			class="org.as3collections.queues.PriorityIndexQueue" />
 	<component id="org.as3collections.queues:PriorityQueue" 				class="org.as3collections.queues.PriorityQueue" />
 	<component id="org.as3collections.queues:SortedQueue" 					class="org.as3collections.queues.SortedQueue" />
 	<component id="org.as3collections.queues:TypedQueue" 					class="org.as3collections.queues.TypedQueue" />

@@ -34,18 +34,18 @@ package org.as3collections.queues
 	import org.as3collections.lists.ArrayList;
 	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
+	import org.as3coreaddendum.events.IndexEvent;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3coreaddendum.system.IIndexable;
-	import org.as3coreaddendum.system.IPriority;
-	import org.as3coreaddendum.system.comparators.IndexablePriorityComparator;
+	import org.as3coreaddendum.system.comparators.IndexComparator;
 	import org.as3utils.ReflectionUtil;
 
 	import flash.errors.IllegalOperationError;
+	import flash.events.IEventDispatcher;
 
 	/**
-	 * This queue uses an <code>org.as3coreaddendum.system.comparators.IndexablePriorityComparator</code> object to sort the elements.
-	 * All elements must implement the <code>org.as3coreaddendum.system.IPriority</code> and <code>org.as3coreaddendum.system.IIndexable</code> interfaces, otherwise a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
-	 * <p>This queue is util when you want to sort the objects by priority, but if the priority of two objects are equal, the <code>index</code> property of the objects are compared to decide wich object comes before.</p>
+	 * This queue uses a <code>org.as3coreaddendum.system.comparators.IndexComparator</code> object to sort the elements.
+	 * All elements must implement the <code>org.as3coreaddendum.system.IIndexable</code> interface, otherwise a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
 	 * 
 	 * @example
 	 * 
@@ -53,33 +53,29 @@ package org.as3collections.queues
 	 * package test
 	 * {
 	 *     import org.as3coreaddendum.system.IIndexable;
-	 *     import org.as3coreaddendum.system.IPriority;
 	 * 
-	 *     public class TestIndexablePriority implements IIndexable, IPriority
+	 *     public class TestIndex extends EventDispatcher implements IIndexable
 	 *     {
-	 *         private var _index:int;
 	 *         private var _name:String;
-	 *         private var _priority:int;
-	 * 
-	 * 
-	 *         public function get priority(): int { return _priority; }
-	 * 
-	 *         public function set priority(value:int): void { _priority = value; }
+	 *         private var _index:int;
 	 * 
 	 *         public function get index(): int { return _index; }
 	 * 
-	 *         public function set index(value:int): void { _index = value; }
+	 *         public function set index(value : int) : void
+	 *         {
+	 *             _index = value;
+	 *             dispatchEvent(new IndexEvent(IndexEvent.CHANGED, _index));
+	 *         }
 	 * 
-	 *         public function TestIndexablePriority(name:String, priority:int, index:int)
+	 *         public function TestIndex(name:String, index:int)
 	 *         {
 	 *             _name = name;
-	 *             _priority = priority;
 	 *             _index = index;
 	 *         }
 	 * 
 	 *         public function toString(): String
 	 *         {
-	 *             return "[TestIndexablePriority " + _name + "]";
+	 *             return "[TestIndex " + _name + "]";
 	 *         }
 	 *     }
 	 * }
@@ -87,88 +83,88 @@ package org.as3collections.queues
 	 * 
 	 * <listing version="3.0">
 	 * import org.as3collections.ISortedQueue;
-	 * import org.as3collections.queues.IndexablePriorityQueue;
-	 * import test.TestIndexablePriority;
+	 * import org.as3collections.queues.IndexQueue;
+	 * import test.TestIndex;
 	 * 
-	 * var queue1:ISortedQueue = new IndexablePriorityQueue();
+	 * var queue1:ISortedQueue = new IndexQueue();
 	 * 
-	 * var o1:TestIndexablePriority = new TestIndexablePriority("o1", 1, 0);
-	 * var o2:TestIndexablePriority = new TestIndexablePriority("o2", 2, 1);
-	 * var o3:TestIndexablePriority = new TestIndexablePriority("o3", 2, 2);
-	 * var o4:TestIndexablePriority = new TestIndexablePriority("o4", 4, 3);
-	 * 
-	 * queue1.offer(o2)            // true
-	 * queue1                      // [[TestIndexablePriority o2]]
-	 * queue1.size()               // 1
-	 * 
-	 * queue1.offer(o3)            // true
-	 * queue1                      // [[TestIndexablePriority o2],[TestIndexablePriority o3]]
-	 * queue1.size()               // 2
-	 * 
-	 * queue1.offer(o2)            // true
-	 * queue1                      // [[TestIndexablePriority o2],[TestIndexablePriority o2],[TestIndexablePriority o3]]
+	 * var o0:TestIndex = new TestIndex("o0", 0);
+	 * var o1:TestIndex = new TestIndex("o1", 1);
+	 * var o2:TestIndex = new TestIndex("o2", 2);
+	 * var o3:TestIndex = new TestIndex("o3", 3);
 	 * 
 	 * queue1.offer(o1)            // true
-	 * queue1                      // [[TestIndexablePriority o2],[TestIndexablePriority o2],[TestIndexablePriority o3],[TestIndexablePriority o1]]
+	 * queue1                      // [[TestIndex o1]]
+	 * queue1.size()               // 1
 	 * 
-	 * queue1.offer(o4)            // true
-	 * queue1                      // [[TestIndexablePriority o4],[TestIndexablePriority o2],[TestIndexablePriority o2],[TestIndexablePriority o3],[TestIndexablePriority o1]]
+	 * queue1.offer(o2)            // true
+	 * queue1                      // [[TestIndex o1],[TestIndex o2]]
+	 * queue1.size()               // 2
+	 * 
+	 * queue1.offer(o1)            // true
+	 * queue1                      // [[TestIndex o1],[TestIndex o1],[TestIndex o2]]
+	 * 
+	 * queue1.offer(o0)            // true
+	 * queue1                      // [[TestIndex o0],[TestIndex o1],[TestIndex o1],[TestIndex o2]]
+	 * 
+	 * queue1.offer(o3)            // true
+	 * queue1                      // [[TestIndex o0],[TestIndex o1],[TestIndex o1],[TestIndex o2],[TestIndex o3]]
 	 * 
 	 * queue1.offer(1)             // false
-	 * queue1                      // [[TestIndexablePriority o4],[TestIndexablePriority o2],[TestIndexablePriority o2],[TestIndexablePriority o3],[TestIndexablePriority o1]]
+	 * queue1                      // [[TestIndex o0],[TestIndex o1],[TestIndex o1],[TestIndex o2],[TestIndex o3]]
 	 * 
-	 * queue1.add(1)               // ClassCastError: The element must implement the 'org.as3coreaddendum.system.IPriority' interface. Type received: int
+	 * queue1.add(1)               // ClassCastError: The element must implement the 'org.as3coreaddendum.system.IIndexable' interface. Type received: int
 	 * </listing>
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class IndexablePriorityQueue extends SortedQueue
+	public class IndexQueue extends SortedQueue
 	{
 		/**
-		 * <code>IndexablePriorityQueue</code> does not allow changing its <code>comparator</code> object.
-		 * <p><code>IndexablePriorityQueue</code> was designed to be used exclusively with its default comparator object.
+		 * <code>IndexQueue</code> does not allow changing its <code>comparator</code> object.
+		 * <p><code>IndexQueue</code> was designed to be used exclusively with its default comparator object.
 		 * If you want to change the comparator object using this setter, consider using <code>SortedQueue</code> class instead.</p>
 		 * <p>If this setter is used an <code>IllegalOperationError</code> is thrown.</p>
 		 */
 		override public function set comparator(value:IComparator): void
 		{
-			throw new IllegalOperationError("IndexablePriorityQueue does not allow changing its comparator object.\nIf you want to change it consider using SortedQueue class instead.");
+			throw new IllegalOperationError("IndexQueue does not allow changing its comparator object.\nIf you want to change it consider using SortedQueue class instead.");
 		}
 		
 		/**
-		 * <code>IndexablePriorityQueue</code> does not allow changing its options.
-		 * <p><code>IndexablePriorityQueue</code> was designed to be used exclusively with its default options.
+		 * <code>IndexQueue</code> does not allow changing its options.
+		 * <p><code>IndexQueue</code> was designed to be used exclusively with its default options.
 		 * If you want to change the options using this setter, consider using <code>SortedQueue</code> class instead.</p>
 		 * <p>If this setter is used an <code>IllegalOperationError</code> is thrown.</p>
 		 */
 		override public function set options(value:uint): void
 		{
-			throw new IllegalOperationError("IndexablePriorityQueue does not allow changing its options.\nIf you want to change it consider using SortedQueue class instead.");
+			throw new IllegalOperationError("IndexQueue does not allow changing its options.\nIf you want to change it consider using SortedQueue class instead.");
 		}
 		
 		/**
-		 * Constructor, creates a new <code>IndexablePriorityQueue</code> object.
+		 * Constructor, creates a new <code>IndexQueue</code> object.
 		 * 
 		 * @param 	source 		an array to fill the queue.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if one or more elements in the <code>source</code> argument do not implement the <code>org.as3coreaddendum.system.IPriority</code> and <code>org.as3coreaddendum.system.IIndexable</code> interfaces.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if one or more elements in the <code>source</code> argument do not implement the <code>org.as3coreaddendum.system.IIndexable</code> interface.
 		 */
-		public function IndexablePriorityQueue(source:Array = null)
+		public function IndexQueue(source:Array = null): void
 		{
 			validateCollection(new ArrayList(source));
 			
-			super(source, new IndexablePriorityComparator());
+			super(source, new IndexComparator());
 		}
 
 		/**
 		 * Inserts the specified element into this queue if it is possible to do so immediately without violating restrictions.
 		 * This method differs from <code>offer</code> only in that it throws an error if the element cannot be inserted.
 		 * <p>This implementation returns the result of <code>offer</code> unless the element cannot be inserted.</p>
-		 * <p>This implementation only allow elements that implements the <code>org.as3coreaddendum.system.IPriority</code> and <code>org.as3coreaddendum.system.IIndexable</code> interfaces.
-		 * A <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown if the element does not implements this interfaces.</p>
+		 * <p>This implementation only allow elements that implements the <code>org.as3coreaddendum.system.IIndexable</code> interface.
+		 * A <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown if the element does not implements this interface.</p>
 		 * 
 		 * @param element
 		 * @throws 	ArgumentError  	if the specified element is <code>null</code>.
-		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the element does not implements the <code>org.as3coreaddendum.system.IPriority</code> or <code>org.as3coreaddendum.system.IIndexable</code> interfaces.
+		 * @throws 	org.as3coreaddendum.errors.ClassCastError  		if the element does not implements the <code>org.as3coreaddendum.system.IIndexable</code> interface.
 		 * @throws 	flash.errors.IllegalOperationError  			if the specified element cannot be inserted.
 		 * @return 	<code>true</code> if this queue changed as a result of the call.
 		 */
@@ -185,21 +181,21 @@ package org.as3collections.queues
 		}
 
 		/**
-		 * Creates and return a new <code>IndexablePriorityQueue</code> object containing all elements in this queue (in the same order).
+		 * Creates and return a new <code>IndexQueue</code> object containing all elements in this queue (in the same order).
 		 * 
-		 * @return 	a new <code>IndexablePriorityQueue</code> object containing all elements in this queue (in the same order).
+		 * @return 	a new <code>IndexQueue</code> object containing all elements in this queue (in the same order).
  		 */
 		override public function clone(): *
 		{
-			var q:IndexablePriorityQueue = new IndexablePriorityQueue(data);
+			var q:IndexQueue = new IndexQueue(data);
 			return q;
 		}
-
+		
 		/**
 		 * Inserts the specified element into this queue if it is possible to do so immediately without violating restrictions.
 		 * When using a restricted queue (like <code>TypedQueue</code> and <code>UniqueQueue</code>), this method is generally preferable to <code>add</code>, which can fail to insert an element only by throwing an error. 
-		 * <p>This implementation only allow elements that implements the <code>org.as3coreaddendum.system.IPriority</code> and <code>org.as3coreaddendum.system.IIndexable</code> interfaces.
-		 * If the element does not implements this interfaces the method returns <code>false</code>.</p>
+		 * <p>This implementation only allow elements that implements the <code>org.as3coreaddendum.system.IIndexable</code> interface.
+		 * If the element does not implements this interface the method returns <code>false</code>.</p>
 		 * <p>Before returning, the queue is reordered.</p>
 		 * 
 		 * @param  	element 	the element to add.
@@ -215,9 +211,27 @@ package org.as3collections.queues
 		/**
 		 * @private
 		 */
+		override protected function elementAdded(element:*):void
+		{
+			super.elementAdded(element);
+			if (element && element is IEventDispatcher) addIndexEventListenerToElement(element);
+		}
+		
+		/**
+		 * @private
+		 */
+		override protected function elementRemoved(element:*):void
+		{
+			super.elementRemoved(element);
+			if (element && element is IEventDispatcher) removeIndexEventListenerFromElement(element);
+		}
+		
+		/**
+		 * @private
+		 */
 		protected function isValidElement(element:*): Boolean
 		{
-			return element is IPriority && element is IIndexable;
+			return element is IIndexable;
 		}
 		
 		/**
@@ -226,10 +240,9 @@ package org.as3collections.queues
 		protected function validateCollection(collection:ICollection): void
 		{
 			if (!collection || collection.isEmpty()) return;
-			//TODO:pensar em criar metodo em CollectionUtil que recebe varios types e valida. pensar em incluir em org.as3utils.ArrayUtil
-			var containsOnlyTypePriority:Boolean = CollectionUtil.containsOnlyType(collection, IPriority, false);
-			var containsOnlyTypeIndexable:Boolean = CollectionUtil.containsOnlyType(collection, IIndexable, false);
-			if (containsOnlyTypePriority && containsOnlyTypeIndexable) return;
+			
+			var containsOnlyType:Boolean = CollectionUtil.containsOnlyType(collection, IIndexable, false);
+			if (containsOnlyType) return;
 			
 			var it:IIterator = collection.iterator();
 			var element:*;
@@ -258,15 +271,39 @@ package org.as3collections.queues
 		/**
 		 * @private
 		 */
+		private function addIndexEventListenerToElement(element:IEventDispatcher):void
+		{
+			element.addEventListener(IndexEvent.CHANGED, elementIndexChanged, false, 0, true);
+		}
+		
+		/**
+		 * @private
+		 */
+		private function elementIndexChanged(event:IndexEvent):void
+		{
+			_sort();
+		}
+		
+		/**
+		 * @private
+		 */
 		private function getInvalidElementError(element:*): ClassCastError
 		{
-			var message:String = "Element must implement org.as3coreaddendum.system.IPriority and org.as3coreaddendum.system.IIndexable\n";
+			var message:String = "Element must implement org.as3coreaddendum.system.IIndexable\n";
 			message += "element: <" + element + ">\n";
 			message += "element type: <" + ReflectionUtil.getClassPath(element) + ">";
 			
 			return new ClassCastError(message);
 		}
-
+		
+		/**
+		 * @private
+		 */
+		private function removeIndexEventListenerFromElement(element:IEventDispatcher):void
+		{
+			element.removeEventListener(IndexEvent.CHANGED, elementIndexChanged, false);
+		}
+		
 	}
 
 }

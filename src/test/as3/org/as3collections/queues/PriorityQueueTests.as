@@ -273,6 +273,27 @@ package org.as3collections.queues
 			Assert.assertEquals(priorityObject2, element);
 		}
 		
+		/////////////////////////
+		// PriorityEvent TESTS //
+		/////////////////////////
+		
+		[Test]
+		public function queueWithThreeElements_changePriorityOfLastElementToFirstElement_callPollAndCheckIfCorrectElementWasReturned_ReturnsTrue(): void
+		{
+			var priorityObject1:PriorityObject = new PriorityObject(1);
+			var priorityObject2:PriorityObject = new PriorityObject(2);
+			var priorityObject3:PriorityObject = new PriorityObject(3);
+			
+			priorityQueue.add(priorityObject1);
+			priorityQueue.add(priorityObject2);
+			priorityQueue.add(priorityObject3);
+			
+			priorityObject1.priority = 4;
+			
+			var element:PriorityObject = priorityQueue.poll();
+			Assert.assertEquals(priorityObject1, element);
+		}
+		
 	}
 
 }

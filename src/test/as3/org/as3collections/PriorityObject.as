@@ -28,24 +28,36 @@
  */
 package org.as3collections
 {
+	import org.as3coreaddendum.events.PriorityEvent;
 	import org.as3coreaddendum.system.IPriority;
+
+	import flash.events.EventDispatcher;
 
 	/**
 	 * description
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class PriorityObject implements IPriority
+	public class PriorityObject extends EventDispatcher implements IPriority
 	{
 		private var _priority:int;
 		
 		public function get priority():int { return _priority; }
 		
-		public function set priority(value : int) : void { _priority = value; }
+		public function set priority(value : int) : void
+		{
+			_priority = value;
+			dispatchEvent(new PriorityEvent(PriorityEvent.CHANGED, _priority));
+		}
 
 		public function PriorityObject(priority:int)
 		{
 			_priority = priority;
+		}
+		
+		override public function toString():String
+		{
+			return "[PriorityObject " + _priority + "]";
 		}
 
 	}

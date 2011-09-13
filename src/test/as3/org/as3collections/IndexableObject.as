@@ -29,9 +29,7 @@
 package org.as3collections
 {
 	import org.as3coreaddendum.events.IndexEvent;
-	import org.as3coreaddendum.events.PriorityEvent;
 	import org.as3coreaddendum.system.IIndexable;
-	import org.as3coreaddendum.system.IPriority;
 
 	import flash.events.EventDispatcher;
 
@@ -40,18 +38,9 @@ package org.as3collections
 	 * 
 	 * @author Flávio Silva
 	 */
-	public class IndexablePriorityObject extends EventDispatcher implements IPriority, IIndexable
+	public class IndexableObject extends EventDispatcher implements IIndexable
 	{
 		private var _index:int;
-		private var _priority:int;
-		
-		public function get priority():int { return _priority; }
-		
-		public function set priority(value : int) : void
-		{
-			_priority = value;
-			dispatchEvent(new PriorityEvent(PriorityEvent.CHANGED, _priority));
-		}
 		
 		public function get index():int { return _index; }
 		
@@ -61,15 +50,14 @@ package org.as3collections
 			dispatchEvent(new IndexEvent(IndexEvent.CHANGED, _index));
 		}
 
-		public function IndexablePriorityObject(priority:int, index:int)
+		public function IndexableObject(index:int)
 		{
-			_priority = priority;
 			_index = index;
 		}
 		
 		override public function toString():String
 		{
-			return "[IndexablePriorityObject priority: " + _priority + " | index: "+ _index +"]";
+			return "[IndexableObject " + _index + "]";
 		}
 
 	}

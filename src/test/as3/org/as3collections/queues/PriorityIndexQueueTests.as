@@ -40,12 +40,12 @@ package org.as3collections.queues
 	/**
 	 * @author Flávio Silva
 	 */
-	public class IndexablePriorityQueueTests
+	public class PriorityIndexQueueTests
 	{
 		
 		public var priorityQueue:ISortedQueue;
 		
-		public function IndexablePriorityQueueTests()
+		public function PriorityIndexQueueTests()
 		{
 			
 		}
@@ -72,12 +72,12 @@ package org.as3collections.queues
 		
 		public function getQueue():ISortedQueue
 		{
-			return new IndexablePriorityQueue();
+			return new PriorityIndexQueue();
 		}
 		
-		////////////////////////////////////////////////
-		// IndexablePriorityQueue() constructor TESTS //
-		////////////////////////////////////////////////
+		////////////////////////////////////////////
+		// PriorityIndexQueue() constructor TESTS //
+		////////////////////////////////////////////
 		
 		[Test]
 		public function constructor_argumentWithTwoElements_checkIfIsEmpty_ReturnsFalse(): void
@@ -85,7 +85,7 @@ package org.as3collections.queues
 			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
 			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 1);
 			
-			var newQueue:ISortedQueue = new IndexablePriorityQueue([indexablePriorityObject1, indexablePriorityObject2]);
+			var newQueue:ISortedQueue = new PriorityIndexQueue([indexablePriorityObject1, indexablePriorityObject2]);
 			
 			var isEmpty:Boolean = newQueue.isEmpty();
 			Assert.assertFalse(isEmpty);
@@ -97,7 +97,7 @@ package org.as3collections.queues
 			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
 			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 1);
 			
-			var newQueue:ISortedQueue = new IndexablePriorityQueue([indexablePriorityObject1, indexablePriorityObject2]);
+			var newQueue:ISortedQueue = new PriorityIndexQueue([indexablePriorityObject1, indexablePriorityObject2]);
 			
 			var size:int = newQueue.size();
 			Assert.assertEquals(2, size);
@@ -107,12 +107,12 @@ package org.as3collections.queues
 		public function constructor_argumentWithInvalidElement_ThrowsError(): void
 		{
 			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
-			new IndexablePriorityQueue([indexablePriorityObject1, "element-2"]);
+			new PriorityIndexQueue([indexablePriorityObject1, "element-2"]);
 		}
 		
-		/////////////////////////////////////////////////
-		// IndexablePriorityQueue().comparator() TESTS //
-		/////////////////////////////////////////////////
+		/////////////////////////////////////////////
+		// PriorityIndexQueue().comparator() TESTS //
+		/////////////////////////////////////////////
 		
 		[Test(expects="flash.errors.IllegalOperationError")]
 		public function comparator_notAllowedSetter_ThrowsError(): void
@@ -120,9 +120,9 @@ package org.as3collections.queues
 			priorityQueue.comparator = new PriorityComparator();
 		}
 		
-		//////////////////////////////////////////////
-		// IndexablePriorityQueue().options() TESTS //
-		//////////////////////////////////////////////
+		//////////////////////////////////////////
+		// PriorityIndexQueue().options() TESTS //
+		//////////////////////////////////////////
 		
 		[Test(expects="flash.errors.IllegalOperationError")]
 		public function options_notAllowedSetter_ThrowsError(): void
@@ -130,9 +130,9 @@ package org.as3collections.queues
 			priorityQueue.options = 0;
 		}
 		
-		//////////////////////////////////////////
-		// IndexablePriorityQueue().add() TESTS //
-		//////////////////////////////////////////
+		//////////////////////////////////////
+		// PriorityIndexQueue().add() TESTS //
+		//////////////////////////////////////
 		
 		[Test(expects="ArgumentError")]
 		public function add_nullArgument_ThrowsError(): void
@@ -155,16 +155,16 @@ package org.as3collections.queues
 			Assert.assertTrue(added);
 		}
 		
-		////////////////////////////////////////////
-		// IndexablePriorityQueue().clone() TESTS //
-		////////////////////////////////////////////
+		////////////////////////////////////////
+		// PriorityIndexQueue().clone() TESTS //
+		////////////////////////////////////////
 		
 		[Test]
-		public function clone_simpleCall_checkIfReturnedObjectIsIndexablePriorityQueue_ReturnsTrue(): void
+		public function clone_simpleCall_checkIfReturnedObjectIsPriorityIndexQueue_ReturnsTrue(): void
 		{
 			var clonedQueue:IQueue = priorityQueue.clone();
 			
-			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(IndexablePriorityQueue, clonedQueue);
+			var isCorrectType:Boolean = ReflectionUtil.classPathEquals(PriorityIndexQueue, clonedQueue);
 			Assert.assertTrue(isCorrectType);
 		}
 		
@@ -202,14 +202,14 @@ package org.as3collections.queues
 			Assert.assertFalse(priorityQueue.equals(clonedQueue));
 		}
 		
-		/////////////////////////////////////////////
-		// IndexablePriorityQueue().equals() TESTS //
-		/////////////////////////////////////////////
+		/////////////////////////////////////////
+		// PriorityIndexQueue().equals() TESTS //
+		/////////////////////////////////////////
 		
 		[Test]
 		public function equals_twoEmptyQueues_ReturnsTrue(): void
 		{
-			var priorityQueue2:ISortedQueue = new IndexablePriorityQueue();
+			var priorityQueue2:ISortedQueue = new PriorityIndexQueue();
 			Assert.assertTrue(priorityQueue.equals(priorityQueue2));
 		}
 		
@@ -229,9 +229,9 @@ package org.as3collections.queues
 			Assert.assertTrue(priorityQueue.equals(queue2));
 		}
 		
-		////////////////////////////////////////////
-		// IndexablePriorityQueue().offer() TESTS //
-		////////////////////////////////////////////
+		////////////////////////////////////////
+		// PriorityIndexQueue().offer() TESTS //
+		////////////////////////////////////////
 		
 		[Test]
 		public function offer_nullArgument_ReturnsFalse(): void
@@ -256,9 +256,9 @@ package org.as3collections.queues
 			Assert.assertTrue(added);
 		}
 		
-		///////////////////////////////////////////
-		// IndexablePriorityQueue().poll() TESTS //
-		///////////////////////////////////////////
+		///////////////////////////////////////
+		// PriorityIndexQueue().poll() TESTS //
+		///////////////////////////////////////
 		
 		[Test]
 		public function poll_addTwoValidElements_callPollAndCheckIfCorrectElementWasReturned_ReturnsTrue(): void
@@ -271,6 +271,44 @@ package org.as3collections.queues
 			
 			var element:IndexablePriorityObject = priorityQueue.poll();
 			Assert.assertEquals(indexablePriorityObject2, element);
+		}
+		
+		//////////////////////
+		// IndexEvent TESTS //
+		//////////////////////
+		
+		[Test]
+		public function queueWithThreeElements_changePriorityOfLastElementToFirstElement_callPollAndCheckIfCorrectElementWasReturned_ReturnsTrue(): void
+		{
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 0);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(2, 0);
+			var indexablePriorityObject3:IndexablePriorityObject = new IndexablePriorityObject(3, 0);
+			
+			priorityQueue.add(indexablePriorityObject1);
+			priorityQueue.add(indexablePriorityObject2);
+			priorityQueue.add(indexablePriorityObject3);
+			
+			indexablePriorityObject1.priority = 4;
+			
+			var element:IndexablePriorityObject = priorityQueue.poll();
+			Assert.assertEquals(indexablePriorityObject1, element);
+		}
+		
+		[Test]
+		public function queueWithThreeElements_changeIndexOfLastElementToFirstElement_callPollAndCheckIfCorrectElementWasReturned_ReturnsTrue(): void
+		{
+			var indexablePriorityObject1:IndexablePriorityObject = new IndexablePriorityObject(1, 0);
+			var indexablePriorityObject2:IndexablePriorityObject = new IndexablePriorityObject(1, 1);
+			var indexablePriorityObject3:IndexablePriorityObject = new IndexablePriorityObject(1, 2);
+			
+			priorityQueue.add(indexablePriorityObject1);
+			priorityQueue.add(indexablePriorityObject2);
+			priorityQueue.add(indexablePriorityObject3);
+			
+			indexablePriorityObject3.index = -1;
+			
+			var element:IndexablePriorityObject = priorityQueue.poll();
+			Assert.assertEquals(indexablePriorityObject3, element);
 		}
 		
 	}

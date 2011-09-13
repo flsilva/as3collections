@@ -34,12 +34,14 @@ package org.as3collections.queues
 	import org.as3collections.lists.ArrayList;
 	import org.as3collections.utils.CollectionUtil;
 	import org.as3coreaddendum.errors.ClassCastError;
+	import org.as3coreaddendum.events.PriorityEvent;
 	import org.as3coreaddendum.system.IComparator;
 	import org.as3coreaddendum.system.IPriority;
 	import org.as3coreaddendum.system.comparators.PriorityComparator;
 	import org.as3utils.ReflectionUtil;
 
 	import flash.errors.IllegalOperationError;
+	import flash.events.IEventDispatcher;
 
 	/**
 	 * This queue uses a <code>org.as3coreaddendum.system.comparators.PriorityComparator</code> object to sort the elements.
@@ -52,14 +54,18 @@ package org.as3collections.queues
 	 * {
 	 *     import org.as3coreaddendum.system.IPriority;
 	 * 
-	 *     public class TestPriority implements IPriority
+	 *     public class TestPriority extends EventDispatcher implements IPriority
 	 *     {
 	 *         private var _name:String;
 	 *         private var _priority:int;
 	 * 
 	 *         public function get priority(): int { return _priority; }
 	 * 
-	 *         public function set priority(value:int): void { _priority = value; }
+	 *         public function set priority(value : int) : void
+	 *         {
+	 *             _priority = value;
+	 *             dispatchEvent(new PriorityEvent(PriorityEvent.CHANGED, _priority));
+	 *         }
 	 * 
 	 *         public function TestPriority(name:String, priority:int)
 	 *         {
@@ -205,6 +211,24 @@ package org.as3collections.queues
 		/**
 		 * @private
 		 */
+		override protected function elementAdded(element:*):void
+		{
+			super.elementAdded(element);
+			if (element && element is IEventDispatcher) addPriorityEventListenerToElement(element);
+		}
+		
+		/**
+		 * @private
+		 */
+		override protected function elementRemoved(element:*):void
+		{
+			super.elementRemoved(element);
+			if (element && element is IEventDispatcher) removePriorityEventListenerFromElement(element);
+		}
+		
+		/**
+		 * @private
+		 */
 		protected function isValidElement(element:*): Boolean
 		{
 			return element is IPriority;
@@ -247,6 +271,22 @@ package org.as3collections.queues
 		/**
 		 * @private
 		 */
+		private function addPriorityEventListenerToElement(element:IEventDispatcher):void
+		{
+			element.addEventListener(PriorityEvent.CHANGED, elementPriorityChanged, false, 0, true);
+		}
+		
+		/**
+		 * @private
+		 */
+		private function elementPriorityChanged(event:PriorityEvent):void
+		{
+			_sort();
+		}
+		
+		/**
+		 * @private
+		 */
 		private function getInvalidElementError(element:*): ClassCastError
 		{
 			var message:String = "Element must implement org.as3coreaddendum.system.IPriority\n";
@@ -254,6 +294,14 @@ package org.as3collections.queues
 			message += "element type: <" + ReflectionUtil.getClassPath(element) + ">";
 			
 			return new ClassCastError(message);
+		}
+		
+		/**
+		 * @private
+		 */
+		private function removePriorityEventListenerFromElement(element:IEventDispatcher):void
+		{
+			element.removeEventListener(PriorityEvent.CHANGED, elementPriorityChanged, false);
 		}
 		
 	}
