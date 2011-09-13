@@ -46,6 +46,8 @@ package org.as3collections.queues
 	/**
 	 * This queue uses a <code>org.as3coreaddendum.system.comparators.IndexComparator</code> object to sort the elements.
 	 * All elements must implement the <code>org.as3coreaddendum.system.IIndexable</code> interface, otherwise a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
+	 * <p>This queue also adds an event listener on elements to <code>org.as3coreaddendum.events.IndexEvent</code> (if elements implement <code>flash.events.IEventDispatcher</code>).
+	 * Thus this queue keeps itself automatically sorted if its elements dispatch a <code>org.as3coreaddendum.events.IndexEvent</code> when its index changes.</p>
 	 * 
 	 * @example
 	 * 
@@ -116,6 +118,8 @@ package org.as3collections.queues
 	 * queue1.add(1)               // ClassCastError: The element must implement the 'org.as3coreaddendum.system.IIndexable' interface. Type received: int
 	 * </listing>
 	 * 
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IIndexable.html	org.as3coreaddendum.system.IIndexable
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/events/IndexEvent.html	org.as3coreaddendum.events.IndexEvent
 	 * @author Flávio Silva
 	 */
 	public class IndexQueue extends SortedQueue

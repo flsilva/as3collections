@@ -46,6 +46,8 @@ package org.as3collections.queues
 	/**
 	 * This queue uses a <code>org.as3coreaddendum.system.comparators.PriorityComparator</code> object to sort the elements.
 	 * All elements must implement the <code>org.as3coreaddendum.system.IPriority</code> interface, otherwise a <code>org.as3coreaddendum.errors.ClassCastError</code> is thrown.
+	 * <p>This queue also adds an event listener on elements to <code>org.as3coreaddendum.events.PriorityEvent</code> (if elements implement <code>flash.events.IEventDispatcher</code>).
+	 * Thus this queue keeps itself automatically sorted if its elements dispatch a <code>org.as3coreaddendum.events.PriorityEvent</code> when its priority changes.</p>
 	 * 
 	 * @example
 	 * 
@@ -116,6 +118,8 @@ package org.as3collections.queues
 	 * queue1.add(1)               // ClassCastError: The element must implement the 'org.as3coreaddendum.system.IPriority' interface. Type received: int
 	 * </listing>
 	 * 
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/system/IPriority.html	org.as3coreaddendum.system.IPriority
+	 * @see 	http://as3coreaddendum.org/en-us/documentation/asdoc/org/as3coreaddendum/events/PriorityEvent.html	org.as3coreaddendum.events.PriorityEvent
 	 * @author Flávio Silva
 	 */
 	public class PriorityQueue extends SortedQueue
