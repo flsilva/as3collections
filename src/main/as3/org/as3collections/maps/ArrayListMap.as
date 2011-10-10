@@ -356,7 +356,7 @@ package org.as3collections.maps
 				message += "Provided <index> argument: " + index + "\n";
 				message += "Provided <key> argument: " + key + "\n";
 				
-				throw new ArgumentError();
+				throw new ArgumentError(message);
 			}
 			
 			checkIndex(index, size());

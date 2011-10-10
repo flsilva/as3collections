@@ -42,6 +42,7 @@ package org.as3collections.utils
 	/**
 	 * @author Flávio Silva
 	 */
+	[TestCase]
 	public class MapUtilTests
 	{
 		
@@ -58,6 +59,208 @@ package org.as3collections.utils
 		public function constructor_tryToInstanciate_ThrowsError(): void
 		{
 			new MapUtil();
+		}
+		
+		////////////////////////////////////////
+		// MapUtil.feedMapWithXmlList() TESTS //
+		////////////////////////////////////////
+		
+		[Test(expects="ArgumentError")]
+		public function feedMapWithXmlList_invalidNullMap_ThrowsError(): void
+		{
+			MapUtil.feedMapWithXmlList(null, null);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_nullXmlList_doNothing_checkIfMapRemainsEmpty_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			MapUtil.feedMapWithXmlList(map, null);
+			
+			var isEmpty:Boolean = map.isEmpty();
+			Assert.assertTrue(isEmpty);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_checkIfMapSizeMatches(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var size:int = map.size();
+			Assert.assertEquals(2, size);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_checkIfContainsKey1_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsKey:Boolean = map.containsKey("key1");
+			Assert.assertTrue(containsKey);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_checkIfContainsKey2_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsKey:Boolean = map.containsKey("key2");
+			Assert.assertTrue(containsKey);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_checkIfContainsKey3_ReturnsFalse(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsKey:Boolean = map.containsKey("key3");
+			Assert.assertFalse(containsKey);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_checkIfContainsValue1_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsValue:Boolean = map.containsValue("value1");
+			Assert.assertTrue(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_checkIfContainsValue2_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsValue:Boolean = map.containsValue("value2");
+			Assert.assertTrue(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_checkIfContainsValue3_ReturnsFalse(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsValue:Boolean = map.containsValue("value3");
+			Assert.assertFalse(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlList_callGetValue_ReturnsCorrectValue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>value1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var value:* = map.getValue("key2");
+			Assert.assertEquals("value2", value);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlListWithOneTrueValueString_typeCoercionTrue_checkIfContainsBooleanValue_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>true</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsValue:Boolean = map.containsValue(true);
+			Assert.assertTrue(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlListWithOneFalseValueString_typeCoercionTrue_checkIfContainsBooleanValue_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>false</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsValue:Boolean = map.containsValue(false);
+			Assert.assertTrue(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlListWithOneTrueValueString_typeCoercionFalse_checkIfContainsBooleanStringValue_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>true</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children(), false);
+			
+			var containsValue:Boolean = map.containsValue("true");
+			Assert.assertTrue(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlListWithOneNumberValueString_typeCoercionTrue_checkIfContainsNumberValue_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>1.1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsValue:Boolean = map.containsValue(1.1);
+			Assert.assertTrue(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlListWithOneIntValueString_typeCoercionTrue_checkIfContainsIntValue_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>-1</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children());
+			
+			var containsValue:Boolean = map.containsValue(-1);
+			Assert.assertTrue(containsValue);
+		}
+		
+		[Test]
+		public function feedMapWithXmlList_validXmlListWithOneIntValueString_typeCoercionFalse_checkIfContainsIntStringValue_ReturnsTrue(): void
+		{
+			var map:IMap = new HashMap();
+			
+			var xml:XML = <index><key1>3</key1><key2>value2</key2></index>;
+			
+			MapUtil.feedMapWithXmlList(map, xml.children(), false);
+			
+			var containsValue:Boolean = map.containsValue("3");
+			Assert.assertTrue(containsValue);
 		}
 		
 		/////////////////////////////////

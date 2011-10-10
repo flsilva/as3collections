@@ -38,6 +38,8 @@ package org.as3collections.utils
 	import org.as3collections.maps.TypedListMap;
 	import org.as3collections.maps.TypedMap;
 	import org.as3collections.maps.TypedSortedMap;
+	import org.as3utils.BooleanUtil;
+	import org.as3utils.NumberUtil;
 	import org.as3utils.ReflectionUtil;
 
 	import flash.errors.IllegalOperationError;
@@ -136,6 +138,81 @@ package org.as3collections.utils
 			}
 			
 			return true;
+		}
+		
+		/**
+		 * Feeds argument <code>map</code> with argument <code>list</code>.
+		 * <p>The name of the nodes become keys and the values of the nodes become values of the <code>IMap</code> object.</p>
+		 * 
+		 * @example
+		 * 
+		 * <listing version="3.0">
+		 * import org.as3collections.maps.HashMap;
+		 * import org.as3collections.utils.MapUtil;
+		 * 
+		 * var map:IMap = new HashMap();
+		 * var xml:XML = &lt;index&gt;&lt;key1&gt;value1&lt;/key1&gt;&lt;key2&gt;value2&lt;/key2&gt;&lt;/index&gt;;
+		 * 
+		 * MapUtil.feedMapFromXmlList(map, xml.children());
+		 * 
+		 * trace(map); // [key1=value1,key2=value2]
+		 * </listing>
+		 * 
+		 * @param  	map 			the map to be fed.
+		 * @param  	list 			the list to retrieve entries.
+		 * @param  	typeCoercion 	if <code>true</code> performs a type coercion to Boolean if some String is "true" or "false", or a type coercion to Number if some String is a Number <code>(i.e. !isNaN(Number(string)) == true)</code>.
+		 */
+		public static function feedMapWithXmlList(map:IMap, list:XMLList, typeCoercion:Boolean = true): void
+		{
+			if (!map) throw new ArgumentError("Argument <map> must not be null.");
+			if (!list) return;
+			
+			var nodeName:*;
+			var nodeValue:*;
+			
+			for each (var node:XML in list)
+			{
+				nodeName = node.localName();
+				
+				if (node.hasComplexContent())
+				{
+					if (!isNaN(node.children().length()) && node.children().length() > 0)
+					{
+						nodeValue = feedMapWithXmlList(map, node.children(), typeCoercion);
+					}
+					else
+					{
+						nodeValue = node;
+					}
+				}
+				else
+				{
+					nodeValue = node.toString();
+				}
+				
+				if (typeCoercion)
+				{
+					if (BooleanUtil.isBooleanString(nodeName))
+					{
+						nodeName = BooleanUtil.string2Boolean(nodeName);
+					}
+					else if (NumberUtil.isNumber(Number(nodeName)))
+					{
+						nodeName = Number(nodeName);
+					}
+					
+					if (BooleanUtil.isBooleanString(nodeValue))
+					{
+						nodeValue = BooleanUtil.string2Boolean(nodeValue);
+					}
+					else if (NumberUtil.isNumber(Number(nodeValue)))
+					{
+						nodeValue = Number(nodeValue);
+					}
+				}
+				
+				map.put(nodeName, nodeValue);
+			}
 		}
 		
 		/**
