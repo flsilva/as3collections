@@ -1,10 +1,16 @@
 h2. AS3Collections CHANGELOG
 
-Note: dates are in DD.MM.YYYY format
+Note: dates are in YYYY.MM.DD format
 
 
-Changes in version 0.1 (xx.xx.2011)
+Changes in version 1.0 (2011.10.10)
 -----------------------------------
 
 * First Release.
-    -> 
+    -> Added main package: org.as3collections – with abstractions and concrete implementations such as: ICollection.as, IList.as, IMap.as, TypedCollection.as, etc
+    -> Added package: org.as3collections.errors – with the implementations: ConcurrentModificationError.as, IndexOutOfBoundsError.as, NoSuchElementError.as, etc
+    -> Added package: org.as3collections.iterators – with implementations such as: ArrayIterator.as, ListIterator.as, MapIterator.as, etc
+    -> Added package: org.as3collections.lists – with implementations such as: ArrayList.as, SortedArrayList.as, TypedList.as, etc
+    -> Added package: org.as3collections.maps – with implementations such as: ArrayListMap.as, HashMap.as, TypedMap.as, etc
+    -> Added package: org.as3collections.queues – with implementations such as: LinearQueue.as, PriorityQueue.as, SortedQueue.as, etc
+    -> Added package: org.as3collections.utils – with the implementations: CollectionUtil.as, ListUtil.as, MapUtil.as and QueueUtil.as.
